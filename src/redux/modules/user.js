@@ -1,39 +1,42 @@
-// Redux import
+// Redux
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { api } from '../../utils/api';
-import { setCookie } from '../../utils/cookie';
+
+// Utils
+import {
+  emailDupCheckApi,
+  signUpUserApi,
+  signInUserApi,
+  kakaoAuthApi,
+} from '../../utils/apis/user';
+import createToken from '../../utils/token';
 
 export const emailDupCheckThunk = createAsyncThunk(
   'user/emailDupCheck',
   async (payload, thunkAPI) => {
-    const resData = await api
-      .post(`/api/emailcheck`, payload)
+    const resData = await emailDupCheckApi(payload)
       .then((res) => res.data.success)
       .catch((error) => console.err(error));
     return thunkAPI.fulfillWithValue(resData);
   }
 );
 
-export const addUserThunk = createAsyncThunk(
-  'use/addUser',
+export const signUpUserThunk = createAsyncThunk(
+  'use/signUpUser',
   async (payload, thunkAPI) => {
-    const resData = await api
-      .post(`/api/signup`, payload)
-      .then((res) => res.data);
+    const resData = await signUpUserApi(payload).then((res) => res.data);
     return thunkAPI.fulfillWithValue(resData);
   }
 );
 
-export const signUserThunk = createAsyncThunk(
-  'user/signUser',
+export const signInUserThunk = createAsyncThunk(
+  'user/signInUser',
   async (payload, thunkAPI) => {
-    const resData = await api
-      .post(`/api/login`, payload)
+    const resData = await signInUserApi(payload)
       .then((res) => res)
       .catch((err) => console.err(err));
-    setCookie('authorization', resData.headers['authorization'].split(' ')[1]);
-    window.sessionStorage.setItem(
-      'refresh-token',
+
+    createToken(
+      resData.headers['authorization'].split(' ')[1],
       resData.headers['refresh-token']
     );
 
@@ -42,14 +45,14 @@ export const signUserThunk = createAsyncThunk(
 );
 
 export const kakaoAuthThunk = createAsyncThunk(
-  'user/kakaoLogin',
+  'user/kakaoAuth',
   async (payload, thunkAPI) => {
-    const resData = await api
-      .get(`/api/kakao/callback?code=${payload.code}`)
-      .then((res) => res);
-    setCookie('authorization', resData.headers['authorization'].split(' ')[1]);
-    window.sessionStorage.setItem(
-      'refresh-token',
+    const resData = await kakaoAuthApi(payload.code)
+      .then((res) => res)
+      .catch((err) => console.err(err));
+
+    createToken(
+      resData.headers['authorization'].split(' ')[1],
       resData.headers['refresh-token']
     );
 
@@ -73,7 +76,7 @@ export const userSlice = createSlice({
     builder.addCase(kakaoAuthThunk.fulfilled, (state, action) => {
       state.is_login = action.payload;
     });
-    builder.addCase(signUserThunk.fulfilled, (state, action) => {
+    builder.addCase(signInUserThunk.fulfilled, (state, action) => {
       state.is_login = action.payload;
     });
   },
