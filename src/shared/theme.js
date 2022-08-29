@@ -72,7 +72,6 @@ const theme = {
   margins,
   interval,
   verticalInterval,
-  gradient,
 };
 
 export default theme;

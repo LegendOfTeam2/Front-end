@@ -1,5 +1,5 @@
 // _style
-import { StyledButton } from './Button.styled';
+import { StyledButton } from '../assets/styles/Button.styled';
 
 const Button = ({ _type, _text, _style, _onClick }) => {
   return (

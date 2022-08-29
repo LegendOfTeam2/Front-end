@@ -1,12 +1,13 @@
 // _style
-import { StyledInput } from './Input.styled';
+import { StyledInput } from '../assets/styles/Input.styled';
 
-const Input = ({ _type, _value, _onChange, _minLength, _maxLength, _ref, _style }) => {
+const Input = ({ _type, _value, _onChange, _onKeyUp,  _minLength, _maxLength, _ref, _style }) => {
   return (
     <StyledInput
       type={_type}
       value={_value}
       onChange={_onChange}
+      onKeyUp={_onKeyUp}
       minLength={_minLength}
       maxLength={_maxLength}
       ref={_ref}
@@ -25,6 +26,7 @@ const Input = ({ _type, _value, _onChange, _minLength, _maxLength, _ref, _style 
       mg_right={_style?.mg_right}
       bd_radius={_style?.bd_radius}
       bd_color={_style?.bd_color}
+      flex={_style?.flex}
       required
     />
   );
