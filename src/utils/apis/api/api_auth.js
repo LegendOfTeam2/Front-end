@@ -1,9 +1,13 @@
+// Packages
 import axios from 'axios';
-import { setCookie } from './cookie';
+
+// Utils
+import { setCookie } from '../../cookie';
+import createToken from '../../token';
 
 const SERVER_IP = process.env.REACT_APP_REST_API_IP;
 
-export const api_auth = axios.create({
+const api_auth = axios.create({
   baseURL: `http://${SERVER_IP}`,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
@@ -39,17 +43,15 @@ api_auth.interceptors.response.use(
       if (error.response.data.message === 'TokenExpiredError') {
         const originRequest = config;
         const refreshToken = window.sessionStorage.getItem('refresh-token');
-        const response = await axios.post(`http://${SERVER_IP}`, {
+        const res = await axios.post(`http://${SERVER_IP}`, {
           refreshToken,
         });
-        setCookie(
-          'authorization',
-          response.headers['authorization'].split(' ')[1]
+
+        createToken(
+          res.headers['authorization'].split(' ')[1],
+          res.headers['refresh-token']
         );
-        window.sessionStorage.setItem(
-          'refresh-token',
-          response.headers['refresh-token']
-        );
+
         return api_auth(originRequest);
       }
     }
@@ -57,16 +59,4 @@ api_auth.interceptors.response.use(
   }
 );
 
-export const api = axios.create({
-  baseURL: `http://${SERVER_IP}`,
-  headers: {
-    'content-type': 'application/json;charset=UTF-8',
-  },
-});
-
-export const api_media = axios.create({
-  baseURL: `http://${SERVER_IP}`,
-  headers: {
-    'content-type': 'multipart/form-data',
-  },
-});
+export default api_auth;
