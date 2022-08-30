@@ -1,5 +1,5 @@
 // _style
-import { StyledInput } from '../assets/styles/Input.styled';
+import { StyledInput } from '../assets/styles/elements/Input.styled';
 
 const Input = ({ _type, _value, _onChange, _onKeyUp,  _minLength, _maxLength, _ref, _style }) => {
   return (

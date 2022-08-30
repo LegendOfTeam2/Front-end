@@ -57,7 +57,7 @@ const TagBox = styled.div`
   border-radius: 5px;
   height: auto;
   color: black;
-  padding: 5px;
+  padding: 7px;
   gap: 10px;
   color: white;
   background-color: #606060;
