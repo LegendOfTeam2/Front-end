@@ -1,7 +1,8 @@
 const calcRem = (size) => `${size / 16}rem`;
 
 const fontSizes = {
-  small: calcRem(14),
+  xs: calcRem(12),
+  sm: calcRem(14),
   base: calcRem(16),
   lg: calcRem(18),
   xl: calcRem(20),
@@ -11,8 +12,8 @@ const fontSizes = {
 };
 
 const lineHeight = {
-  ssmall: "18px",
-  small: "22px",
+  xs: "18px",
+  sm: "22px",
   base: "24px",
   lg: "28px",
   xl: "30px",

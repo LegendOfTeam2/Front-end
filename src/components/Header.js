@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Button from "../elements/Button";
 import Input from "../elements/Input";
 import { FiSearch } from "react-icons/fi";
-import theme from "../shared/theme";
 
 const Header = () => {
   return (
