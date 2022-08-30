@@ -3,19 +3,23 @@ import { lazy, Suspense } from "react";
 
 //packages
 import { Routes, Route } from "react-router-dom";
+
 // Page
-import Main from "../pages/Main";
-import SignIn from "../pages/SignIn";
-const Userposition = lazy(() => import("../pages/Userposition"));
-// Packages
+const Main = lazy(() => import('../pages/Main'));
+const SignIn = lazy(() => import('../pages/SignIn'));
+const Userposition = lazy(() => import('../pages/Userposition'));
+
+// Utils
+const Kakao = lazy(() => import('../utils/kakao'));
 
 function App() {
   return (
     <Suspense>
       <Routes>
         <Route path='/' exact='true' element={<Main />} />
-        <Route path='/signin' exact='true' element={<SignIn />} />
-        <Route path='/Userposition' exact='true' element={<Userposition />} />
+        <Route path='/signin' element={<SignIn />} />
+        <Route path='/kakao/callback' element={<Kakao />} />
+        <Route path='/position' exact='true' element={<Userposition />} />
       </Routes>
     </Suspense>
   );
