@@ -4,6 +4,7 @@ export const StyledButton = styled.button`
   width: ${(props) => (props.width ? props.width : '160px')};
   height: ${(props) => (props.height ? props.height : '44px')};
   font-size: ${(props) => (props.ft_size ? props.ft_size : '13px')};
+  font-weight: ${(props) => (props.ft_weight ? props.ft_weight : '400')};
   background-color: ${(props) => props.bg_color ? props.bg_color : 'rgba(0, 0, 0, 0.25)'};
   color: ${(props) => (props.color ? props.color : '#ffffff')};
   margin-top: ${(props) => (props.mg_top ? props.mg_top : '0px')};
@@ -15,7 +16,8 @@ export const StyledButton = styled.button`
   padding-left: ${(props) => (props.pd_left ? props.pd_left : '0px')};
   padding-right: ${(props) => (props.pd_right ? props.pd_right : '0px')};
   border-radius: ${(props) => (props.bd_radius ? props.bd_radius : '0px')};
-  border: 0.1px solid ${(props) => (props.bd_color ? props.bd_color : '#000000')};
+  border: ${(props) => (props.bd_px ? props.bd_px : '0px')} solid ${(props) => (props.bd_color ? props.bd_color : '#000000')};
+  line-height: ${(props) => (props.line_height ? props.line_height : '0px')};;
   &:hover {
     cursor: pointer;
     outline: none;

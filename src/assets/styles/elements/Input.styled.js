@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const StyledInput = styled.input`
   width: ${(props) => (props.width ? props.width : '100%')};
   height: ${(props) => (props.height ? props.height : '50px')};
-  font-size: ${(props) => (props.ft_size ? props.ft_size : props.theme.fontSizes.base)};
+  font-size: ${(props) =>
+    props.ft_size ? props.ft_size : props.theme.fontSizes.base};
   background-color: ${(props) => (props.bg_color ? props.bg_color : 'white')};
   color: ${(props) => (props.color ? props.color : '#525252')};
   padding-top: ${(props) => (props.pd_top ? props.pd_top : '0px')};
@@ -15,8 +16,7 @@ export const StyledInput = styled.input`
   margin-left: ${(props) => (props.mg_left ? props.mg_left : '0px')};
   margin-right: ${(props) => (props.mg_right ? props.mg_right : '0px')};
   border-radius: ${(props) => (props.bd_radius ? props.bd_radius : '0px')};
-  border:${(props) => (props.bd_px ? props.bd_px : '0px')} solid ${(props) => (props.bd_color ? props.bd_color : 'black')};
-  
+  border: ${(props) => (props.bd_px ? props.bd_px : '0px')} solid ${(props) => (props.bd_color ? props.bd_color : 'black')};
   flex: ${(props) => props.flex};
   outline: none;
 `;

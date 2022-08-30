@@ -9,6 +9,7 @@ const Button = ({ _type, _text, _style, _onClick }) => {
       width={_style?.width}
       height={_style?.height}
       ft_size={_style?.ft_size}
+      ft_weight={_style.ft_weight}
       bg_color={_style?.bg_color}
       color={_style?.color}
       mg_top={_style?.mg_top}
@@ -23,6 +24,7 @@ const Button = ({ _type, _text, _style, _onClick }) => {
       bd_px={_style?.bd_px}
       bd_color={_style?.bd_color}
       position={_style?.position}
+      line_height={_style.line_height}
     >
       {_text}
     </StyledButton>
