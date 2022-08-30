@@ -17,8 +17,7 @@ import styled from 'styled-components';
 
 const SignIn = () => {
   const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-  const REDIRECT_URI =
-    'http://watchao-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/kakao/callback';
+  const REDIRECT_URI = 'http://localhost:3000/kakao/callback';
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -82,7 +81,7 @@ const SignIn = () => {
                   _onChange={(event) => setEmail(event.target.value)}
                   _style={{
                     height: 'auto',
-                    ft_size: '14px',
+                    ft_size: '14',
                     pd_top: '20px',
                     pd_bottom: '20px',
                     pd_left: '19px',
@@ -111,7 +110,7 @@ const SignIn = () => {
                     _onChange={(event) => setPassword(event.target.value)}
                     _style={{
                       height: 'auto',
-                      ft_size: '14px',
+                      ft_size: '14',
                       pd_top: '20px',
                       pd_bottom: '20px',
                       pd_left: '19px',
@@ -137,7 +136,7 @@ const SignIn = () => {
                   height: 'auto',
                   pd_top: '15px',
                   pd_bottom: '16px',
-                  ft_size: '20px',
+                  ft_size: '20',
                   line_height: '28.96px',
                   ft_weight: '800',
                   bd_radius: '10px',
@@ -191,8 +190,16 @@ const SignIn = () => {
                 SNS계정으로 간편하게 로그인하세요.
               </SignInBoxSocialBoxTitle>
               <SignInBoxSocialBoxSocialGroup>
-                <RiKakaoTalkFill className='icon-kakao'></RiKakaoTalkFill>
-                <FcGoogle className='icon-google'></FcGoogle>
+                <SignInBoxSocialBoxSocialIcon
+                  onClick={() => {
+                    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+                  }}
+                >
+                  <RiKakaoTalkFill className='icon-kakao'></RiKakaoTalkFill>
+                </SignInBoxSocialBoxSocialIcon>
+                <SignInBoxSocialBoxSocialIcon>
+                  <FcGoogle className='icon-google'></FcGoogle>
+                </SignInBoxSocialBoxSocialIcon>
               </SignInBoxSocialBoxSocialGroup>
             </SignInBoxSocialBox>
           </SignInBoxSocialContainer>
@@ -235,7 +242,7 @@ export const SignInBoxIntroTop = styled.span`
   width: 100%;
   height: auto;
   text-align: center;
-  line-height: 35px;
+  line-height: ${(props) => props.theme.lineHeight.xxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.xxxl};
 `;
@@ -243,7 +250,7 @@ export const SignInBoxIntroBottom = styled.span`
   width: 100%;
   height: auto;
   text-align: center;
-  line-height: 17px;
+  line-height: ${(props) => props.theme.lineHeight.xxs};
   font-size: ${(props) => props.theme.fontSizes.xs};
 `;
 export const SignInBoxInputContainer = styled.div`
@@ -265,7 +272,7 @@ export const SignInBoxInputGroup = styled.div`
 export const SignInBoxInputGroupTitle = styled.span`
   width: 100%;
   height: auto;
-  line-height: 20px;
+  line-height: ${(props) => props.theme.lineHeight.xs};
   font-size: ${(props) => props.theme.fontSizes.sm};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
@@ -289,7 +296,7 @@ export const SignUpDataInputGroupIcon = styled.div`
 export const SignInBoxInputGroupAlert = styled.span`
   width: 100%;
   height: auto;
-  line-height: 20px;
+  line-height: ${(props) => props.theme.lineHeight.xs};
   font-size: ${(props) => props.theme.fontSizes.sm};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
@@ -326,7 +333,7 @@ export const SignInBoxDetailAutoSignIn = styled.div`
 `;
 export const SignInBoxDetailAutoSignInText = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xs};
-  line-height: 17px;
+  line-height: ${(props) => props.theme.lineHeight.xxs};
 `;
 export const SignInBoxDetailFind = styled.span`
   display: flex;
@@ -337,7 +344,7 @@ export const SignInBoxDetailFind = styled.span`
 `;
 export const SignInBoxDetailFindText = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xs};
-  line-height: 17px;
+  line-height: ${(props) => props.theme.lineHeight.xxs};
   color: #a3a3a3;
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   &:hover {
@@ -368,7 +375,7 @@ export const SignInBoxSignUpQuestionText = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   color: ${(props) => (props.color ? props.color : '#a3a3a3')};
-  line-height: 17px;
+  line-height: ${(props) => props.theme.lineHeight.xxs};
   cursor: pointer;
 `;
 export const SignInBoxSocialContainer = styled.div`
@@ -390,7 +397,7 @@ export const SignInBoxSocialBox = styled.div`
 export const SignInBoxSocialBoxTitle = styled.span`
   width: 100%;
   font-size: ${(props) => props.theme.fontSizes.sm};
-  line-height: 20px;
+  line-height: ${(props) => props.theme.lineHeight.xs};
   text-align: center;
 `;
 export const SignInBoxSocialBoxSocialGroup = styled.div`
@@ -419,6 +426,10 @@ export const SignInBoxSocialBoxSocialGroup = styled.div`
       cursor: pointer;
     }
   }
+`;
+export const SignInBoxSocialBoxSocialIcon = styled.div`
+  width: auto;
+  height: auto;
 `;
 export const SignInBoxCover = styled.div`
   width: 491px;

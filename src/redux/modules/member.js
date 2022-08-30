@@ -50,7 +50,7 @@ export const kakaoAuthThunk = createAsyncThunk(
     const resData = await kakaoAuthApi(payload.code)
       .then((res) => res)
       .catch((err) => console.err(err));
-
+    console.log(resData);
     createToken(
       resData.headers['authorization'].split(' ')[1],
       resData.headers['refresh-token']

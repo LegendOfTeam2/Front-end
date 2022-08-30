@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledButton = styled.button`
   width: ${(props) => (props.width ? props.width : '160px')};
   height: ${(props) => (props.height ? props.height : '44px')};
-  font-size: ${(props) => (props.ft_size ? props.ft_size : '13px')};
+  font-size: ${(props) => (props.ft_size ? (props.ft_size) / 16 : 1)}rem;
   font-weight: ${(props) => (props.ft_weight ? props.ft_weight : '400')};
   background-color: ${(props) => props.bg_color ? props.bg_color : 'rgba(0, 0, 0, 0.25)'};
   color: ${(props) => (props.color ? props.color : '#ffffff')};
