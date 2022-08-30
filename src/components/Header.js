@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Button from "../elements/Button";
 import Input from "../elements/Input";
 import { FiSearch } from "react-icons/fi";
-import theme from "../shared/theme";
 
 const Header = () => {
   return (
@@ -21,13 +20,13 @@ const Header = () => {
                   _style={{
                     width: "100%",
                     height: "36px",
-                    placeholder: "Search",
                     border: "0px solid black",
                     outline: "none",
                     bg_color: '#F4F4F4',
                     bd_radius: '44px',
                     pd_left: '50px'
                   }}
+                  _placeholder={'Search'}
                 />
               </SearchDiv>
 
