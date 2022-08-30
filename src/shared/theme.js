@@ -10,24 +10,6 @@ const fontSizes = {
   titleSize: calcRem(50),
 };
 
-const paddings = {
-  small: calcRem(8),
-  base: calcRem(10),
-  lg: calcRem(12),
-  xl: calcRem(14),
-  xxl: calcRem(16),
-  xxxl: calcRem(18),
-};
-
-const margins = {
-  small: calcRem(8),
-  base: calcRem(10),
-  lg: calcRem(12),
-  xl: calcRem(14),
-  xxl: calcRem(16),
-  xxxl: calcRem(18),
-};
-
 const interval = {
   base: calcRem(50),
   lg: calcRem(100),
@@ -68,11 +50,8 @@ const theme = {
   colors,
   deviceSizes,
   device,
-  paddings,
-  margins,
   interval,
   verticalInterval,
-  gradient,
 };
 
 export default theme;
