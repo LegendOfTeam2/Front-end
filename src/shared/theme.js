@@ -10,6 +10,22 @@ const fontSizes = {
   titleSize: calcRem(50),
 };
 
+const lineHeight = {
+  ssmall: "18px",
+  small: "22px",
+  base: "24px",
+  lg: "28px",
+  xl: "30px",
+  xxl: "32px",
+  xxxl: "34px",
+};
+
+const fontWeight = {
+  Regular: 400,
+  Medium: 600,
+  Bold: 800,
+};
+
 const interval = {
   base: calcRem(50),
   lg: calcRem(100),
@@ -47,11 +63,14 @@ const device = {
 
 const theme = {
   fontSizes,
+  lineHeight,
   colors,
   deviceSizes,
   device,
   interval,
   verticalInterval,
+  fontWeight,
+  
 };
 
 export default theme;
