@@ -21,6 +21,7 @@ const Button = ({ _type, _text, _style, _onClick }) => {
       pd_left={_style?.pd_left}
       pd_right={_style?.pd_right}
       bd_radius={_style?.bd_radius}
+      bd_px={_style?.bd_px}
       bd_color={_style?.bd_color}
       position={_style?.position}
       line_height={_style.line_height}
