@@ -7,11 +7,11 @@ import {
   signUpUserApi,
   signInUserApi,
   kakaoAuthApi,
-} from '../../utils/apis/user';
+} from '../../utils/apis/member';
 import createToken from '../../utils/token';
 
 export const emailDupCheckThunk = createAsyncThunk(
-  'user/emailDupCheck',
+  'member/emailDupCheck',
   async (payload, thunkAPI) => {
     const resData = await emailDupCheckApi(payload)
       .then((res) => res.data.success)
@@ -21,7 +21,7 @@ export const emailDupCheckThunk = createAsyncThunk(
 );
 
 export const signUpUserThunk = createAsyncThunk(
-  'use/signUpUser',
+  'member/signUpUser',
   async (payload, thunkAPI) => {
     const resData = await signUpUserApi(payload).then((res) => res.data);
     return thunkAPI.fulfillWithValue(resData);
@@ -29,7 +29,7 @@ export const signUpUserThunk = createAsyncThunk(
 );
 
 export const signInUserThunk = createAsyncThunk(
-  'user/signInUser',
+  'member/signInUser',
   async (payload, thunkAPI) => {
     const resData = await signInUserApi(payload)
       .then((res) => res)
@@ -45,7 +45,7 @@ export const signInUserThunk = createAsyncThunk(
 );
 
 export const kakaoAuthThunk = createAsyncThunk(
-  'user/kakaoAuth',
+  'member/kakaoAuth',
   async (payload, thunkAPI) => {
     const resData = await kakaoAuthApi(payload.code)
       .then((res) => res)
@@ -64,8 +64,8 @@ const initialState = {
   is_login: false,
 };
 
-export const userSlice = createSlice({
-  name: 'user',
+export const memberSlice = createSlice({
+  name: 'member',
   initialState: initialState,
   reducers: {
     headerAction: (state, action) => {
@@ -82,5 +82,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { headerAction } = userSlice.actions;
-export default userSlice.reducer;
+export const { headerAction } = memberSlice.actions;
+export default memberSlice.reducer;
