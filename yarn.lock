@@ -7592,6 +7592,11 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-wavesurfer.js@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/react-wavesurfer.js/-/react-wavesurfer.js-0.0.5.tgz#e2f4e1195f9b01c084ced1aa3e4ddda89de394ab"
+  integrity sha512-KLjNTKS25xfsTWrJd+knXF5wFH8CRu7repXSeDSjh4zhj27QbNL5jtcK8pNl82/kcoTeB0fZvtCcxPreEE8dQw==
+
 react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
@@ -8859,6 +8864,11 @@ watchpack@^2.4.0:
   dependencies:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
+
+wavesurfer.js@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-6.2.0.tgz#47b2c2006d8780749fd88ef372a1ec84f886ad5a"
+  integrity sha512-yuOteX+RKgJl4p5V+YNflm79QRNFWpNo0UHtKaGf1G05qMNChfbcJU0MZYL7+OJTHgYszYqN3dgUXjugYd/Iew==
 
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"

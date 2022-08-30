@@ -13,7 +13,7 @@ const fontSizes = {
 
 const lineHeight = {
   xxs: "18px",
-  xs: "20px",
+  xs:"20px",
   sm: "22px",
   base: "24px",
   lg: "28px",
