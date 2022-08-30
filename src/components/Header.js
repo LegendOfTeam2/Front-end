@@ -12,20 +12,25 @@ const Header = () => {
           <HeaderDiv>
             <LeftDiv>
               <LogoDiv></LogoDiv>
+
               <SearchDiv>
                 <SearchIconDiv>
                   <FiSearch size={"20"} />
                 </SearchIconDiv>
                 <Input
                   _style={{
-                    width: "451px",
+                    width: "100%",
                     height: "36px",
                     placeholder: "Search",
                     border: "0px solid black",
                     outline: "none",
+                    bg_color: '#F4F4F4',
+                    bd_radius: '44px',
+                    pd_left: '50px'
                   }}
                 />
               </SearchDiv>
+
             </LeftDiv>
             <RightDiv>
               <ProfileDiv>
@@ -43,6 +48,7 @@ const Header = () => {
                     bd_radius: "11px",
                     color: "rgba(255, 255, 255, 1)",
                     ft_size: "12px",
+                    
                   }}
                   _text={"업로드"}
                 />
@@ -103,6 +109,8 @@ const HeaderDiv = styled.div`
 const LogoDiv = styled.div`
   width: 48px;
   height: 48px;
+  
+  
   background-color: black;
 `;
 
@@ -116,14 +124,17 @@ const SearchDiv = styled.div`
   align-items: center;
   gap: 15px;
   background: #F4F4F4;
+  position: relative;
 `;
 
 const SearchIconDiv = styled.div`
   height: 20px;
   margin-left: 16px;
+  position: absolute;
 `;
 
 const LeftDiv = styled.div`
+
   display: flex;
   flex-direction: row;
   margin-left: 22px;

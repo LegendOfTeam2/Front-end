@@ -8,7 +8,7 @@ import Header from '../components/Header';
 function App() {
   return (
     <Routes>
-      <Route path='/' exact='true' element={<Header />} />
+      <Route path='/' exact='true' element={<Main />} />
     </Routes>
   );
 }
