@@ -27,6 +27,7 @@ const Input = ({ _type, _value, _onChange, _onKeyUp,  _minLength, _maxLength, _r
       bd_radius={_style?.bd_radius}
       bd_color={_style?.bd_color}
       flex={_style?.flex}
+      placeholder = {_style?.placeholder}
       required
     />
   );
