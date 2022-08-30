@@ -1,16 +1,12 @@
-import { Fragment } from "react";
-import styled from "styled-components";
+import { Fragment } from 'react';
+import HashTag from '../components/HashTag';
 
 const Main = () => {
   return (
     <Fragment>
-      <TextTest>test</TextTest>
+      <HashTag />
     </Fragment>
-  )
+  );
 };
 
 export default Main;
-
-const TextTest = styled.span`
-  font-size: 1rem;
-`

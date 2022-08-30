@@ -2,7 +2,6 @@
 import axios from 'axios';
 
 // Utils
-import { setCookie } from '../../cookie';
 import createToken from '../../token';
 
 const SERVER_IP = process.env.REACT_APP_REST_API_IP;
@@ -25,7 +24,7 @@ api_auth.interceptors.request.use(
     return config;
   },
   function (error) {
-    console.log(error);
+    console.err(error);
     return Promise.reject(error);
   }
 );
