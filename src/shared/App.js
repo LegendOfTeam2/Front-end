@@ -10,7 +10,7 @@ import Loading from '../components/Loading';
 const Main = lazy(() => import('../pages/Main'));
 const SignIn = lazy(() => import('../pages/SignIn'));
 const SignUp = lazy(() => import('../pages/SignUp'));
-const Userposition = lazy(() => import('../pages/Userposition'));
+const UserPosition = lazy(() => import('../pages/UserPosition'));
 
 // Utils
 const Kakao = lazy(() => import('../utils/kakao'));
@@ -25,7 +25,7 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/kakao/callback' element={<Kakao />} />
         <Route path='/google/callback' element={<Google />} />
-        <Route path='/position' element={<Userposition />} />
+        <Route path='/position' element={<UserPosition />} />
       </Routes>
     </Suspense>
   );
