@@ -16,8 +16,10 @@ export const StyledButton = styled.button`
   padding-left: ${(props) => (props.pd_left ? props.pd_left : '0px')};
   padding-right: ${(props) => (props.pd_right ? props.pd_right : '0px')};
   border-radius: ${(props) => (props.bd_radius ? props.bd_radius : '0px')};
-  border: ${(props) => (props.bd_px ? props.bd_px : '0px')} solid ${(props) => (props.bd_color ? props.bd_color : '#000000')};
-  line-height: ${(props) => (props.line_height ? props.line_height : '0px')};;
+  border-width: ${(props) => (props.bd_px ? props.bd_px : '0px')};
+  border-style: solid; 
+  border-color: ${(props) => (props.bd_color ? props.bd_color : '#000000')};
+  line-height: ${(props) => (props.line_height ? (props.ft_size) / 16 : 1)}rem;
   &:hover {
     cursor: pointer;
     outline: none;

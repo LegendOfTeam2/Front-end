@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Loading = () => {
   return (
     <Fragment>
-      <LoadingImage src={require('../assets/images/497.gif')} />
+      <LoadingImage src={require('../assets/images/loading.gif')} />
     </Fragment>
   );
 };
