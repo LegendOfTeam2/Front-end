@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import PlayerMain from '../components/adudioPlayer/PlayerMain';
+import PlayerMain from '../components/audioplayer/PlayerMain';
 import HashTag from '../components/HashTag';
 import Header from '../components/Header';
 

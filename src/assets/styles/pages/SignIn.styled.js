@@ -41,6 +41,10 @@ export const SignInBoxIntroBottom = styled.span`
   line-height: ${(props) => props.theme.lineHeight.xxs};
   font-size: ${(props) => props.theme.fontSizes.xs};
 `;
+export const SignInBoxForm = styled.form`
+  width: 100%;
+  height: auto;
+`
 export const SignInBoxInputContainer = styled.div`
   width: 100%;
   height: auto;

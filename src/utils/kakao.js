@@ -1,24 +1,26 @@
 // React
 import { useEffect, Fragment } from 'react';
 
-// Redux
-import { kakaoAuthThunk } from '../redux/modules/member';
-import { useDispatch } from 'react-redux';
+// Zustand
+import { useMemberStore } from '../zustand/member';
+
+// Components
+import Loading from '../components/Loading';
 
 // Packages
 import { useNavigate } from 'react-router-dom';
 
 const Kakao = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const kakaoAuth = useMemberStore((state) => state.kakaoAuth);
   const authorization_code = new URL(window.location.href).searchParams.get(
     'code'
   );
 
   useEffect(() => {
     const fetchCode = (code) => {
-      dispatch(kakaoAuthThunk({ code })).then((res) => {
-        if (res.payload) {
+      kakaoAuth(code).then((res) => {
+        if(res) {
           navigate('/');
         }
       });
@@ -26,6 +28,6 @@ const Kakao = () => {
     fetchCode(authorization_code);
   }, []);
 
-  return <Fragment></Fragment>;
+  return <Loading></Loading>;
 };
 export default Kakao;

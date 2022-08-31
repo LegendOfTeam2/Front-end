@@ -3,6 +3,7 @@ import axios from 'axios';
 
 // Utils
 import createToken from '../../token';
+import { getCookie } from '../../cookie';
 
 const SERVER_IP = process.env.REACT_APP_REST_API_IP;
 
@@ -15,12 +16,8 @@ const api_auth = axios.create({
 
 api_auth.interceptors.request.use(
   function (config) {
-    config.headers['authorization'] = `Bearer ${window.sessionStorage.getItem(
-      'authorization'
-    )}`;
-    config.headers['refresh-token'] = `${window.sessionStorage.getItem(
-      'refresh-token'
-    )}`;
+    config.headers['authorization'] = `Bearer ${getCookie('authorization')}`;
+    
     return config;
   },
   function (error) {
