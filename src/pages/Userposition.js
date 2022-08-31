@@ -20,7 +20,7 @@ import {
   TopTextSpan,
   UserContainer,
   UserInBox,
-} from "../assets/styles/elements/Userposition.styled";
+} from "../assets/styles/elements/UserPosition.styled";
 
 
 const UserPosition = () => {

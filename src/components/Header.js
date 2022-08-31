@@ -20,7 +20,7 @@ import {
   RightDiv,
   SearchDiv,
   SearchIconDiv,
-} from "../assets/styles/elements/Header.styled";
+} from "../assets/styles/components/Header.styled";
 
 const Header = () => {
   return (
