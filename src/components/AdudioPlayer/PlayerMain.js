@@ -1,5 +1,5 @@
 import Player from "./Player";
-import { songsdata } from "./audios";
+import { songsdata } from "./Audios";
 
 import { useEffect, useRef, useState } from "react";
 

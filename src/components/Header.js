@@ -64,7 +64,7 @@ const Header = () => {
                     bg_color: "rgba(0, 0, 0, 1)",
                     bd_radius: "11px",
                     color: "rgba(255, 255, 255, 1)",
-                    ft_size: "12px",
+                    ft_size: "12",
                   }}
                   _text={"업로드"}
                 />
@@ -75,7 +75,7 @@ const Header = () => {
                     bg_color: "rgba(0, 0, 0, 1)",
                     bd_radius: "11px",
                     color: "rgba(255, 255, 255, 1)",
-                    ft_size: "12px",
+                    ft_size: "12",
                   }}
                   _text={"로그인"}
                 />
