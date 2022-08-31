@@ -7,6 +7,7 @@ import {
   signUpUserApi,
   signInUserApi,
   kakaoAuthApi,
+  googleAuthApi,
 } from '../../utils/apis/member';
 import createToken from '../../utils/token';
 
@@ -59,6 +60,23 @@ export const kakaoAuthThunk = createAsyncThunk(
     return thunkAPI.fulfillWithValue(resData.data.success);
   }
 );
+
+export const googleAuthThunk = createAsyncThunk(
+  'member/googleAuth',
+  async (payload, thunkAPI) => {
+    const resData = await googleAuthApi(payload.code)
+      .then((res) => res)
+      .catch((err) => console.err(err));
+    console.log(resData);
+    createToken(
+      resData.headers['authorization'].split(' ')[1],
+      resData.headers['refresh-token']
+    );
+
+    return thunkAPI.fulfillWithValue(resData.data.success);
+  }
+);
+
 
 const initialState = {
   is_login: false,

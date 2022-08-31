@@ -31,7 +31,6 @@ const Confirm = () => {
         </CfBtmTextDiv>
         <CfWlDiv>
           <CfWlDivDiv>
-
             <Button
               _style={{
                 width: "109px",

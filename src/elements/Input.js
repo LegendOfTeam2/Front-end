@@ -1,7 +1,7 @@
 // Style
 import { StyledInput } from '../assets/styles/elements/Input.styled';
 
-const Input = ({ _type, _value, _onChange, _onKeyUp,  _minLength, _maxLength, _ref, _placeholder, _style }) => {
+const Input = ({ _type, _value, _onChange, _onKeyUp,  _minLength, _maxLength, _ref, _placeholder, _autoComplete, _style }) => {
   return (
     <StyledInput
       type={_type}
@@ -12,6 +12,7 @@ const Input = ({ _type, _value, _onChange, _onKeyUp,  _minLength, _maxLength, _r
       maxLength={_maxLength}
       placeholder={_placeholder}
       ref={_ref}
+      autoComplete={_autoComplete}
       width={_style?.width}
       height={_style?.height}
       ft_size={_style?.ft_size}
