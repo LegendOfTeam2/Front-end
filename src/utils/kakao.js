@@ -1,8 +1,12 @@
+// React
 import { useEffect, Fragment } from 'react';
 
+// Redux
 import { kakaoAuthThunk } from '../redux/modules/member';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+
+// Packages
+import { useNavigate } from 'react-router-dom';
 
 const Kakao = () => {
   const navigate = useNavigate();

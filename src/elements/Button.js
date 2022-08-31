@@ -1,4 +1,4 @@
-// _style
+// Style
 import { StyledButton } from '../assets/styles/elements/Button.styled';
 
 const Button = ({ _type, _text, _style, _onClick }) => {
