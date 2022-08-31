@@ -90,7 +90,7 @@ export const BtmSmTextDiv = styled.div`
   flex-direction: column;
   text-align: center;
   margin-top: 64px;
-  margin-bottom: 95px;
+  margin-bottom: 97px;
 `;
 export const BtmSmTextSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.sm};

@@ -8,7 +8,7 @@ import {
   Playercontainer,
   Seekbar,
   Title,
-} from "./\bPlayerStyled";
+} from "./PlayerStyled";
 import {
   BsFillPlayCircleFill,
   BsFillPauseCircleFill,

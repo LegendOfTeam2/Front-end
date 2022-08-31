@@ -23,8 +23,7 @@ import {
 } from "../assets/styles/elements/Userposition.styled";
 
 
-
-const Userposition = () => {
+const UserPosition = () => {
   return (
     <UserContainer>
       <UserInBox>
@@ -52,7 +51,7 @@ const Userposition = () => {
                 bd_radius: "10px",
                 color: "rgba(0, 0, 0, 1)",
                 ft_weight: "500",
-                ft_size: "18px",
+                ft_size: "18",
                 bd_px: "1.5px",
               }}
               _text={"싱어"}
@@ -67,7 +66,7 @@ const Userposition = () => {
                 bd_radius: "10px",
                 color: "rgba(0, 0, 0, 1)",
                 ft_weight: "500",
-                ft_size: "18px",
+                ft_size: "18",
                 bd_px: "1.5px",
               }}
               _text={"메이커"}
@@ -89,4 +88,6 @@ const Userposition = () => {
   );
 };
 
-export default Userposition;
+export default UserPosition;
+
+
