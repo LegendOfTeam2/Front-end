@@ -1,32 +1,31 @@
 // React
-import { lazy, Suspense } from "react";
+import { lazy, Suspense } from 'react';
 
-//packages
-import { Routes, Route } from "react-router-dom";
+// Packages
+import { Routes, Route } from 'react-router-dom';
 
+import Loading from '../components/Loading';
 
-
-// Page
+// Pages
 const Main = lazy(() => import('../pages/Main'));
 const SignIn = lazy(() => import('../pages/SignIn'));
-const UserPosition = lazy(() => import('../pages/UserPosition'));
-const SignUpCheck = lazy(() => import('../pages/SignUpCheck'));
-const Welcome = lazy(() => import('../components/modal/Welcome'));
-const Confirm = lazy(() => import('../components/modal/Confirm'));
+const SignUp = lazy(() => import('../pages/SignUp'));
+const Userposition = lazy(() => import('../pages/Userposition'));
+
 // Utils
 const Kakao = lazy(() => import('../utils/kakao'));
+const Google = lazy(() => import('../utils/google'));
 
 function App() {
   return (
-    <Suspense>
+    <Suspense fallback={<Loading  />}>
       <Routes>
         <Route path='/' exact='true' element={<Main />} />
         <Route path='/signin' element={<SignIn />} />
+        <Route path='/signup' element={<SignUp />} />
         <Route path='/kakao/callback' element={<Kakao />} />
-        <Route path='/Position' exact='true' element={<UserPosition />} />
-        <Route path='/SignUpCheck' exact='true' element={<SignUpCheck />} />
-        <Route path='/Welcome' exact='true' element={<Welcome />} />
-        <Route path='/Confirm' exact='true' element={<Confirm />} />
+        <Route path='/google/callback' element={<Google />} />
+        <Route path='/position' element={<Userposition />} />
       </Routes>
     </Suspense>
   );
