@@ -16,7 +16,7 @@ import {
   WlContainer,
   WlDiv,
   WlInBox,
-} from "../../assets/styles/elements/Welcome.styled";
+} from "../../assets/styles/components/modal/Welcome.styled";
 
 const Welcome = () => {
   return (
