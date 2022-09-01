@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-import { Fragment, useState } from "react";
-=======
 import { Fragment } from 'react';
-import PlayerMain from '../components/audioplayer/PlayerMain';
-import HashTag from '../components/HashTag';
 import Header from '../components/Header';
->>>>>>> 989110a500d89633a8c9b453ebccb5bba3a72586
-
-import Header from "../components/Header";
 
 import styled from "styled-components";
 
@@ -17,15 +9,16 @@ import {
 } from "react-icons/md";
 
 import Slider from "react-slick";
-import "~slick-carousel/slick/slick.css"; 
-import "~slick-carousel/slick/slick-theme.css";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 const Main = () => {
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
   };
 
   return (
@@ -38,13 +31,13 @@ const Main = () => {
 
           <MainImgDiv>
             <Slider>
-            {Array(10)
+            {Array(5)
             .fill("")
             .map(() => (
               <div style={{ margin: 20 }}>
                 <img
                   style={{ width: 310, objectFit: "contain", borderRadius: 10 }}
-                  src="https://resources.platform.iplt20.com/photo-resources/2021/05/02/25eae35d-5165-4608-b666-a27501622f02/H4pPnjIC.jpg?width=390&height=219"
+                  src="https://image.fmkorea.com/files/attach/new2/20211210/486616/3265746926/4152272994/cd0a93262a53c4d283e9d472e1afbf74.jpg"
                   alt=""
                 />
                   </div>
