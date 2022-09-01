@@ -12,3 +12,6 @@ export const signInUserApi = (payload) => {
 export const kakaoAuthApi = (payload) => {
   return api_basic.get(`/api/kakao/callback?code=${payload}`)
 };
+export const googleAuthApi = (payload) => {
+  return api_basic.get(`/api/google/callback?code=${payload}`)
+};

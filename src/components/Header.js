@@ -2,6 +2,7 @@
 
 // Package
 import { FiSearch } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 // Element
 import Button from "../elements/Button";
@@ -23,6 +24,8 @@ import {
 } from "../assets/styles/components/Header.styled";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <HeaderContainerDiv>
@@ -78,6 +81,7 @@ const Header = () => {
                     ft_size: "12",
                   }}
                   _text={"로그인"}
+                  _onClick={() => navigate('/signin')}
                 />
               </BtmDiv>
             </RightDiv>

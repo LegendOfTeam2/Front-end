@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 import { Fragment, useState } from "react";
+=======
+import { Fragment } from 'react';
+import PlayerMain from '../components/audioplayer/PlayerMain';
+import HashTag from '../components/HashTag';
+import Header from '../components/Header';
+>>>>>>> 989110a500d89633a8c9b453ebccb5bba3a72586
 
 import Header from "../components/Header";
 
