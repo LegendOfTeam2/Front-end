@@ -1,10 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const SignInContainer = styled.div`
   width: 100%;
   height: auto;
   display: flex;
   justify-content: center;
+  margin-top: 20vh;
 `;
 export const SignInBox = styled.div`
   width: 961px;
@@ -44,7 +45,7 @@ export const SignInBoxIntroBottom = styled.span`
 export const SignInBoxForm = styled.form`
   width: 100%;
   height: auto;
-`
+`;
 export const SignInBoxInputContainer = styled.div`
   width: 100%;
   height: auto;
@@ -140,7 +141,7 @@ export const SignInBoxDetailFindText = styled.span`
   color: #a3a3a3;
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   &:hover {
-    cursor: ${(props) => (props.cursor ? props.cursor : 'none')};
+    cursor: ${(props) => (props.cursor ? props.cursor : "none")};
   }
 `;
 export const SignInBoxSignUpContainer = styled.div`
@@ -166,7 +167,7 @@ export const SignInBoxSignUpQuestion = styled.div`
 export const SignInBoxSignUpQuestionText = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  color: ${(props) => (props.color ? props.color : '#a3a3a3')};
+  color: ${(props) => (props.color ? props.color : "#a3a3a3")};
   line-height: ${(props) => props.theme.lineHeight.xxs};
   cursor: pointer;
 `;

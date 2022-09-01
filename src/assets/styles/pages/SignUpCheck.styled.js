@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const UpContainer = styled.div`
   width: 100%;
   height: auto;
+  margin-top: 20vh;
   display: flex;
   justify-content: center;
 `;
