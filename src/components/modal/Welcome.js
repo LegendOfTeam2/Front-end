@@ -5,6 +5,8 @@
 // Package
 import { GiJeweledChalice } from "react-icons/gi";
 
+import ReactModal from "react-modal";
+
 // Element
 import Button from "../../elements/Button";
 
@@ -18,37 +20,43 @@ import {
   WlInBox,
 } from "../../assets/styles/components/modal/Welcome.styled";
 
-const Welcome = () => {
+const Welcome = ({ isOpen, onCancel }) => {
+  const handleClickCancel = () => {
+    onCancel();
+  };
   return (
-    <WlContainer>
-      <WlInBox>
-        <Topicon>
-          <div>
-            <GiJeweledChalice size={115} />
-          </div>
-        </Topicon>
-        <TextDiv>
-          <TextSpan>환영합니다.yungji_2님</TextSpan>
-          <TextSpan>아티스트님의 작품이 기대됩니다!</TextSpan>
-        </TextDiv>
-        <WlDiv>
-          <div>
-            <Button
-              _style={{
-                width: "528px",
-                height: "60px",
-                bg_color: "rgba(0, 0, 0, 1)",
-                bd_radius: "11px",
-                color: "rgba(255, 255, 255, 1)",
-                ft_size: "20",
-                ft_weight: "700",
-              }}
-              _text={"나의 작업물을 공유하러 가기"}
-            />
-          </div>
-        </WlDiv>
-      </WlInBox>
-    </WlContainer>
+    <ReactModal isOpen={isOpen}>
+      <WlContainer>
+        <WlInBox>
+          <Topicon>
+            <div>
+              <GiJeweledChalice size={115} />
+            </div>
+          </Topicon>
+          <TextDiv>
+            <TextSpan>환영합니다.yungji_2님</TextSpan>
+            <TextSpan>아티스트님의 작품이 기대됩니다!</TextSpan>
+          </TextDiv>
+          <WlDiv>
+            <div>
+              <Button
+                _style={{
+                  width: "528px",
+                  height: "60px",
+                  bg_color: "rgba(0, 0, 0, 1)",
+                  bd_radius: "11px",
+                  color: "rgba(255, 255, 255, 1)",
+                  ft_size: "20",
+                  ft_weight: "700",
+                }}
+                _text={"나의 작업물을 공유하러 가기"}
+                _onClick={handleClickCancel}
+              />
+            </div>
+          </WlDiv>
+        </WlInBox>
+      </WlContainer>
+    </ReactModal>
   );
 };
 
