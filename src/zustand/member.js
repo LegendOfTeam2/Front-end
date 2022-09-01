@@ -7,9 +7,6 @@ import { kakaoAuthApi, googleAuthApi } from '../utils/apis/member';
 
 export const useMemberStore = create((set) => ({
   is_login: false,
-  changeLoginState: (state) => {
-    set({is_login: state});
-  },
   kakaoAuth: async (code) => {
     const resData = await kakaoAuthApi(code)
       .then((res) => res)
