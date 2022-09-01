@@ -3,30 +3,40 @@
 // Redux
 
 // Package
-import { AiOutlineExclamation } from "react-icons/ai";
-
+import { AiOutlineExclamation,AiOutlineClose } from "react-icons/ai";
+import ReactModal from "react-modal";
 // Element
 import Button from "../../elements/Button";
 
 // styled
 
-
 import styled from "styled-components";
 
-const Confirm = () => {
+const Confirm = ({ isOpen, onCancel}) => {
+  const handleClickCancel = () => {
+    onCancel();
+  };
   return (
+    <ReactModal isOpen={isOpen}>
     <CfContainer>
       <CfInBox>
         <CfTopicon>
+          <CancelDiv>
+            <AiOutlineClose className="icon-cancel" onClick={handleClickCancel}/>
+          </CancelDiv>
           <div>
             <AiOutlineExclamation size={139} />
           </div>
         </CfTopicon>
         <CfTopTextDiv>
-          <CfTopTextSpan>리드미는 아티스트님과 함께 하고싶습니다!</CfTopTextSpan>
+          <CfTopTextSpan>
+            리드미는 아티스트님과 함께 하고싶습니다!
+          </CfTopTextSpan>
         </CfTopTextDiv>
         <CfBtmTextDiv>
-          <CfBtmTextSpan>지금까지 입력하신 모든 정보가 삭제됩니다.</CfBtmTextSpan>
+          <CfBtmTextSpan>
+            지금까지 입력하신 모든 정보가 삭제됩니다.
+          </CfBtmTextSpan>
           <CfBtmTextSpan>정말 삭제하시겠습니다까?</CfBtmTextSpan>
         </CfBtmTextDiv>
         <CfWlDiv>
@@ -43,7 +53,7 @@ const Confirm = () => {
               }}
               _text={"삭제하기"}
             />
-  
+
             <Button
               _style={{
                 width: "109px",
@@ -55,88 +65,105 @@ const Confirm = () => {
                 ft_weight: "700",
               }}
               _text={"취소하기"}
+              _onClick={handleClickCancel}
             />
-
           </CfWlDivDiv>
         </CfWlDiv>
       </CfInBox>
     </CfContainer>
+    </ReactModal>
   );
 };
 
 export default Confirm;
 
-
-
 export const CfContainer = styled.div`
-width: 100%;
-height: auto;
-display: flex;
-justify-content: center;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
 `;
 export const CfInBox = styled.div`
-width: 620px;
-height: auto;
-display: flex;
-justify-content: center;
-flex-direction: column;
-background-color: #F9F9F9;
-padding: 47px;
-border-radius: 40px;
+  width: 620px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  padding: 47px;
+  border-radius: 40px;
 `;
 export const CfTopicon = styled.div`
-width: 100%;
-height: auto;
-display: flex;
-justify-content: center;
-flex-direction: column;
-text-align: center;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
 `;
 
 export const CfTopTextDiv = styled.div`
-width: 100%;
-height: auto;
-display: flex;
-justify-content: center;
-flex-direction: column;
-text-align: center;
-margin-top: 5px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 5px;
 `;
 export const CfTopTextSpan = styled.span`
-font-size: ${(props) => props.theme.fontSizes.sm};
-line-height: ${(props) => props.theme.lineHeight.xs};
-font-weight: ${(props) => props.theme.fontWeight.Regular}; ;
+  font-size: ${(props) => props.theme.fontSizes.sm};
+  line-height: ${(props) => props.theme.lineHeight.xs};
+  font-weight: ${(props) => props.theme.fontWeight.Regular}; ;
 `;
 
 export const CfBtmTextDiv = styled.div`
-width: 100%;
-height: auto;
-display: flex;
-justify-content: center;
-flex-direction: column;
-text-align: center;
-margin-top: 22px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 22px;
 `;
 export const CfBtmTextSpan = styled.span`
-font-size: ${(props) => props.theme.fontSizes.xxxl};
-line-height: ${(props) => props.theme.lineHeight.xxxl};
-font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
+  font-size: ${(props) => props.theme.fontSizes.xxxl};
+  line-height: ${(props) => props.theme.lineHeight.xxxl};
+  font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
 `;
 
 export const CfWlDiv = styled.div`
-width: 100%;
-height: auto;
-display: flex;
-justify-content: center;
-flex-direction: row;
-text-align: center;
-margin-top: 37px;
-margin-bottom: 19px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  text-align: center;
+  margin-top: 37px;
+  margin-bottom: 19px;
 `;
 
 export const CfWlDivDiv = styled.div`
-width: auto;
-height: auto;
-display: flex;
-gap: 19px;
+  width: auto;
+  height: auto;
+  display: flex;
+  gap: 19px;
 `;
+
+export const CancelDiv = styled.div`
+  width: auto;
+  height: auto;
+  display: flex;
+  position: relative;
+   .icon-cancel{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: -10px;
+    bottom: -5px;
+    &:hover {
+      cursor: pointer;
+    }
+   }
+`;
+

@@ -5,6 +5,7 @@ export const HeaderContainerDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  background-color: #eeeceb;
 `;
 
 export const HeaderContainer = styled.div`
@@ -12,10 +13,10 @@ export const HeaderContainer = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
+
   padding: 24px;
   margin-top: 64px;
-  background-color: #eeeceb;
+  
 `;
 
 export const HeaderDiv = styled.div`
@@ -23,7 +24,7 @@ export const HeaderDiv = styled.div`
   height: auto;
   display: flex;
   background-color: rgba(255, 255, 255, 1);
-  border-radius: 5px;
+
   padding: 8px;
   flex-direction: row;
   gap: 41px;
