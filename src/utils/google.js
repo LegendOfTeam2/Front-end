@@ -1,12 +1,8 @@
 // React
 import { useEffect, Fragment } from 'react';
 
-// Redux
-// import { googleAuthThunk } from '../redux/modules/member';
-// import { useDispatch } from 'react-redux';
-
 // Zustand
-import { useMemberStore } from '../zustand/member';
+import useMemberStore from '../zustand/member';
 
 // Components
 import Loading from '../components/Loading';

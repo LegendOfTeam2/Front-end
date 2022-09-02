@@ -2,7 +2,7 @@
 import { useEffect, Fragment } from 'react';
 
 // Zustand
-import { useMemberStore } from '../zustand/member';
+import useMemberStore from '../zustand/member';
 
 // Components
 import Loading from '../components/Loading';

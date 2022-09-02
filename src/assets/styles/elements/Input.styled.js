@@ -5,7 +5,7 @@ export const StyledInput = styled.input`
   height: ${(props) => (props.height ? props.height : '50px')};
   font-size: ${(props) => (props.ft_size ? props.ft_size / 16 : 1)}rem;
   background-color: ${(props) => (props.bg_color ? props.bg_color : 'white')};
-  color: ${(props) => (props.color ? props.color : '#525252')};
+  color: ${(props) => (props.color ? props.color : '#000000')};
   padding-top: ${(props) => (props.pd_top ? props.pd_top : '0px')};
   padding-bottom: ${(props) => (props.pd_bottom ? props.pd_bottom : '0px')};
   padding-left: ${(props) => (props.pd_left ? props.pd_left : '0px')};
@@ -18,7 +18,10 @@ export const StyledInput = styled.input`
   border-width: ${(props) => (props.bd_px ? props.bd_px : '1px')};
   border-color: ${(props) => (props.bd_color ? props.bd_color : '#000000')};
   border-style: solid;
-  line-height: ${(props) => (props.line_height ? props.ft_size / 16 : 1)}rem;
+  line-height: ${(props) => (props.line_height ? props.line_height / 16 : 1)}rem;
   flex: ${(props) => props.flex};
   outline: none;
+  &::placeholder {
+    color: #d9d9d9;
+  }
 `;

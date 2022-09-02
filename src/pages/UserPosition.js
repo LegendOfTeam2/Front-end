@@ -1,9 +1,3 @@
-// React
-
-// Redux
-
-// Package
-
 // Element
 import Button from "../elements/Button";
 
@@ -89,5 +83,3 @@ const UserPosition = () => {
 };
 
 export default UserPosition;
-
-

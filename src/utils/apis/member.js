@@ -3,10 +3,13 @@ import api_basic from './api/api_basic';
 export const emailDupCheckApi = (payload) => {
   return api_basic.post(`/member/emailcheck`, payload);
 };
-export const signUpUserApi = (payload) => {
+export const nicknameDupCheckApi = (payload) => {
+  return api_basic.post(`/member/nicknamecheck`, payload);
+};
+export const signUpMemberApi = (payload) => {
   return api_basic.post(`/member/signup`, payload);
 };
-export const signInUserApi = (payload) => {
+export const signInMemberApi = (payload) => {
   return api_basic.post(`/member/signin`, payload);
 };
 export const kakaoAuthApi = (payload) => {

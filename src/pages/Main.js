@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-import { Fragment, useState } from "react";
-=======
+// React
 import { Fragment } from 'react';
 import PlayerMain from '../components/audioplayer/PlayerMain';
-import HashTag from '../components/HashTag';
 import Header from '../components/Header';
->>>>>>> 989110a500d89633a8c9b453ebccb5bba3a72586
-
-import Header from "../components/Header";
 
 import styled from "styled-components";
 
@@ -17,8 +11,6 @@ import {
 } from "react-icons/md";
 
 import Slider from "react-slick";
-import "~slick-carousel/slick/slick.css"; 
-import "~slick-carousel/slick/slick-theme.css";
 const Main = () => {
   const settings = {
     dots: true,
@@ -35,7 +27,6 @@ const Main = () => {
         <MainContainer>
           <div>prev</div>
           <div>next</div>
-
           <MainImgDiv>
             <Slider>
             {Array(10)
@@ -51,7 +42,6 @@ const Main = () => {
                 ))}
             </Slider>
           </MainImgDiv>
-
         </MainContainer>
       </MainContainerDiv>
     </Fragment>
