@@ -1,12 +1,49 @@
 // Zustand
 import create from 'zustand';
-
 // Utils
 import createToken from '../utils/token';
-import { kakaoAuthApi, googleAuthApi } from '../utils/apis/member';
+import {
+  emailDupCheckApi,
+  nicknameDupCheckApi,
+  signUpMemberApi,
+  signInMemberApi,
+  kakaoAuthApi,
+  googleAuthApi,
+} from '../utils/apis/member';
 
-export const useMemberStore = create((set) => ({
+const useMemberStore = create((set) => ({
   is_login: false,
+  emailDupCheck: async (payload) => {
+    const resData = await emailDupCheckApi(payload)
+      .then((res) => res.data.success)
+      .catch((error) => console.err(error));
+
+    return resData;
+  },
+  nicknameDupCheck: async (payload) => {
+    const resData = await nicknameDupCheckApi(payload)
+      .then((res) => res.data.success)
+      .catch((error) => console.err(error));
+
+    return resData;
+  },
+  signUpMember: async (payload) => {
+    const resData = await signUpMemberApi(payload)
+      .then((res) => res)
+      .catch((err) => console.log(err));
+
+    console.log(resData);
+  },
+  signInMember: async (payload) => {
+    const resData = await signInMemberApi(payload)
+      .then((res) => res)
+      .catch((err) => console.err(err));
+
+    createToken(
+      resData.headers['authorization'].split(' ')[1],
+      resData.headers['refresh-token']
+    );
+  },
   kakaoAuth: async (code) => {
     const resData = await kakaoAuthApi(code)
       .then((res) => res)
@@ -34,3 +71,5 @@ export const useMemberStore = create((set) => ({
     }
   },
 }));
+
+export default useMemberStore;

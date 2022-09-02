@@ -2,7 +2,7 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 
 // Package
-import { MdOutlineCancel } from 'react-icons/md';
+import { GrClose } from 'react-icons/gr';
 import { FcGoogle } from 'react-icons/fc';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 
@@ -24,7 +24,6 @@ import {
   SignInBoxInputGroupTitle,
   SignInboxInputGroupData,
   SignUpDataInputGroupIcon,
-  SignInBoxInputGroupAlert,
   SignInBoxButtonContainer,
   SignInBoxButtonBox,
   SignInBoxDetailContainer,
@@ -105,7 +104,7 @@ const SignIn = () => {
                     onClick={() => deleteText('email')}
                     ref={emailIconRef}
                   >
-                    <MdOutlineCancel className='icon-cancel'></MdOutlineCancel>
+                    <GrClose className='icon-cancel'></GrClose>
                   </SignUpDataInputGroupIcon>
                   <Input
                     _type={'text'}
@@ -129,13 +128,12 @@ const SignIn = () => {
               </SignInBoxInputGroup>
               <SignInBoxInputGroup>
                 <SignInBoxInputGroupTitle>비밀번호</SignInBoxInputGroupTitle>
-                <SignInBoxInputGroupAlert>
                   <SignInboxInputGroupData>
                     <SignUpDataInputGroupIcon
                       onClick={() => deleteText('password')}
                       ref={passwordIconRef}
                     >
-                      <MdOutlineCancel className='icon-cancel'></MdOutlineCancel>
+                      <GrClose className='icon-cancel'></GrClose>
                     </SignUpDataInputGroupIcon>
                     <Input
                       _type={'password'}
@@ -156,7 +154,6 @@ const SignIn = () => {
                       }}
                     />
                   </SignInboxInputGroupData>
-                </SignInBoxInputGroupAlert>
               </SignInBoxInputGroup>
             </SignInBoxInputContainer>
             <SignInBoxButtonContainer>

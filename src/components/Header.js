@@ -1,12 +1,12 @@
 // React
 
 // Package
-import { FiSearch } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { FiSearch } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 // Element
-import Button from "../elements/Button";
-import Input from "../elements/Input";
+import Button from '../elements/Button';
+import Input from '../elements/Input';
 
 // styled
 import {
@@ -21,7 +21,7 @@ import {
   RightDiv,
   SearchDiv,
   SearchIconDiv,
-} from "../assets/styles/components/Header.styled";
+} from '../assets/styles/components/Header.styled';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -36,19 +36,19 @@ const Header = () => {
 
               <SearchDiv>
                 <SearchIconDiv>
-                  <FiSearch size={"20"} />
+                  <FiSearch size={'20'} />
                 </SearchIconDiv>
                 <Input
                   _style={{
-                    width: "100%",
-                    height: "36px",
-                    border: "0px solid black",
-                    outline: "none",
-                    bg_color: "#F4F4F4",
-                    bd_radius: "44px",
-                    pd_left: "50px",
+                    width: '100%',
+                    height: '36px',
+                    border: '0px solid black',
+                    outline: 'none',
+                    bg_color: '#F4F4F4',
+                    bd_radius: '44px',
+                    pd_left: '50px',
                   }}
-                  _placeholder={"Search"}
+                  _placeholder={'Search'}
                 />
               </SearchDiv>
             </LeftDiv>
@@ -62,25 +62,25 @@ const Header = () => {
               <BtmDiv>
                 <Button
                   _style={{
-                    width: "124px",
-                    height: "40px",
-                    bg_color: "rgba(0, 0, 0, 1)",
-                    bd_radius: "11px",
-                    color: "rgba(255, 255, 255, 1)",
-                    ft_size: "12",
+                    width: '124px',
+                    height: '40px',
+                    bg_color: 'rgba(0, 0, 0, 1)',
+                    bd_radius: '11px',
+                    color: 'rgba(255, 255, 255, 1)',
+                    ft_size: '12',
                   }}
-                  _text={"업로드"}
+                  _text={'업로드'}
                 />
                 <Button
                   _style={{
-                    width: "124px",
-                    height: "40px",
-                    bg_color: "rgba(0, 0, 0, 1)",
-                    bd_radius: "11px",
-                    color: "rgba(255, 255, 255, 1)",
-                    ft_size: "12",
+                    width: '124px',
+                    height: '40px',
+                    bg_color: 'rgba(0, 0, 0, 1)',
+                    bd_radius: '11px',
+                    color: 'rgba(255, 255, 255, 1)',
+                    ft_size: '12',
                   }}
-                  _text={"로그인"}
+                  _text={'로그인'}
                   _onClick={() => navigate('/signin')}
                 />
               </BtmDiv>

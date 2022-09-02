@@ -1,0 +1,192 @@
+import styled from "styled-components";
+
+export const SignUpContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+export const SignUpBox = styled.div`
+  width: 961px;
+  height: 809px;
+  border-radius: 30px;
+  box-shadow: 1px 1px 20px 5px grey;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+export const SignUpIcon = styled.div`
+  position: absolute;
+  top: 26px;
+  right: 26px;
+  width: auto;
+  height: auto;
+  .icon-cancel {
+    width: 30px;
+    height: 30px;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+`;
+export const SignUpForm = styled.form`
+  width: auto;
+  height: auto;
+`;
+export const SignUpBoxInputContainer = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 37px;
+`;
+export const SignUpBoxInputGroup = styled.div`
+  width: 528px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+  &:last-child {
+    margin-bottom: 0px;
+  }
+`;
+export const SignUpBoxInputGroupTitle = styled.div`
+  width: 100%;
+  height: auto;
+  line-height: ${(props) => props.theme.lineHeight.xs};
+  font-size: ${(props) => props.theme.fontSizes.sm};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+`;
+export const SignUpboxInputGroupData = styled.div`
+  width: 100%;
+  height: auto;
+  position: relative;
+  .icon-hidden {
+    position: absolute;
+    font-size: ${(props) => props.theme.fontSizes.xxl};
+    right: 10px;
+    top: 50%;
+    transform: translateY(-11px);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+`;
+export const SignUpDataInputGroupIcon = styled.div`
+  .icon-cancel {
+    position: absolute;
+    font-size: ${(props) => props.theme.fontSizes.xxl};
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .icon-password-cancel {
+    position: absolute;
+    font-size: ${(props) => props.theme.fontSizes.xxl};
+    right: 45px;
+    top: 50%;
+    transform: translateY(-11px);
+    &:hover {
+      cursor: pointer;
+    }
+  }
+`;
+export const SignUpBoxInputGroupAlert = styled.div`
+  width: 100%;
+  height: ${(props) => props.theme.lineHeight.xxs};
+  line-height: ${(props) => props.theme.lineHeight.xxs};
+  font-size: ${(props) => props.theme.fontSizes.xs};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+`;
+export const SignUpBoxPasswordValidGroup = styled.div`
+  width: auto;
+  height: auto;
+  display: flex;
+  gap: 8px;
+`;
+export const SignUpBoxPasswordValidText = styled.span`
+  color: #d9d9d9;
+  font-size: ${(props) => props.theme.fontSizes.xs};
+  line-height: ${(props) => props.theme.lineHeight.xxs};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+`;
+export const SignUpBoxInputTagsAlert = styled.span`
+  width: 100%;
+  height: auto;
+  line-height: ${(props) => props.theme.lineHeight.xxs};
+  font-size: ${(props) => props.theme.fontSizes.xs};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  color: #d9d9d9;
+`;
+export const SignUpBoxInputTags = styled.input`
+  width: 100%;
+  height: auto;
+  line-height: ${(props) => props.theme.fontSizes.sm};
+  font-size: ${(props) => props.theme.fontSizes.sm};
+  padding: 20px 40px 20px 19px;
+  border-radius: 10px;
+  border: 1px solid #d9d9d9;
+  line-height: ${(props) => props.theme.lineHeight.xs};
+  outline: none;
+  &::placeholder {
+    color: #d9d9d9;
+  }
+`;
+export const SignUpBoxTagBox = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  padding: 10px;
+  gap: 10px;
+`;
+export const SignUpBoxImageContainer = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  margin-bottom: 32px;
+`;
+export const SignUpBoxImagePreviewBox = styled.div`
+  width: 50%;
+  height: 236px;
+  position: relative;
+`;
+export const SignUpBoxImagePreviewBoxImg = styled.img`
+  position: absolute;
+  width: 236px;
+  height: 236px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 60%;
+  background-color: #d9d9d9;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+`;
+export const SignUpBoxImagePreviewBoxSkeleton = styled.div`
+  position: absolute;
+  width: 236px;
+  height: 236px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 60%;
+  background-color: #d9d9d9;
+`;
+export const SignUpButtonContainer = styled.div`
+  width: 100%;
+  height: auto;
+`;
