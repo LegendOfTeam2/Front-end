@@ -7,6 +7,9 @@ export const UpContainer = styled.div`
   margin-top: 20vh;
   display: flex;
   justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 export const UpInBox = styled.div`
   width: 961px;

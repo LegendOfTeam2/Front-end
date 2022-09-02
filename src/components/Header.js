@@ -75,10 +75,12 @@ const Header = () => {
                   _style={{
                     width: "124px",
                     height: "40px",
-                    bg_color: "rgba(0, 0, 0, 1)",
+                    bg_color: "rgba(255, 255, 255, 1)",
                     bd_radius: "11px",
-                    color: "rgba(255, 255, 255, 1)",
+                    color: "rgba(0, 0, 0, 1)",
                     ft_size: "12",
+                    bd_px: '1px',
+                    bd_color: 'black'
                   }}
                   _text={"로그인"}
                   _onClick={() => navigate('/signin')}

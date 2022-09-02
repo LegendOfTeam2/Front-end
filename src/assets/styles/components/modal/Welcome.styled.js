@@ -5,6 +5,9 @@ width: 100%;
 height: auto;
 display: flex;
 justify-content: center;
+position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 export const WlInBox = styled.div`
 width: 620px;

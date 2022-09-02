@@ -72,11 +72,14 @@ const Player = ({
           <p>{currentSong.title}</p>
         </Title>
         <Navigation>
+
+          <input type='range'></input>
           <Navigationwrapper onClick={checkWidth} ref={clickRef}>
             <Seekbar
               style={{ width: `${currentSong.progress + "%"}` }}
             ></Seekbar>
           </Navigationwrapper>
+
         </Navigation>
         <Controls>
           <BtnactionDiv>

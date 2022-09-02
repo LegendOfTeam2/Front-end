@@ -5,7 +5,9 @@ export const SignInContainer = styled.div`
   height: auto;
   display: flex;
   justify-content: center;
-  margin-top: 20vh;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 export const SignInBox = styled.div`
   width: 961px;

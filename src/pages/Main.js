@@ -148,6 +148,7 @@ const Main = () => {
               </MainTagBoxText>
             </MainTagBox>
           </BtmProfileImgDiv>
+            <PlayerMain/>
         </MainContainer>
       </MainContainerDiv>
     </Fragment>

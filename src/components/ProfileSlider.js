@@ -169,7 +169,7 @@ export const ImgBtmLeft = styled.div`
 
 export const ImgBtmRight = styled.div`
   position: absolute;
-  bottom: 8%;
+  bottom: 7%;
   right: 35%;
   display: none;
   ${ProfileImgDivDiv}:hover & {
