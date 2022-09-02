@@ -3,167 +3,88 @@
 // Redux
 
 // Package
-import { AiOutlineExclamation,AiOutlineClose } from "react-icons/ai";
+import { AiOutlineExclamation, AiOutlineClose } from "react-icons/ai";
 import ReactModal from "react-modal";
 // Element
 import Button from "../../elements/Button";
+// Assests
+import {
+  CancelDiv,
+  CfBtmTextDiv,
+  CfBtmTextSpan,
+  CfContainer,
+  CfInBox,
+  CfTopicon,
+  CfTopTextDiv,
+  CfTopTextSpan,
+  CfWlDiv,
+  CfWlDivDiv,
+} from "../../assets/styles/components/modal/Confirm.styled";
 
-// styled
-
-import styled from "styled-components";
-
-const Confirm = ({ isOpen, onCancel}) => {
+const Confirm = ({ isOpen, onCancel }) => {
   const handleClickCancel = () => {
     onCancel();
   };
   return (
     <ReactModal isOpen={isOpen}>
-    <CfContainer>
-      <CfInBox>
-        <CfTopicon>
-          <CancelDiv>
-            <AiOutlineClose className="icon-cancel" onClick={handleClickCancel}/>
-          </CancelDiv>
-          <div>
-            <AiOutlineExclamation size={139} />
-          </div>
-        </CfTopicon>
-        <CfTopTextDiv>
-          <CfTopTextSpan>
-            리드미는 아티스트님과 함께 하고싶습니다!
-          </CfTopTextSpan>
-        </CfTopTextDiv>
-        <CfBtmTextDiv>
-          <CfBtmTextSpan>
-            지금까지 입력하신 모든 정보가 삭제됩니다.
-          </CfBtmTextSpan>
-          <CfBtmTextSpan>정말 삭제하시겠습니다까?</CfBtmTextSpan>
-        </CfBtmTextDiv>
-        <CfWlDiv>
-          <CfWlDivDiv>
-            <Button
-              _style={{
-                width: "109px",
-                height: "60px",
-                bg_color: "rgba(0, 0, 0, 1)",
-                bd_radius: "11px",
-                color: "rgba(255, 255, 255, 1)",
-                ft_size: "14",
-                ft_weight: "700",
-              }}
-              _text={"삭제하기"}
-            />
+      <CfContainer>
+        <CfInBox>
+          <CfTopicon>
+            <CancelDiv>
+              <AiOutlineClose
+                className='icon-cancel'
+                onClick={handleClickCancel}
+              />
+            </CancelDiv>
+            <div>
+              <AiOutlineExclamation size={139} />
+            </div>
+          </CfTopicon>
+          <CfTopTextDiv>
+            <CfTopTextSpan>
+              리드미는 아티스트님과 함께 하고싶습니다!
+            </CfTopTextSpan>
+          </CfTopTextDiv>
+          <CfBtmTextDiv>
+            <CfBtmTextSpan>
+              지금까지 입력하신 모든 정보가 삭제됩니다.
+            </CfBtmTextSpan>
+            <CfBtmTextSpan>정말 삭제하시겠습니다까?</CfBtmTextSpan>
+          </CfBtmTextDiv>
+          <CfWlDiv>
+            <CfWlDivDiv>
+              <Button
+                _style={{
+                  width: "109px",
+                  height: "60px",
+                  bg_color: "rgba(0, 0, 0, 1)",
+                  bd_radius: "11px",
+                  color: "rgba(255, 255, 255, 1)",
+                  ft_size: "14",
+                  ft_weight: "700",
+                }}
+                _text={"삭제하기"}
+              />
 
-            <Button
-              _style={{
-                width: "109px",
-                height: "60px",
-                bg_color: "rgba(0, 0, 0, 1)",
-                bd_radius: "11px",
-                color: "rgba(255, 255, 255, 1)",
-                ft_size: "14",
-                ft_weight: "700",
-              }}
-              _text={"취소하기"}
-              _onClick={handleClickCancel}
-            />
-          </CfWlDivDiv>
-        </CfWlDiv>
-      </CfInBox>
-    </CfContainer>
+              <Button
+                _style={{
+                  width: "109px",
+                  height: "60px",
+                  bg_color: "rgba(0, 0, 0, 1)",
+                  bd_radius: "11px",
+                  color: "rgba(255, 255, 255, 1)",
+                  ft_size: "14",
+                  ft_weight: "700",
+                }}
+                _text={"취소하기"}
+                _onClick={handleClickCancel}
+              />
+            </CfWlDivDiv>
+          </CfWlDiv>
+        </CfInBox>
+      </CfContainer>
     </ReactModal>
   );
 };
 
 export default Confirm;
-
-export const CfContainer = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-`;
-export const CfInBox = styled.div`
-  width: 620px;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  background-color: #f9f9f9;
-  padding: 47px;
-  border-radius: 40px;
-`;
-export const CfTopicon = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-`;
-
-export const CfTopTextDiv = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  margin-top: 5px;
-`;
-export const CfTopTextSpan = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.sm};
-  line-height: ${(props) => props.theme.lineHeight.xs};
-  font-weight: ${(props) => props.theme.fontWeight.Regular}; ;
-`;
-
-export const CfBtmTextDiv = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  margin-top: 22px;
-`;
-export const CfBtmTextSpan = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.xxxl};
-  line-height: ${(props) => props.theme.lineHeight.xxxl};
-  font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
-`;
-
-export const CfWlDiv = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  text-align: center;
-  margin-top: 37px;
-  margin-bottom: 19px;
-`;
-
-export const CfWlDivDiv = styled.div`
-  width: auto;
-  height: auto;
-  display: flex;
-  gap: 19px;
-`;
-
-export const CancelDiv = styled.div`
-  width: auto;
-  height: auto;
-  display: flex;
-  position: relative;
-   .icon-cancel{
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    right: -10px;
-    bottom: -5px;
-    &:hover {
-      cursor: pointer;
-    }
-   }
-`;
-

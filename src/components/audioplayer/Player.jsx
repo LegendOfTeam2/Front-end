@@ -3,10 +3,12 @@ import {
   Btnaction,
   BtnactionDiv,
   Controls,
+  InputSty,
   Navigation,
   Navigationwrapper,
   Playercontainer,
   Seekbar,
+  Seekbarthumb,
   Title,
 } from "./PlayerStyled";
 import {
@@ -16,8 +18,6 @@ import {
   BsFillSkipEndCircleFill,
   BsFillVolumeUpFill,
 } from "react-icons/bs";
-
-
 
 const Player = ({
   audioElem,
@@ -75,7 +75,11 @@ const Player = ({
           <Navigationwrapper onClick={checkWidth} ref={clickRef}>
             <Seekbar
               style={{ width: `${currentSong.progress + "%"}` }}
-            ></Seekbar>
+            ><Seekbarthumb style={{ left: `${currentSong.progress-3 + "%"}` }}>
+              </Seekbarthumb><InputSty type="range" /></Seekbar>
+            
+
+              
           </Navigationwrapper>
         </Navigation>
         <Controls>

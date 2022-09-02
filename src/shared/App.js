@@ -11,6 +11,7 @@ const Main = lazy(() => import('../pages/Main'));
 const SignIn = lazy(() => import('../pages/SignIn'));
 const SignUp = lazy(() => import('../pages/SignUp'));
 const UserPosition = lazy(() => import('../pages/UserPosition'));
+const MyPage = lazy(() => import('../pages/MyPage'));
 
 // Utils
 const Kakao = lazy(() => import('../utils/kakao'));
@@ -21,6 +22,7 @@ function App() {
     <Suspense fallback={<Loading  />}>
       <Routes>
         <Route path='/' exact='true' element={<Main />} />
+        <Route path='/mypage' element={<MyPage />} />
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup/:position' element={<SignUp />} />
         <Route path='/kakao/callback' element={<Kakao />} />

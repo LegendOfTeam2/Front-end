@@ -6,6 +6,8 @@ export const HeaderContainerDiv = styled.div`
   display: flex;
   justify-content: center;
   background-color: #eeeceb;
+  position: fixed;
+  z-index: 4;
 `;
 
 export const HeaderContainer = styled.div`
@@ -13,9 +15,9 @@ export const HeaderContainer = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-
   padding: 24px;
   margin-top: 64px;
+
   
 `;
 
@@ -84,6 +86,9 @@ export const ProfileImg = styled.img`
   width: 42px;
   height: 42px;
   border-radius: 50%;
+  &:hover {
+      cursor: pointer;
+    }
 `;
 
 export const BtmDiv = styled.div`

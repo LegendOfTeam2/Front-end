@@ -5,6 +5,9 @@ export const UserContainer = styled.div`
   height: auto;
   display: flex;
   justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 `;
 export const UserInBox = styled.div`
   width: 961px;
@@ -21,6 +24,7 @@ export const LogoDiv = styled.div`
   height: auto;
   display: flex;
   justify-content: center;
+  
 `;
 
 export const LogoDivDiv = styled.div`
