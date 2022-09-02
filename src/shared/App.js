@@ -24,7 +24,7 @@ function App() {
         <Route path='/' exact='true' element={<Main />} />
         <Route path='/mypage' element={<MyPage />} />
         <Route path='/signin' element={<SignIn />} />
-        <Route path='/signup' element={<SignUp />} />
+        <Route path='/signup/:position' element={<SignUp />} />
         <Route path='/kakao/callback' element={<Kakao />} />
         <Route path='/google/callback' element={<Google />} />
         <Route path='/position' element={<UserPosition />} />

@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const SignInContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 100%;
   height: auto;
   display: flex;
@@ -203,8 +206,8 @@ export const SignInBoxSocialBoxSocialGroup = styled.div`
   justify-content: center;
   align-items: center;
   .icon-kakao {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background-color: #fee500;
     border-radius: 10px;
     box-shadow: 1px 1px 5px 1px grey;
@@ -213,8 +216,8 @@ export const SignInBoxSocialBoxSocialGroup = styled.div`
     }
   }
   .icon-google {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 10px;
     box-shadow: 1px 1px 5px 1px grey;
     &:hover {

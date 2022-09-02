@@ -1,13 +1,26 @@
 // Style
 import { StyledInput } from '../assets/styles/elements/Input.styled';
 
-const Input = ({ _type, _value, _onChange, _onKeyUp,  _minLength, _maxLength, _ref, _placeholder, _autoComplete, _style }) => {
+const Input = ({
+  _type,
+  _value,
+  _onChange,
+  _onKeyUp,
+  _onKeyDown,
+  _minLength,
+  _maxLength,
+  _ref,
+  _placeholder,
+  _autoComplete,
+  _style,
+}) => {
   return (
     <StyledInput
       type={_type}
       value={_value}
       onChange={_onChange}
       onKeyUp={_onKeyUp}
+      onKeyDown={_onKeyDown}
       minLength={_minLength}
       maxLength={_maxLength}
       placeholder={_placeholder}
@@ -29,7 +42,8 @@ const Input = ({ _type, _value, _onChange, _onKeyUp,  _minLength, _maxLength, _r
       bd_px={_style?.bd_px}
       bd_radius={_style?.bd_radius}
       bd_color={_style?.bd_color}
-      flex={_style?.flex}      
+      flex={_style?.flex}
+      line_height={_style?.line_height}
       required
     />
   );
