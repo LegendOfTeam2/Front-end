@@ -1,13 +1,37 @@
-// Page
-import Main from '../pages/Main';
+// React
+import { lazy, Suspense } from 'react';
 
+// Packages
 import { Routes, Route } from 'react-router-dom';
+
+import Loading from '../components/Loading';
+
+// Pages
+const Main = lazy(() => import('../pages/Main'));
+const SignIn = lazy(() => import('../pages/SignIn'));
+const SignUp = lazy(() => import('../pages/SignUp'));
+const UserPosition = lazy(() => import('../pages/UserPosition'));
+const MyPage = lazy(() => import('../pages/MyPage'));
+const Write = lazy(() => import('../pages/Write'));
+
+// Utils
+const Kakao = lazy(() => import('../utils/kakao'));
+const Google = lazy(() => import('../utils/google'));
 
 function App() {
   return (
-    <Routes>
-      <Route path='/' exact='true' element={<Main />} />
-    </Routes>
+    <Suspense fallback={<Loading  />}>
+      <Routes>
+        <Route path='/' exact='true' element={<Main />} />
+        <Route path='/mypage' element={<MyPage />} />
+        <Route path='/signin' element={<SignIn />} />
+        <Route path='/signup/:position' element={<SignUp />} />
+        <Route path='/kakao/callback' element={<Kakao />} />
+        <Route path='/google/callback' element={<Google />} />
+        <Route path='/position' element={<UserPosition />} />
+        <Route path='/write' element={<Write />} />
+      </Routes>
+    </Suspense>
   );
 }
 
