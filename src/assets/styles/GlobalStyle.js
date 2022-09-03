@@ -10,7 +10,10 @@ const GlobalStyle = createGlobalStyle`
   html { 
     width: 100vw;
     height: 100vh;
-    font-size: 100%;
+    font-size: 16px;
+    @media ${(props) => props.theme.device.desktopL} {
+      font-size: 14px;
+    }
   }
 `;
 
