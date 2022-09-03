@@ -9,6 +9,7 @@ import { GrClose } from 'react-icons/gr';
 import { FcGoogle } from 'react-icons/fc';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 // Element
 import Button from '../elements/Button';
@@ -65,6 +66,9 @@ const SignIn = () => {
 
   const signInMember = useMemberStore((state) => state.signInMember);
   const navigate = useNavigate();
+  const isSmallScreen = useMediaQuery({
+    query: '(max-width: 1920px)',
+  });
 
   useEffect(() => {
     if (email !== '') emailIconRef.current.style.display = 'block';
@@ -138,24 +142,45 @@ const SignIn = () => {
                   >
                     <GrClose className='icon-cancel'></GrClose>
                   </SignUpDataInputGroupIcon>
-                  <Input
-                    _type={'text'}
-                    _placeholder={'아이디를 입력해 주세요'}
-                    _value={email}
-                    _onChange={(event) => setEmail(event.target.value)}
-                    _autoComplete={'username'}
-                    _style={{
-                      height: 'auto',
-                      ft_size: '14',
-                      pd_top: '20px',
-                      pd_bottom: '20px',
-                      pd_left: '19px',
-                      pd_right: '40px',
-                      bd_radius: '10px',
-                      bd_px: '1px',
-                      bd_color: '#d9d9d9',
-                    }}
-                  />
+                  {isSmallScreen ? (
+                    <Input
+                      _type={'text'}
+                      _placeholder={'아이디를 입력해 주세요'}
+                      _value={email}
+                      _onChange={(event) => setEmail(event.target.value)}
+                      _autoComplete={'username'}
+                      _style={{
+                        height: 'auto',
+                        ft_size: '14',
+                        pd_top: '15px',
+                        pd_bottom: '15px',
+                        pd_left: '19px',
+                        pd_right: '40px',
+                        bd_radius: '10px',
+                        bd_px: '1px',
+                        bd_color: '#d9d9d9',
+                      }}
+                    />
+                  ) : (
+                    <Input
+                      _type={'text'}
+                      _placeholder={'아이디를 입력해 주세요'}
+                      _value={email}
+                      _onChange={(event) => setEmail(event.target.value)}
+                      _autoComplete={'username'}
+                      _style={{
+                        height: 'auto',
+                        ft_size: '14',
+                        pd_top: '20px',
+                        pd_bottom: '20px',
+                        pd_left: '19px',
+                        pd_right: '40px',
+                        bd_radius: '10px',
+                        bd_px: '1px',
+                        bd_color: '#d9d9d9',
+                      }}
+                    />
+                  )}
                 </SignInboxInputGroupData>
               </SignInBoxInputGroup>
               <SignInBoxInputGroup>
@@ -167,61 +192,112 @@ const SignIn = () => {
                   >
                     <GrClose className='icon-cancel'></GrClose>
                   </SignUpDataInputGroupIcon>
-                  <Input
-                    _type={'password'}
-                    _placeholder={'비밀번호를 입력해주세요'}
-                    _value={password}
-                    _onChange={(event) => setPassword(event.target.value)}
-                    _autoComplete={'current-password'}
-                    _style={{
-                      height: 'auto',
-                      ft_size: '14',
-                      pd_top: '20px',
-                      pd_bottom: '20px',
-                      pd_left: '19px',
-                      pd_right: '40px',
-                      bd_radius: '10px',
-                      bd_px: '1px',
-                      bd_color: '#d9d9d9',
-                    }}
-                  />
+                  {isSmallScreen ? (
+                    <Input
+                      _type={'password'}
+                      _placeholder={'비밀번호를 입력해 주세요.'}
+                      _value={password}
+                      _onChange={(event) => setPassword(event.target.value)}
+                      _style={{
+                        height: 'auto',
+                        ft_size: '14',
+                        pd_top: '15px',
+                        pd_bottom: '15px',
+                        pd_left: '19px',
+                        pd_right: '40px',
+                        bd_radius: '10px',
+                        bd_px: '1px',
+                        bd_color: '#d9d9d9',
+                      }}
+                    />
+                  ) : (
+                    <Input
+                      _type={'password'}
+                      _placeholder={'비밀번호를 입력해 주세요.'}
+                      _value={password}
+                      _onChange={(event) => setPassword(event.target.value)}
+                      _style={{
+                        height: 'auto',
+                        ft_size: '14',
+                        pd_top: '20px',
+                        pd_bottom: '20px',
+                        pd_left: '19px',
+                        pd_right: '40px',
+                        bd_radius: '10px',
+                        bd_px: '1px',
+                        bd_color: '#d9d9d9',
+                      }}
+                    />
+                  )}
                 </SignInboxInputGroupData>
               </SignInBoxInputGroup>
             </SignInBoxInputContainer>
             <SignInBoxButtonContainer>
               <SignInBoxButtonBox>
-                <Button
-                  _type={'submit'}
-                  _text={'로그인'}
-                  _style={{
-                    color: 'white',
-                    bg_color: 'black',
-                    width: '100%',
-                    height: 'auto',
-                    pd_top: '15px',
-                    pd_bottom: '16px',
-                    ft_size: '20',
-                    line_height: '28',
-                    ft_weight: '800',
-                    bd_radius: '10px',
-                  }}
-                />
+                {isSmallScreen ? (
+                  <Button
+                    _type={'submit'}
+                    _text={'로그인'}
+                    _style={{
+                      color: 'white',
+                      bg_color: 'black',
+                      width: '100%',
+                      height: 'auto',
+                      pd_top: '10px',
+                      pd_bottom: '11px',
+                      ft_size: '20',
+                      line_height: '28',
+                      ft_weight: '800',
+                      bd_radius: '10px',
+                    }}
+                  />
+                ) : (
+                  <Button
+                    _type={'submit'}
+                    _text={'로그인'}
+                    _style={{
+                      color: 'white',
+                      bg_color: 'black',
+                      width: '100%',
+                      height: 'auto',
+                      pd_top: '15px',
+                      pd_bottom: '16px',
+                      ft_size: '20',
+                      line_height: '28',
+                      ft_weight: '800',
+                      bd_radius: '10px',
+                    }}
+                  />
+                )}
               </SignInBoxButtonBox>
             </SignInBoxButtonContainer>
           </SignInBoxForm>
           <SignInBoxDetailContainer>
             <SignInBoxDetailBox>
               <SignInBoxDetailAutoSignIn>
-                <Input
-                  _type={'checkbox'}
-                  _style={{
-                    width: '18px',
-                    height: '18px',
-                    bd_px: '1px',
-                    bd_radius: '3px',
-                    bd_color: '#d9d9d9',
-                  }}
-                />
+                {isSmallScreen ? (
+                  <Input
+                    _type={'checkbox'}
+                    _style={{
+                      width: '13px',
+                      height: '13px',
+                      bd_px: '1px',
+                      bd_radius: '3px',
+                      bd_color: '#d9d9d9',
+                    }}
+                  />
+                ) : (
+                  <Input
+                    _type={'checkbox'}
+                    _style={{
+                      width: '18px',
+                      height: '18px',
+                      bd_px: '1px',
+                      bd_radius: '3px',
+                      bd_color: '#d9d9d9',
+                    }}
+                  />
+                )}
                 <SignInBoxDetailAutoSignInText>
                   로그인 유지
                 </SignInBoxDetailAutoSignInText>

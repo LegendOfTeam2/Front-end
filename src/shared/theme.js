@@ -66,7 +66,6 @@ const theme = {
   interval,
   verticalInterval,
   fontWeight,
-  
 };
 
 export default theme;

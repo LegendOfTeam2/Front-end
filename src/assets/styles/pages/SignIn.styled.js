@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SignInContainer = styled.div`
   position: absolute;
@@ -16,12 +16,18 @@ export const SignInBox = styled.div`
   width: 961px;
   height: auto;
   display: flex;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 861px;
+  }
 `;
 export const SignInBoxMain = styled.div`
   width: 470px;
   height: auto;
   border-radius: 30px 0 0 30px;
   box-shadow: 1px 1px 20px 5px grey;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 420px;
+  }
 `;
 export const SignInBoxIntroContainer = styled.div`
   width: 100%;
@@ -31,6 +37,10 @@ export const SignInBoxIntroContainer = styled.div`
   flex-direction: column;
   gap: 31px;
   margin-top: 99px;
+  @media ${(props) => props.theme.device.desktopL} {
+    gap: 26px;
+    margin-top: 49px;
+  }
 `;
 export const SignInBoxIntroTop = styled.span`
   width: 100%;
@@ -59,6 +69,10 @@ export const SignInBoxInputContainer = styled.div`
   align-items: center;
   gap: 11px;
   margin-top: 23px;
+  @media ${(props) => props.theme.device.desktopL} {
+    gap: 6px;
+    margin-top: 18px;
+  }
 `;
 export const SignInBoxInputGroup = styled.div`
   width: 411px;
@@ -66,6 +80,10 @@ export const SignInBoxInputGroup = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 361px;
+    gap: 11px;
+  }
 `;
 export const SignInBoxInputGroupTitle = styled.span`
   width: 100%;
@@ -104,10 +122,16 @@ export const SignInBoxButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 40px;
+  @media ${(props) => props.theme.device.desktopL} {
+    margin-top: 30px;
+  }
 `;
 export const SignInBoxButtonBox = styled.div`
   width: 411px;
   height: auto;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 361px;
+  }
 `;
 export const SignInBoxDetailContainer = styled.div`
   width: 100%;
@@ -121,6 +145,9 @@ export const SignInBoxDetailBox = styled.div`
   height: auto;
   display: flex;
   justify-content: space-between;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 361px;
+  }
 `;
 export const SignInBoxDetailAutoSignIn = styled.div`
   display: flex;
@@ -138,7 +165,10 @@ export const SignInBoxDetailFind = styled.span`
   align-items: center;
   width: auto;
   height: auto;
-  gap: 20.5px;
+  gap: 21px;
+  @media ${(props) => props.theme.device.desktopL} {
+    gap: 16px;
+  }
 `;
 export const SignInBoxDetailFindText = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xs};
@@ -146,7 +176,7 @@ export const SignInBoxDetailFindText = styled.span`
   color: #a3a3a3;
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   &:hover {
-    cursor: ${(props) => (props.cursor ? props.cursor : "none")};
+    cursor: ${(props) => (props.cursor ? props.cursor : 'none')};
   }
 `;
 export const SignInBoxSignUpContainer = styled.div`
@@ -155,12 +185,18 @@ export const SignInBoxSignUpContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  @media ${(props) => props.theme.device.desktopL} {
+    margin-top: 15px;
+  }
 `;
 export const SignInBoxSignUpBox = styled.div`
   width: 411px;
   height: auto;
   display: flex;
   justify-content: flex-end;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 361px;
+  }
 `;
 export const SignInBoxSignUpQuestion = styled.div`
   width: auto;
@@ -168,11 +204,14 @@ export const SignInBoxSignUpQuestion = styled.div`
   display: flex;
   justify-content: center;
   gap: 20px;
+  @media ${(props) => props.theme.device.desktopL} {
+    gap: 15px;
+  }
 `;
 export const SignInBoxSignUpQuestionText = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  color: ${(props) => (props.color ? props.color : "#a3a3a3")};
+  color: ${(props) => (props.color ? props.color : '#a3a3a3')};
   line-height: ${(props) => props.theme.lineHeight.xxs};
   cursor: pointer;
 `;
@@ -183,6 +222,9 @@ export const SignInBoxSocialContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 23px 0 28px 0;
+  @media ${(props) => props.theme.device.desktopL} {
+    margin: 18px 0 23px 0;
+  }
 `;
 export const SignInBoxSocialBox = styled.div`
   width: 411px;
@@ -191,6 +233,10 @@ export const SignInBoxSocialBox = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 34px;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 361px;
+    gap: 29px;
+  }
 `;
 export const SignInBoxSocialBoxTitle = styled.span`
   width: 100%;
@@ -224,6 +270,17 @@ export const SignInBoxSocialBoxSocialGroup = styled.div`
       cursor: pointer;
     }
   }
+  @media ${(props) => props.theme.device.desktopL} {
+    gap: 90px;
+    .icon-kakao {
+      width: 40px;
+      height: 40px;
+    }
+    .icon-google {
+      width: 40px;
+      height: 40px;
+    }
+  }
 `;
 export const SignInBoxSocialBoxSocialIcon = styled.div`
   width: auto;
@@ -235,4 +292,7 @@ export const SignInBoxCover = styled.div`
   background-color: #cecece;
   border-radius: 0 30px 30px 0;
   box-shadow: 1px 1px 20px 5px grey;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 441px;
+  }
 `;

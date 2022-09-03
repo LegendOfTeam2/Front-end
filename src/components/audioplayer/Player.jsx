@@ -1,121 +1,58 @@
-import React, { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import {
-  Btnaction,
-  BtnactionDiv,
-  Controls,
-  InputSty,
-  Navigation,
-  Navigationwrapper,
-  Playercontainer,
-  Seekbar,
-  Seekbarthumb,
-  Title,
+  ProgressBarCover,
+  Range,
+  SliderContainer,
+  Thumb,
 } from "./PlayerStyled";
-import {
-  BsFillPlayCircleFill,
-  BsFillPauseCircleFill,
-  BsFillSkipStartCircleFill,
-  BsFillSkipEndCircleFill,
-  BsFillVolumeUpFill,
-} from "react-icons/bs";
 
-const Player = ({
-  audioElem,
-  isplaying,
-  setisplaying,
-  currentSong,
-  setCurrentSong,
-  songs,
-  volume,
-  setVolume,
-}) => {
-  const clickRef = useRef();
 
-  const PlayPause = () => {
-    setisplaying(!isplaying);
-  };
+function Player({ percentage = 0, onChange }) {
+  const [position, setPosition] = useState(0);
+  const [marginLeft, setMarginLeft] = useState(0);
+  const [progressBarWidth, setProgressBarWidth] = useState(0);
+  
 
-  const checkWidth = (e) => {
-    let width = clickRef.current.clientWidth;
-    const offset = e.nativeEvent.offsetX;
+  const rangeRef = useRef();
+  const thumbRef = useRef();
 
-    const divprogress = (offset / width) * 100;
-    audioElem.current.currentTime = (divprogress / 100) * currentSong.length;
-  };
-
-  const skipBack = () => {
-    const index = songs.findIndex((x) => x.title === currentSong.title);
-    if (index === 0) {
-      setCurrentSong(songs[songs.length - 1]);
-    } else {
-      setCurrentSong(songs[index - 1]);
-    }
-
-    audioElem.current.currentTime = 0;
-  };
-
-  const skipNext = () => {
-    const index = songs.findIndex((x) => x.title === currentSong.title);
-    if (index === songs.length - 1) {
-      setCurrentSong(songs[0]);
-    } else {
-      setCurrentSong(songs[index + 1]);
-    }
-
-    audioElem.current.currentTime = 0;
-  };
+  useEffect(() => {
+    const rangeWidth = rangeRef.current.getBoundingClientRect().width;
+    const thumbWidth = thumbRef.current.getBoundingClientRect().width;
+    const centerThumb = (thumbWidth / 100) * percentage * -1;
+    const centerProgressBar =
+      thumbWidth +
+      (rangeWidth / 100) * percentage -
+      (thumbWidth / 100) * percentage;
+    setPosition(percentage);
+    setMarginLeft(centerThumb);
+    setProgressBarWidth(centerProgressBar);
+  }, [percentage]);
 
   return (
-    <>
-      <Playercontainer>
-        <Title>
-          <p>{currentSong.title}</p>
-        </Title>
-        <Navigation>
-          <Navigationwrapper onClick={checkWidth} ref={clickRef}>
-            <Seekbar
-              style={{ width: `${currentSong.progress + "%"}` }}
-            ><Seekbarthumb style={{ left: `${currentSong.progress-3 + "%"}` }}>
-              </Seekbarthumb><InputSty type="range" /></Seekbar>
-            
-
-              
-          </Navigationwrapper>
-        </Navigation>
-        <Controls>
-          <BtnactionDiv>
-            <Btnaction>
-              <BsFillSkipStartCircleFill size='16' onClick={skipBack} />
-            </Btnaction>
-            {isplaying ? (
-              <Btnaction>
-                <BsFillPauseCircleFill size='34' onClick={PlayPause} />
-              </Btnaction>
-            ) : (
-              <Btnaction>
-                <BsFillPlayCircleFill size='34' onClick={PlayPause} />
-              </Btnaction>
-            )}
-            <Btnaction>
-              <BsFillSkipEndCircleFill size='16' onClick={skipNext} />
-            </Btnaction>
-            <BsFillVolumeUpFill />
-            <input
-              type='range'
-              min='0'
-              max='1'
-              color='gray'
-              step='0.01'
-              value={volume}
-              onChange={(event) => {
-                setVolume(event.target.value);
-              }}
-            />
-          </BtnactionDiv>
-        </Controls>
-      </Playercontainer>
-    </>
+    <SliderContainer>
+      <ProgressBarCover
+        style={{
+          width: `${progressBarWidth}px`,
+        }}
+      ></ProgressBarCover>
+      <Thumb
+        ref={thumbRef}
+        style={{
+          left: `${position}%`,
+          marginLeft: `${marginLeft}px`,
+        }}
+      ></Thumb>
+      <Range
+        type='range'
+        value={position}
+        ref={rangeRef}
+        step='0.01'
+        onChange={onChange}
+      />
+    </SliderContainer>
   );
-};
+}
 
 export default Player;
