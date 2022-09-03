@@ -10,7 +10,7 @@ export const MainContainerDiv = styled.div`
 `;
 
 export const MainContainer = styled.div`
-  width: ${(props) => props.theme.deviceSizes.tabletL};
+  width: 1024px;
   height: auto;
   display: flex;
   flex-direction: column;
