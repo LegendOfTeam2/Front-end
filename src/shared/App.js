@@ -12,6 +12,7 @@ const SignIn = lazy(() => import('../pages/SignIn'));
 const SignUp = lazy(() => import('../pages/SignUp'));
 const UserPosition = lazy(() => import('../pages/UserPosition'));
 const MyPage = lazy(() => import('../pages/MyPage'));
+const Write = lazy(() => import('../pages/Write'));
 
 // Utils
 const Kakao = lazy(() => import('../utils/kakao'));
@@ -28,6 +29,7 @@ function App() {
         <Route path='/kakao/callback' element={<Kakao />} />
         <Route path='/google/callback' element={<Google />} />
         <Route path='/position' element={<UserPosition />} />
+        <Route path='/write' element={<Write />} />
       </Routes>
     </Suspense>
   );

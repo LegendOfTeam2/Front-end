@@ -42,11 +42,7 @@ const verticalInterval = {
 };
 
 const deviceSizes = {
-  mobileS: "320px",
-  mobileM: "375px",
-  mobileL: "450px",
-  tablet: "768px",
-  tabletL: "1024px",
+  desktopL: "1920px",
 };
 
 const colors = {
@@ -58,11 +54,7 @@ const colors = {
 };
 
 const device = {
-  mobileS: `only screen and (max-width: ${deviceSizes.mobileS})`,
-  mobileM: `only screen and (max-width: ${deviceSizes.mobileM})`,
-  mobileL: `only screen and (max-width: ${deviceSizes.mobileL})`,
-  tablet: `only screen and (max-width: ${deviceSizes.tablet})`,
-  tabletL: `only screen and (max-width: ${deviceSizes.tabletL})`,
+  desktopL: `only screen and (max-width: ${deviceSizes.desktopL})`,
 };
 
 const theme = {
@@ -74,7 +66,6 @@ const theme = {
   interval,
   verticalInterval,
   fontWeight,
-  
 };
 
 export default theme;

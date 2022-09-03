@@ -4,6 +4,7 @@ import axios from 'axios';
 // Utils
 import createToken from '../../token';
 import { getCookie } from '../../cookie';
+import { refreshTokenApi } from '../refresh';
 
 const SERVER_IP = process.env.REACT_APP_REST_API_IP;
 
@@ -17,7 +18,7 @@ const api_auth = axios.create({
 api_auth.interceptors.request.use(
   function (config) {
     config.headers['authorization'] = `Bearer ${getCookie('authorization')}`;
-    
+
     return config;
   },
   function (error) {
@@ -38,10 +39,7 @@ api_auth.interceptors.response.use(
     if (status === 401) {
       if (error.response.data.message === 'TokenExpiredError') {
         const originRequest = config;
-        const refreshToken = window.sessionStorage.getItem('refresh-token');
-        const res = await axios.post(`http://${SERVER_IP}`, {
-          refreshToken,
-        });
+        const res = await refreshTokenApi();
 
         createToken(
           res.headers['authorization'].split(' ')[1],

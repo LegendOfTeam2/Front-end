@@ -29,20 +29,24 @@ const useMemberStore = create((set) => ({
   },
   signUpMember: async (payload) => {
     const resData = await signUpMemberApi(payload)
-      .then((res) => res)
+      .then((res) => res.data)
       .catch((err) => console.log(err));
 
-    console.log(resData);
+    return resData;
   },
   signInMember: async (payload) => {
     const resData = await signInMemberApi(payload)
       .then((res) => res)
       .catch((err) => console.err(err));
 
+    console.log(resData.headers);
+    
     createToken(
       resData.headers['authorization'].split(' ')[1],
       resData.headers['refresh-token']
     );
+
+    return resData.data;
   },
   kakaoAuth: async (code) => {
     const resData = await kakaoAuthApi(code)

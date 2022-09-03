@@ -368,7 +368,12 @@ const SignUp = () => {
               nicknameSpanRef.current.style.color = '#f2153e';
               nicknameSpanRef.current.innerText = '중복되는 닉네임입니다.';
             } else {
-              signUpMember(newMember);
+              signUpMember(newMember).then((res) => {
+                console.log(res);
+                if(res.success) {
+                  navigate('/');
+                }
+              });
             }
           }
         }

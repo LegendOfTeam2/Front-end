@@ -12,11 +12,12 @@ import {
   UploadImageContainer,
   UploadImageIcon,
   UploadImageText,
-  UploadImageInput
-} from '../assets/styles/components/UploadImage.styled'
+  UploadImageInput,
+} from '../assets/styles/components/UploadImage.styled';
 
 const UploadImage = ({ setFile, setFileSrc, width }) => {
-  const logoImgInput = useRef();
+  const uploadBoxRef = useRef();
+  const uploadInputRef = useRef();
 
   const uploadImage = useUploadStore((state) => state.uploadImage);
 
@@ -49,12 +50,63 @@ const UploadImage = ({ setFile, setFileSrc, width }) => {
     });
   };
 
+  const onDropHandle = (e) => {
+    e.preventDefault();
+    console.log(e);
+
+    encodeFileToBase64(e.dataTransfer.files[0]);
+
+    const formData = new FormData();
+    formData.append('imgUrl', e.dataTransfer.files[0]);
+    uploadImage(formData).then((res) => {
+      if (res.success) {
+        setFile(res.data[0]);
+      } else {
+        alert('이미지 업로드에 실패했습니다.');
+        setFileSrc('');
+        setFile('');
+      }
+    });
+  };
+
+  const onDragOverHandle = (e) => {
+    e.preventDefault();
+  };
+
+  const changeBoxStyle = (state, e) => {
+    e.preventDefault();
+    switch (state) {
+      case 'enter': {
+        uploadBoxRef.current.style.borderColor = '#3eca28';
+        uploadBoxRef.current.style.borderWidth = '4px';
+        uploadBoxRef.current.style.filter = 'blur(1px)';
+        break;
+      }
+      case 'leave': {
+        uploadBoxRef.current.style.borderColor = '#d9d9d9';
+        uploadBoxRef.current.style.borderWidth = '1px';
+        uploadBoxRef.current.style.filter = 'none';
+        break;
+      }
+      default:
+        break;
+    }
+  };
+
   const uploadHandle = () => {
-    logoImgInput.current.click();
-  }
+    uploadInputRef.current.click();
+  };
 
   return (
-    <UploadImageContainer width={width} onClick={uploadHandle}>
+    <UploadImageContainer
+      width={width}
+      onClick={uploadHandle}
+      onDrop={(e) => onDropHandle(e)}
+      onDragOver={(e) => onDragOverHandle(e)}
+      onDragEnter={(e) => changeBoxStyle('enter', e)}
+      onDragLeave={(e) => changeBoxStyle('leave', e)}
+      ref={uploadBoxRef}
+    >
       <UploadImageIcon>
         <GrAdd className='icon'></GrAdd>
       </UploadImageIcon>
@@ -66,8 +118,7 @@ const UploadImage = ({ setFile, setFileSrc, width }) => {
           onUploadImage(e);
           encodeFileToBase64(e.target.files[0]);
         }}
-        id={'input-file'}
-        ref={logoImgInput}
+        ref={uploadInputRef}
       />
     </UploadImageContainer>
   );
