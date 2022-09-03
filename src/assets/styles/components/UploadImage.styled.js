@@ -6,6 +6,7 @@ export const UploadImageContainer = styled.div`
   position: relative;
   border: 1px solid #d9d9d9;
   border-radius: 10px;
+  filter: blur(0px);
   &:hover {
     cursor: pointer;
   }
