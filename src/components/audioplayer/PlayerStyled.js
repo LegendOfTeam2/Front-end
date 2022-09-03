@@ -1,94 +1,72 @@
 import styled from "styled-components";
 
-export const Playercontainer = styled.div`
-  width: 50%;
-  padding: 1rem;
-  border: 1px solid rgb(141, 141, 141);
-  border-radius: 10px;
-  color: rgb(218, 218, 218);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: black;
-
-  *{
-    color: rgb(202, 202, 202);
-  }
-`;
-
-export const Title = styled.div`
-  font-size: inherit;
-`;
-
-export const Navigation = styled.div`
-  width: 100%;
+export const SliderContainer = styled.div`
+  --progress-bar-height: 10px;
   position: relative;
-`;
-
-export const Navigationwrapper = styled.div`
-  min-width: 100%;
-  background-color: rgba(119, 119, 119, 0.781);
-  height: 6px;
-  border-radius: 30px;
-  cursor: pointer;
-`;
-
-export const Seekbar = styled.div`
-  width: 0;
-  height: 100%;
-  background-color: rgba(40, 202, 124, 1);
-  border-radius: 30px;
-  
-`;
-
-
-
-export const Controls = styled.div`
-  font-size: inherit;
-  display: flex;
-  align-items: center;
-`;
-
-export const Btnaction = styled.span`
-  font-size: 16px;
-
-  margin: 0 1rem;
-  cursor: pointer;
-  &:hover {
-    color: white;
-  }
-`;
-export const BtnactionDiv = styled.div`
-    margin-top: 10px;
-`;
-
-export const InputSty = styled.input`
   width: 100%;
-  -webkit-appearance: none;
-  background-color: rgba(40, 202, 124, 1);
-  height: 6px;
-  cursor: pointer;
-  opacity: 1;
-  margin: 0 auto;
-  border-radius: 20px;
-  ::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    cursor: pointer;
+  --thumb-width: 20px;
+  --thumb-height: 20px;
+  ::before {
+    content: "";
     background-color: white;
+    width: 99%;
+    height: calc(var(--progress-bar-height) - 1px);
+    display: block;
+    position: absolute;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
   }
-  
 `;
 
-export const Seekbarthumb = styled.div`
-  width: 15px;
-  height: 15px;
-  background-color: rgb(24, 128, 3);
-  border-radius: 50%;
+export const ProgressBarCover = styled.div`
+  background-color: rgba(40, 202, 124, 1);
+  width: 0%;
+  height: var(--progress-bar-height);
+  display: block;
   position: absolute;
+  border-radius: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  user-select: none;
+  pointer-events: none;
+`;
+
+export const Thumb = styled.div`
+  width: var(--thumb-width);
+  height: var(--thumb-height);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.753);
+  z-index: 3;
+  background: rgb(255, 255, 255);
+  position: absolute;
+  border-radius: 50%;
   top: 50%;
   transform: translate(0%, -50%);
+  pointer-events: none; /* Remove pointer events on thumb so user can click on the actual thumb beaneath it!  */
+  user-select: none; /*  Prevent Accidentally highlighting the number while sliding the cursor  */
+`;
+
+export const Range = styled.input`
+  -webkit-appearance: none;
+  background-color: rgba(240, 9, 9, 0.397);
+  height: 10px;
+  width: 100%;
+  cursor: pointer;
+  opacity: 0;
+  margin: 0 auto;
+  ::-webkit-slider-thumb {
+    width: var(--thumb-width);
+    height: var(--thumb-height);
+    background: #350f2d;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+
+  ::-webkit-slider-thumb {
+  }
 `;
