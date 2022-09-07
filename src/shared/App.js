@@ -2,7 +2,7 @@
 import { useState, lazy, Suspense } from 'react';
 
 // Zustand
-import useMemberStore from '../zustand/member'
+import useMemberStore from '../zustand/member';
 
 // Packages
 import { Routes, Route } from 'react-router-dom';
@@ -29,14 +29,14 @@ const Google = lazy(() => import('../utils/google'));
 function App() {
   const is_login = useMemberStore((state) => state.is_login);
   const changeLoginStatus = useMemberStore((state) => state.changeLoginStatus);
-  
+
   useEffect(() => {
-    if(getCookie('authorization') !== undefined) {
+    if (getCookie('authorization') !== undefined) {
       changeLoginStatus(true);
     } else {
       changeLoginStatus(false);
     }
-  }, [])
+  }, []);
 
   return (
     <Suspense fallback={<Loading />}>
@@ -48,6 +48,7 @@ function App() {
         <Route path='/signupcheck' element={<SignUpCheck />} />
         <Route path='/kakao/callback' element={<Kakao />} />
         <Route path='/google/callback' element={<Google />} />
+        {/* <Route path='/write' element={<Write />} /> */}
         <Route path='/write' element={is_login ? <Write /> : <Main />} />
       </Routes>
     </Suspense>

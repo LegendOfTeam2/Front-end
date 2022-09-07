@@ -21,7 +21,6 @@ const api_media_auth = axios.create({
 
 api_media_auth.interceptors.request.use(
   function (config) {
-    console.log(getCookie('authorization'));
     config.headers['authorization'] = `Bearer ${getCookie('authorization')}`;
 
     return config;
