@@ -11,7 +11,7 @@ export const MyContainerDiv = styled.div`
 `;
 
 export const MyContainer = styled.div`
-  width: ${(props) => props.theme.deviceSizes.tabletL};
+  width: 1024px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@ export const MyContainer = styled.div`
   }
 `;
 export const MyProfileContainer = styled.div`
-  width: ${(props) => props.theme.deviceSizes.tabletL};
+  width: 1024px;
   height: auto;
   display: flex;
   border-bottom: 1px solid rgba(231, 231, 231, 1);
@@ -144,7 +144,7 @@ export const MyTagBoxTextDivDiv = styled.div`
 export const MyTagBoxTextSlide = styled.div`
   width: 100%;
   height: auto;
-  display: ${({ tagSlider }) => (tagSlider ? "block" : "none")}; ;
+  display: ${({ tagSlider }) => (tagSlider ? "block" : "none")};
 `;
 
 export const MyTagBoxTextSlideIcon = styled.div`

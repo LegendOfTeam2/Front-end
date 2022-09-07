@@ -1,4 +1,5 @@
 import api_basic from './api/api_basic';
+import api_auth from './api/api_auth';
 
 export const emailDupCheckApi = (payload) => {
   return api_basic.post(`/member/emailcheck`, payload);
@@ -17,4 +18,7 @@ export const kakaoAuthApi = (payload) => {
 };
 export const googleAuthApi = (payload) => {
   return api_basic.get(`/api/google/callback?code=${payload}`)
+};
+export const signOutMemerApi = (payload) => {
+  return api_auth.get(`/auth/member/signout`, payload)
 };

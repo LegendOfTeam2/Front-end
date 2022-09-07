@@ -2,7 +2,8 @@
 import create from 'zustand';
 
 // Utils
-import { uploadImageApi } from '../utils/apis/upload';
+import { uploadImageApi, uploadAudioApi } from '../utils/apis/upload';
+import { getCookie } from '../utils/cookie';
 
 const useUploadStore = create((set) => ({
   uploadImage: async (payload) => {
@@ -10,6 +11,13 @@ const useUploadStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
 
+    return resData.data;
+  },
+  uploadAudio: async (payload) => {
+    const resData = await uploadAudioApi(payload)
+      .then((res) => res)
+      .catch((err) => console.log(err));
+    console.log(resData);
     return resData.data;
   },
 }));
