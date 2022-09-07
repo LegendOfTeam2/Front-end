@@ -2,10 +2,13 @@
 import { useState, lazy, Suspense } from 'react';
 
 // Zustand
-import useMemberStore from '../zustand/member'
+import useMemberStore from '../zustand/member';
 
 // Packages
 import { Routes, Route } from 'react-router-dom';
+
+// Pages 
+import MyPage from '../pages/MyPage';
 
 // Components
 import Loading from '../components/Loading';
@@ -18,7 +21,7 @@ import { useEffect } from 'react';
 const Main = lazy(() => import('../pages/Main'));
 const SignIn = lazy(() => import('../pages/SignIn'));
 const SignUp = lazy(() => import('../pages/SignUp'));
-const MyPage = lazy(() => import('../pages/MyPage'));
+// const MyPage = lazy(() => import('../pages/MyPage'));
 const Write = lazy(() => import('../pages/Write'));
 const SignUpCheck = lazy(() => import('../pages/SignUpCheck'));
 
@@ -29,14 +32,14 @@ const Google = lazy(() => import('../utils/google'));
 function App() {
   const is_login = useMemberStore((state) => state.is_login);
   const changeLoginStatus = useMemberStore((state) => state.changeLoginStatus);
-  
+
   useEffect(() => {
-    if(getCookie('authorization') !== undefined) {
+    if (getCookie('authorization') !== undefined) {
       changeLoginStatus(true);
     } else {
       changeLoginStatus(false);
     }
-  }, [])
+  }, []);
 
   return (
     <Suspense fallback={<Loading />}>

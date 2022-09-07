@@ -52,9 +52,6 @@ const UploadImage = ({ setFile, setFileSrc, width, height }) => {
   const onDropHandle = (e) => {
     e.preventDefault();
 
-    uploadBoxRef.current.style.borderColor = '#d9d9d9';
-    uploadBoxRef.current.style.borderWidth = '1px';
-
     encodeFileToBase64(e.dataTransfer.files[0]);
 
     const formData = new FormData();

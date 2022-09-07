@@ -3,7 +3,6 @@ import create from 'zustand';
 
 // Utils
 import { uploadImageApi, uploadAudioApi } from '../utils/apis/upload';
-import { getCookie } from '../utils/cookie';
 
 const useUploadStore = create((set) => ({
   uploadImage: async (payload) => {

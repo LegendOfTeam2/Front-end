@@ -10,8 +10,10 @@ import { GrClose, GrAdd } from 'react-icons/gr';
 import { ImHeadphones } from 'react-icons/im';
 import { GiMicrophone } from 'react-icons/gi';
 import { SiBeatsbydre } from 'react-icons/si';
+import { BsFillFileEarmarkMusicFill } from 'react-icons/bs';
 import shortid from 'shortid';
 import jwt_decode from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 // Components
 import UploadImage from '../components/UploadImage';
@@ -36,35 +38,74 @@ const Write = () => {
   const [collaborate, setCollaborate] = useState(false);
   const [position, setPosition] = useState('');
 
+  const navigate = useNavigate();
   const uploadAudio = useUploadStore((state) => state.uploadAudio);
   const addPost = usePostStore((state) => state.addPost);
 
   const collaboBoxRef = useRef();
-  const collaboIconRef = useRef();
   const collaboTextRef = useRef();
   const singerBoxRef = useRef();
-  const singerIconRef = useRef();
   const singerTextRef = useRef();
   const makerBoxRef = useRef();
-  const makerIconRef = useRef();
   const makerTextRef = useRef();
   const uploadInputRef = useRef();
+  const titleIconRef = useRef();
+  const lyricsIconRef = useRef();
+  const introIconRef = useRef();
+  const audioBoxRef = useRef();
+  const audioNameRef = useRef();
+  const audioSizeRef = useRef();
 
   const newPost = {
-    position: 'Singer',
+    position,
     title,
     content: intro,
-    // nickname: jwt_decode(getCookie('authorization')).sub,
+    nickname: jwt_decode(getCookie('authorization')).sub,
     lyrics,
     imageUrl: image,
     mediaUrl: audio,
     tags,
-    collaborate: true,
+    collaborate,
   };
+
+  useEffect(() => {
+    if (title !== '') titleIconRef.current.style.display = 'block';
+    else titleIconRef.current.style.display = 'none';
+    if (lyrics !== '') lyricsIconRef.current.style.display = 'block';
+    else lyricsIconRef.current.style.display = 'none';
+    if (intro !== '') introIconRef.current.style.display = 'block';
+    else introIconRef.current.style.display = 'none';
+  }, [title, lyrics, intro]);
+
+  const deleteText = useCallback(
+    (state) => {
+      switch (state) {
+        case 'title': {
+          setTitle('');
+          break;
+        }
+        case 'lyrics': {
+          setLyrics('');
+          break;
+        }
+        case 'intro': {
+          setIntro('');
+          break;
+        }
+        default:
+          break;
+      }
+    },
+    [title, lyrics, intro]
+  );
 
   // Audio
   const addPreview = (fileBlob) => {
-    console.log(fileBlob);
+    const fileName = fileBlob.name;
+    const fileSize = String((parseInt(fileBlob.size) / 1024 / 1024).toFixed(2));
+    audioNameRef.current.innerText = fileName;
+    audioSizeRef.current.innerText = `Size: ${fileSize}MB`;
+    audioBoxRef.current.style.display = 'block';
   };
 
   const onUploadAudio = (e) => {
@@ -88,8 +129,11 @@ const Write = () => {
   const onDropHandle = (e) => {
     e.preventDefault();
 
+    console.log(e.dataTransfer.files[0])
+    addPreview(e.dataTransfer.files[0]);
+
     const formData = new FormData();
-    formData.append('mediaUrl', e.target.files[0]);
+    formData.append('mediaUrl', e.dataTransfer.files[0]);
     uploadAudio(formData).then((res) => {
       if (res.success) {
         setAudio(res.data[0]);
@@ -124,6 +168,11 @@ const Write = () => {
       });
     };
   });
+
+  const deleteAudio = useCallback(() => {
+    audioBoxRef.current.style.display = 'none';
+    setAudio('');
+  }, [audio]);
 
   const addTag = useCallback(
     (event) => {
@@ -165,17 +214,21 @@ const Write = () => {
   const choosePostion = (position) => {
     switch (position) {
       case 'singer':
+        singerBoxRef.current.style.borderColor = '#28CA7C';
         singerBoxRef.current.style.backgroundColor = '#28CA7C';
-        singerIconRef.current.style.color = 'white';
-        singerTextRef.current.style.color = 'white';
-        makerBoxRef.current.style.backgroundColor = 'transparent';
+        singerTextRef.current.style.color = '#ffffff';
+        makerBoxRef.current.style.borderColor = '#b4b4b4';
+        makerBoxRef.current.style.backgroundColor = '#ffffff';
+        makerTextRef.current.style.color = '#b4b4b4';
         setPosition('Singer');
         break;
       case 'maker':
+        makerBoxRef.current.style.borderColor = '#28CA7C';
         makerBoxRef.current.style.backgroundColor = '#28CA7C';
-        makerIconRef.current.style.color = 'white';
-        makerTextRef.current.style.color = 'white';
-        singerTextRef.current.style.backgroundColor = 'transparent';
+        makerTextRef.current.style.color = '#ffffff';
+        singerBoxRef.current.style.borderColor = '#b4b4b4';
+        singerBoxRef.current.style.backgroundColor = '#ffffff';
+        singerTextRef.current.style.color = '#b4b4b4';
         setPosition('Maker');
         break;
       default:
@@ -185,16 +238,33 @@ const Write = () => {
 
   // Collabo
   const changeCollaborateStatus = () => {
-    // collaboIconRef.current.style.backgroundColor = '#28CA7C'
-    setCollaborate(!collaborate);
+    if (collaborate) {
+      collaboBoxRef.current.style.borderColor = '#b4b4b4';
+      collaboBoxRef.current.style.backgroundColor = '#ffffff';
+      collaboTextRef.current.style.color = '#b4b4b4';
+      setCollaborate(!collaborate);
+    } else {
+      collaboBoxRef.current.style.borderColor = '#28CA7C';
+      collaboBoxRef.current.style.backgroundColor = '#28CA7C';
+      collaboTextRef.current.style.color = '#ffffff';
+      setCollaborate(!collaborate);
+    }
   };
 
   const addPostHandle = (e) => {
     e.preventDefault();
 
-    addPost(newPost).then((res) => {
-      console.log(res);
-    });
+    if (audio === '') {
+      alert('오디오를 삽입해주세요.');
+    } else {
+      if (position === '') {
+        alert('포지션을 선택해주세요.');
+      } else {
+        addPost(newPost).then((res) => {
+          navigate('/');
+        });
+      }
+    }
   };
 
   return (
@@ -207,17 +277,27 @@ const Write = () => {
           onClick={changeCollaborateStatus}
           ref={collaboBoxRef}
         >
-          <WriteCollaboIcon ref={collaboIconRef}>
-            <ImHeadphones className='icon' />
-          </WriteCollaboIcon>
+          {collaborate ? (
+            <WriteCollaboIcon>
+              <ImHeadphones className='icon' color='white' />
+            </WriteCollaboIcon>
+          ) : (
+            <WriteCollaboIcon>
+              <ImHeadphones className='icon' />
+            </WriteCollaboIcon>
+          )}
           <WriteCollaboText ref={collaboTextRef}>콜라보</WriteCollaboText>
         </WriteCollaboContainer>
         <WriteSingerContainer
           onClick={() => choosePostion('singer')}
           ref={singerBoxRef}
         >
-          <WriteSingerIcon ref={singerIconRef}>
-            <GiMicrophone className='icon' />
+          <WriteSingerIcon>
+            {position === 'Singer' ? (
+              <GiMicrophone className='icon' color='white' />
+            ) : (
+              <GiMicrophone className='icon' />
+            )}
           </WriteSingerIcon>
           <WriteSingerText ref={singerTextRef}>싱어</WriteSingerText>
         </WriteSingerContainer>
@@ -225,14 +305,21 @@ const Write = () => {
           onClick={() => choosePostion('maker')}
           ref={makerBoxRef}
         >
-          <WriteMakerIcon ref={makerIconRef}>
-            <SiBeatsbydre className='icon' />
+          <WriteMakerIcon>
+            {position === 'Maker' ? (
+              <SiBeatsbydre className='icon' color='white' />
+            ) : (
+              <SiBeatsbydre className='icon' />
+            )}
           </WriteMakerIcon>
           <WriteMakerText ref={makerTextRef}>메이커</WriteMakerText>
         </WriteMakerContainer>
         <WriteForm id='write' onSubmit={(e) => addPostHandle(e)}>
           <WriteInputContainer>
-            <WriteInputIcon>
+            <WriteInputIcon
+              onClick={() => deleteText('title')}
+              ref={titleIconRef}
+            >
               <GrClose className='icon'></GrClose>
             </WriteInputIcon>
             <Input
@@ -246,6 +333,7 @@ const Write = () => {
                 pd_left: '19px',
                 pd_top: '20px',
                 pd_bottom: '20px',
+                pd_right: '40px',
                 ft_size: '14',
                 line_height: '20',
                 bd_radius: '10px',
@@ -268,17 +356,23 @@ const Write = () => {
               ></UploadImage>
             </WriteImageBox>
             <WriteTextBox>
-              <WriteTextIconBox>
+              <WriteTextIconBox
+                onClick={() => deleteText('lyrics')}
+                ref={lyricsIconRef}
+              >
                 <GrClose></GrClose>
               </WriteTextIconBox>
               <WriteTextArea
-                placeholder='가사 작성...'
+                placeholder='가사 첨부...'
                 value={lyrics}
                 onChange={(e) => setLyrics(e.target.value)}
               ></WriteTextArea>
             </WriteTextBox>
             <WriteTextBox>
-              <WriteTextIconBox>
+              <WriteTextIconBox
+                onClick={() => deleteText('intro')}
+                ref={introIconRef}
+              >
                 <GrClose></GrClose>
               </WriteTextIconBox>
               <WriteTextArea
@@ -311,7 +405,22 @@ const Write = () => {
                 ref={uploadInputRef}
               />
             </WriteAudioBox>
-            <WriteAudioPreView></WriteAudioPreView>
+            <WriteAudioPreView>
+              <WriteAudioPreviewFile ref={audioBoxRef}>
+                <WriteAudioPreviewFileName
+                  ref={audioNameRef}
+                ></WriteAudioPreviewFileName>
+                <WriteAudioPreviewFileSize
+                  ref={audioSizeRef}
+                ></WriteAudioPreviewFileSize>
+                <WriteAudioPreviewFileIconMusic>
+                  <BsFillFileEarmarkMusicFill className='icon-music'></BsFillFileEarmarkMusicFill>
+                </WriteAudioPreviewFileIconMusic>
+                <WriteAudioPreviewFileIconCancel onClick={deleteAudio}>
+                  <GrClose className='icon-cancel'></GrClose>
+                </WriteAudioPreviewFileIconCancel>
+              </WriteAudioPreviewFile>
+            </WriteAudioPreView>
           </WriteAudioContainer>
           <WriteHashTagContainer>
             <WriteHashTagTitle>해시태그</WriteHashTagTitle>
@@ -602,12 +711,13 @@ export const WriteTextArea = styled.textarea`
   border-radius: 10px;
   border: 1px solid #d9d9d9;
   resize: none;
+  outline: none;
   font-size: ${(props) => props.theme.fontSizes.sm};
   &::-webkit-scrollbar {
     display: none;
   }
   &::placeholder {
-    color: #b4b4b4;
+    color: #d9d9d9;
   }
 `;
 export const WriteAudioContainer = styled.div`
@@ -662,6 +772,55 @@ export const WriteAudioPreView = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+export const WriteAudioPreviewFile = styled.div`
+  position: relative;
+  width: 400px;
+  height: 70px;
+  background-color: #d2f8df;
+  border-radius: 10px;
+  display: none;
+`;
+export const WriteAudioPreviewFileName = styled.span`
+  position: absolute;
+  width: auto;
+  height: auto;
+  font-size: ${(props) => props.theme.fontSizes.lg};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  top: 20%;
+  left: 20%;
+`;
+export const WriteAudioPreviewFileSize = styled.span`
+  position: absolute;
+  width: auto;
+  height: auto;
+  font-size: ${(props) => props.theme.fontSizes.base};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  top: 60%;
+  left: 20%;
+`;
+export const WriteAudioPreviewFileIconMusic = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+  .icon-music {
+    width: 30px;
+    height: 30px;
+  }
+`;
+export const WriteAudioPreviewFileIconCancel = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 3%;
+  transform: translateY(-50%);
+  .icon-cancel {
+    width: 20px;
+    height: 20px;
+  }
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export const WriteHashTagContainer = styled.div`
   width: 100%;
