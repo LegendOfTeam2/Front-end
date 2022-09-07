@@ -27,30 +27,30 @@ api_auth.interceptors.request.use(
   }
 );
 
-api_auth.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    const {
-      config,
-      response: { status },
-    } = error;
-    if (status === 401) {
-      if (error.response.data.message === 'TokenExpiredError') {
-        const originRequest = config;
-        const res = await refreshTokenApi();
+// api_auth.interceptors.response.use(
+//   (response) => {
+//     return response;
+//   },
+//   async (error) => {
+//     const {
+//       config,
+//       response: { status },
+//     } = error;
+//     if (status === 401) {
+//       if (error.response.data.message === 'TokenExpiredError') {
+//         const originRequest = config;
+//         const res = await refreshTokenApi();
 
-        createToken(
-          res.headers['authorization'].split(' ')[1],
-          res.headers['refresh-token']
-        );
+//         createToken(
+//           res.headers['authorization'].split(' ')[1],
+//           res.headers['refresh-token']
+//         );
 
-        return api_auth(originRequest);
-      }
-    }
-    return Promise.reject(error);
-  }
-);
+//         return api_auth(originRequest);
+//       }
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 export default api_auth;

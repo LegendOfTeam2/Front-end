@@ -8,7 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../elements/Button';
 import Input from '../elements/Input';
 
-// styled
+// Utils
+import { getCookie } from '../utils/cookie';
+
+// Assests
 import {
   BtmDiv,
   HeaderContainer,
@@ -22,9 +25,21 @@ import {
   SearchDiv,
   SearchIconDiv,
 } from '../assets/styles/components/Header.styled';
+import { useEffect } from 'react';
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const uploadHandle = () => {
+    if (getCookie('authorization') !== undefined) {
+      navigate('/write');
+    } else {
+      alert('로그인 후에 이용 가능합니다.');
+      navigate('/signin');
+    }
+  };
+
+  const onHandleSingOut = () => {};
 
   return (
     <>
@@ -62,7 +77,7 @@ const Header = () => {
               <BtmDiv>
                 <Button
                   _style={{
-                    width: '124px',
+                    width: '122px',
                     height: '40px',
                     bg_color: 'rgba(0, 0, 0, 1)',
                     bd_radius: '11px',
@@ -70,21 +85,39 @@ const Header = () => {
                     ft_size: '12',
                   }}
                   _text={'업로드'}
+                  _onClick={uploadHandle}
                 />
-                <Button
-                  _style={{
-                    width: "124px",
-                    height: "40px",
-                    bg_color: "rgba(255, 255, 255, 1)",
-                    bd_radius: "11px",
-                    color: "rgba(0, 0, 0, 1)",
-                    ft_size: "12",
-                    bd_px: '1px',
-                    bd_color: 'black'
-                  }}
-                  _text={'로그인'}
-                  _onClick={() => navigate('/signin')}
-                />
+                {getCookie('authorization') !== undefined ? (
+                  <Button
+                    _style={{
+                      width: '124px',
+                      height: '40px',
+                      bg_color: 'rgba(255, 255, 255, 1)',
+                      bd_radius: '11px',
+                      color: 'rgba(0, 0, 0, 1)',
+                      ft_size: '12',
+                      bd_px: '1px',
+                      bd_color: 'black',
+                    }}
+                    _text={'로그아웃'}
+                    _onClick={onHandleSingOut}
+                  />
+                ) : (
+                  <Button
+                    _style={{
+                      width: '124px',
+                      height: '40px',
+                      bg_color: 'rgba(255, 255, 255, 1)',
+                      bd_radius: '11px',
+                      color: 'rgba(0, 0, 0, 1)',
+                      ft_size: '12',
+                      bd_px: '1px',
+                      bd_color: 'black',
+                    }}
+                    _text={'로그인'}
+                    _onClick={() => navigate('/signin')}
+                  />
+                )}
               </BtmDiv>
             </RightDiv>
           </HeaderDiv>

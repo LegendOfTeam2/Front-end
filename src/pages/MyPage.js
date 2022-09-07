@@ -216,7 +216,6 @@ const MyPage = () => {
                       </div>
                       <div>
                         <MyTagBoxTextSpan onClick={clickTag}>
-                          {" "}
                           더 보기
                         </MyTagBoxTextSpan>
                       </div>
@@ -233,7 +232,6 @@ const MyPage = () => {
                         .map(() => (
                           <MyTagBoxTextSlideDiv>
                             <MyTagBoxTextSpanSlide>
-                              {" "}
                               # 더 보기보기
                             </MyTagBoxTextSpanSlide>
                           </MyTagBoxTextSlideDiv>
@@ -243,8 +241,7 @@ const MyPage = () => {
                 </MyTagBox>
                 <MyRightBtmDiv>
                   <MyRightBtmDivSpan>
-                    {" "}
-                    감성을 전하는 래퍼 백예린 -ˋˏ * ٩( ◡̉̈ )۶ * ˎˊ-{" "}
+                    감성을 전하는 래퍼 백예린 -ˋˏ * ٩( ◡̉̈ )۶ * ˎˊ-
                   </MyRightBtmDivSpan>
                 </MyRightBtmDiv>
               </MyRightTopDivCl>

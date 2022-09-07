@@ -6,7 +6,8 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalStyle from './assets/styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
-import ReactModal from 'react-modal'
+import ReactModal from 'react-modal';
+import { CookiesProvider } from 'react-cookie';
 
 // Components
 import App from './shared/App';
@@ -19,10 +20,12 @@ ReactModal.setAppElement('#root');
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
+  <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <CookiesProvider>
         <App />
-      </ThemeProvider>
-    </BrowserRouter>
+      </CookiesProvider>
+    </ThemeProvider>
+  </BrowserRouter>
 );

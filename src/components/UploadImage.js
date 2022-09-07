@@ -15,7 +15,7 @@ import {
   UploadImageInput,
 } from '../assets/styles/components/UploadImage.styled';
 
-const UploadImage = ({ setFile, setFileSrc, width }) => {
+const UploadImage = ({ setFile, setFileSrc, width, height }) => {
   const uploadBoxRef = useRef();
   const uploadInputRef = useRef();
 
@@ -49,10 +49,11 @@ const UploadImage = ({ setFile, setFileSrc, width }) => {
       }
     });
   };
-
   const onDropHandle = (e) => {
     e.preventDefault();
-    console.log(e);
+
+    uploadBoxRef.current.style.borderColor = '#d9d9d9';
+    uploadBoxRef.current.style.borderWidth = '1px';
 
     encodeFileToBase64(e.dataTransfer.files[0]);
 
@@ -73,26 +74,6 @@ const UploadImage = ({ setFile, setFileSrc, width }) => {
     e.preventDefault();
   };
 
-  const changeBoxStyle = (state, e) => {
-    e.preventDefault();
-    switch (state) {
-      case 'enter': {
-        uploadBoxRef.current.style.borderColor = '#3eca28';
-        uploadBoxRef.current.style.borderWidth = '4px';
-        uploadBoxRef.current.style.filter = 'blur(1px)';
-        break;
-      }
-      case 'leave': {
-        uploadBoxRef.current.style.borderColor = '#d9d9d9';
-        uploadBoxRef.current.style.borderWidth = '1px';
-        uploadBoxRef.current.style.filter = 'none';
-        break;
-      }
-      default:
-        break;
-    }
-  };
-
   const uploadHandle = () => {
     uploadInputRef.current.click();
   };
@@ -100,11 +81,10 @@ const UploadImage = ({ setFile, setFileSrc, width }) => {
   return (
     <UploadImageContainer
       width={width}
+      height={height}
       onClick={uploadHandle}
       onDrop={(e) => onDropHandle(e)}
       onDragOver={(e) => onDragOverHandle(e)}
-      onDragEnter={(e) => changeBoxStyle('enter', e)}
-      onDragLeave={(e) => changeBoxStyle('leave', e)}
       ref={uploadBoxRef}
     >
       <UploadImageIcon>

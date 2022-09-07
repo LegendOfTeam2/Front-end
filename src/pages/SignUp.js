@@ -24,6 +24,8 @@ import {
   SignUpContainer,
   SignUpBox,
   SignUpIcon,
+  SignUpLogo,
+  SignUpLogoImg,
   SignUpForm,
   SignUpBoxInputContainer,
   SignUpBoxInputGroup,
@@ -42,6 +44,7 @@ import {
   SignUpBoxImagePreviewBoxSkeleton,
   SignUpButtonContainer,
 } from '../assets/styles/pages/SignUp.styled';
+import { largeLogo } from '../assets/images/image';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -87,14 +90,12 @@ const SignUp = () => {
   const signUpMember = useMemberStore((state) => state.signUpMember);
 
   const navigate = useNavigate();
-  const { position } = useParams();
 
   const newMember = {
     email,
     password,
     nickname,
     hashtag: tags,
-    position,
     imgUrl: file,
   };
 
@@ -370,8 +371,8 @@ const SignUp = () => {
             } else {
               signUpMember(newMember).then((res) => {
                 console.log(res);
-                if(res.success) {
-                  navigate('/');
+                if (res.success) {
+                  navigate('/signin');
                 }
               });
             }
@@ -389,6 +390,9 @@ const SignUp = () => {
           <GrClose className='icon-cancel'></GrClose>
         </SignUpIcon>
         <SignUpForm onSubmit={(e) => onSubmitHandle(e)}>
+          <SignUpLogo>
+            <SignUpLogoImg src={largeLogo}></SignUpLogoImg>
+          </SignUpLogo>
           <SignUpBoxInputContainer>
             <SignUpBoxInputGroup>
               <SignUpBoxInputGroupTitle>이메일(필수)</SignUpBoxInputGroupTitle>
@@ -619,6 +623,7 @@ const SignUp = () => {
                 bg_color: 'black',
                 ft_weight: '800',
                 line_height: '28',
+                bg_color: '#28CA7C'
               }}
             />
           </SignUpButtonContainer>
