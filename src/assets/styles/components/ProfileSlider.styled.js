@@ -5,6 +5,7 @@ width: 100%;
 background-color: #eeeceb;
 display: flex;
 justify-content: center;
+position: relative;
 `;
 
 export const ProfileContainer = styled.div`
@@ -83,3 +84,21 @@ margin-top: 4px;
 }
 `;
 
+export const ArowLeft = styled.div`
+display: flex;
+position: absolute;
+left: 40px;
+top: 150px;
+ &:hover{
+  cursor: pointer;
+ }
+`;
+export const ArowRight = styled.div`
+display: flex;
+position: absolute;
+right: 40px;
+bottom: 76px;
+&:hover{
+  cursor: pointer;
+ }
+`;

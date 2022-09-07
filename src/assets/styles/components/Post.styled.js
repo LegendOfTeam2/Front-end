@@ -8,8 +8,8 @@ position: relative;
 `;
 
 export const Profileimg = styled.img`
-width: 167px;
-height: 167px;
+width: ${(props)=> props.width || '167px'};
+height: ${(props)=> props.height || '167px'};
 border-radius: 19px;
 ${ProfileImgDivDiv}:hover & {
   filter: brightness(50%);

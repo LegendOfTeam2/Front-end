@@ -1,3 +1,4 @@
+import React from "react";
 import { AiFillLike } from "react-icons/ai";
 import {
   BsFillAlarmFill,
@@ -16,11 +17,11 @@ import {
 
 const Post = ({width, height , postId, position, title, likeCount, collaborate,imageUrl,mediaUrl,nickname  }) => {
 
-  console.log(`크기 ${width}`);
-  console.log(`높이 ${height}`);
   return (
     <ProfileImgDivDiv>
       <Profileimg
+        width={width}
+        height={height}
         src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTjg6vTEXL8y0oEnq67IOyZm2cIghFI3KTlg&usqp=CAU'
         alt=''
       />
@@ -42,4 +43,4 @@ const Post = ({width, height , postId, position, title, likeCount, collaborate,i
   );
 };
 
-export default Post;
+export default React.memo(Post);

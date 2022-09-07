@@ -11,6 +11,9 @@ import "slick-carousel/slick/slick-theme.css";
 
 // Assests
 import {
+  ArowDiv,
+  ArowLeft,
+  ArowRight,
   ProfileArrowDiv,
   ProfileContainer,
   ProfileContainerDiv,
@@ -26,8 +29,6 @@ import Post from "./Post";
 const ProfileSlider = (props) => {
   const sliderRef = useRef();
 
-
-  
   const settings = {
     className: "center",
     centerMode: true,
@@ -47,26 +48,33 @@ const ProfileSlider = (props) => {
               <ProfileTextSingMakeDiv>
                 <ProfileTextMake>더보기</ProfileTextMake>
               </ProfileTextSingMakeDiv>
-              <ProfileArrowDiv>
+              <ProfileArrowDiv></ProfileArrowDiv>
+            </ProfileTextDiv>
+
+              <ArowLeft>
                 <MdOutlineArrowBackIosNew
                   className='icon-prev'
+                  color='rgba(180, 180, 180, 1)'
                   size={30}
                   onClick={() => sliderRef.current.slickPrev()}
                 />
+              </ArowLeft>
+              <Slider {...settings}>
+                {Array(6)
+                  .fill("")
+                  .map(() => (
+                    <Post width='167' height='167' />
+                  ))}
+              </Slider>
+              <ArowRight>
                 <MdOutlineArrowForwardIos
                   className='icon-next'
+                  color='rgba(180, 180, 180, 1)'
                   size={30}
                   onClick={() => sliderRef.current.slickNext()}
                 />
-              </ProfileArrowDiv>
-            </ProfileTextDiv>
-            <Slider {...settings}>
-              {Array(6)
-                .fill("")
-                .map(() => (
-                  <Post width="167" height="167"/>
-                ))}
-            </Slider>
+              </ArowRight>
+
           </ProfileImgDiv>
         </ProfileContainer>
       </ProfileContainerDiv>
