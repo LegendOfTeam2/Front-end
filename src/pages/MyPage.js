@@ -234,7 +234,7 @@ const MyPage = () => {
                         .map(() => (
                           <MyTagBoxTextSlideDiv>
                             <MyTagBoxTextSpanSlide>
-                              # 더 보기보기기
+                              # 더 보기보기
                             </MyTagBoxTextSpanSlide>
                           </MyTagBoxTextSlideDiv>
                         ))}

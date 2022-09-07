@@ -18,7 +18,6 @@ import {
   ProfileTextDiv,
   ProfileTextMake,
   ProfileTextNew,
-  ProfileTextSinger,
   ProfileTextSingMakeDiv,
 } from "../assets/styles/components/ProfileSlider.styled";
 
@@ -65,7 +64,7 @@ const ProfileSlider = (props) => {
               {Array(6)
                 .fill("")
                 .map(() => (
-                  <Post/>
+                  <Post width="167" height="167"/>
                 ))}
             </Slider>
           </ProfileImgDiv>

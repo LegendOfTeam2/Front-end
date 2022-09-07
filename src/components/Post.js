@@ -14,7 +14,10 @@ import {
   Profileimg,
 } from "../assets/styles/components/Post.styled";
 
-const Post = () => {
+const Post = ({width, height , postId, position, title, likeCount, collaborate,imageUrl,mediaUrl,nickname  }) => {
+
+  console.log(`크기 ${width}`);
+  console.log(`높이 ${height}`);
   return (
     <ProfileImgDivDiv>
       <Profileimg

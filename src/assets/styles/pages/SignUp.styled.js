@@ -41,6 +41,19 @@ export const SignUpForm = styled.form`
   width: auto;
   height: auto;
 `;
+export const SignUpLogo = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+export const SignUpLogoImg = styled.img`
+  width: auto;
+  height: auto;
+  padding-top: 36px;
+  padding-bottom: 27px;
+`;
 export const SignUpBoxInputContainer = styled.div`
   width: 100%;
   height: auto;
@@ -189,4 +202,5 @@ export const SignUpBoxImagePreviewBoxSkeleton = styled.div`
 export const SignUpButtonContainer = styled.div`
   width: 100%;
   height: auto;
+  padding-bottom: 50px;
 `;

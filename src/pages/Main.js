@@ -3,16 +3,18 @@ import { Fragment, useRef } from "react";
 // Zustand
 
 // Packages
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import jwt_decode from 'jwt-decode';
 // Utils
-import Button from "../elements/Button";
+import Button from '../elements/Button';
+import { getCookie } from '../utils/cookie';
 // Pages
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
-} from "react-icons/md";
+} from 'react-icons/md';
 // Components
 import Header from "../components/Header";
 import PlayerMain from "../components/audioplayer/PlayerMain";
@@ -48,24 +50,25 @@ const Main = () => {
   const sliderRef = useRef();
 
   const settings = {
-    className: "center",
+    className: 'center',
     centerMode: true,
     infinite: true,
     autoplay: true,
     autoplaySpeed: 4000,
     slidesToShow: 1,
     arrows: false,
-    centerPadding: "85px",
+    centerPadding: '85px',
   };
   const Btmsettings = {
-    className: "center",
+    className: 'center',
     centerMode: true,
     infinite: true,
     slidesToShow: 4,
     arrows: false,
-    centerPadding: "-30px",
+    centerPadding: '-30px',
     ref: sliderRef,
   };
+
   return (
     <Fragment>
       <Header />
@@ -74,29 +77,29 @@ const Main = () => {
           <MainImgDiv>
             <Slider {...settings}>
               {Array(4)
-                .fill("")
+                .fill('')
                 .map(() => (
                   <MainImgDivDiv>
                     <MainImgDivImg
                       img={
-                        "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpS97M%2FbtqSdupzCez%2FuqPigp7AcjhIZnlzCYdvd0%2Fimg.jpg"
+                        'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpS97M%2FbtqSdupzCez%2FuqPigp7AcjhIZnlzCYdvd0%2Fimg.jpg'
                       }
                     ></MainImgDivImg>
                     <MainImgDivDivDiv>Bast Song</MainImgDivDivDiv>
                     <MainImgDivBtnDiv>
                       <Button
                         _style={{
-                          width: "140px",
-                          height: "36px",
-                          bg_color: "rgba(255, 255, 255, 1)",
-                          bd_radius: "43px",
-                          color: "rgba(0, 0, 0, 1)",
-                          ft_weight: "700",
-                          ft_size: "12",
-                          bd_px: "1.5px",
-                          bd_color: "transparent",
+                          width: '140px',
+                          height: '36px',
+                          bg_color: 'rgba(255, 255, 255, 1)',
+                          bd_radius: '43px',
+                          color: 'rgba(0, 0, 0, 1)',
+                          ft_weight: '700',
+                          ft_size: '12',
+                          bd_px: '1.5px',
+                          bd_color: 'transparent',
                         }}
-                        _text={"감상하기"}
+                        _text={'감상하기'}
                       />
                     </MainImgDivBtnDiv>
                   </MainImgDivDiv>
@@ -133,7 +136,7 @@ const Main = () => {
 
             <Slider {...Btmsettings}>
               {Array(6)
-                .fill("")
+                .fill('')
                 .map(() => (
                   <MainImgDivDiv>
                     <BtmProfileDivDiv>

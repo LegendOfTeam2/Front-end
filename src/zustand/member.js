@@ -13,17 +13,20 @@ import {
 
 const useMemberStore = create((set) => ({
   is_login: false,
+  changeLoginStatus: (state) => {
+    set({ is_login: state });
+  },
   emailDupCheck: async (payload) => {
     const resData = await emailDupCheckApi(payload)
       .then((res) => res.data.success)
-      .catch((error) => console.err(error));
+      .catch((err) => console.log(err));
 
     return resData;
   },
   nicknameDupCheck: async (payload) => {
     const resData = await nicknameDupCheckApi(payload)
       .then((res) => res.data.success)
-      .catch((error) => console.err(error));
+      .catch((err) => console.log(err));
 
     return resData;
   },
@@ -37,14 +40,16 @@ const useMemberStore = create((set) => ({
   signInMember: async (payload) => {
     const resData = await signInMemberApi(payload)
       .then((res) => res)
-      .catch((err) => console.err(err));
+      .catch((err) => console.log(err));
 
-    console.log(resData.headers);
-    
-    createToken(
-      resData.headers['authorization'].split(' ')[1],
-      resData.headers['refresh-token']
-    );
+    if (resData?.data.success) {
+      createToken(
+        resData.headers['authorization'].split(' ')[1],
+        resData.headers['refresh-token']
+      );
+      set({ is_login: resData?.data.success });
+      return resData.data.success;
+    }
 
     return resData.data;
   },
@@ -52,6 +57,7 @@ const useMemberStore = create((set) => ({
     const resData = await kakaoAuthApi(code)
       .then((res) => res)
       .catch((err) => console.log(err));
+
     if (resData?.data.success) {
       createToken(
         resData.headers['authorization'].split(' ')[1],
@@ -65,6 +71,7 @@ const useMemberStore = create((set) => ({
     const resData = await googleAuthApi(code)
       .then((res) => res)
       .catch((err) => console.log(err));
+
     if (resData?.data.success) {
       createToken(
         resData.headers['authorization'].split(' ')[1],

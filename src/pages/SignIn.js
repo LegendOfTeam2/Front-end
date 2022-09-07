@@ -240,7 +240,7 @@ const SignIn = () => {
                     _text={'로그인'}
                     _style={{
                       color: 'white',
-                      bg_color: 'black',
+                      bg_color: '#28CA7C',
                       width: '100%',
                       height: 'auto',
                       pd_top: '10px',
@@ -257,7 +257,7 @@ const SignIn = () => {
                     _text={'로그인'}
                     _style={{
                       color: 'white',
-                      bg_color: 'black',
+                      bg_color: '#28CA7C',
                       width: '100%',
                       height: 'auto',
                       pd_top: '15px',
@@ -319,7 +319,7 @@ const SignIn = () => {
                 <SignInBoxSignUpQuestionText>
                   회원이 아니신가요?
                 </SignInBoxSignUpQuestionText>
-                <SignInBoxSignUpQuestionText color={'#000000'}>
+                <SignInBoxSignUpQuestionText onClick={() => navigate('/signupcheck')} color={'#000000'}>
                   회원가입하기
                 </SignInBoxSignUpQuestionText>
               </SignInBoxSignUpQuestion>

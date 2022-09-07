@@ -1,10 +1,8 @@
-
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const UpContainer = styled.div`
   width: 100%;
   height: auto;
-  margin-top: 20vh;
   display: flex;
   justify-content: center;
   position: absolute;
@@ -20,6 +18,9 @@ export const UpInBox = styled.div`
   padding: 43px;
   border-radius: 30px;
   box-shadow: 1px 1px 20px 5px grey;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 861px;
+  }
 `;
 export const UpLogoDiv = styled.div`
   width: 100%;
@@ -29,11 +30,17 @@ export const UpLogoDiv = styled.div`
 `;
 
 export const UpLogoDivDiv = styled.div`
-  width: 48px;
-  height: 48px;
-
-  background-color: black;
+  width: auto;
+  height: auto;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: auto;
+    height: auto;
+  }
 `;
+export const UpLogoImg = styled.img`
+  width: auto;
+  height: auto;
+`
 export const UpTopTextDiv = styled.div`
   width: 100%;
   height: auto;
@@ -41,14 +48,16 @@ export const UpTopTextDiv = styled.div`
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  margin-top: 119.43px;
+  margin-top: 115.43px;
+  @media ${(props) => props.theme.device.desktopL} {
+    margin-top: 55px;
+  }
 `;
 export const UpTopTextSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xxxl};
   line-height: ${(props) => props.theme.lineHeight.xxxl};
-  font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
-
 export const UpTopBtmDiv = styled.div`
   width: 100%;
   height: auto;
@@ -58,53 +67,69 @@ export const UpTopBtmDiv = styled.div`
   text-align: center;
   margin-top: 48px;
   gap: 20px;
+  @media ${(props) => props.theme.device.desktopL} {
+    margin-top: 35px;
+    gap: 15px;
+  }
 `;
-
 export const UpTbmBtmDiv = styled.div`
   width: 100%;
   height: auto;
   display: flex;
   justify-content: center;
   text-align: center;
-  margin-top: 65px;
+  margin-top: 50px;
   gap: 20px;
+  @media ${(props) => props.theme.device.desktopL} {
+    margin-top: 45px;
+    gap: 15px;
+  }
 `;
-
 export const UpTbmBtmDivDiv = styled.div`
   width: 411px;
   height: auto;
   display: flex;
-
   margin-bottom: 119px;
   border-top: 1px solid #bcbcbc;
-`;
-
-export const Googleicon = styled.div`
-
-  display: flex;
-  position: relative;
-  top: 25%;
-  .icon-google {
-    width: 30px;
-    height: 30px;
-    color: rgba(255, 255, 255, 1);
-    position: absolute;
-    left: 35.5%;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 361px;
+    gap: 15px;
+    margin-bottom: 60px;
   }
-
 `;
-
-export const Kakaoicon = styled.div`
-
-  display: flex;
-  position: relative;
-  top: 18%;
-  .icon-kakao {
-    width: 40px;
-    height: 35px;
-    color: #959595;
-    position: absolute;
-    left: 35%;
-  }
-
-`;
+// export const Googleicon = styled.div`
+//   display: flex;
+//   position: relative;
+//   top: 25%;
+//   .icon-google {
+//     width: 30px;
+//     height: 30px;
+//     color: rgba(255, 255, 255, 1);
+//     position: absolute;
+//     left: 35.5%;
+//   }
+//   @media ${(props) => props.theme.device.desktopL} {
+//     .icon-google {
+//       width: 25px;
+//       height: 25px;
+//     }
+//   }
+// `;
+// export const Kakaoicon = styled.div`
+//   display: flex;
+//   position: relative;
+//   top: 22%;
+//   .icon-kakao {
+//     width: 40px;
+//     height: 35px;
+//     color: #959595;
+//     position: absolute;
+//     left: 34%;
+//   }
+//   @media ${(props) => props.theme.device.desktopL} {
+//     .icon-kakao {
+//       width: 35px;
+//       height: 30px;
+//     }
+//   }
+// `;
