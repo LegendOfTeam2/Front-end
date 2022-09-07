@@ -11,7 +11,7 @@ export const MyContainerDiv = styled.div`
 `;
 
 export const MyContainer = styled.div`
-  width: ${(props) => props.theme.deviceSizes.tabletL};
+  width: 1024px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@ export const MyContainer = styled.div`
   }
 `;
 export const MyProfileContainer = styled.div`
-  width: ${(props) => props.theme.deviceSizes.tabletL};
+  width: 1024px;
   height: auto;
   display: flex;
   border-bottom: 1px solid rgba(231, 231, 231, 1);
@@ -143,7 +143,8 @@ export const MyTagBoxTextDivDiv = styled.div`
 
 export const MyTagBoxTextSlide = styled.div`
   width: 100%;
-  height: auto;
+  height: 68px;
+  /* overflow: hidden; */
   display: ${({ tagSlider }) => (tagSlider ? "block" : "none")}; ;
 `;
 
@@ -166,14 +167,14 @@ export const MyTagBoxTextSlideIcon = styled.div`
 `;
 
 export const MyTagBoxTextSlideDiv = styled.div`
-  width: 100%;
+  width: auto;
   margin-top: 22px;
   margin-bottom: 22px;
   display: ${({ tagSlider }) => (tagSlider ? "block" : "none")}; ;
 `;
 
 export const MyTagBoxTextSpan = styled.span`
-  width: 100%;
+  width: auto;
   height: auto;
   padding: 9px;
   border: 1px solid #000000;
@@ -187,7 +188,7 @@ export const MyTagBoxTextSpanSlide = styled.span`
   width: auto;
   height: auto;
   padding: 9px;
-  margin-right: 30px;
+  margin-right: 10px;
   border: 1px solid #000000;
   border-radius: 24px;
   line-height: ${(props) => props.theme.lineHeight.base};

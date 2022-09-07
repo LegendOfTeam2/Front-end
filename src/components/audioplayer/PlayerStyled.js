@@ -6,6 +6,7 @@ export const SliderContainer = styled.div`
   width: 100%;
   --thumb-width: 20px;
   --thumb-height: 20px;
+  margin-top: 13px;
   ::before {
     content: "";
     background-color: white;

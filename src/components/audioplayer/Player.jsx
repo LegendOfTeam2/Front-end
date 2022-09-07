@@ -29,6 +29,8 @@ function Player({ percentage = 0, onChange }) {
     setMarginLeft(centerThumb);
     setProgressBarWidth(centerProgressBar);
   }, [percentage]);
+  
+
 
   return (
     <SliderContainer>

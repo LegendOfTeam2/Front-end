@@ -5,23 +5,12 @@ import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-import { AiFillLike } from "react-icons/ai";
-import {
-  BsFillAlarmFill,
-  BsFillArchiveFill,
-  BsFillPlayCircleFill,
-} from "react-icons/bs";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Assests
 import {
-  ImgBtmLeft,
-  ImgBtmRight,
-  ImgMainBtmRight,
-  ImgTopLeft,
-  ImgTopRight,
   ProfileArrowDiv,
   ProfileContainer,
   ProfileContainerDiv,
@@ -31,13 +20,15 @@ import {
   ProfileTextNew,
   ProfileTextSinger,
   ProfileTextSingMakeDiv,
-  Profileimg,
-  ProfileImgDivDiv,
 } from "../assets/styles/components/ProfileSlider.styled";
 
-const ProfileSlider = () => {
+import Post from "./Post";
+
+const ProfileSlider = (props) => {
   const sliderRef = useRef();
 
+
+  
   const settings = {
     className: "center",
     centerMode: true,
@@ -53,11 +44,9 @@ const ProfileSlider = () => {
         <ProfileContainer>
           <ProfileImgDiv>
             <ProfileTextDiv>
-              <ProfileTextNew>최신작품 </ProfileTextNew>
+              <ProfileTextNew>{props.GrandTitle}</ProfileTextNew>
               <ProfileTextSingMakeDiv>
-                <MdOutlineArrowForwardIos size={30} />
-                <ProfileTextSinger>메이커</ProfileTextSinger>
-                <ProfileTextMake>싱어</ProfileTextMake>
+                <ProfileTextMake>더보기</ProfileTextMake>
               </ProfileTextSingMakeDiv>
               <ProfileArrowDiv>
                 <MdOutlineArrowBackIosNew
@@ -76,26 +65,7 @@ const ProfileSlider = () => {
               {Array(6)
                 .fill("")
                 .map(() => (
-                  <ProfileImgDivDiv>
-                    <Profileimg
-                      src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTjg6vTEXL8y0oEnq67IOyZm2cIghFI3KTlg&usqp=CAU'
-                      alt=''
-                    />
-                    <ImgMainBtmRight>
-                      <BsFillPlayCircleFill size={25} />
-                    </ImgMainBtmRight>
-                    <ImgTopLeft>나는 페페</ImgTopLeft>
-                    <ImgTopRight>
-                      <BsFillAlarmFill color='white' />
-                    </ImgTopRight>
-                    <ImgBtmLeft>
-                      <AiFillLike color='white' />
-                      372
-                    </ImgBtmLeft>
-                    <ImgBtmRight>
-                      <BsFillArchiveFill color='white' />
-                    </ImgBtmRight>
-                  </ProfileImgDivDiv>
+                  <Post/>
                 ))}
             </Slider>
           </ProfileImgDiv>

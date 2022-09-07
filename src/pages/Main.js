@@ -1,5 +1,5 @@
 // React
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useRef } from "react";
 // Zustand
 
 // Packages
@@ -16,10 +16,6 @@ import {
 // Components
 import Header from "../components/Header";
 import PlayerMain from "../components/audioplayer/PlayerMain";
-// Elements
-
-// Shared
-
 // Assests
 import {
   BtmProfileArrowDiv,
@@ -35,6 +31,7 @@ import {
   BtmTextDivDivSmDiv,
   BtmTextDivSmSpan,
   BtmTextDivSpan,
+  MainAudioPlay,
   MainContainer,
   MainContainerDiv,
   MainImgDiv,
@@ -42,18 +39,10 @@ import {
   MainImgDivDiv,
   MainImgDivDivDiv,
   MainImgDivImg,
-  MainTagBox,
-  MainTagBoxText,
-  MainTagBoxTextSpan,
-  Profileimg,
+  MainProfileimg,
 } from "../assets/styles/pages/Main.styled";
 
-
-import ProfileSlider from "../components/ProfileSlider"
-
-
-
-
+import ProfileSlider from "../components/ProfileSlider";
 
 const Main = () => {
   const sliderRef = useRef();
@@ -92,9 +81,7 @@ const Main = () => {
                       img={
                         "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpS97M%2FbtqSdupzCez%2FuqPigp7AcjhIZnlzCYdvd0%2Fimg.jpg"
                       }
-                    >
-
-                    </MainImgDivImg>
+                    ></MainImgDivImg>
                     <MainImgDivDivDiv>Bast Song</MainImgDivDivDiv>
                     <MainImgDivBtnDiv>
                       <Button
@@ -116,8 +103,12 @@ const Main = () => {
                 ))}
             </Slider>
           </MainImgDiv>
-          <ProfileSlider />
-          <ProfileSlider />
+
+          <ProfileSlider GrandTitle='싱어 최신작품' />
+          <ProfileSlider GrandTitle='싱어 인기작품' />
+          <ProfileSlider GrandTitle='메이커 최신작품' />
+          <ProfileSlider GrandTitle='메이커 인기작품' />
+
           <BtmProfileImgDiv>
             <BtmProfileTextDiv>
               <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
@@ -147,7 +138,7 @@ const Main = () => {
                   <MainImgDivDiv>
                     <BtmProfileDivDiv>
                       <BtmProfileDivDivDiv>
-                        <Profileimg
+                        <MainProfileimg
                           src='https://blog.kakaocdn.net/dn/bRSp9b/btqDbkIMBLv/uFGktm4owJCRMMsXkQBgKk/img.jpg'
                           alt=''
                         />
@@ -163,32 +154,10 @@ const Main = () => {
                 ))}
             </Slider>
           </BtmProfileImgDiv>
-          <BtmProfileImgDiv>
-            <BtmProfileTextNew>인기 해쉬태그 </BtmProfileTextNew>
-            <MainTagBox>
-              <MainTagBoxText>
-                <MainTagBoxTextSpan> # 태그</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 감성 커버</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 드라이브</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 힙합</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 재즈</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 락</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 태그</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 감성 커버</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 드라이브</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 힙합</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 재즈</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 락</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 태그</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 감성 커버</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 드라이브</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 힙합</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 재즈</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 락</MainTagBoxTextSpan>
-              </MainTagBoxText>
-            </MainTagBox>
-          </BtmProfileImgDiv>
-          <PlayerMain />
+
+          <MainAudioPlay>
+            <PlayerMain />
+          </MainAudioPlay>
         </MainContainer>
       </MainContainerDiv>
     </Fragment>

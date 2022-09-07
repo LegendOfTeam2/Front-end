@@ -43,6 +43,7 @@ export const MainImgDivDivDiv = styled.div`
   font-size: ${(props) => props.theme.fontSizes.xxxl};
   line-height: ${(props) => props.theme.lineHeight.xxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
+  
 `;
 
 export const MainImgDivBtnDiv = styled.div`
@@ -68,6 +69,7 @@ export const BtmProfileImgDiv = styled.div`
   margin-top: 45px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 22%;
 `;
 
 export const BtmProfileTextDiv = styled.div`
@@ -118,7 +120,7 @@ export const BtmTextDivSmSpan = styled.span`
   color: rgba(204, 204, 204, 1);
 `;
 
-export const Profileimg = styled.img`
+export const MainProfileimg = styled.img`
   width: 63px;
   height: 63px;
   border-radius: 50%;
@@ -186,32 +188,27 @@ export const BtmProfileArrowDiv = styled.div`
   }
 `;
 
-export const MainTagBox = styled.div`
-  display: flex;
-  align-items: center;
-  height: auto;
-  margin-bottom: 120px;
+export const MainAudioPlay = styled.div`
   width: 100%;
-`;
-
-export const MainTagBoxText = styled.div`
-  line-height: ${(props) => props.theme.lineHeight.xxxl};
-  font-size: ${(props) => props.theme.fontSizes.base};
-  font-weight: ${(props) => props.theme.fontWeight.Bold};
-  margin-top: 22px;
+  justify-content: center;
+  /* display:  ${({animation}) => ( animation ? 'flex' : 'none')}; */
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-`;
+  position: fixed;
+  animation: fadeInUp 4s; 
+  bottom: 10px;
+  left: 0px;
+  @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translate3d(0, 100%, 0);
+        }
+        to {
+            opacity: 1;
+            transform : translateZ(0);
+        }
+    }
 
-export const MainTagBoxTextSpan = styled.span`
-  width: auto;
-  height: auto;
-  padding: 9px;
-  border: 2px solid #000000;
-  border-radius: 24px;
-  &:hover {
-    cursor: pointer;
-    background-color: #aaa4a4;
-  }
+
+
+ 
 `;

@@ -91,9 +91,11 @@ const MyPage = () => {
     className: "center",
     centerMode: true,
     infinite: true,
-    slidesToShow: 4,
-    centerPadding: "3px",
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    centerPadding: "-10px",
     arrows: false,
+    variableWidth: true
   };
 
   const categoryHandle = (state) => {
@@ -216,15 +218,14 @@ const MyPage = () => {
                       </div>
                       <div>
                         <MyTagBoxTextSpan onClick={clickTag}>
-                          {" "}
                           더 보기
                         </MyTagBoxTextSpan>
                       </div>
                     </MyTagBoxTextDivDiv>
                   </MyTagBoxText>
 
-                  <MyTagBoxTextSlide tagSlider={tagSlider} onClick={clickTag}>
-                    <MyTagBoxTextSlideIcon>
+                  <MyTagBoxTextSlide tagSlider={tagSlider} >
+                    <MyTagBoxTextSlideIcon onClick={clickTag}>
                       <AiOutlineClose className='x-icon' size={16} />
                     </MyTagBoxTextSlideIcon>
                     <Slider {...settings}>
@@ -233,8 +234,7 @@ const MyPage = () => {
                         .map(() => (
                           <MyTagBoxTextSlideDiv>
                             <MyTagBoxTextSpanSlide>
-                              {" "}
-                              # 더 보기보기
+                              # 더 보기보기기
                             </MyTagBoxTextSpanSlide>
                           </MyTagBoxTextSlideDiv>
                         ))}
@@ -243,7 +243,6 @@ const MyPage = () => {
                 </MyTagBox>
                 <MyRightBtmDiv>
                   <MyRightBtmDivSpan>
-                    {" "}
                     감성을 전하는 래퍼 백예린 -ˋˏ * ٩( ◡̉̈ )۶ * ˎˊ-{" "}
                   </MyRightBtmDivSpan>
                 </MyRightBtmDiv>
