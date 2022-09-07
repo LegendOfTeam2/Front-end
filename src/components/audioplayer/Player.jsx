@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
   ProgressBarCover,
@@ -29,6 +29,8 @@ function Player({ percentage = 0, onChange }) {
     setMarginLeft(centerThumb);
     setProgressBarWidth(centerProgressBar);
   }, [percentage]);
+  
+
 
   return (
     <SliderContainer>
@@ -55,4 +57,4 @@ function Player({ percentage = 0, onChange }) {
   );
 }
 
-export default Player;
+export default React.memo(Player);

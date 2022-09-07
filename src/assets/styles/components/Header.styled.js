@@ -8,6 +8,7 @@ export const HeaderContainerDiv = styled.div`
   background-color: #eeeceb;
   position: fixed;
   z-index: 4;
+  border-bottom: 1px solid #28CA7C ;
 `;
 
 export const HeaderContainer = styled.div`
@@ -25,7 +26,6 @@ export const HeaderDiv = styled.div`
   width: 976px;
   height: auto;
   display: flex;
-  background-color: rgba(255, 255, 255, 1);
 
   padding: 8px;
   flex-direction: row;
@@ -35,16 +35,14 @@ export const HeaderDiv = styled.div`
 `;
 
 export const LogoDiv = styled.div`
-  width: 48px;
-  height: 48px;
-  
-  
+  width: 83px;
+  height: 45px;
   background-color: black;
 `;
 
 export const SearchDiv = styled.div`
-  width: 524px;
-  height: 36px;
+  width: 440px;
+  height: 34px;
   border-radius: 44px;
   display: flex;
   flex-direction: row;
@@ -66,14 +64,14 @@ export const LeftDiv = styled.div`
   display: flex;
   flex-direction: row;
   margin-left: 22px;
-  gap: 15px;
+  gap: 37px;
   align-items: center;
 `;
 
 export const RightDiv = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 15px;
+  gap: 37px;
   align-items: center;
 `;
 
@@ -94,5 +92,5 @@ export const ProfileImg = styled.img`
 export const BtmDiv = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 3px;
+  gap: 36px;
 `;

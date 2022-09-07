@@ -1,42 +1,31 @@
 // React
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useRef } from "react";
 // Zustand
 
 // Packages
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import jwt_decode from 'jwt-decode';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 // Utils
-import Button from '../elements/Button';
-import { getCookie } from '../utils/cookie';
+import Button from "../elements/Button";
 // Pages
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
-} from 'react-icons/md';
+} from "react-icons/md";
 // Components
-import Header from '../components/Header';
-import PlayerMain from '../components/audioplayer/PlayerMain';
-// Elements
-
-// Shared
-
+import Header from "../components/Header";
+import PlayerMain from "../components/audioplayer/PlayerMain";
 // Assests
 import {
-  BtmProfileArrowDiv,
-  BtmProfileDivDiv,
-  BtmProfileDivDivDiv,
   BtmProfileImgDiv,
   BtmProfileTextDiv,
   BtmProfileTextMake,
   BtmProfileTextNew,
-  BtmProfileTextSinger,
   BtmProfileTextSingMakeDiv,
-  BtmTextDivDivDiv,
-  BtmTextDivDivSmDiv,
-  BtmTextDivSmSpan,
-  BtmTextDivSpan,
+  MainArowLeft,
+  MainArowRight,
+  MainAudioPlay,
   MainContainer,
   MainContainerDiv,
   MainImgDiv,
@@ -44,34 +33,33 @@ import {
   MainImgDivDiv,
   MainImgDivDivDiv,
   MainImgDivImg,
-  MainTagBox,
-  MainTagBoxText,
-  MainTagBoxTextSpan,
-  Profileimg,
-} from '../assets/styles/pages/Main.styled';
+} from "../assets/styles/pages/Main.styled";
 
-import ProfileSlider from '../components/ProfileSlider';
+import ProfileSlider from "../components/ProfileSlider";
+import HotArtist from "../components/HotArtist";
+
+
 
 const Main = () => {
   const sliderRef = useRef();
 
   const settings = {
-    className: 'center',
+    className: "center",
     centerMode: true,
     infinite: true,
     autoplay: true,
     autoplaySpeed: 4000,
     slidesToShow: 1,
     arrows: false,
-    centerPadding: '85px',
+    centerPadding: "85px",
   };
   const Btmsettings = {
-    className: 'center',
+    className: "center",
     centerMode: true,
     infinite: true,
     slidesToShow: 4,
     arrows: false,
-    centerPadding: '-30px',
+    centerPadding: "-30px",
     ref: sliderRef,
   };
 
@@ -83,108 +71,76 @@ const Main = () => {
           <MainImgDiv>
             <Slider {...settings}>
               {Array(4)
-                .fill('')
+                .fill("")
                 .map(() => (
                   <MainImgDivDiv>
                     <MainImgDivImg
                       img={
-                        'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpS97M%2FbtqSdupzCez%2FuqPigp7AcjhIZnlzCYdvd0%2Fimg.jpg'
+                        "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpS97M%2FbtqSdupzCez%2FuqPigp7AcjhIZnlzCYdvd0%2Fimg.jpg"
                       }
                     ></MainImgDivImg>
                     <MainImgDivDivDiv>Bast Song</MainImgDivDivDiv>
                     <MainImgDivBtnDiv>
                       <Button
                         _style={{
-                          width: '140px',
-                          height: '36px',
-                          bg_color: 'rgba(255, 255, 255, 1)',
-                          bd_radius: '43px',
-                          color: 'rgba(0, 0, 0, 1)',
-                          ft_weight: '700',
-                          ft_size: '12',
-                          bd_px: '1.5px',
-                          bd_color: 'transparent',
+                          width: "140px",
+                          height: "36px",
+                          bg_color: "rgba(255, 255, 255, 1)",
+                          bd_radius: "43px",
+                          color: "rgba(0, 0, 0, 1)",
+                          ft_weight: "700",
+                          ft_size: "12",
+                          bd_px: "1.5px",
+                          bd_color: "transparent",
                         }}
-                        _text={'감상하기'}
+                        _text={"감상하기"}
                       />
                     </MainImgDivBtnDiv>
                   </MainImgDivDiv>
                 ))}
             </Slider>
           </MainImgDiv>
-          <ProfileSlider />
-          <ProfileSlider />
+
+          <ProfileSlider GrandTitle='싱어 최신작품' />
+          <ProfileSlider GrandTitle='싱어 인기작품' />
+          <ProfileSlider GrandTitle='메이커 최신작품' />
+          <ProfileSlider GrandTitle='메이커 인기작품' />
+
           <BtmProfileImgDiv>
             <BtmProfileTextDiv>
               <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
               <BtmProfileTextSingMakeDiv>
-                <MdOutlineArrowForwardIos size={30} />
-                <BtmProfileTextSinger>팔로워 급상승</BtmProfileTextSinger>
-                <BtmProfileTextMake>좋아요 급상승</BtmProfileTextMake>
+                <BtmProfileTextMake>더보기</BtmProfileTextMake>
               </BtmProfileTextSingMakeDiv>
-              <BtmProfileArrowDiv>
-                <MdOutlineArrowBackIosNew
-                  className='icon-prev'
-                  size={30}
-                  onClick={() => sliderRef.current.slickPrev()}
-                />
-                <MdOutlineArrowForwardIos
-                  className='icon-next'
-                  size={30}
-                  onClick={() => sliderRef.current.slickNext()}
-                />
-              </BtmProfileArrowDiv>
             </BtmProfileTextDiv>
-
+            <MainArowLeft>
+              <MdOutlineArrowBackIosNew
+                className='icon-prev'
+                color='rgba(180, 180, 180, 1)'
+                size={30}
+                onClick={() => sliderRef.current.slickPrev()}
+              />
+            </MainArowLeft>
             <Slider {...Btmsettings}>
               {Array(6)
-                .fill('')
+                .fill("")
                 .map(() => (
-                  <MainImgDivDiv>
-                    <BtmProfileDivDiv>
-                      <BtmProfileDivDivDiv>
-                        <Profileimg
-                          src='https://blog.kakaocdn.net/dn/bRSp9b/btqDbkIMBLv/uFGktm4owJCRMMsXkQBgKk/img.jpg'
-                          alt=''
-                        />
-                      </BtmProfileDivDivDiv>
-                      <BtmTextDivDivDiv>
-                        <BtmTextDivSpan>youngi_2</BtmTextDivSpan>
-                      </BtmTextDivDivDiv>
-                      <BtmTextDivDivSmDiv>
-                        <BtmTextDivSmSpan>4,000팔로워</BtmTextDivSmSpan>
-                      </BtmTextDivDivSmDiv>
-                    </BtmProfileDivDiv>
-                  </MainImgDivDiv>
+                  <HotArtist />
                 ))}
             </Slider>
+            <MainArowRight>
+              <MdOutlineArrowForwardIos
+                className='icon-next'
+                color='rgba(180, 180, 180, 1)'
+                size={30}
+                onClick={() => sliderRef.current.slickNext()}
+              />
+            </MainArowRight>
           </BtmProfileImgDiv>
-          <BtmProfileImgDiv>
-            <BtmProfileTextNew>인기 해쉬태그 </BtmProfileTextNew>
-            <MainTagBox>
-              <MainTagBoxText>
-                <MainTagBoxTextSpan> # 태그</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 감성 커버</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 드라이브</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 힙합</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 재즈</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 락</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 태그</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 감성 커버</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 드라이브</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 힙합</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 재즈</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 락</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 태그</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 감성 커버</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 드라이브</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 힙합</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 재즈</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 락</MainTagBoxTextSpan>
-              </MainTagBoxText>
-            </MainTagBox>
-          </BtmProfileImgDiv>
-          <PlayerMain />
+
+          <MainAudioPlay>
+            <PlayerMain />
+          </MainAudioPlay>
         </MainContainer>
       </MainContainerDiv>
     </Fragment>

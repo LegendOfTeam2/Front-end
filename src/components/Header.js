@@ -57,8 +57,8 @@ const Header = () => {
                   _style={{
                     width: '100%',
                     height: '36px',
-                    border: '0px solid black',
-                    outline: 'none',
+                    border: '1px solid black',
+                    bd_color: 'rgba(40, 202, 124, 1)',
                     bg_color: '#F4F4F4',
                     bd_radius: '44px',
                     pd_left: '50px',
@@ -78,7 +78,7 @@ const Header = () => {
                 <Button
                   _style={{
                     width: '122px',
-                    height: '40px',
+                    height: '45px',
                     bg_color: 'rgba(0, 0, 0, 1)',
                     bd_radius: '11px',
                     color: 'rgba(255, 255, 255, 1)',
@@ -90,8 +90,8 @@ const Header = () => {
                 {getCookie('authorization') !== undefined ? (
                   <Button
                     _style={{
-                      width: '124px',
-                      height: '40px',
+                      width: '122px',
+                      height: '45 px',
                       bg_color: 'rgba(255, 255, 255, 1)',
                       bd_radius: '11px',
                       color: 'rgba(0, 0, 0, 1)',
@@ -105,8 +105,8 @@ const Header = () => {
                 ) : (
                   <Button
                     _style={{
-                      width: '124px',
-                      height: '40px',
+                      width: '122px',
+                      height: '45px',
                       bg_color: 'rgba(255, 255, 255, 1)',
                       bd_radius: '11px',
                       color: 'rgba(0, 0, 0, 1)',

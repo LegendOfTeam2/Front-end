@@ -143,8 +143,9 @@ export const MyTagBoxTextDivDiv = styled.div`
 
 export const MyTagBoxTextSlide = styled.div`
   width: 100%;
-  height: auto;
-  display: ${({ tagSlider }) => (tagSlider ? "block" : "none")};
+  height: 68px;
+  /* overflow: hidden; */
+  display: ${({ tagSlider }) => (tagSlider ? "block" : "none")}; ;
 `;
 
 export const MyTagBoxTextSlideIcon = styled.div`
@@ -166,14 +167,14 @@ export const MyTagBoxTextSlideIcon = styled.div`
 `;
 
 export const MyTagBoxTextSlideDiv = styled.div`
-  width: 100%;
+  width: auto;
   margin-top: 22px;
   margin-bottom: 22px;
   display: ${({ tagSlider }) => (tagSlider ? "block" : "none")}; ;
 `;
 
 export const MyTagBoxTextSpan = styled.span`
-  width: 100%;
+  width: auto;
   height: auto;
   padding: 9px;
   border: 1px solid #000000;
@@ -187,7 +188,7 @@ export const MyTagBoxTextSpanSlide = styled.span`
   width: auto;
   height: auto;
   padding: 9px;
-  margin-right: 30px;
+  margin-right: 10px;
   border: 1px solid #000000;
   border-radius: 24px;
   line-height: ${(props) => props.theme.lineHeight.base};
