@@ -57,15 +57,15 @@ const Write = () => {
   const audioSizeRef = useRef();
 
   const newPost = {
-    position: 'Singer',
+    position,
     title,
     content: intro,
-    // nickname: jwt_decode(getCookie('authorization')).sub,
+    nickname: jwt_decode(getCookie('authorization')).sub,
     lyrics,
     imageUrl: image,
     mediaUrl: audio,
     tags,
-    collaborate: true,
+    collaborate,
   };
 
   useEffect(() => {
@@ -101,10 +101,8 @@ const Write = () => {
 
   // Audio
   const addPreview = (fileBlob) => {
-    console.log(fileBlob);
     const fileName = fileBlob.name;
     const fileSize = String((parseInt(fileBlob.size) / 1024 / 1024).toFixed(2));
-    console.dir(audioNameRef.current.style);
     audioNameRef.current.innerText = fileName;
     audioSizeRef.current.innerText = `Size: ${fileSize}MB`;
     audioBoxRef.current.style.display = 'block';
@@ -335,6 +333,7 @@ const Write = () => {
                 pd_left: '19px',
                 pd_top: '20px',
                 pd_bottom: '20px',
+                pd_right: '40px',
                 ft_size: '14',
                 line_height: '20',
                 bd_radius: '10px',
