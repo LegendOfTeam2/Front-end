@@ -7,6 +7,9 @@ import useMemberStore from '../zustand/member';
 // Packages
 import { Routes, Route } from 'react-router-dom';
 
+// Pages 
+import MyPage from '../pages/MyPage';
+
 // Components
 import Loading from '../components/Loading';
 
@@ -18,7 +21,7 @@ import { useEffect } from 'react';
 const Main = lazy(() => import('../pages/Main'));
 const SignIn = lazy(() => import('../pages/SignIn'));
 const SignUp = lazy(() => import('../pages/SignUp'));
-const MyPage = lazy(() => import('../pages/MyPage'));
+// const MyPage = lazy(() => import('../pages/MyPage'));
 const Write = lazy(() => import('../pages/Write'));
 const SignUpCheck = lazy(() => import('../pages/SignUpCheck'));
 
@@ -48,7 +51,6 @@ function App() {
         <Route path='/signupcheck' element={<SignUpCheck />} />
         <Route path='/kakao/callback' element={<Kakao />} />
         <Route path='/google/callback' element={<Google />} />
-        {/* <Route path='/write' element={<Write />} /> */}
         <Route path='/write' element={is_login ? <Write /> : <Main />} />
       </Routes>
     </Suspense>
