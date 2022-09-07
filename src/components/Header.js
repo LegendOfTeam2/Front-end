@@ -25,7 +25,8 @@ import {
   SearchDiv,
   SearchIconDiv,
 } from '../assets/styles/components/Header.styled';
-import { useEffect } from 'react';
+import { HeaderlargeLogo } from '../assets/images/image';
+
 
 const Header = () => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const Header = () => {
         <HeaderContainer>
           <HeaderDiv>
             <LeftDiv>
-              <LogoDiv></LogoDiv>
+              <LogoDiv><img src={HeaderlargeLogo} backgrond='white' alt='로고이미지'/></LogoDiv>
 
               <SearchDiv>
                 <SearchIconDiv>

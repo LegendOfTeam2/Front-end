@@ -165,7 +165,7 @@ export const MainAudioPlay = styled.div`
   width: 100%;
   justify-content: center;
   /* display:  ${({ animation }) => (animation ? "flex" : "none")}; */
-  display: none;
+  display: flex;
   position: fixed;
   animation: fadeInUp 4s;
   bottom: 10px;

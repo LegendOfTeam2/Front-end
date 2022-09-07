@@ -80,7 +80,8 @@ import {
   MyTagBoxTextSpan,
   MyTagBoxTextSpanSlide,
   MyTextDiv,
-} from '../assets/styles/pages/MyPage.styled';
+} from "../assets/styles/pages/MyPage.styled";
+import Post from "../components/Post";
 
 const MyPage = () => {
   const [tagSlider, setTagSlider] = useState(false);
@@ -286,26 +287,7 @@ const MyPage = () => {
               {Array(4)
                 .fill('')
                 .map(() => (
-                  <MyImgDivDiv>
-                    <Myimg
-                      src='https://i.pinimg.com/originals/51/31/a8/5131a8244ab74ea8523d59e1ba81606a.jpg'
-                      alt=''
-                    />
-                    <ImgMyBtmRight>
-                      <BsPlayCircle size={25} color='white' />
-                    </ImgMyBtmRight>
-                    <MyImgTopLeft>나는 백예린</MyImgTopLeft>
-                    <MyImgTopRight>
-                      <BsFillAlarmFill color='white' />
-                    </MyImgTopRight>
-                    <MyImgBtmLeft>
-                      <AiFillLike color='white' />
-                      372
-                    </MyImgBtmLeft>
-                    <MyImgBtmRight>
-                      <BsFillArchiveFill color='white' />
-                    </MyImgBtmRight>
-                  </MyImgDivDiv>
+                  <Post width='167px' height='167px' line_height='20' ft_weight='500' ft_size='14' />
                 ))}
             </MyTextDiv>
           </MyMidTextDiv>
@@ -331,30 +313,7 @@ const MyPage = () => {
             {Array(12)
               .fill('')
               .map(() => (
-                <MyBtmImgDivDiv>
-                  <MyBtmimg
-                    src='https://post-phinf.pstatic.net/MjAyMDEyMDhfOTMg/MDAxNjA3NDI5MzkxMjEx.iPqD1FE-bQkTnkafG_NHKjwYzP77vAorHJQudD8U-Oog.fYcOIP249W2jhGGro6q_UKFiu6XWfUyxehMKYE7zGXcg.JPEG/YerinBaek_tellusboutyourself_Cover.jpg?type=w1200'
-                    alt=''
-                  />
-                  <ImgMyBtmBtmRight>
-                    <BsPlayCircle size={25} color='white' />
-                  </ImgMyBtmBtmRight>
-                  <MyBtmImgTopLeft>나는 백예린</MyBtmImgTopLeft>
-                  <MyBtmImgTopTopRight>
-                    <BsFillAlarmFill color='white' />
-                  </MyBtmImgTopTopRight>
-
-                  <MyBtmImgTopBtmRight>
-                    <BiCollapse color='white' />
-                  </MyBtmImgTopBtmRight>
-                  <MyBtmImgBtmLeft>
-                    <AiFillLike color='white' />
-                    372
-                  </MyBtmImgBtmLeft>
-                  <MyBtmImgBtmRight>
-                    <BsFillArchiveFill color='white' />
-                  </MyBtmImgBtmRight>
-                </MyBtmImgDivDiv>
+                <Post width='309px' height='309px' line_height='29' ft_weight='700' ft_size='20' />
               ))}
           </MyBtmImgDiv>
         </MyContainer>

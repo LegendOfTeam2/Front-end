@@ -1,46 +1,58 @@
-import React from "react";
 import { AiFillLike } from "react-icons/ai";
 import {
   BsFillAlarmFill,
   BsFillArchiveFill,
-  BsFillPlayCircleFill,
 } from "react-icons/bs";
 import {
-  ImgBtmLeft,
-  ImgBtmRight,
-  ImgMainBtmRight,
-  ImgTopLeft,
-  ImgTopRight,
-  ProfileImgDivDiv,
-  Profileimg,
-} from "../assets/styles/components/Post.styled";
+  ImgMyBtmRight,
+  ImgNotSlideSpan,
+  Myimg,
+  MyImgBtmLeft,
+  MyImgBtmRight,
+  MyImgDivDiv,
+  MyImgTopLeft,
+  MyImgTopRight,
+} from "../assets/styles/components/Psot.styled";
 
-const Post = ({width, height , postId, position, title, likeCount, collaborate,imageUrl,mediaUrl,nickname  }) => {
-
+const Post = ({
+  width,
+  height,
+  postId,
+  position,
+  title,
+  likeCount,
+  collaborate,
+  imageUrl,
+  mediaUrl,
+  nickname,
+  line_height,
+  ft_size,
+  ft_weight
+}) => {
   return (
-    <ProfileImgDivDiv>
-      <Profileimg
+    <MyImgDivDiv>
+      <Myimg
         width={width}
         height={height}
-        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTjg6vTEXL8y0oEnq67IOyZm2cIghFI3KTlg&usqp=CAU'
+        src='https://i.pinimg.com/originals/51/31/a8/5131a8244ab74ea8523d59e1ba81606a.jpg'
         alt=''
       />
-      <ImgMainBtmRight>
-        <BsFillPlayCircleFill size={25} />
-      </ImgMainBtmRight>
-      <ImgTopLeft>나는 페페</ImgTopLeft>
-      <ImgTopRight>
+      <ImgMyBtmRight>
+        <ImgNotSlideSpan line_height={line_height} ft_size={ft_size} ft_weight={ft_weight} >아티스트 이름</ImgNotSlideSpan>
+      </ImgMyBtmRight>
+      <MyImgTopLeft>나는 백예린</MyImgTopLeft>
+      <MyImgTopRight>
         <BsFillAlarmFill color='white' />
-      </ImgTopRight>
-      <ImgBtmLeft>
+      </MyImgTopRight>
+      <MyImgBtmLeft>
         <AiFillLike color='white' />
         372
-      </ImgBtmLeft>
-      <ImgBtmRight>
+      </MyImgBtmLeft>
+      <MyImgBtmRight>
         <BsFillArchiveFill color='white' />
-      </ImgBtmRight>
-    </ProfileImgDivDiv>
+      </MyImgBtmRight>
+    </MyImgDivDiv>
   );
 };
 
-export default React.memo(Post);
+export default Post;
