@@ -24,7 +24,7 @@ import {
   ProfileTextSingMakeDiv,
 } from "../assets/styles/components/ProfileSlider.styled";
 
-import Post from "./Post";
+import PostSlider from "./PostSlider";
 
 const ProfileSlider = (props) => {
   const sliderRef = useRef();
@@ -63,7 +63,7 @@ const ProfileSlider = (props) => {
                 {Array(6)
                   .fill("")
                   .map(() => (
-                    <Post width='167' height='167' />
+                    <PostSlider width='167' height='167' />
                   ))}
               </Slider>
               <ArowRight>

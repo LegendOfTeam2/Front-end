@@ -18,8 +18,6 @@ export const HeaderContainer = styled.div`
   flex-direction: column;
   padding: 24px;
   margin-top: 64px;
-
-  
 `;
 
 export const HeaderDiv = styled.div`
@@ -35,9 +33,9 @@ export const HeaderDiv = styled.div`
 `;
 
 export const LogoDiv = styled.div`
-  width: 83px;
-  height: 45px;
-  background-color: black;
+  width: auto;
+  height: auto;
+
 `;
 
 export const SearchDiv = styled.div`

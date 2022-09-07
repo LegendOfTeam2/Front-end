@@ -18,13 +18,20 @@ ${ProfileImgDivDiv}:hover & {
 
 export const ImgMainBtmRight = styled.div`
 position: absolute;
-bottom: 8%;
-right: 35%;
+top: 7%;
+left: 7%;
 display: block;
 ${ProfileImgDivDiv}:hover & {
   display: none;
   cursor: pointer;
 }
+`;
+
+export const ImgMainSpan = styled.span`
+  color: rgba(245, 245, 245, 1);
+  line-height: ${(props) => props.theme.lineHeight.xs};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-size: ${(props) => props.theme.fontSizes.sm};
 `;
 
 export const ImgTopLeft = styled.div`

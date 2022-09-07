@@ -2,17 +2,19 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Player from "./Player";
 
 import songsdata from "./Audios";
-import {
-  BsFillSkipStartCircleFill,
-  BsFillSkipEndCircleFill,
-  BsFillStopCircleFill,
-  BsFillVolumeUpFill,
-  BsFillVolumeMuteFill,
-} from "react-icons/bs";
-import { AiFillPlayCircle } from "react-icons/ai";
-import { MdLoop } from "react-icons/md";
-import { FaRandom } from "react-icons/fa";
+
 import styled from "styled-components";
+import {
+  DisRepeated,
+  LoopPlay,
+  RandomIcon,
+  DisRandomIcon,
+  BackPlay,
+  OnPlay,
+  StopPlay,
+  NextPlay,
+  Volume,
+} from "../../assets/images/image";
 
 function PlayerMain() {
   const [percentage, setPercentage] = useState(0);
@@ -53,8 +55,7 @@ function PlayerMain() {
       if (random !== index) {
         setCurrentSong(songs[random]);
         audioRef.current.currentTime = 0;
-          setIsAutoplay(true);
-
+        setIsAutoplay(true);
       } else {
         const filterRandom = songs.filter((x) => x.id !== random);
         const Retryrandom = Math.floor(Math.random() * filterRandom.length);
@@ -228,26 +229,29 @@ function PlayerMain() {
         <AllBtnContainer>
           <BtnContainer>
             <div onClick={ClickLoop}>
-              {isLoop ? <MdLoop color='red' size={25} /> : <MdLoop size={25} />}
+              {isLoop ? (
+                <img src={LoopPlay} alt='루프있을때' />
+              ) : (
+                <img src={DisRepeated} alt='루프없을때' />
+              )}
             </div>
 
             <div onClick={RandomPlay}>
               {isRandom ? (
-                <FaRandom size={20} color='red' />
+                <img src={RandomIcon} alt='랜덤' />
               ) : (
-                <FaRandom size={20} />
+                <img src={DisRandomIcon} alt='램덤아닐때' />
               )}
             </div>
-
-            <BsFillSkipStartCircleFill size='25' onClick={skipBack} />
+            <img src={BackPlay} alt='그전곡' onClick={skipBack} />
             <div onClick={play}>
               {isPlaying ? (
-                <BsFillStopCircleFill size={25} />
+                <img src={StopPlay} alt='정지' />
               ) : (
-                <AiFillPlayCircle size={25} />
+                <img src={OnPlay} alt='재생' />
               )}
             </div>
-            <BsFillSkipEndCircleFill size='25' onClick={skipNext} />
+            <img src={NextPlay} alt='다음곡' onClick={skipNext} />
           </BtnContainer>
           <MidDiv>
             <div>
@@ -262,9 +266,9 @@ function PlayerMain() {
           <VolumeolumeDiv>
             <VolumeolumeDivDiv onClick={ClickMuted}>
               {ismuted ? (
-                <BsFillVolumeMuteFill size={13} />
+                <img src={Volume} alt='음소거' />
               ) : (
-                <BsFillVolumeUpFill size={13} />
+                <img src={Volume} alt='불륨조절' />
               )}
             </VolumeolumeDivDiv>
             <VolumeolumeDivbar>
@@ -291,7 +295,7 @@ export const PlayContainer = styled.div`
   width: 800px;
   height: 152px;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.2);
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
   border-radius: 20px;
   margin-bottom: 20px;
   padding: 0 22px;
@@ -321,7 +325,7 @@ export const BtnContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
 `;
 
 export const TimerDiv = styled.div`
@@ -444,8 +448,9 @@ export const VolumeolumeDiv = styled.div`
 
 export const VolumeolumeDivDiv = styled.div`
   width: auto;
-  margin-top: 2px;
+
 `;
 export const VolumeolumeDivbar = styled.div`
+  margin-top: 12px;
   width: auto;
 `;
