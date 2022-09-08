@@ -288,7 +288,7 @@ const MyPage = () => {
               {Array(4)
                 .fill("")
                 .map(() => (
-                  <Post line_height='20' ft_weight='500' ft_size='14' />
+                  <Post/>
                 ))}
             </MyTextDiv>
           </MyMidTextDiv>
@@ -314,7 +314,7 @@ const MyPage = () => {
             {Array(12)
               .fill("")
               .map(() => (
-                <PostBig line_height='29' ft_weight='700' ft_size='20' />
+                <PostBig/>
               ))}
           </MyBtmImgDiv>
         </MyContainer>
