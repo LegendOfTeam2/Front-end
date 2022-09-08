@@ -167,10 +167,12 @@ export const MainAudioPlay = styled.div`
   /* display:  ${({ animation }) => (animation ? "flex" : "none")}; */
   display: flex;
   position: fixed;
-  animation: fadeInUp 4s;
-  bottom: 10px;
-  left: 0px;
-  @keyframes fadeInUp {
+  /* animation: fadeInUp 4s; */
+  bottom: 0;
+  left: 0;
+  transform: translateY(${(props) => props.yIndex});
+  transition: transform 0.3s ease-in;
+  /* @keyframes fadeInUp {
     0% {
       opacity: 0;
       transform: translate3d(0, 100%, 0);
@@ -179,5 +181,5 @@ export const MainAudioPlay = styled.div`
       opacity: 1;
       transform: translateZ(0);
     }
-  }
+  } */
 `;
