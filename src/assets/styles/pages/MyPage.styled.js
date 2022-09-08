@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
-
 export const MyContainerDiv = styled.div`
   width: 100%;
   background-color: #eeeceb;
   display: flex;
   justify-content: center;
   position: absolute;
-  top: 176px;
+  top: 175px;
 `;
 
 export const MyContainer = styled.div`
@@ -94,6 +93,13 @@ export const MyRightTopButDiv = styled.div`
   margin-left: 92px;
 `;
 
+export const MyRightTopButDivNotMember = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-left: 92px;
+`;
+
 export const MyRightTopDivSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xxxl};
   line-height: ${(props) => props.theme.lineHeight.xxxl};
@@ -122,48 +128,9 @@ export const MyTagBox = styled.div`
   border-bottom: 2px solid rgba(231, 231, 231, 1);
 `;
 
-export const MyTagBoxText = styled.div`
-  margin-top: 22px;
-  margin-bottom: 22px;
-  width: 100%;
-  height: auto;
-  display: ${({ tagSlider }) => (tagSlider ? "none" : "block")}; ;
-`;
-
-export const MyTagBoxTextDivDiv = styled.div`
-  line-height: ${(props) => props.theme.lineHeight.base};
-  font-size: ${(props) => props.theme.fontSizes.base};
-  font-weight: ${(props) => props.theme.fontWeight.Medium};
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-`;
-
 export const MyTagBoxTextSlide = styled.div`
   width: 100%;
   height: 68px;
-  /* overflow: hidden; */
-  display: ${({ tagSlider }) => (tagSlider ? "block" : "none")}; ;
-`;
-
-export const MyTagBoxTextSlideIcon = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  position: relative;
-  display: ${({ tagSlider }) => (tagSlider ? "none" : "block")};
-  &:hover {
-    cursor: pointer;
-    color: rgba(40, 202, 124, 1);
-  }
-  .x-icon {
-    position: absolute;
-    right: 1%;
-    bottom: 3%;
-    
-  }
 `;
 
 export const MyTagBoxTextSlideDiv = styled.div`
@@ -173,17 +140,6 @@ export const MyTagBoxTextSlideDiv = styled.div`
   display: ${({ tagSlider }) => (tagSlider ? "block" : "none")}; ;
 `;
 
-export const MyTagBoxTextSpan = styled.span`
-  width: auto;
-  height: auto;
-  padding: 9px;
-  border: 1px solid #000000;
-  border-radius: 24px;
-  &:hover {
-    cursor: pointer;
-    background-color: #aaa4a4;
-  }
-`;
 export const MyTagBoxTextSpanSlide = styled.span`
   width: auto;
   height: auto;

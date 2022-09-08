@@ -1,9 +1,8 @@
 // React
-import { Fragment, useRef } from "react";
-
+import { Fragment, useEffect, useRef } from "react";
 // Zustand
-import usePlayerStore from '../zustand/player';
-
+import usePostStore from '../zustand/post';
+import usePlayerStore from '../zustand/player'
 // Packages
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -56,7 +55,7 @@ const Main = () => {
     autoplaySpeed: 4000,
     slidesToShow: 1,
     arrows: false,
-    centerPadding: "85px",
+    centerPadding: "70px",
   };
   const Btmsettings = {
     className: "center",
@@ -67,6 +66,21 @@ const Main = () => {
     centerPadding: "-30px",
     ref: sliderRef,
   };
+
+  const getBestSong = usePostStore((state) => state.getBestSong);
+  const getRecentMaker = usePostStore((state) => state.getRecentMaker);
+  const getRecentSinger = usePostStore((state) => state.getRecentSinger);
+  const getBestMaker = usePostStore((state) => state.getBestMaker);
+  const getBestSinger = usePostStore((state) => state.getBestSinger);
+
+  useEffect(()=>{
+    getBestSong()
+    getRecentMaker()
+    getRecentSinger()
+    getBestMaker()
+    getBestSinger()
+  },[])
+
 
   return (
     <Fragment>
