@@ -80,7 +80,7 @@ const Header = () => {
                   _style={{
                     width: '122px',
                     height: '45px',
-                    bg_color: 'rgba(0, 0, 0, 1)',
+                    bg_color: '#28CA7C',
                     bd_radius: '11px',
                     color: 'rgba(255, 255, 255, 1)',
                     ft_size: '12',

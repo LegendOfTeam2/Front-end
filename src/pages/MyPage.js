@@ -1,30 +1,24 @@
 // React
-import { Fragment, useRef, useEffect, useState } from 'react';
+import { Fragment, useRef, useEffect, useState } from "react";
 
 // Zustand
-import useMyPageStore from '../zustand/mypage';
+import useMyPageStore from "../zustand/mypage";
 
 // Packages
-import { AiFillLike, AiOutlineClose } from 'react-icons/ai';
-import {
-  BsFillAlarmFill,
-  BsFillArchiveFill,
-  BsPlayCircle,
-} from 'react-icons/bs';
-import { BiCollapse } from 'react-icons/bi';
-import { BsMusicNoteList, BsMic } from 'react-icons/bs';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import axios from 'axios';
+import { BsMusicNoteList, BsMic } from "react-icons/bs";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import axios from "axios";
 
 // Utils
-import Button from '../elements/Button';
+import Button from "../elements/Button";
+import { getCookie } from "../utils/cookie";
 
 // Pages
-
+import jwt_decode from "jwt-decode";
 // Components
-import Header from '../components/Header';
+import Header from "../components/Header";
 
 // Elements
 
@@ -32,27 +26,12 @@ import Header from '../components/Header';
 
 // Assests
 import {
-  ImgMyBtmBtmRight,
-  ImgMyBtmRight,
   MyBtmDataDiv,
-  MyBtmimg,
-  MyBtmImgBtmLeft,
-  MyBtmImgBtmRight,
   MyBtmImgDiv,
-  MyBtmImgDivDiv,
-  MyBtmImgTopBtmRight,
-  MyBtmImgTopLeft,
-  MyBtmImgTopTopRight,
   MyBtmTextDiv,
   MyBtmTextDivDiv,
   MyContainer,
   MyContainerDiv,
-  Myimg,
-  MyImgBtmLeft,
-  MyImgBtmRight,
-  MyImgDivDiv,
-  MyImgTopLeft,
-  MyImgTopRight,
   Myleft,
   MyleftDiv,
   MyleftDivImg,
@@ -66,22 +45,21 @@ import {
   MyRightTopBtmDiv,
   MyRightTopBtmDivSpan,
   MyRightTopButDiv,
+  MyRightTopButDivNotMember,
   MyRightTopDiv,
   MyRightTopDivCl,
   MyRightTopDivClDiv,
   MyRightTopDivSpan,
   MyRightTopIconDiv,
   MyTagBox,
-  MyTagBoxText,
-  MyTagBoxTextDivDiv,
   MyTagBoxTextSlide,
   MyTagBoxTextSlideDiv,
-  MyTagBoxTextSlideIcon,
-  MyTagBoxTextSpan,
   MyTagBoxTextSpanSlide,
   MyTextDiv,
 } from "../assets/styles/pages/MyPage.styled";
+
 import Post from "../components/Post";
+import PostBig from "../components/PostBig";
 
 const MyPage = () => {
   const [tagSlider, setTagSlider] = useState(false);
@@ -103,9 +81,9 @@ const MyPage = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -118,43 +96,42 @@ const MyPage = () => {
   };
 
   const settings = {
-    className: 'center',
+    className: "center",
     centerMode: true,
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    centerPadding: '-10px',
+    centerPadding: "-10px",
     arrows: false,
     variableWidth: true,
   };
-
   const categoryHandle = (state) => {
     switch (state) {
-      case 'work': {
-        leftRef.current.style.borderTopColor = 'black';
-        midRef.current.style.borderTopColor = 'transparent';
-        rightRef.current.style.borderTopColor = 'transparent';
-        leftRef.current.style.color = 'black';
-        midRef.current.style.color = 'rgba(180, 180, 180, 1)';
-        rightRef.current.style.color = 'rgba(180, 180, 180, 1)';
+      case "work": {
+        leftRef.current.style.borderTopColor = "black";
+        midRef.current.style.borderTopColor = "transparent";
+        rightRef.current.style.borderTopColor = "transparent";
+        leftRef.current.style.color = "black";
+        midRef.current.style.color = "rgba(180, 180, 180, 1)";
+        rightRef.current.style.color = "rgba(180, 180, 180, 1)";
         break;
       }
-      case 'like': {
-        leftRef.current.style.borderTopColor = 'transparent';
-        midRef.current.style.borderTopColor = 'black';
-        rightRef.current.style.borderTopColor = 'transparent';
-        leftRef.current.style.color = 'rgba(180, 180, 180, 1)';
-        midRef.current.style.color = 'black';
-        rightRef.current.style.color = 'rgba(180, 180, 180, 1)';
+      case "like": {
+        leftRef.current.style.borderTopColor = "transparent";
+        midRef.current.style.borderTopColor = "black";
+        rightRef.current.style.borderTopColor = "transparent";
+        leftRef.current.style.color = "rgba(180, 180, 180, 1)";
+        midRef.current.style.color = "black";
+        rightRef.current.style.color = "rgba(180, 180, 180, 1)";
         break;
       }
-      case 'save': {
-        leftRef.current.style.borderTopColor = 'transparent';
-        midRef.current.style.borderTopColor = 'transparent';
-        rightRef.current.style.borderTopColor = 'black';
-        leftRef.current.style.color = 'rgba(180, 180, 180, 1)';
-        midRef.current.style.color = 'rgba(180, 180, 180, 1)';
-        rightRef.current.style.color = 'black';
+      case "save": {
+        leftRef.current.style.borderTopColor = "transparent";
+        midRef.current.style.borderTopColor = "transparent";
+        rightRef.current.style.borderTopColor = "black";
+        leftRef.current.style.color = "rgba(180, 180, 180, 1)";
+        midRef.current.style.color = "rgba(180, 180, 180, 1)";
+        rightRef.current.style.color = "black";
         break;
       }
       default:
@@ -163,8 +140,8 @@ const MyPage = () => {
   };
 
   useEffect(() => {
-    leftRef.current.style.borderTopColor = 'black';
-    leftRef.current.style.color = 'black';
+    leftRef.current.style.borderTopColor = "black";
+    leftRef.current.style.color = "black";
   }, []);
 
   return (
@@ -192,38 +169,87 @@ const MyPage = () => {
 
                     <MyRightTopIconDiv>
                       <div>
-                        <BsMusicNoteList size={25} />
+
                       </div>
                       <div>
-                        <BsMic size={25} />
+
                       </div>
                     </MyRightTopIconDiv>
-                    <MyRightTopButDiv>
-                      <Button
-                        _style={{
-                          width: '124px',
-                          height: '40px',
-                          bg_color: 'rgba(0, 0, 0, 1)',
-                          bd_radius: '11px',
-                          color: 'rgba(255, 255, 255, 1)',
-                          ft_size: '12',
-                          ft_weight: '700',
-                        }}
-                        _text={'메세지 보내기'}
-                      />
-                      <Button
-                        _style={{
-                          width: '124px',
-                          height: '40px',
-                          bg_color: 'rgba(0, 0, 0, 1)',
-                          bd_radius: '11px',
-                          color: 'rgba(255, 255, 255, 1)',
-                          ft_size: '12',
-                          ft_weight: '700',
-                        }}
-                        _text={'팔로우'}
-                      />
-                    </MyRightTopButDiv>
+
+                    {getCookie("authorization") !== undefined ? (
+                      jwt_decode(getCookie("authorization")).sub !==
+                      "KAKAO775572255" ? (
+                        <MyRightTopButDiv>
+                          <Button
+                            _style={{
+                              width: "122px",
+                              height: "45px",
+                              bg_color: "#E7E7E7",
+                              bd_radius: "11px",
+                              color: "#121212",
+                              ft_size: "12",
+                              ft_weight: "700",
+                            }}
+                            _text={"메세지"}
+                          />
+                          <Button
+                            _style={{
+                              width: "122px",
+                              height: "45px",
+                              bg_color: "#28CA7C",
+                              bd_radius: "11px",
+                              color: "rgba(255, 255, 255, 1)",
+                              ft_size: "12",
+                              ft_weight: "700",
+                            }}
+                            _text={"팔로우"}
+                          />
+                        </MyRightTopButDiv>
+                      ) : (
+                        <MyRightTopButDivNotMember>
+                          {" "}
+                          <Button
+                            _style={{
+                              width: "261px",
+                              height: "45px",
+                              bg_color: "#28CA7C",
+                              bd_radius: "11px",
+                              color: "rgba(255, 255, 255, 1)",
+                              ft_size: "12",
+                              ft_weight: "700",
+                            }}
+                            _text={"프로필 수정"}
+                          />
+                        </MyRightTopButDivNotMember>
+                      )
+                    ) : (
+                      <MyRightTopButDiv>
+                        <Button
+                          _style={{
+                            width: "122px",
+                            height: "45px",
+                            bg_color: "#E7E7E7",
+                            bd_radius: "11px",
+                            color: "#121212",
+                            ft_size: "12",
+                            ft_weight: "700",
+                          }}
+                          _text={"메세지"}
+                        />
+                        <Button
+                          _style={{
+                            width: "122px",
+                            height: "45px",
+                            bg_color: "#28CA7C",
+                            bd_radius: "11px",
+                            color: "rgba(255, 255, 255, 1)",
+                            ft_size: "12",
+                            ft_weight: "700",
+                          }}
+                          _text={"팔로우"}
+                        />
+                      </MyRightTopButDiv>
+                    )}
                   </MyRightTopDiv>
                   <MyRightTopBtmDiv>
                     <MyRightTopBtmDivSpan>곡 작업 10</MyRightTopBtmDivSpan>
@@ -232,35 +258,10 @@ const MyPage = () => {
                   </MyRightTopBtmDiv>
                 </MyRightTopDivClDiv>
                 <MyTagBox>
-                  <MyTagBoxText tagSlider={tagSlider}>
-                    <MyTagBoxTextDivDiv>
-                      <div>
-                        <MyTagBoxTextSpan> # 감성 래퍼</MyTagBoxTextSpan>
-                      </div>
-                      <div>
-                        <MyTagBoxTextSpan> # 랩 커버</MyTagBoxTextSpan>
-                      </div>
-                      <div>
-                        <MyTagBoxTextSpan> # 랩 커버</MyTagBoxTextSpan>
-                      </div>
-                      <div>
-                        <MyTagBoxTextSpan> # 랩 커버</MyTagBoxTextSpan>
-                      </div>
-                      <div>
-                        <MyTagBoxTextSpan onClick={clickTag}>
-                          더 보기
-                        </MyTagBoxTextSpan>
-                      </div>
-                    </MyTagBoxTextDivDiv>
-                  </MyTagBoxText>
-
                   <MyTagBoxTextSlide tagSlider={tagSlider}>
-                    <MyTagBoxTextSlideIcon onClick={clickTag}>
-                      <AiOutlineClose className='x-icon' size={16} />
-                    </MyTagBoxTextSlideIcon>
                     <Slider {...settings}>
                       {Array(12)
-                        .fill('')
+                        .fill("")
                         .map(() => (
                           <MyTagBoxTextSlideDiv>
                             <MyTagBoxTextSpanSlide>
@@ -273,7 +274,7 @@ const MyPage = () => {
                 </MyTagBox>
                 <MyRightBtmDiv>
                   <MyRightBtmDivSpan>
-                    감성을 전하는 래퍼 백예린 -ˋˏ * ٩( ◡̉̈ )۶ * ˎˊ-{' '}
+                    감성을 전하는 래퍼 백예린 -ˋˏ * ٩( ◡̉̈ )۶ * ˎˊ-{" "}
                   </MyRightBtmDivSpan>
                 </MyRightBtmDiv>
               </MyRightTopDivCl>
@@ -285,35 +286,35 @@ const MyPage = () => {
             </MyMidTextDivDiv>
             <MyTextDiv>
               {Array(4)
-                .fill('')
+                .fill("")
                 .map(() => (
-                  <Post width='167px' height='167px' line_height='20' ft_weight='500' ft_size='14' />
+                  <Post line_height='20' ft_weight='500' ft_size='14' />
                 ))}
             </MyTextDiv>
           </MyMidTextDiv>
           <MyBtmTextDiv>
             <MyBtmTextDivDiv ref={leftRef}>
-              <MyBtmDataDiv onClick={() => categoryHandle('work')}>
+              <MyBtmDataDiv onClick={() => categoryHandle("work")}>
                 작업물
               </MyBtmDataDiv>
             </MyBtmTextDivDiv>
             <MyBtmTextDivDiv ref={midRef}>
-              <MyBtmDataDiv onClick={() => categoryHandle('like')}>
+              <MyBtmDataDiv onClick={() => categoryHandle("like")}>
                 좋아요
               </MyBtmDataDiv>
             </MyBtmTextDivDiv>
             <MyBtmTextDivDiv ref={rightRef}>
-              <MyBtmDataDiv onClick={() => categoryHandle('save')}>
-                저장
+              <MyBtmDataDiv onClick={() => categoryHandle("save")}>
+                보관함
               </MyBtmDataDiv>
             </MyBtmTextDivDiv>
           </MyBtmTextDiv>
 
           <MyBtmImgDiv>
             {Array(12)
-              .fill('')
+              .fill("")
               .map(() => (
-                <Post width='309px' height='309px' line_height='29' ft_weight='700' ft_size='20' />
+                <PostBig line_height='29' ft_weight='700' ft_size='20' />
               ))}
           </MyBtmImgDiv>
         </MyContainer>

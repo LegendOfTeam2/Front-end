@@ -56,6 +56,9 @@ font-weight: ${(props) => props.theme.fontWeight.Medium};
 font-size: ${(props) => props.theme.fontSizes.xl};
 margin-top: 3px;
 color: rgba(204, 204, 204, 1);
+&:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ProfileTextSingMakeDiv = styled.div`

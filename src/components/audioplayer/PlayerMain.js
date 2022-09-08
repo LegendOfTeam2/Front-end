@@ -14,6 +14,7 @@ import {
   StopPlay,
   NextPlay,
   Volume,
+  MutedAll,
 } from "../../assets/images/image";
 
 function PlayerMain() {
@@ -228,30 +229,34 @@ function PlayerMain() {
 
         <AllBtnContainer>
           <BtnContainer>
-            <div onClick={ClickLoop}>
+            <IconImgHover onClick={ClickLoop}>
               {isLoop ? (
                 <img src={LoopPlay} alt='루프있을때' />
               ) : (
                 <img src={DisRepeated} alt='루프없을때' />
               )}
-            </div>
+            </IconImgHover>
 
-            <div onClick={RandomPlay}>
+            <IconImgHover onClick={RandomPlay}>
               {isRandom ? (
                 <img src={RandomIcon} alt='랜덤' />
               ) : (
                 <img src={DisRandomIcon} alt='램덤아닐때' />
               )}
-            </div>
-            <img src={BackPlay} alt='그전곡' onClick={skipBack} />
-            <div onClick={play}>
+            </IconImgHover>
+            <IconImgHover>
+              <img src={BackPlay} alt='그전곡' onClick={skipBack} />
+            </IconImgHover>
+            <IconImgHover onClick={play}>
               {isPlaying ? (
                 <img src={StopPlay} alt='정지' />
               ) : (
                 <img src={OnPlay} alt='재생' />
               )}
-            </div>
-            <img src={NextPlay} alt='다음곡' onClick={skipNext} />
+            </IconImgHover>
+            <IconImgHover>
+              <img src={NextPlay} alt='다음곡' onClick={skipNext} />
+            </IconImgHover>
           </BtnContainer>
           <MidDiv>
             <div>
@@ -266,7 +271,7 @@ function PlayerMain() {
           <VolumeolumeDiv>
             <VolumeolumeDivDiv onClick={ClickMuted}>
               {ismuted ? (
-                <img src={Volume} alt='음소거' />
+                <img src={MutedAll} alt='음소거' />
               ) : (
                 <img src={Volume} alt='불륨조절' />
               )}
@@ -448,9 +453,19 @@ export const VolumeolumeDiv = styled.div`
 
 export const VolumeolumeDivDiv = styled.div`
   width: auto;
-
+  :hover {
+    cursor: pointer;
+  }
 `;
+
 export const VolumeolumeDivbar = styled.div`
   margin-top: 12px;
   width: auto;
+`;
+
+export const IconImgHover = styled.div`
+  width: auto;
+  :hover {
+    cursor: pointer;
+  }
 `;

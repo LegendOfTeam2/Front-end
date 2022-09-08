@@ -1,9 +1,5 @@
 import React from "react";
-import { AiFillLike } from "react-icons/ai";
-import {
-  BsFillAlarmFill,
-  BsFillArchiveFill,
-} from "react-icons/bs";
+
 import {
   ImgBtmLeft,
   ImgBtmRight,
@@ -13,7 +9,12 @@ import {
   ProfileImgDivDiv,
   Profileimg,
   ImgMainSpan,
+  ImgBtmLeftDiv,
+  ImgBtmLeftDivSapn,
+  ImgTopRightImg,
 } from "../assets/styles/components/PostSlide.styled";
+
+import {Collaboration,DisLike,OnPlay} from '../assets/images//image'
 
 const PostSlider = ({width, height , postId, position, title, likeCount, collaborate,imageUrl,mediaUrl,nickname  }) => {
 
@@ -30,14 +31,18 @@ const PostSlider = ({width, height , postId, position, title, likeCount, collabo
       </ImgMainBtmRight>
       <ImgTopLeft>나는 페페</ImgTopLeft>
       <ImgTopRight>
-        <BsFillAlarmFill color='white' />
+      <img src={Collaboration} alt='콜라보'/>
       </ImgTopRight>
       <ImgBtmLeft>
-        <AiFillLike color='white' />
-        372
+      <ImgBtmLeftDiv>
+      <img src={DisLike} alt='좋아요 안한 상태' />
+
+      <ImgBtmLeftDivSapn>372</ImgBtmLeftDivSapn>
+      </ImgBtmLeftDiv>
+        
       </ImgBtmLeft>
       <ImgBtmRight>
-        <BsFillArchiveFill color='white' />
+      <img src={OnPlay} alt='플레이 버튼' />
       </ImgBtmRight>
     </ProfileImgDivDiv>
   );

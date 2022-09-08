@@ -36,9 +36,9 @@ export const ImgMainSpan = styled.span`
 
 export const ImgTopLeft = styled.div`
 position: absolute;
-top: 8%;
+top: 12%;
 left: 8%;
-color: white;
+color: rgba(40, 202, 124, 1);
 display: none;
 ${ProfileImgDivDiv}:hover & {
   display: block;
@@ -48,6 +48,7 @@ ${ProfileImgDivDiv}:hover & {
 
 export const ImgTopRight = styled.div`
 position: absolute;
+width: auto;
 top: 8%;
 right: 35%;
 display: none;
@@ -58,7 +59,10 @@ ${ProfileImgDivDiv}:hover & {
 `;
 
 export const ImgBtmLeft = styled.div`
+width: 100%;
 position: absolute;
+display: flex;
+flex-direction: row;
 bottom: 8%;
 left: 8%;
 color: white;
@@ -68,11 +72,26 @@ ${ProfileImgDivDiv}:hover & {
   cursor: pointer;
 }
 `;
+export const ImgBtmLeftDiv = styled.div`
+width: 100%;
+display: flex;
+flex-direction: row;
+`;
+
+export const ImgBtmLeftDivSapn = styled.span`
+line-height: ${(props) => props.theme.lineHeight.xs};
+  font-weight: ${(props) => props.theme.fontWeight.Regular};
+  font-size: ${(props) => props.theme.fontSizes.sm};
+  color: rgba(40, 202, 124, 1);
+  margin-left: 1px;
+  margin-top: 3px;
+`;
+
 
 export const ImgBtmRight = styled.div`
 position: absolute;
 bottom: 7%;
-right: 35%;
+right: 32%;
 display: none;
 ${ProfileImgDivDiv}:hover & {
   display: block;

@@ -26,7 +26,7 @@ export const MainImgDiv = styled.div`
   width: 100%;
   margin-bottom: 26px;
   .slick-list {
-    margin-right: -40px;
+
   }
 `;
 
