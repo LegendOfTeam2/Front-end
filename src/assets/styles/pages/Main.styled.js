@@ -25,9 +25,6 @@ export const MainContainer = styled.div`
 export const MainImgDiv = styled.div`
   width: 100%;
   margin-bottom: 26px;
-  .slick-list {
-
-  }
 `;
 
 export const MainImgDivDiv = styled.div`
@@ -183,3 +180,10 @@ export const MainAudioPlay = styled.div`
     }
   } */
 `;
+
+export const MainProfileSliderGroup = styled.div`
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+`

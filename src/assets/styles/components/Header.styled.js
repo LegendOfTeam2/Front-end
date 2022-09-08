@@ -35,7 +35,9 @@ export const HeaderDiv = styled.div`
 export const LogoDiv = styled.div`
   width: auto;
   height: auto;
-
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const SearchDiv = styled.div`

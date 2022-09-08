@@ -12,11 +12,16 @@ import {
 } from "../utils/apis/post";
 
 const usePostStore = create((set) => ({
-  BestSongApi:[],
+  bestSong_is_loaded: false,
+  bestSong:[],
+  recentMaker_is_loaded: false,
   recentMaker: [],
+  recentsinger_is_loaded: false,
   recentsinger: [],
-  BestMaker: [],
-  BestSinger: [],
+  bestMaker_is_loaded: false,
+  bestMaker: [],
+  bestSinger_is_loaded: false,
+  bestSinger: [],
 
   addPost: async (payload) => {
     const resData = await addPostApi(payload)
@@ -30,7 +35,7 @@ const usePostStore = create((set) => ({
     const resData = await getBestSongApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-    set({ BestSongApi: resData.data });
+    set({ bestSong: resData.data });
 
     return resData.data;
   },

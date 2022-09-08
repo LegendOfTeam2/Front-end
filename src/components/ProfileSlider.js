@@ -1,13 +1,13 @@
 // React
-import { Fragment, useRef } from "react";
+import { Fragment, useRef } from 'react';
 // Packages
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
-} from "react-icons/md";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+} from 'react-icons/md';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 // Assests
 import {
@@ -22,21 +22,22 @@ import {
   ProfileTextMake,
   ProfileTextNew,
   ProfileTextSingMakeDiv,
-} from "../assets/styles/components/ProfileSlider.styled";
+} from '../assets/styles/components/ProfileSlider.styled';
 
-import PostSlider from "./PostSlider";
+import PostSlider from './PostSlider';
 
 const ProfileSlider = (props) => {
   const sliderRef = useRef();
 
   const settings = {
-    className: "center",
+    className: 'center',
     centerMode: true,
     infinite: true,
     slidesToShow: 4,
     arrows: false,
-    centerPadding: "-30px",
+    centerPadding: '-30px',
     ref: sliderRef,
+    slideToScroll: 1,
   };
   return (
     <Fragment>
@@ -51,30 +52,29 @@ const ProfileSlider = (props) => {
               <ProfileArrowDiv></ProfileArrowDiv>
             </ProfileTextDiv>
 
-              <ArowLeft>
-                <MdOutlineArrowBackIosNew
-                  className='icon-prev'
-                  color='rgba(180, 180, 180, 1)'
-                  size={30}
-                  onClick={() => sliderRef.current.slickPrev()}
-                />
-              </ArowLeft>
-              <Slider {...settings}>
-                {Array(6)
-                  .fill("")
-                  .map(() => (
-                    <PostSlider width='167' height='167' />
-                  ))}
-              </Slider>
-              <ArowRight>
-                <MdOutlineArrowForwardIos
-                  className='icon-next'
-                  color='rgba(180, 180, 180, 1)'
-                  size={30}
-                  onClick={() => sliderRef.current.slickNext()}
-                />
-              </ArowRight>
-
+            <ArowLeft>
+              <MdOutlineArrowBackIosNew
+                className='icon-prev'
+                color='rgba(180, 180, 180, 1)'
+                size={30}
+                onClick={() => sliderRef.current.slickPrev()}
+              />
+            </ArowLeft>
+            <Slider {...settings}>
+              {Array(6)
+                .fill('')
+                .map(() => (
+                  <PostSlider width='167' height='167' />
+                ))}
+            </Slider>
+            <ArowRight>
+              <MdOutlineArrowForwardIos
+                className='icon-next'
+                color='rgba(180, 180, 180, 1)'
+                size={30}
+                onClick={() => sliderRef.current.slickNext()}
+              />
+            </ArowRight>
           </ProfileImgDiv>
         </ProfileContainer>
       </ProfileContainerDiv>
