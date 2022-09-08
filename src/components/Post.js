@@ -10,11 +10,11 @@ import {
   MyImgDivDiv,
   MyImgTopLeft,
   MyImgTopRight,
-} from "../assets/styles/components/Psot.styled";
+  PostimgDivDiv,
+} from "../assets/styles/components/Post.styled";
 import { Collaboration, DisLike, OnPlay } from "../assets/images//image";
 import React from "react";
 const Post = ({
-
   postId,
   position,
   title,
@@ -23,22 +23,16 @@ const Post = ({
   imageUrl,
   mediaUrl,
   nickname,
-  line_height,
-  ft_size,
-  ft_weight,
 }) => {
   return (
     <MyImgDivDiv>
+
       <Myimg
         src='https://i.pinimg.com/originals/51/31/a8/5131a8244ab74ea8523d59e1ba81606a.jpg'
         alt=''
       />
       <ImgMyBtmRight>
-        <ImgNotSlideSpan
-          line_height={line_height}
-          ft_size={ft_size}
-          ft_weight={ft_weight}
-        >
+        <ImgNotSlideSpan>
           아티스트 이름
         </ImgNotSlideSpan>
       </ImgMyBtmRight>

@@ -62,7 +62,7 @@ const Header = () => {
         <HeaderContainer>
           <HeaderDiv>
             <LeftDiv>
-              <LogoDiv>
+              <LogoDiv onClick={() => navigate('/')}>
                 <img src={HeaderlargeLogo} backgrond='white' alt='로고이미지' />
               </LogoDiv>
 

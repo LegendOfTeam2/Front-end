@@ -39,6 +39,7 @@ import {
 
 import ProfileSlider from '../components/ProfileSlider';
 import HotArtist from '../components/HotArtist';
+import Post from '../components/Post';
 
 const Main = () => {
   const sliderRef = useRef();
@@ -123,7 +124,6 @@ const Main = () => {
             <ProfileSlider GrandTitle='메이커 최신작품' />
             <ProfileSlider GrandTitle='메이커 인기작품' />
           </MainProfileSliderGroup>
-
           <BtmProfileImgDiv>
             <BtmProfileTextDiv>
               <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>

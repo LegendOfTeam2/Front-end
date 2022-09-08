@@ -117,7 +117,7 @@ export const MyRightTopBtmDiv = styled.div`
 export const MyRightTopBtmDivSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.base};
-  font-weight: ${(props) => props.theme.fontWeight.Regular}; ;
+  font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
 `;
 
 export const MyTagBox = styled.div`
@@ -165,7 +165,7 @@ export const MyRightBtmDiv = styled.div`
 export const MyRightBtmDivSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.sm};
   line-height: ${(props) => props.theme.lineHeight.xs};
-  font-weight: ${(props) => props.theme.fontWeight.Regular};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
   margin-top: 28px;
 `;
 
