@@ -18,7 +18,6 @@ import {
   ImgBtmLeftDiv,
   ImgBtmLeftDivSapn,
 } from '../assets/styles/components/PostSlide.styled';
-
 const PostSlider = ({
   width,
   height,

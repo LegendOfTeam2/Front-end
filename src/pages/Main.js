@@ -55,7 +55,7 @@ const Main = () => {
     autoplaySpeed: 4000,
     slidesToShow: 1,
     arrows: false,
-    centerPadding: "70px",
+    centerPadding: "80px",
   };
   const Btmsettings = {
     className: "center",
@@ -119,11 +119,13 @@ const Main = () => {
                 ))}
             </Slider>
           </MainImgDiv>
+          <div>
 
           <ProfileSlider GrandTitle='싱어 최신작품' />
           <ProfileSlider GrandTitle='싱어 인기작품' />
           <ProfileSlider GrandTitle='메이커 최신작품' />
           <ProfileSlider GrandTitle='메이커 인기작품' />
+          </div>
 
           <BtmProfileImgDiv>
             <BtmProfileTextDiv>
