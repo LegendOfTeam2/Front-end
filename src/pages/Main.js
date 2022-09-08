@@ -1,6 +1,8 @@
 // React
 import { Fragment, useRef } from "react";
+
 // Zustand
+import usePlayerStore from '../zustand/player';
 
 // Packages
 import Slider from "react-slick";
@@ -40,8 +42,11 @@ import HotArtist from "../components/HotArtist";
 
 
 
-const Main = () => {
+const Main = () => {  
   const sliderRef = useRef();
+
+  const viewState = usePlayerStore((state) => state.viewState);
+  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
 
   const settings = {
     className: "center",
@@ -138,7 +143,7 @@ const Main = () => {
             </MainArowRight>
           </BtmProfileImgDiv>
 
-          <MainAudioPlay>
+          <MainAudioPlay yIndex={viewState ? '0' : '100%'}>
             <PlayerMain />
           </MainAudioPlay>
         </MainContainer>

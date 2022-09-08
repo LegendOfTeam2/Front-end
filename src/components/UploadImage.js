@@ -15,7 +15,7 @@ import {
   UploadImageInput,
 } from '../assets/styles/components/UploadImage.styled';
 
-const UploadImage = ({ setFile, setFileSrc, width, height }) => {
+const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
   const uploadBoxRef = useRef();
   const uploadInputRef = useRef();
 
@@ -87,7 +87,7 @@ const UploadImage = ({ setFile, setFileSrc, width, height }) => {
       <UploadImageIcon>
         <GrAdd className='icon'></GrAdd>
       </UploadImageIcon>
-      <UploadImageText>이미지 삽입하기</UploadImageText>
+      <UploadImageText>{text}</UploadImageText>
       <UploadImageInput
         type={'file'}
         accept={'image/*'}

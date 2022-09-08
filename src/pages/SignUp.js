@@ -574,6 +574,7 @@ const SignUp = () => {
               <SignUpBoxInputTags
                 onKeyDown={addTag}
                 placeholder='Tab, Enter로 구분하여 입력해 주세요.'
+                maxLength={100}
               />
               {tags.length === 0 ? (
                 <Fragment></Fragment>
@@ -597,6 +598,7 @@ const SignUp = () => {
               width={'50%'}
               setFile={setFile}
               setFileSrc={setFileSrc}
+              text={'이미지 삽입하기'}
             />
             <SignUpBoxImagePreviewBox>
               {fileSrc === '' ? (
