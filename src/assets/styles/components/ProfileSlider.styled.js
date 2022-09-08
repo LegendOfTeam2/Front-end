@@ -9,7 +9,7 @@ position: relative;
 `;
 
 export const ProfileContainer = styled.div`
-width: ${(props) => props.theme.deviceSizes.tabletL};
+width: 100%;
 height: auto;
 display: flex;
 flex-direction: column;
@@ -18,6 +18,7 @@ flex-direction: column;
   opacity: 0.8;
   transition: all 300ms ease;
   transform: scale(0.99);
+  width: 100%;
 }
 `;
 

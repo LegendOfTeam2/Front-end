@@ -1,8 +1,13 @@
 // React
+import { Fragment } from 'react';
+
+//Zustand
+import useMemberStore from '../zustand/member';
 
 // Package
 import { FiSearch } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 // Element
 import Button from '../elements/Button';
@@ -27,9 +32,10 @@ import {
 } from '../assets/styles/components/Header.styled';
 import { HeaderlargeLogo } from '../assets/images/image';
 
-
 const Header = () => {
   const navigate = useNavigate();
+
+  const signOutMember = useMemberStore((state) => state.signOutMember);
 
   const uploadHandle = () => {
     if (getCookie('authorization') !== undefined) {
@@ -40,15 +46,25 @@ const Header = () => {
     }
   };
 
-  const onHandleSingOut = () => {};
+  const onHandleSingOut = () => {
+    signOutMember({
+      nickname: jwt_decode(getCookie('authorization')).sub,
+    }).then((res) => {
+      if (res) {
+        alert('로그아웃 되었습니다.');
+      }
+    });
+  };
 
   return (
-    <>
+    <Fragment>
       <HeaderContainerDiv>
         <HeaderContainer>
           <HeaderDiv>
             <LeftDiv>
-              <LogoDiv><img src={HeaderlargeLogo} backgrond='white' alt='로고이미지'/></LogoDiv>
+              <LogoDiv>
+                <img src={HeaderlargeLogo} backgrond='white' alt='로고이미지' />
+              </LogoDiv>
 
               <SearchDiv>
                 <SearchIconDiv>
@@ -124,7 +140,7 @@ const Header = () => {
           </HeaderDiv>
         </HeaderContainer>
       </HeaderContainerDiv>
-    </>
+    </Fragment>
   );
 };
 
