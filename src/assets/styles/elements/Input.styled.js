@@ -22,6 +22,6 @@ export const StyledInput = styled.input`
   flex: ${(props) => props.flex};
   outline: none;
   &::placeholder {
-    color: #d9d9d9;
+    color: #b4b4b4;
   }
 `;

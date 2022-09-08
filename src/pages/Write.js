@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 // Components
 import UploadImage from '../components/UploadImage';
 import HashTagWithIcon from '../components/HashTagWithIcon';
+import WriteModal from '../components/modal/WriteModal';
 
 // Elements
 import Input from '../elements/Input';
@@ -33,10 +34,10 @@ const Write = () => {
   const [image, setImage] = useState('');
   const [imageSrc, setImageSrc] = useState('');
   const [audio, setAudio] = useState('');
-  const [audioName, setAudioName] = useState('');
   const [tags, setTags] = useState([]);
   const [collaborate, setCollaborate] = useState(false);
   const [position, setPosition] = useState('');
+  const [isOpen, setOpen] = useState(false);
 
   const navigate = useNavigate();
   const uploadAudio = useUploadStore((state) => state.uploadAudio);
@@ -67,6 +68,14 @@ const Write = () => {
     tags,
     collaborate,
   };
+
+  const onHandleModal = () => {
+    setOpen(true);
+  }
+
+  const onCancel = useCallback(() => {
+    setOpen(false);
+  }, [isOpen])
 
   useEffect(() => {
     if (title !== '') titleIconRef.current.style.display = 'block';
@@ -120,7 +129,6 @@ const Write = () => {
         setAudio(res.data[0]);
       } else {
         alert('오디오 업로드에 실패했습니다.');
-        audioName('');
         setAudio('');
       }
     });
@@ -129,7 +137,7 @@ const Write = () => {
   const onDropHandle = (e) => {
     e.preventDefault();
 
-    console.log(e.dataTransfer.files[0])
+    console.log(e.dataTransfer.files[0]);
     addPreview(e.dataTransfer.files[0]);
 
     const formData = new FormData();
@@ -139,7 +147,6 @@ const Write = () => {
         setAudio(res.data[0]);
       } else {
         alert('오디오 업로드에 실패했습니다.');
-        audioName('');
         setAudio('');
       }
     });
@@ -152,6 +159,11 @@ const Write = () => {
   const uploadHandle = () => {
     uploadInputRef.current.click();
   };
+
+  const deleteAudio = useCallback(() => {
+    audioBoxRef.current.style.display = 'none';
+    setAudio('');
+  }, [audio]);
 
   // Hashtag
   useEffect(() => {
@@ -168,11 +180,6 @@ const Write = () => {
       });
     };
   });
-
-  const deleteAudio = useCallback(() => {
-    audioBoxRef.current.style.display = 'none';
-    setAudio('');
-  }, [audio]);
 
   const addTag = useCallback(
     (event) => {
@@ -268,204 +275,209 @@ const Write = () => {
   };
 
   return (
-    <WriteContainer>
-      <WriteBox>
-        <WriteIconContainer>
-          <GrClose></GrClose>
-        </WriteIconContainer>
-        <WriteCollaboContainer
-          onClick={changeCollaborateStatus}
-          ref={collaboBoxRef}
-        >
-          {collaborate ? (
-            <WriteCollaboIcon>
-              <ImHeadphones className='icon' color='white' />
-            </WriteCollaboIcon>
-          ) : (
-            <WriteCollaboIcon>
-              <ImHeadphones className='icon' />
-            </WriteCollaboIcon>
-          )}
-          <WriteCollaboText ref={collaboTextRef}>콜라보</WriteCollaboText>
-        </WriteCollaboContainer>
-        <WriteSingerContainer
-          onClick={() => choosePostion('singer')}
-          ref={singerBoxRef}
-        >
-          <WriteSingerIcon>
-            {position === 'Singer' ? (
-              <GiMicrophone className='icon' color='white' />
+    <Fragment>
+      <WriteModal isOpen={isOpen} onCancel={onCancel}/>
+      <WriteContainer>
+        <WriteBox>
+          <WriteIconContainer onClick={onHandleModal}>
+            <GrClose></GrClose>
+          </WriteIconContainer>
+          <WriteCollaboContainer
+            onClick={changeCollaborateStatus}
+            ref={collaboBoxRef}
+          >
+            {collaborate ? (
+              <WriteCollaboIcon>
+                <ImHeadphones className='icon' color='white' />
+              </WriteCollaboIcon>
             ) : (
-              <GiMicrophone className='icon' />
+              <WriteCollaboIcon>
+                <ImHeadphones className='icon' />
+              </WriteCollaboIcon>
             )}
-          </WriteSingerIcon>
-          <WriteSingerText ref={singerTextRef}>싱어</WriteSingerText>
-        </WriteSingerContainer>
-        <WriteMakerContainer
-          onClick={() => choosePostion('maker')}
-          ref={makerBoxRef}
-        >
-          <WriteMakerIcon>
-            {position === 'Maker' ? (
-              <SiBeatsbydre className='icon' color='white' />
-            ) : (
-              <SiBeatsbydre className='icon' />
-            )}
-          </WriteMakerIcon>
-          <WriteMakerText ref={makerTextRef}>메이커</WriteMakerText>
-        </WriteMakerContainer>
-        <WriteForm id='write' onSubmit={(e) => addPostHandle(e)}>
-          <WriteInputContainer>
-            <WriteInputIcon
-              onClick={() => deleteText('title')}
-              ref={titleIconRef}
-            >
-              <GrClose className='icon'></GrClose>
-            </WriteInputIcon>
-            <Input
-              _type={'text'}
-              _value={title}
-              _onChange={(e) => setTitle(e.target.value)}
-              _placeholder={'작업물의 제목을 입력해 주세요.'}
-              _style={{
-                width: '776px',
-                height: 'auto',
-                pd_left: '19px',
-                pd_top: '20px',
-                pd_bottom: '20px',
-                pd_right: '40px',
-                ft_size: '14',
-                line_height: '20',
-                bd_radius: '10px',
-                bd_color: '#d9d9d9',
-              }}
-            ></Input>
-          </WriteInputContainer>
-          <WriteImageTextContainer>
-            <WriteImageBox>
-              {imageSrc === '' ? (
-                <Fragment />
+            <WriteCollaboText ref={collaboTextRef}>콜라보</WriteCollaboText>
+          </WriteCollaboContainer>
+          <WriteSingerContainer
+            onClick={() => choosePostion('singer')}
+            ref={singerBoxRef}
+          >
+            <WriteSingerIcon>
+              {position === 'Singer' ? (
+                <GiMicrophone className='icon' color='white' />
               ) : (
-                <WriteImagePreviewImg src={imageSrc}></WriteImagePreviewImg>
+                <GiMicrophone className='icon' />
               )}
-              <UploadImage
-                width={'236px'}
-                height={'236px'}
-                setFile={setImage}
-                setFileSrc={setImageSrc}
-              ></UploadImage>
-            </WriteImageBox>
-            <WriteTextBox>
-              <WriteTextIconBox
-                onClick={() => deleteText('lyrics')}
-                ref={lyricsIconRef}
+            </WriteSingerIcon>
+            <WriteSingerText ref={singerTextRef}>싱어</WriteSingerText>
+          </WriteSingerContainer>
+          <WriteMakerContainer
+            onClick={() => choosePostion('maker')}
+            ref={makerBoxRef}
+          >
+            <WriteMakerIcon>
+              {position === 'Maker' ? (
+                <SiBeatsbydre className='icon' color='white' />
+              ) : (
+                <SiBeatsbydre className='icon' />
+              )}
+            </WriteMakerIcon>
+            <WriteMakerText ref={makerTextRef}>메이커</WriteMakerText>
+          </WriteMakerContainer>
+          <WriteForm id='write' onSubmit={(e) => addPostHandle(e)}>
+            <WriteInputContainer>
+              <WriteInputIcon
+                onClick={() => deleteText('title')}
+                ref={titleIconRef}
               >
-                <GrClose></GrClose>
-              </WriteTextIconBox>
-              <WriteTextArea
-                placeholder='가사 첨부...'
-                value={lyrics}
-                onChange={(e) => setLyrics(e.target.value)}
-              ></WriteTextArea>
-            </WriteTextBox>
-            <WriteTextBox>
-              <WriteTextIconBox
-                onClick={() => deleteText('intro')}
-                ref={introIconRef}
-              >
-                <GrClose></GrClose>
-              </WriteTextIconBox>
-              <WriteTextArea
-                placeholder='작업물 설명...'
-                value={intro}
-                onChange={(e) => setIntro(e.target.value)}
-                required
-              ></WriteTextArea>
-            </WriteTextBox>
-          </WriteImageTextContainer>
-          <WriteAudioContainer>
-            <WriteAudioBox
-              width={'236px'}
-              height={'100px'}
-              onClick={uploadHandle}
-              onDrop={(e) => onDropHandle(e)}
-              onDragOver={(e) => onDragOverHandle(e)}
-            >
-              <WriteAudioIcon>
-                <GrAdd className='icon'></GrAdd>
-              </WriteAudioIcon>
-              <WriteAudioText>오디오 삽입하기</WriteAudioText>
-              <WriteAudioInput
-                type={'file'}
-                accept={'audio/*'}
-                onChange={(e) => {
-                  onUploadAudio(e);
-                  addPreview(e.target.files[0]);
+                <GrClose className='icon'></GrClose>
+              </WriteInputIcon>
+              <Input
+                _type={'text'}
+                _value={title}
+                _onChange={(e) => setTitle(e.target.value)}
+                _placeholder={'작업물의 제목을 입력해 주세요.'}
+                _style={{
+                  width: '776px',
+                  height: 'auto',
+                  pd_left: '19px',
+                  pd_top: '20px',
+                  pd_bottom: '20px',
+                  pd_right: '40px',
+                  ft_size: '14',
+                  line_height: '20',
+                  bd_radius: '10px',
+                  bd_color: '#d9d9d9',
                 }}
-                ref={uploadInputRef}
+              ></Input>
+            </WriteInputContainer>
+            <WriteImageTextContainer>
+              <WriteImageBox>
+                {imageSrc === '' ? (
+                  <Fragment />
+                ) : (
+                  <WriteImagePreviewImg src={imageSrc}></WriteImagePreviewImg>
+                )}
+                <UploadImage
+                  width={'236px'}
+                  height={'236px'}
+                  setFile={setImage}
+                  setFileSrc={setImageSrc}
+                  text={'이미지 삽입하기'}
+                ></UploadImage>
+              </WriteImageBox>
+              <WriteTextBox>
+                <WriteTextIconBox
+                  onClick={() => deleteText('lyrics')}
+                  ref={lyricsIconRef}
+                >
+                  <GrClose></GrClose>
+                </WriteTextIconBox>
+                <WriteTextArea
+                  placeholder='가사 첨부...'
+                  value={lyrics}
+                  onChange={(e) => setLyrics(e.target.value)}
+                ></WriteTextArea>
+              </WriteTextBox>
+              <WriteTextBox>
+                <WriteTextIconBox
+                  onClick={() => deleteText('intro')}
+                  ref={introIconRef}
+                >
+                  <GrClose></GrClose>
+                </WriteTextIconBox>
+                <WriteTextArea
+                  placeholder='작업물 설명...'
+                  value={intro}
+                  onChange={(e) => setIntro(e.target.value)}
+                  required
+                ></WriteTextArea>
+              </WriteTextBox>
+            </WriteImageTextContainer>
+            <WriteAudioContainer>
+              <WriteAudioBox
+                width={'236px'}
+                height={'100px'}
+                onClick={uploadHandle}
+                onDrop={(e) => onDropHandle(e)}
+                onDragOver={(e) => onDragOverHandle(e)}
+              >
+                <WriteAudioIcon>
+                  <GrAdd className='icon'></GrAdd>
+                </WriteAudioIcon>
+                <WriteAudioText>오디오 삽입하기</WriteAudioText>
+                <WriteAudioInput
+                  type={'file'}
+                  accept={'audio/*'}
+                  onChange={(e) => {
+                    onUploadAudio(e);
+                    addPreview(e.target.files[0]);
+                  }}
+                  ref={uploadInputRef}
+                />
+              </WriteAudioBox>
+              <WriteAudioPreView>
+                <WriteAudioPreviewFile ref={audioBoxRef}>
+                  <WriteAudioPreviewFileName
+                    ref={audioNameRef}
+                  ></WriteAudioPreviewFileName>
+                  <WriteAudioPreviewFileSize
+                    ref={audioSizeRef}
+                  ></WriteAudioPreviewFileSize>
+                  <WriteAudioPreviewFileIconMusic>
+                    <BsFillFileEarmarkMusicFill className='icon-music'></BsFillFileEarmarkMusicFill>
+                  </WriteAudioPreviewFileIconMusic>
+                  <WriteAudioPreviewFileIconCancel onClick={deleteAudio}>
+                    <GrClose className='icon-cancel'></GrClose>
+                  </WriteAudioPreviewFileIconCancel>
+                </WriteAudioPreviewFile>
+              </WriteAudioPreView>
+            </WriteAudioContainer>
+            <WriteHashTagContainer>
+              <WriteHashTagTitle>해시태그</WriteHashTagTitle>
+              <WriteHashTagTitleInfo>
+                아티스트님의 음악 스타일을 나타내세요!
+              </WriteHashTagTitleInfo>
+              <WriteHashTag
+                onKeyDown={addTag}
+                placeholder='Tab, Enter로 구분하여 입력해 주세요.'
+                maxLength={100}
               />
-            </WriteAudioBox>
-            <WriteAudioPreView>
-              <WriteAudioPreviewFile ref={audioBoxRef}>
-                <WriteAudioPreviewFileName
-                  ref={audioNameRef}
-                ></WriteAudioPreviewFileName>
-                <WriteAudioPreviewFileSize
-                  ref={audioSizeRef}
-                ></WriteAudioPreviewFileSize>
-                <WriteAudioPreviewFileIconMusic>
-                  <BsFillFileEarmarkMusicFill className='icon-music'></BsFillFileEarmarkMusicFill>
-                </WriteAudioPreviewFileIconMusic>
-                <WriteAudioPreviewFileIconCancel onClick={deleteAudio}>
-                  <GrClose className='icon-cancel'></GrClose>
-                </WriteAudioPreviewFileIconCancel>
-              </WriteAudioPreviewFile>
-            </WriteAudioPreView>
-          </WriteAudioContainer>
-          <WriteHashTagContainer>
-            <WriteHashTagTitle>해시태그</WriteHashTagTitle>
-            <WriteHashTagTitleInfo>
-              아티스트님의 음악 스타일을 나타내세요!
-            </WriteHashTagTitleInfo>
-            <WriteHashTag
-              onKeyDown={addTag}
-              placeholder='Tab, Enter로 구분하여 입력해 주세요.'
-            />
-            {tags.length === 0 ? (
-              <Fragment></Fragment>
-            ) : (
-              <WriteHashTagBox>
-                {tags.map((tag) => {
-                  return (
-                    <HashTagWithIcon
-                      key={shortid.generate()}
-                      tag={tag}
-                      removeTag={removeTag}
-                    />
-                  );
-                })}
-              </WriteHashTagBox>
-            )}
-          </WriteHashTagContainer>
-        </WriteForm>
-        <WriteButtonContainer>
-          <Button
-            _type={'submit'}
-            _text={'업로드'}
-            _style={{
-              bd_radius: '5px',
-              width: '124px',
-              height: '44px',
-              bg_color: 'black',
-              ft_weight: '800',
-              ft_size: '12',
-              line_height: '18',
-            }}
-            _form={'write'}
-          ></Button>
-        </WriteButtonContainer>
-      </WriteBox>
-    </WriteContainer>
+              {tags.length === 0 ? (
+                <Fragment></Fragment>
+              ) : (
+                <WriteHashTagBox>
+                  {tags.map((tag) => {
+                    return (
+                      <HashTagWithIcon
+                        key={shortid.generate()}
+                        tag={tag}
+                        removeTag={removeTag}
+                      />
+                    );
+                  })}
+                </WriteHashTagBox>
+              )}
+            </WriteHashTagContainer>
+          </WriteForm>
+          <WriteButtonContainer>
+            <Button
+              _type={'submit'}
+              _text={'업로드'}
+              _style={{
+                bd_radius: '5px',
+                width: '124px',
+                height: '44px',
+                bg_color: 'black',
+                ft_weight: '800',
+                ft_size: '12',
+                line_height: '18',
+              }}
+              _form={'write'}
+            ></Button>
+          </WriteButtonContainer>
+        </WriteBox>
+      </WriteContainer>
+    </Fragment>
   );
 };
 export default Write;
@@ -856,7 +868,7 @@ export const WriteHashTag = styled.input`
   line-height: ${(props) => props.theme.lineHeight.xs};
   outline: none;
   &::placeholder {
-    color: #d9d9d9;
+    color: #b4b4b4;
   }
 `;
 export const WriteHashTagBox = styled.span`

@@ -2,7 +2,7 @@
 import { Fragment, useEffect, useRef } from "react";
 // Zustand
 import usePostStore from '../zustand/post';
-
+import usePlayerStore from '../zustand/player'
 // Packages
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -41,8 +41,12 @@ import HotArtist from "../components/HotArtist";
 
 
 
-const Main = () => {
+const Main = () => {  
   const sliderRef = useRef();
+
+  const viewState = usePlayerStore((state) => state.viewState);
+  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
+
   const settings = {
     className: "center",
     centerMode: true,
@@ -153,7 +157,7 @@ const Main = () => {
             </MainArowRight>
           </BtmProfileImgDiv>
 
-          <MainAudioPlay>
+          <MainAudioPlay yIndex={viewState ? '0' : '100%'}>
             <PlayerMain />
           </MainAudioPlay>
         </MainContainer>

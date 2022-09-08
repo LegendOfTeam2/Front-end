@@ -155,7 +155,7 @@ export const SignUpBoxInputTags = styled.input`
   line-height: ${(props) => props.theme.lineHeight.xs};
   outline: none;
   &::placeholder {
-    color: #d9d9d9;
+    color: #b4b4b4;
   }
 `;
 export const SignUpBoxTagBox = styled.div`

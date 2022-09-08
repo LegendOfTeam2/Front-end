@@ -1,5 +1,11 @@
-import React from "react";
+// React
+import React from 'react';
 
+// Zustand
+import usePlayerStore from '../zustand/player';
+import { Collaboration, DisLike, OnPlay } from "../assets/images//image";
+import { AiFillLike } from 'react-icons/ai';
+import { BsFillAlarmFill, BsFillArchiveFill } from 'react-icons/bs';
 import {
   ImgBtmLeft,
   ImgBtmRight,
@@ -11,12 +17,25 @@ import {
   ImgMainSpan,
   ImgBtmLeftDiv,
   ImgBtmLeftDivSapn,
-  ImgTopRightImg,
-} from "../assets/styles/components/PostSlide.styled";
+} from '../assets/styles/components/PostSlide.styled';
 
-import {Collaboration,DisLike,OnPlay} from '../assets/images//image'
+const PostSlider = ({
+  width,
+  height,
+  postId,
+  position,
+  title,
+  likeCount,
+  collaborate,
+  imageUrl,
+  mediaUrl,
+  nickname,
+}) => {
+  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
 
-const PostSlider = ({width, height , postId, position, title, likeCount, collaborate,imageUrl,mediaUrl,nickname  }) => {
+  const onPlayerHandle = () => {
+      viewStateChange(true);
+  };
 
   return (
     <ProfileImgDivDiv>
@@ -27,7 +46,7 @@ const PostSlider = ({width, height , postId, position, title, likeCount, collabo
         alt=''
       />
       <ImgMainBtmRight>
-          <ImgMainSpan>나는 이영지</ImgMainSpan>
+        <ImgMainSpan>나는 이영지</ImgMainSpan>
       </ImgMainBtmRight>
       <ImgTopLeft>나는 페페</ImgTopLeft>
       <ImgTopRight>
@@ -42,7 +61,7 @@ const PostSlider = ({width, height , postId, position, title, likeCount, collabo
         
       </ImgBtmLeft>
       <ImgBtmRight>
-      <img src={OnPlay} alt='플레이 버튼' />
+      <img src={OnPlay} alt='플레이 버튼' onClick={onPlayerHandle}/>
       </ImgBtmRight>
     </ProfileImgDivDiv>
   );
