@@ -9,7 +9,7 @@ position: relative;
 `;
 
 export const ProfileContainer = styled.div`
-width: ${(props) => props.theme.deviceSizes.tabletL};
+width: 100%;
 height: auto;
 display: flex;
 flex-direction: column;

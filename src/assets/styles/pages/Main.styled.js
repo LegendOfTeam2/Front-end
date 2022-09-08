@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
+
 export const MainContainerDiv = styled.div`
   width: 100%;
   background-color: #eeeceb;
   display: flex;
   justify-content: center;
   position: absolute;
+  margin: 0;
+  padding: 0;
   top: 175px;
 `;
 
@@ -15,10 +18,7 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   .center {
-    /* center 모드일때 center 외 속성에게 사용 */
-    opacity: 0.8;
-    transition: all 300ms ease;
-    transform: scale(0.99);
+
   }
 `;
 

@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 
 export const BigMyImgDivDiv = styled.div`
-  width: auto;
-  height: auto;
+  width: 309px;
+  height: 309px;
   display: flex;
   position: relative;
 `;
@@ -29,7 +29,7 @@ export const BigImgMyBtmRight = styled.div`
 `;
 export const BigMyImgTopLeft = styled.div`
   position: absolute;
-  top: 11.5%;
+  top: 10%;
   left: 8%;
   color: rgba(40, 202, 124, 1);
   line-height: ${(props) => props.theme.lineHeight.xxl};
@@ -92,7 +92,7 @@ export const BigMyImgBtmRight = styled.div`
 `;
 export const BigImgNotSlideSpan = styled.span`
   color: #FFFFFF;
-  line-height: ${(props) => (props.line_height ? (props.line_height) / 16 : 1)}rem;
-  font-weight: ${(props) => (props.ft_weight ? props.ft_weight : '400')};
-  font-size: ${(props) => (props.ft_size ? (props.ft_size) / 16 : 1)}rem;
+  line-height: ${(props) => props.theme.lineHeight.xxl};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-size: ${(props) => props.theme.fontSizes.xxl};
 `;
