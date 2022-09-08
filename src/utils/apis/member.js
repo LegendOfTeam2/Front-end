@@ -19,6 +19,6 @@ export const kakaoAuthApi = (payload) => {
 export const googleAuthApi = (payload) => {
   return api_basic.get(`/api/google/callback?code=${payload}`)
 };
-export const signOutMemerApi = (payload) => {
-  return api_auth.get(`/auth/member/signout`, payload)
+export const signOutMemberApi = (payload) => {
+  return api_auth.post(`/auth/member/signout`, payload)
 };

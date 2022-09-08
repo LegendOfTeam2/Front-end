@@ -18,6 +18,7 @@ flex-direction: column;
   opacity: 0.8;
   transition: all 300ms ease;
   transform: scale(0.99);
+  width: 100%;
 }
 `;
 

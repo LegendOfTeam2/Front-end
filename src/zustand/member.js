@@ -3,11 +3,13 @@ import create from 'zustand';
 
 // Utils
 import createToken from '../utils/token';
+import { removeCookie } from '../utils/cookie';
 import {
   emailDupCheckApi,
   nicknameDupCheckApi,
   signUpMemberApi,
   signInMemberApi,
+  signOutMemberApi,
   kakaoAuthApi,
   googleAuthApi,
 } from '../utils/apis/member';
@@ -53,6 +55,19 @@ const useMemberStore = create((set) => ({
     }
 
     return resData.data;
+  },
+  signOutMember: async (payload) => {
+    const resData = await signOutMemberApi(payload)
+      .then((res) => res)
+      .catch((err) => console.log(err));
+
+    if (resData?.data.success) {
+      removeCookie('authorization');
+      window.sessionStorage.setItem('refresh-token', '');
+      set({ is_login: false });
+    }
+
+    return resData.data.success;
   },
   kakaoAuth: async (code) => {
     const resData = await kakaoAuthApi(code)
