@@ -17,6 +17,8 @@ import {
 // Components
 import Header from '../components/Header';
 import PlayerMain from '../components/audioplayer/PlayerMain';
+import ProfileSlider from '../components/ProfileSlider';
+import HotArtist from '../components/HotArtist';
 // Assests
 import {
   MainProfileSliderGroup,
@@ -37,9 +39,8 @@ import {
   MainImgDivImg,
 } from '../assets/styles/pages/Main.styled';
 
-import ProfileSlider from '../components/ProfileSlider';
-import HotArtist from '../components/HotArtist';
-import Post from '../components/Post';
+
+
 
 const Main = () => {
   const sliderRef = useRef();

@@ -12,7 +12,7 @@ import HashTagWithIcon from '../components/HashTagWithIcon';
 
 // Elements
 import Input from '../elements/Input';
-
+// Assests
 import styled from 'styled-components';
 
 const MyInfoModify = () => {
@@ -192,6 +192,7 @@ const MyInfoModify = () => {
 };
 
 export default MyInfoModify;
+
 export const BackgroundCover = styled.div`
   position: fixed;
   width: 100%;
