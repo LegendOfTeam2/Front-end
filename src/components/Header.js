@@ -30,7 +30,7 @@ import {
   SearchDiv,
   SearchIconDiv,
 } from '../assets/styles/components/Header.styled';
-import { HeaderlargeLogo } from '../assets/images/image';
+import { HeaderlargeLogo,Search } from '../assets/images/image';
 
 const Header = () => {
   const [keyword, setKeyword] = useState('');

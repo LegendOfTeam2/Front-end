@@ -1,18 +1,17 @@
+// React
 import React, { useEffect, useRef, useState } from "react";
-
+// Assests
 import {
   ProgressBarCover,
   Range,
   SliderContainer,
   Thumb,
-} from "./PlayerStyled";
-
+} from "../../assets/styles/components/Player.Styled";
 
 function Player({ percentage = 0, onChange }) {
   const [position, setPosition] = useState(0);
   const [marginLeft, setMarginLeft] = useState(0);
   const [progressBarWidth, setProgressBarWidth] = useState(0);
-  
 
   const rangeRef = useRef();
   const thumbRef = useRef();
@@ -29,8 +28,6 @@ function Player({ percentage = 0, onChange }) {
     setMarginLeft(centerThumb);
     setProgressBarWidth(centerProgressBar);
   }, [percentage]);
-  
-
 
   return (
     <SliderContainer>

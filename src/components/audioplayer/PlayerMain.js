@@ -1,9 +1,9 @@
+// React
 import { useState, useRef, useEffect, useCallback } from "react";
-import Player from "./Player";
-
+// Components
 import songsdata from "./Audios";
-
-import styled from "styled-components";
+import Player from "./Player";
+// Assests
 import {
   DisRepeated,
   LoopPlay,
@@ -16,6 +16,25 @@ import {
   Volume,
   MutedAll,
 } from "../../assets/images/image";
+import {
+  AllBtnContainer,
+  BtnContainer,
+  ControlPanelDiv,
+  IconImgHover,
+  ImgCover,
+  IntroduceDiv,
+  MidDiv,
+  PlayContainer,
+  SingerIntroduceSpan,
+  SingerSpan,
+  Timer,
+  TimerDiv,
+  TitleSapn,
+  VolumeInput,
+  VolumeolumeDiv,
+  VolumeolumeDivbar,
+  VolumeolumeDivDiv,
+} from "../../assets/styles/components/Player.Styled";
 
 function PlayerMain() {
   const [percentage, setPercentage] = useState(0);
@@ -295,177 +314,3 @@ function PlayerMain() {
 }
 
 export default PlayerMain;
-
-export const PlayContainer = styled.div`
-  width: 800px;
-  height: 152px;
-  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.2);
-  background-color: #f9f9f9;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  padding: 0 22px;
-`;
-
-export const ControlPanelDiv = styled.div`
-  padding: 10px 0;
-  display: flex;
-  flex-direction: column;
-`;
-export const Timer = styled.div`
-  font-size: 10px;
-  font-weight: 200;
-  color: black;
-`;
-export const AllBtnContainer = styled.div`
-  width: auto;
-  height: 100px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const BtnContainer = styled.div`
-  width: auto;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-`;
-
-export const TimerDiv = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-export const VolumeInput = styled.input`
-  margin: auto;
-  outline: none;
-  padding: 0;
-  width: 100%;
-  height: 6px;
-  background-color: #e7e7e7;
-  background-image: -webkit-gradient(
-    linear,
-    50% 0%,
-    50% 100%,
-    color-stop(0%, #28ca7c),
-    color-stop(100%, #28ca7c)
-  );
-  background-image: -webkit-linear-gradient(#28ca7c);
-  background-image: -moz-linear-gradient(#28ca7c);
-  background-image: -o-linear-gradient(#28ca7c);
-  background-image: linear-gradient(#28ca7c);
-  background-size: 50% 100%;
-  background-repeat: no-repeat;
-  border-radius: 10px;
-  cursor: pointer;
-  -webkit-appearance: none;
-
-  &::-webkit-slider-runnable-track {
-    box-shadow: none;
-    border: none;
-    background: transparent;
-    -webkit-appearance: none;
-  }
-
-  &::-moz-range-track {
-    box-shadow: none;
-    border: none;
-    background: transparent;
-  }
-
-  &::-moz-focus-outer {
-    border: 0;
-  }
-
-  &::-webkit-slider-thumb {
-    width: 14px;
-    height: 14px;
-    border: 0;
-    background: #fff;
-    border-radius: 100%;
-    box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1);
-    -webkit-appearance: none;
-  }
-
-  &::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    border: 0;
-    background: #fff;
-    border-radius: 100%;
-    box-shadow: 0 0 1px 0px rgba(0, 0, 0, 0.1);
-  }
-`;
-
-export const MidDiv = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  gap: 19px;
-  flex-direction: row;
-  margin-left: 40px;
-`;
-
-export const ImgCover = styled.img`
-  width: 80px;
-  height: 80px;
-`;
-
-export const IntroduceDiv = styled.div`
-  width: 230px;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const TitleSapn = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.base};
-  line-height: ${(props) => props.theme.lineHeight.base};
-  font-weight: ${(props) => props.theme.fontWeight.Medium}; ;
-`;
-
-export const SingerSpan = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.sm};
-  line-height: ${(props) => props.theme.lineHeight.xs};
-  font-weight: ${(props) => props.theme.fontWeight.Regular}; ;
-`;
-
-export const SingerIntroduceSpan = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.sm};
-  line-height: ${(props) => props.theme.lineHeight.xs};
-  font-weight: ${(props) => props.theme.fontWeight.Regular};
-  margin-top: 10px;
-`;
-
-export const VolumeolumeDiv = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-export const VolumeolumeDivDiv = styled.div`
-  width: auto;
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-export const VolumeolumeDivbar = styled.div`
-  margin-top: 12px;
-  width: auto;
-`;
-
-export const IconImgHover = styled.div`
-  width: auto;
-  :hover {
-    cursor: pointer;
-  }
-`;

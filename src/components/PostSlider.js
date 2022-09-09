@@ -19,8 +19,6 @@ import {
   ImgBtmLeftDivSapn,
 } from '../assets/styles/components/PostSlide.styled';
 const PostSlider = ({
-  width,
-  height,
   postId,
   position,
   title,
@@ -39,8 +37,6 @@ const PostSlider = ({
   return (
     <ProfileImgDivDiv>
       <Profileimg
-        width={width}
-        height={height}
         src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTjg6vTEXL8y0oEnq67IOyZm2cIghFI3KTlg&usqp=CAU'
         alt=''
       />

@@ -17,6 +17,7 @@ import DisLike from './DisLike.svg';
 import DisLike40 from './DisLike40.svg';
 import MutedAll from './MutedAll.svg';
 import ErrorLogo from './ErrorLogo.png';
+import Search from "./Search.svg";
 
 export {
   largeLogo,
@@ -37,5 +38,6 @@ export {
   Collaboration40,
   DisLike40,
   MutedAll,
-  ErrorLogo
+  ErrorLogo,
+  Search
 };

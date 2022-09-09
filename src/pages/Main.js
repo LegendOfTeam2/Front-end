@@ -22,8 +22,9 @@ import {
 // Components
 import Header from '../components/Header';
 import PlayerMain from '../components/audioplayer/PlayerMain';
-
-// Assets
+import ProfileSlider from '../components/ProfileSlider';
+import HotArtist from '../components/HotArtist';
+// Assests
 import {
   MainProfileSliderGroup,
   BtmProfileImgDiv,
@@ -43,9 +44,6 @@ import {
   MainImgDivDivDiv,
   MainImgDivImg,
 } from '../assets/styles/pages/Main.styled';
-
-import ProfileSlider from '../components/ProfileSlider';
-import HotArtist from '../components/HotArtist';
 
 const Main = () => {
   const sliderRef = useRef();

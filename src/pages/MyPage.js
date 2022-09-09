@@ -1,29 +1,20 @@
 // React
 import { Fragment, useRef, useEffect, useState } from "react";
-
 // Zustand
 import useMyPageStore from "../zustand/mypage";
-
 // Packages
-import { BsMusicNoteList, BsMic } from "react-icons/bs";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
-
 // Utils
 import Button from "../elements/Button";
 import { getCookie } from "../utils/cookie";
-
 // Pages
 import jwt_decode from "jwt-decode";
 // Components
 import Header from "../components/Header";
-
-// Elements
-
-// Shared
-
+import Post from "../components/Post";
+import PostBig from "../components/PostBig";
 // Assests
 import {
   MyBtmDataDiv,
@@ -58,8 +49,6 @@ import {
   MyTextDiv,
 } from "../assets/styles/pages/MyPage.styled";
 
-import Post from "../components/Post";
-import PostBig from "../components/PostBig";
 
 const MyPage = () => {
   const [tagSlider, setTagSlider] = useState(false);
