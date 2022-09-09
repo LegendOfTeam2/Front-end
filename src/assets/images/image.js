@@ -25,6 +25,7 @@ import DisSingerMarker from "./DisSingerMarker.svg";
 import Share38 from "./Share38.svg";
 import Putting from "./Putting.png";
 import Like38 from "./Like38.svg";
+import ErrorLogo from "./ErrorLogo.png";
 
 
 export {
@@ -54,5 +55,6 @@ export {
   DisLike38,
   Share38,
   Putting,
-  Like38
+  Like38,
+  ErrorLogo,
 };

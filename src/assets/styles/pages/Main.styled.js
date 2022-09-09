@@ -1,5 +1,4 @@
-import styled from "styled-components";
-
+import styled from 'styled-components';
 
 export const MainContainerDiv = styled.div`
   width: 100%;
@@ -19,21 +18,19 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   .center {
-
   }
 `;
 
 export const MainImgDiv = styled.div`
   width: 100%;
   margin-bottom: 26px;
+  box-shadow: inset (-$offset) 0 $blur-radius (-$spread-radius);
 `;
-
 export const MainImgDivDiv = styled.div`
   width: 100%;
   display: flex;
   position: relative;
 `;
-
 export const MainImgDivDivDiv = styled.div`
   position: absolute;
   top: 8%;
@@ -42,13 +39,11 @@ export const MainImgDivDivDiv = styled.div`
   line-height: ${(props) => props.theme.lineHeight.xxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
 `;
-
 export const MainImgDivBtnDiv = styled.div`
   position: absolute;
   bottom: 8%;
   right: 8%;
 `;
-
 export const MainImgDivImg = styled.div`
   width: 856px;
   height: 261px;
@@ -59,7 +54,6 @@ export const MainImgDivImg = styled.div`
   background-repeat: no-repeat;
   background-position: center;
 `;
-
 export const BtmProfileImgDiv = styled.div`
   width: 856px;
   height: auto;
@@ -87,7 +81,6 @@ export const MainArowRight = styled.div`
     cursor: pointer;
   }
 `;
-
 export const BtmProfileTextDiv = styled.div`
   width: 100%;
   height: auto;
@@ -162,7 +155,7 @@ export const BtmProfileArrowDiv = styled.div`
 export const MainAudioPlay = styled.div`
   width: 100%;
   justify-content: center;
-  /* display:  ${({ animation }) => (animation ? "flex" : "none")}; */
+  /* display:  ${({ animation }) => (animation ? 'flex' : 'none')}; */
   display: flex;
   position: fixed;
   /* animation: fadeInUp 4s; */
@@ -187,4 +180,4 @@ export const MainProfileSliderGroup = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-`
+`;

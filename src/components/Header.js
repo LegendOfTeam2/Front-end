@@ -1,11 +1,10 @@
 // React
-import { Fragment } from "react";
+import { Fragment, useState, useCallback } from 'react';
 
 //Zustand
 import useMemberStore from "../zustand/member";
 
 // Package
-import { FiSearch } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
@@ -33,6 +32,7 @@ import {
 import { HeaderlargeLogo, Search } from "../assets/images/image";
 
 const Header = () => {
+  const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
 
   const signOutMember = useMemberStore((state) => state.signOutMember);
@@ -56,6 +56,19 @@ const Header = () => {
     });
   };
 
+  const onClickSearch = useCallback(() => {
+    navigate(`/search/${keyword}`);
+  }, [keyword]);
+
+  const onKeyUpSearch = useCallback((e) => {
+    if (e.key === 'Enter') {
+      if (e.target.value.length > 0) {
+        navigate(`/search/${keyword}`);
+      }
+    }
+  })
+
+
   return (
     <Fragment>
       <HeaderContainerDiv>
@@ -67,10 +80,13 @@ const Header = () => {
               </LogoDiv>
 
               <SearchDiv>
-                <SearchIconDiv>
-                  <img src={Search} backgrond='white' alt='검색' />
+                <SearchIconDiv onClick={onClickSearch}>
+                <img src={Search} backgrond='white' alt='검색' />
                 </SearchIconDiv>
                 <Input
+                  _value={keyword}
+                  _onChange={(e) => setKeyword(e.target.value)}
+                  _onKeyUp={(e) => onKeyUpSearch(e)}
                   _style={{
                     width: "100%",
                     height: "36px",

@@ -53,6 +53,9 @@ export const SearchDiv = styled.div`
 export const SearchIconDiv = styled.div`
   margin-left: 12px;
   position: absolute;
+  &:hover {
+    cursor: pointer;
+  }
   top: 2px;
 `;
 

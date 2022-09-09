@@ -7,8 +7,8 @@ import useMemberStore from '../zustand/member';
 // Packages
 import { Routes, Route } from 'react-router-dom';
 
-// Pages 
-// import MyPage from '../pages/MyPage';
+// Pages
+import Search from '../pages/Search';
 
 // Components
 import Loading from '../components/Loading';
@@ -16,9 +16,6 @@ import Loading from '../components/Loading';
 // Utils
 import { getCookie } from '../utils/cookie';
 import { useEffect } from 'react';
-import Post from '../components/Post';
-import PostBig from '../components/PostBig';
-import PostSlider from '../components/PostSlider';
 
 // Pages -Lazy
 const Main = lazy(() => import('../pages/Main'));
@@ -59,6 +56,8 @@ function App() {
         <Route path='/write' element={is_login ? <Write /> : <Main />} />
         <Route path='/myinfomodify' element={<MyInfoModify />} />
         <Route path='/details' element={<Details />} />
+        <Route path='/search/:keyword' element={<Search />} />
+        <Route path='*' element={<Main />} />
       </Routes>
     </Suspense>
   );

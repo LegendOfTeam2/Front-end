@@ -19,7 +19,7 @@ import UploadImage from '../components/UploadImage';
 import Input from '../elements/Input';
 import Button from '../elements/Button';
 
-// Styles
+// Assets
 import {
   SignUpContainer,
   SignUpBox,
