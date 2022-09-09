@@ -192,6 +192,7 @@ const MyInfoModify = () => {
 };
 
 export default MyInfoModify;
+
 export const BackgroundCover = styled.div`
   position: fixed;
   width: 100%;
@@ -202,7 +203,6 @@ export const BackgroundCover = styled.div`
 export const ModifyContainer = styled.div`
   width: 100%;
   height: 100%;
-  /* background-color: #eeeceb; */
   background-repeat: repeat-y;
   display: flex;
   justify-content: center;

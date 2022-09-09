@@ -8,7 +8,7 @@ export const HeaderContainerDiv = styled.div`
   background-color: #eeeceb;
   position: fixed;
   z-index: 4;
-  border-bottom: 1px solid #28CA7C ;
+  border-bottom: 2px solid #28CA7C ;
 `;
 
 export const HeaderContainer = styled.div`
@@ -24,7 +24,6 @@ export const HeaderDiv = styled.div`
   width: 976px;
   height: auto;
   display: flex;
-
   padding: 8px;
   flex-direction: row;
   gap: 41px;
@@ -57,6 +56,9 @@ export const SearchIconDiv = styled.div`
   height: 20px;
   margin-left: 16px;
   position: absolute;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 export const LeftDiv = styled.div`

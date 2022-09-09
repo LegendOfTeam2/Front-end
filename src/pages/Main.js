@@ -31,6 +31,7 @@ import {
   MainContainer,
   MainContainerDiv,
   MainImgDiv,
+  MainImgFade,
   MainImgDivBtnDiv,
   MainImgDivDiv,
   MainImgDivDivDiv,

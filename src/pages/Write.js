@@ -267,6 +267,7 @@ const Write = () => {
       if (position === '') {
         alert('포지션을 선택해주세요.');
       } else {
+        console.log(newPost);
         addPost(newPost).then((res) => {
           navigate('/');
         });
