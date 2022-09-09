@@ -104,3 +104,12 @@ export const ImgNotSlideSpan = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.sm};
 `;
+export const DisMyImgTopRight = styled.div`
+  position: absolute;
+  top: 8%;
+  right: 9%;
+  display: block;
+  :hover & {
+    cursor: pointer;
+  }
+`;

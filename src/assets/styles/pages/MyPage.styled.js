@@ -6,7 +6,7 @@ export const MyContainerDiv = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;
-  top: 175px;
+  top: 156.5px;
 `;
 
 export const MyContainer = styled.div`
@@ -76,8 +76,8 @@ export const MyRightTopDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  gap: 35px;
   align-items: flex-end;
+  gap: 10px;
 `;
 
 export const MyRightTopIconDiv = styled.div`
@@ -90,8 +90,10 @@ export const MyRightTopButDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   gap: 20px;
-  margin-left: 92px;
+  margin-left: 0;
+  margin-bottom: 22px;
 `;
 
 export const MyRightTopButDivNotMember = styled.div`
@@ -111,8 +113,9 @@ export const MyRightTopBtmDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   gap: 54px;
-  margin-bottom: 22px;
+  margin-right: 6 px;
 `;
 
 export const MyRightTopBtmDivSpan = styled.span`

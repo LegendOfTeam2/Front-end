@@ -100,3 +100,13 @@ export const ImgBtmRight = styled.div`
     cursor: pointer;
   }
 `;
+export const DisImgTopRight = styled.div`
+  position: absolute;
+  width: auto;
+  top: 8%;
+  right: 10%;
+  display: block;
+    :hover & {
+    cursor: pointer;
+  }
+`;
