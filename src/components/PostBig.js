@@ -22,9 +22,7 @@ const PostBig = ({
   imageUrl,
   mediaUrl,
   nickname,
-  line_height,
-  ft_size,
-  ft_weight,
+
 }) => {
   return (
     <BigMyImgDivDiv>
@@ -33,11 +31,7 @@ const PostBig = ({
         alt=''
       />
       <BigImgMyBtmRight>
-        <BigImgNotSlideSpan
-          line_height={line_height}
-          ft_size={ft_size}
-          ft_weight={ft_weight}
-        >
+        <BigImgNotSlideSpan>
           아티스트 이름
         </BigImgNotSlideSpan>
       </BigImgMyBtmRight>

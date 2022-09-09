@@ -8,10 +8,10 @@ import {
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
+// Components
+import PostSlider from './PostSlider';
 // Assests
 import {
-  ArowDiv,
   ArowLeft,
   ArowRight,
   ProfileArrowDiv,
@@ -24,7 +24,7 @@ import {
   ProfileTextSingMakeDiv,
 } from '../assets/styles/components/ProfileSlider.styled';
 
-import PostSlider from './PostSlider';
+
 
 const ProfileSlider = (props) => {
   const sliderRef = useRef();

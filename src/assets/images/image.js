@@ -16,6 +16,7 @@ import Collaboration40 from "./Collaboration40.svg";
 import DisLike from "./DisLike.svg";
 import DisLike40 from "./DisLike40.svg";
 import MutedAll from "./MutedAll.svg";
+import Search from "./Search.svg";
 
 export {
   largeLogo,
@@ -35,5 +36,6 @@ export {
   OnPlay60,
   Collaboration40,
   DisLike40,
-  MutedAll
+  MutedAll,
+  Search
 };

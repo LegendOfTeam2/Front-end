@@ -30,7 +30,7 @@ import {
   SearchDiv,
   SearchIconDiv,
 } from '../assets/styles/components/Header.styled';
-import { HeaderlargeLogo } from '../assets/images/image';
+import { HeaderlargeLogo,Search } from '../assets/images/image';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const Header = () => {
 
               <SearchDiv>
                 <SearchIconDiv>
-                  <FiSearch size={'20'} />
+                <img src={Search} backgrond='white' alt='검색' />
                 </SearchIconDiv>
                 <Input
                   _style={{

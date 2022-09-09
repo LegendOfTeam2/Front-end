@@ -7,7 +7,7 @@ export const MainContainerDiv = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;
-  margin: 0;
+  margin:0;
   padding: 0;
   top: 175px;
 `;
@@ -15,6 +15,7 @@ export const MainContainerDiv = styled.div`
 export const MainContainer = styled.div`
   width: 1024px;
   height: auto;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   .center {

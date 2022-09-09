@@ -8,11 +8,11 @@ export const HeaderContainerDiv = styled.div`
   background-color: #eeeceb;
   position: fixed;
   z-index: 4;
-  border-bottom: 1px solid #28CA7C ;
+  border-bottom: 2px solid #28CA7C ;
 `;
 
 export const HeaderContainer = styled.div`
-  width: ${(props) => props.theme.deviceSizes.tabletL};
+  width: 1024px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -54,9 +54,10 @@ export const SearchDiv = styled.div`
 `;
 
 export const SearchIconDiv = styled.div`
-  height: 20px;
-  margin-left: 16px;
+  margin-left: 12px;
   position: absolute;
+  top: 2px;
+
 `;
 
 export const LeftDiv = styled.div`
@@ -71,7 +72,7 @@ export const LeftDiv = styled.div`
 export const RightDiv = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 37px;
+  gap: 31px;
   align-items: center;
 `;
 
@@ -92,5 +93,5 @@ export const ProfileImg = styled.img`
 export const BtmDiv = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 36px;
+  gap: 20px;
 `;

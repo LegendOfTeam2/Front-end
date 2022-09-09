@@ -18,6 +18,7 @@ import { getCookie } from '../utils/cookie';
 import { useEffect } from 'react';
 import Post from '../components/Post';
 import PostBig from '../components/PostBig';
+import PostSlider from '../components/PostSlider';
 
 // Pages -Lazy
 const Main = lazy(() => import('../pages/Main'));
