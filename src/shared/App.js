@@ -7,8 +7,8 @@ import useMemberStore from '../zustand/member';
 // Packages
 import { Routes, Route } from 'react-router-dom';
 
-// Pages 
-// import MyPage from '../pages/MyPage';
+// Pages
+import Search from '../pages/Search';
 
 // Components
 import Loading from '../components/Loading';
@@ -16,9 +16,6 @@ import Loading from '../components/Loading';
 // Utils
 import { getCookie } from '../utils/cookie';
 import { useEffect } from 'react';
-import Post from '../components/Post';
-import PostBig from '../components/PostBig';
-import PostSlider from '../components/PostSlider';
 
 // Pages -Lazy
 const Main = lazy(() => import('../pages/Main'));
@@ -27,7 +24,7 @@ const SignUp = lazy(() => import('../pages/SignUp'));
 const MyPage = lazy(() => import('../pages/MyPage'));
 const Write = lazy(() => import('../pages/Write'));
 const SignUpCheck = lazy(() => import('../pages/SignUpCheck'));
-const MyInfoModify = lazy(() => import('../pages/MyInfoModify'))
+const MyInfoModify = lazy(() => import('../pages/MyInfoModify'));
 
 // Utils - Lazy
 const Kakao = lazy(() => import('../utils/kakao'));
@@ -57,6 +54,8 @@ function App() {
         <Route path='/google/callback' element={<Google />} />
         <Route path='/write' element={is_login ? <Write /> : <Main />} />
         <Route path='/myinfomodify' element={<MyInfoModify />} />
+        <Route path='/search/:keyword' element={<Search />} />
+        <Route path='*' element={<Main />} />
       </Routes>
     </Suspense>
   );

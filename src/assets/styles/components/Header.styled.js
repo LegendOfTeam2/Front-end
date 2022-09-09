@@ -1,5 +1,4 @@
-import styled from "styled-components";
-
+import styled from 'styled-components';
 
 export const HeaderContainerDiv = styled.div`
   width: 100%;
@@ -8,7 +7,7 @@ export const HeaderContainerDiv = styled.div`
   background-color: #eeeceb;
   position: fixed;
   z-index: 4;
-  border-bottom: 2px solid #28CA7C ;
+  border-bottom: 2px solid #28ca7c;
 `;
 
 export const HeaderContainer = styled.div`
@@ -24,7 +23,6 @@ export const HeaderDiv = styled.div`
   width: 976px;
   height: auto;
   display: flex;
-
   padding: 8px;
   flex-direction: row;
   gap: 41px;
@@ -49,19 +47,20 @@ export const SearchDiv = styled.div`
   background-color: white;
   align-items: center;
   gap: 15px;
-  background: #F4F4F4;
+  background: #f4f4f4;
   position: relative;
 `;
 
 export const SearchIconDiv = styled.div`
   margin-left: 12px;
   position: absolute;
+  &:hover {
+    cursor: pointer;
+  }
   top: 2px;
-
 `;
 
 export const LeftDiv = styled.div`
-
   display: flex;
   flex-direction: row;
   margin-left: 22px;
@@ -86,8 +85,8 @@ export const ProfileImg = styled.img`
   height: 42px;
   border-radius: 50%;
   &:hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
+  }
 `;
 
 export const BtmDiv = styled.div`

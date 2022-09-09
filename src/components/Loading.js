@@ -1,5 +1,8 @@
+// React
 import { Fragment } from 'react';
-import styled from 'styled-components';
+
+// Assets
+import { LoadingImage } from '../assets/styles/components/Loading.styled';
 
 const Loading = () => {
   return (
@@ -10,12 +13,3 @@ const Loading = () => {
 };
 
 export default Loading;
-
-export const LoadingImage = styled.img`
-  position: absolute;
-  width: auto;
-  height: auto;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;

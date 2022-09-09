@@ -4,7 +4,7 @@ import { memo } from 'react';
 // Packages
 import { BsX } from 'react-icons/bs';
 
-// Assests
+// Assets
 import {
   TagBox,
   TagBoxText,

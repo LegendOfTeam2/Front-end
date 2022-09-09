@@ -1,5 +1,5 @@
 // Zustand
-import create from "zustand";
+import create from 'zustand';
 
 // Utils
 import {
@@ -9,18 +9,22 @@ import {
   getBestMakerApi,
   getBestSingerApi,
   getBestSongApi,
-} from "../utils/apis/post";
+} from '../utils/apis/post';
 
 const usePostStore = create((set) => ({
   bestSong_is_loaded: false,
-  bestSong:[],
+  bestSong: [],
   recentMaker_is_loaded: false,
+  recentMaker_is_like: [],
   recentMaker: [],
   recentsinger_is_loaded: false,
+  recentsinger_is_like: [],
   recentsinger: [],
   bestMaker_is_loaded: false,
+  bestMaker_is_like: [],
   bestMaker: [],
   bestSinger_is_loaded: false,
+  bestSinger_is_like: [],
   bestSinger: [],
 
   addPost: async (payload) => {
