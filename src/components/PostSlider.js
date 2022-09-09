@@ -4,8 +4,6 @@ import React from 'react';
 // Zustand
 import usePlayerStore from '../zustand/player';
 import { Collaboration, DisLike, OnPlay } from "../assets/images//image";
-import { AiFillLike } from 'react-icons/ai';
-import { BsFillAlarmFill, BsFillArchiveFill } from 'react-icons/bs';
 import {
   ImgBtmLeft,
   ImgBtmRight,
@@ -17,6 +15,7 @@ import {
   ImgMainSpan,
   ImgBtmLeftDiv,
   ImgBtmLeftDivSapn,
+  DisImgTopRight,
 } from '../assets/styles/components/PostSlide.styled';
 const PostSlider = ({
   postId,
@@ -44,6 +43,9 @@ const PostSlider = ({
         <ImgMainSpan>나는 이영지</ImgMainSpan>
       </ImgMainBtmRight>
       <ImgTopLeft>나는 페페</ImgTopLeft>
+      <DisImgTopRight>
+      <img src={Collaboration} alt='콜라보'/>
+      </DisImgTopRight>
       <ImgTopRight>
       <img src={Collaboration} alt='콜라보'/>
       </ImgTopRight>

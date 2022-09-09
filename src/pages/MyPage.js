@@ -48,7 +48,7 @@ import {
   MyTagBoxTextSpanSlide,
   MyTextDiv,
 } from "../assets/styles/pages/MyPage.styled";
-
+import { DisMakerMarke,DisSingerMarker } from '../assets/images/image';
 
 const MyPage = () => {
   const [tagSlider, setTagSlider] = useState(false);
@@ -155,63 +155,18 @@ const MyPage = () => {
                     <div>
                       <MyRightTopDivSpan>baekyeriiin</MyRightTopDivSpan>
                     </div>
+                    <img src={DisSingerMarker} backgrond='white' alt='이미지' />
+                    <img src={DisMakerMarke} backgrond='white' alt='로고이미지' />
 
-                    <MyRightTopIconDiv>
-                      <div>
-
-                      </div>
-                      <div>
-
-                      </div>
-                    </MyRightTopIconDiv>
-
-                    {getCookie("authorization") !== undefined ? (
-                      jwt_decode(getCookie("authorization")).sub !==
-                      "KAKAO775572255" ? (
-                        <MyRightTopButDiv>
-                          <Button
-                            _style={{
-                              width: "122px",
-                              height: "45px",
-                              bg_color: "#E7E7E7",
-                              bd_radius: "11px",
-                              color: "#121212",
-                              ft_size: "12",
-                              ft_weight: "700",
-                            }}
-                            _text={"메세지"}
-                          />
-                          <Button
-                            _style={{
-                              width: "122px",
-                              height: "45px",
-                              bg_color: "#28CA7C",
-                              bd_radius: "11px",
-                              color: "rgba(255, 255, 255, 1)",
-                              ft_size: "12",
-                              ft_weight: "700",
-                            }}
-                            _text={"팔로우"}
-                          />
-                        </MyRightTopButDiv>
-                      ) : (
-                        <MyRightTopButDivNotMember>
-                          {" "}
-                          <Button
-                            _style={{
-                              width: "261px",
-                              height: "45px",
-                              bg_color: "#28CA7C",
-                              bd_radius: "11px",
-                              color: "rgba(255, 255, 255, 1)",
-                              ft_size: "12",
-                              ft_weight: "700",
-                            }}
-                            _text={"프로필 수정"}
-                          />
-                        </MyRightTopButDivNotMember>
-                      )
-                    ) : (
+                    <MyRightTopBtmDiv>
+                      <MyRightTopBtmDivSpan>곡 작업 10</MyRightTopBtmDivSpan>
+                      <MyRightTopBtmDivSpan>팔로워 4,000</MyRightTopBtmDivSpan>
+                      <MyRightTopBtmDivSpan>팔로우 350</MyRightTopBtmDivSpan>
+                    </MyRightTopBtmDiv>
+                  </MyRightTopDiv>
+                  {getCookie("authorization") !== undefined ? (
+                    jwt_decode(getCookie("authorization")).sub !==
+                    "KAKAO775572255" ? (
                       <MyRightTopButDiv>
                         <Button
                           _style={{
@@ -238,13 +193,51 @@ const MyPage = () => {
                           _text={"팔로우"}
                         />
                       </MyRightTopButDiv>
-                    )}
-                  </MyRightTopDiv>
-                  <MyRightTopBtmDiv>
-                    <MyRightTopBtmDivSpan>곡 작업 10</MyRightTopBtmDivSpan>
-                    <MyRightTopBtmDivSpan>팔로워 4,000</MyRightTopBtmDivSpan>
-                    <MyRightTopBtmDivSpan>팔로우 350</MyRightTopBtmDivSpan>
-                  </MyRightTopBtmDiv>
+                    ) : (
+                      <MyRightTopButDivNotMember>
+                        {" "}
+                        <Button
+                          _style={{
+                            width: "261px",
+                            height: "45px",
+                            bg_color: "#28CA7C",
+                            bd_radius: "11px",
+                            color: "rgba(255, 255, 255, 1)",
+                            ft_size: "12",
+                            ft_weight: "700",
+                          }}
+                          _text={"프로필 수정"}
+                        />
+                      </MyRightTopButDivNotMember>
+                    )
+                  ) : (
+                    <MyRightTopButDiv>
+                      <Button
+                        _style={{
+                          width: "122px",
+                          height: "45px",
+                          bg_color: "#E7E7E7",
+                          bd_radius: "11px",
+                          color: "#121212",
+                          ft_size: "12",
+                          ft_weight: "700",
+                        }}
+                        _text={"메세지"}
+                      />
+                      <Button
+                        _style={{
+                          width: "122px",
+                          height: "45px",
+                          bg_color: "#28CA7C",
+                          bd_radius: "11px",
+                          color: "rgba(255, 255, 255, 1)",
+                          ft_size: "12",
+                          ft_weight: "700",
+                        }}
+                        _text={"팔로우"}
+                      />
+                    </MyRightTopButDiv>
+                  )}
                 </MyRightTopDivClDiv>
                 <MyTagBox>
                   <MyTagBoxTextSlide tagSlider={tagSlider}>
@@ -277,7 +270,7 @@ const MyPage = () => {
               {Array(4)
                 .fill("")
                 .map(() => (
-                  <Post/>
+                  <Post />
                 ))}
             </MyTextDiv>
           </MyMidTextDiv>
@@ -303,7 +296,7 @@ const MyPage = () => {
             {Array(12)
               .fill("")
               .map(() => (
-                <PostBig/>
+                <PostBig />
               ))}
           </MyBtmImgDiv>
         </MyContainer>

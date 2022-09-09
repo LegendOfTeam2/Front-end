@@ -96,3 +96,13 @@ export const BigImgNotSlideSpan = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.xxl};
 `;
+
+export const DisBigMyImgTopRight = styled.div`
+  position: absolute;
+  top: 8%;
+  right: 9%;
+  display: block;
+  :hover & {
+    cursor: pointer;
+  }
+`;

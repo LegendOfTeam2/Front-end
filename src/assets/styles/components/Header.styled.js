@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const HeaderContainerDiv = styled.div`
   width: 100%;
@@ -15,17 +15,16 @@ export const HeaderContainer = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-  padding: 24px;
   margin-top: 64px;
+  margin-bottom: 24px;
 `;
 
 export const HeaderDiv = styled.div`
-  width: 976px;
+  width: 100%;
   height: auto;
   display: flex;
-  padding: 8px;
   flex-direction: row;
-  gap: 41px;
+  gap: 46px;
   align-items: center;
   border-radius: 10px;
 `;
@@ -39,7 +38,7 @@ export const LogoDiv = styled.div`
 `;
 
 export const SearchDiv = styled.div`
-  width: 440px;
+  width: 450px;
   height: 34px;
   border-radius: 44px;
   display: flex;
@@ -63,7 +62,6 @@ export const SearchIconDiv = styled.div`
 export const LeftDiv = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 22px;
   gap: 37px;
   align-items: center;
 `;
@@ -71,18 +69,18 @@ export const LeftDiv = styled.div`
 export const RightDiv = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 31px;
+  gap: 47px;
   align-items: center;
 `;
 
 export const ProfileDiv = styled.div`
-  width: 42px;
-  height: 42px;
+  width: 56px;
+  height: 56px;
 `;
 
 export const ProfileImg = styled.img`
-  width: 42px;
-  height: 42px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   &:hover {
     cursor: pointer;
@@ -92,5 +90,5 @@ export const ProfileImg = styled.img`
 export const BtmDiv = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 17px;
 `;

@@ -1,0 +1,323 @@
+import styled from "styled-components";
+
+export const DetailContainerDiv = styled.div`
+  width: 100%;
+  background-color: #eeeceb;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 156.5px;
+`;
+export const DetailContainer = styled.div`
+  width: 1024px;
+  height: auto;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const DetailProfileImgTextTopDiv = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 35px;
+  margin-left: 57px;
+`;
+
+export const DetailProfileDiv = styled.div`
+  width: 56px;
+  height: 56px;
+`;
+
+export const DetailProfileImg = styled.img`
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+export const DetailTopDiv = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(180, 180, 180, 1);
+  padding-bottom: 12px;
+`;
+
+export const DetailProfileImgTextTop = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.lineHeight.xl};
+  font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
+`;
+
+export const DetailProfileBtnTopDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-right: 27px;
+`;
+
+export const DetailProfileMidleTopDiv = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-bottom: 12px;
+`;
+
+export const PositionAllDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 53px 37px 80px 74px;
+  gap: 12px;
+  border-bottom: 1px solid rgba(180, 180, 180, 1);
+`;
+
+export const PositionMarkerDiv = styled.div`
+  width: 90px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #28ca7c;
+  border-radius: 25px;
+`;
+
+export const PositionMarkerSpan = styled.div`
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.lineHeight.xl};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  color: #28ca7c;
+`;
+
+export const PositionMidDiv = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 36px;
+`;
+
+export const PositionMidLeftImgDiv = styled.div`
+  width: 247px;
+  height: 247px;
+  float: left;
+`;
+
+export const PositionMidLeftImg = styled.img`
+  width: 247px;
+  height: 247px;
+`;
+
+export const PositionMidRightDiv = styled.div`
+  width: 672px;
+  height: 247px;
+  float: right;
+`;
+
+export const PositionMidRighTopTextDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 13px;
+`;
+
+export const PositionMidRighTopLeftTextDiv = styled.div`
+  font-size: ${(props) => props.theme.fontSizes.xxxxl};
+  line-height: ${(props) => props.theme.lineHeight.xxxxl};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+`;
+
+export const PositionMidRighTopRigtTextDiv = styled.div`
+  width: auto;
+  height: auto;
+  display: flex;
+  gap: 12px;
+  align-items: end;
+`;
+export const PositionMidRighTopRightLeftTextSpan = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.lineHeight.lg};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  color: rgba(180, 180, 180, 1);
+`;
+export const PositionMidRighTopRightRightTextSpan = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.lg};
+  line-height: ${(props) => props.theme.lineHeight.lg};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  color: rgba(180, 180, 180, 1);
+`;
+
+export const PositionMidMidTextDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 36px;
+`;
+
+export const PositionMidMidLeftTextDiv = styled.div`
+  width: auto;
+  height: auto;
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.lineHeight.xl};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  color: rgba(180, 180, 180, 1);
+`;
+
+export const PositionMidMidRightTextDiv = styled.div`
+  width: auto;
+  height: auto;
+`;
+
+export const DetailProfileBtmDiv = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 74px;
+`;
+
+export const DetailProfileBtmFirDiv = styled.div`
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const DetailProfileBtmFirSpan = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.lineHeight.lg};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  color: rgba(40, 202, 124, 1);
+  margin-top: 4px;
+`;
+
+export const DetailProfileBtmSecSpan = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.lineHeight.lg};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  color: rgba(40, 202, 124, 1);
+  margin-top: 4px;
+`;
+
+export const DetailTopLyrics = styled.div`
+  font-size: ${(props) => props.theme.fontSizes.xxxxl};
+  line-height: ${(props) => props.theme.lineHeight.xxxxl};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  border-bottom: 1px solid rgba(180, 180, 180, 1);
+  padding: 16px 74px;
+`;
+
+export const DetailBtmLyricsDiv = styled.div`
+  width: 100%;
+  height: auto;
+`;
+
+export const DetailBtmLyricsDivDiv = styled.div`
+  width: 379px;
+  height: ${(props) => (props.lyrics ? "auto" : "280px")};
+  overflow: hidden;
+  padding: 36px 74px;
+`;
+
+export const DetailBtmLyricsDivSpan = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.lineHeight.lg};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
+`;
+
+export const DetailBtmLyricsDivDivDiv = styled.div`
+  width: 100%;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(180, 180, 180, 1);
+`;
+
+export const DetailBtmLyricsSpan = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.lineHeight.lg};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+`;
+
+export const DetailBtmClickLyricsSpan = styled.div`
+  width: auto;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+//소개글
+export const DetailBtmMoreDiv = styled.div`
+  width: 100%;
+  height: auto;
+`;
+
+export const DetailBtmMoreDivDiv = styled.div`
+  width: 379px;
+  height: ${(props) => (props.introduction ? "auto" : "280px")};
+  overflow: hidden;
+  padding: 36px 74px;
+`;
+
+export const DetailBtmMoreDivSpan = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.lineHeight.lg};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
+`;
+export const DetailBtmMoreDivDivDiv = styled.div`
+  width: 100%;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(180, 180, 180, 1);
+`;
+
+export const DetailBtmMoreSpan = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.lineHeight.lg};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+`;
+
+export const DetailBtmClickMoreSpan = styled.div`
+  width: auto;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const DetailClickHover = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
+`;

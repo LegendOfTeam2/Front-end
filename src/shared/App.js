@@ -24,7 +24,8 @@ const SignUp = lazy(() => import('../pages/SignUp'));
 const MyPage = lazy(() => import('../pages/MyPage'));
 const Write = lazy(() => import('../pages/Write'));
 const SignUpCheck = lazy(() => import('../pages/SignUpCheck'));
-const MyInfoModify = lazy(() => import('../pages/MyInfoModify'));
+const MyInfoModify = lazy(() => import('../pages/MyInfoModify'))
+const Details = lazy(() => import('../pages/Details'))
 
 // Utils - Lazy
 const Kakao = lazy(() => import('../utils/kakao'));
@@ -54,6 +55,7 @@ function App() {
         <Route path='/google/callback' element={<Google />} />
         <Route path='/write' element={is_login ? <Write /> : <Main />} />
         <Route path='/myinfomodify' element={<MyInfoModify />} />
+        <Route path='/details' element={<Details />} />
         <Route path='/search/:keyword' element={<Search />} />
         <Route path='*' element={<Main />} />
       </Routes>

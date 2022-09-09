@@ -8,7 +8,7 @@ export const MainContainerDiv = styled.div`
   position: absolute;
   margin:0;
   padding: 0;
-  top: 175px;
+  top: 155.5px;
 `;
 
 export const MainContainer = styled.div`

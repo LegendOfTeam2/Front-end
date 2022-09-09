@@ -1,5 +1,6 @@
 
 import {
+  DisMyImgTopRight,
   ImgMyBtmRight,
   ImgNotSlideSpan,
   Myimg,
@@ -37,6 +38,7 @@ const Post = ({
         </ImgNotSlideSpan>
       </ImgMyBtmRight>
       <MyImgTopLeft>나는 백예린</MyImgTopLeft>
+      <DisMyImgTopRight> <img src={Collaboration} alt='콜라보' /></DisMyImgTopRight>
       <MyImgTopRight>
         <img src={Collaboration} alt='콜라보' />
       </MyImgTopRight>
