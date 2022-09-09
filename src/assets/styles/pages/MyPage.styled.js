@@ -42,7 +42,7 @@ export const MyRight = styled.div`
   display: flex;
   margin-bottom: 50px;
   padding-left: 46px;
-  padding-right: 38px;
+  padding-right: 27px;
 `;
 
 export const MyleftDiv = styled.div`

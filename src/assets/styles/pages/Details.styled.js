@@ -62,7 +62,7 @@ export const DetailProfileBtnTopDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  margin-right: 33px;
+  margin-right: 27px;
 `;
 
 export const DetailProfileMidleTopDiv = styled.div`
