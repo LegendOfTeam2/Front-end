@@ -1,7 +1,7 @@
 // Element
 import Button from "../elements/Button";
 
-// styled
+// Assets
 import {
   BtmSmTextDiv,
   BtmSmTextSpan,

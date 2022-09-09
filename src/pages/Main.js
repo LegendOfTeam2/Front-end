@@ -1,23 +1,29 @@
 // React
 import { Fragment, useEffect, useRef } from 'react';
+
 // Zustand
 import usePostStore from '../zustand/post';
 import usePlayerStore from '../zustand/player';
+
 // Packages
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
 // Utils
 import Button from '../elements/Button';
+
 // Pages
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
 } from 'react-icons/md';
+
 // Components
 import Header from '../components/Header';
 import PlayerMain from '../components/audioplayer/PlayerMain';
-// Assests
+
+// Assets
 import {
   MainProfileSliderGroup,
   BtmProfileImgDiv,
@@ -31,7 +37,7 @@ import {
   MainContainer,
   MainContainerDiv,
   MainImgDiv,
-  MainImgFade,
+  // MainImgFade,
   MainImgDivBtnDiv,
   MainImgDivDiv,
   MainImgDivDivDiv,
@@ -40,7 +46,6 @@ import {
 
 import ProfileSlider from '../components/ProfileSlider';
 import HotArtist from '../components/HotArtist';
-import Post from '../components/Post';
 
 const Main = () => {
   const sliderRef = useRef();
