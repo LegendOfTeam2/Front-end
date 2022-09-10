@@ -8,14 +8,14 @@ import Button from '../../elements/Button';
 
 // Assets
 import {
-  WriteModalContainer,
-  WriteModalIcon,
-  WriteModalQuestionText,
-  WriteModalBtnGroup,
-  WriteModalLogo,
-  WriteModalLogoImg
-} from '../../assets/styles/components/modal/WriteModal.styled';
-import { Exclamation } from '../../assets/images/image';
+  ConfirmModalContainer,
+  ConfirmModalIcon,
+  ConfirmModalLogo,
+  ConfirmModalLogoImg,
+  ConfirmModalQuestionText,
+  ConfirmModalBtnGroup,
+} from '../../assets/styles/components/modal/WithdrawalConfirmModal.styled';
+import { WithdrawalLogo } from '../../assets/images/image';
 
 const customStyles = {
   overlay: {
@@ -34,45 +34,50 @@ const customStyles = {
     width: '522px',
     height: '404px',
     borderRadius: '10px',
+    zIndex: 99,
   },
 };
 
-const WriteModal = ({ isOpen, onCancel }) => {
+const WithdrawalConfirmModal = ({ isOpen, onCancel, onChange }) => {
   const navigate = useNavigate();
+
+  const handelClickChange = () => {
+    onChange();
+  };
   const handleClickCancel = () => {
     onCancel();
   };
   return (
     <ReactModal isOpen={isOpen} style={customStyles}>
-      <WriteModalContainer>
-        <WriteModalIcon onClick={handleClickCancel}>
+      <ConfirmModalContainer>
+        <ConfirmModalIcon onClick={handleClickCancel}>
           <GrClose className='icon'></GrClose>
-        </WriteModalIcon>
-        <WriteModalLogo>
-          <WriteModalLogoImg src={Exclamation} />
-        </WriteModalLogo>
-        <WriteModalQuestionText>
-          지금까지 입력하신 모든 정보가 삭제됩니다.
+        </ConfirmModalIcon>
+        <ConfirmModalLogo>
+          <ConfirmModalLogoImg src={WithdrawalLogo} />
+        </ConfirmModalLogo>
+        <ConfirmModalQuestionText>
+          지금까지 공유한 모든 데이터가 삭제됩니다.
           <br />
-          정말 삭제하시겠습니까?
-        </WriteModalQuestionText>
-        <WriteModalBtnGroup>
+          정말 탈퇴하시겠습니까?
+        </ConfirmModalQuestionText>
+        <ConfirmModalBtnGroup>
           <Button
             _type={'button'}
-            _text={'삭제하기'}
+            _text={'탈퇴하기'}
             _style={{
               width: '109px',
               line_height: '20',
               font: '14',
               pd_top: '20px',
               pd_bottom: '20px',
-              bg_color: 'black',
+              bg_color: '#DE1B4A',
               color: 'white',
               height: 'auto',
               bd_radius: '10px',
               ft_weight: '800',
             }}
-            _onClick={() => navigate('/')}
+            _onClick={handelClickChange}
           />
           <Button
             _type={'button'}
@@ -83,7 +88,7 @@ const WriteModal = ({ isOpen, onCancel }) => {
               font: '14',
               pd_top: '20px',
               pd_bottom: '20px',
-              bg_color: 'white',
+              bg_color: '#ffffff',
               color: '#b4b4b4',
               height: 'auto',
               bd_radius: '10px',
@@ -93,10 +98,10 @@ const WriteModal = ({ isOpen, onCancel }) => {
             }}
             _onClick={handleClickCancel}
           />
-        </WriteModalBtnGroup>
-      </WriteModalContainer>
+        </ConfirmModalBtnGroup>
+      </ConfirmModalContainer>
     </ReactModal>
   );
 };
 
-export default WriteModal;
+export default WithdrawalConfirmModal;

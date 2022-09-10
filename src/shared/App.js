@@ -18,15 +18,17 @@ import { getCookie } from "../utils/cookie";
 import { useEffect } from "react";
 
 // Pages -Lazy
-const Main = lazy(() => import("../pages/Main"));
-const SignIn = lazy(() => import("../pages/SignIn"));
-const SignUp = lazy(() => import("../pages/SignUp"));
-const MyPage = lazy(() => import("../pages/MyPage"));
-const Write = lazy(() => import("../pages/Write"));
-const SignUpCheck = lazy(() => import("../pages/SignUpCheck"));
-const MyInfoModify = lazy(() => import("../pages/MyInfoModify"));
-const Details = lazy(() => import("../pages/Details"));
-const MorePage = lazy(() => import("../pages/MorePage"));
+const Main = lazy(() => import('../pages/Main'));
+const SignIn = lazy(() => import('../pages/SignIn'));
+const SignUp = lazy(() => import('../pages/SignUp'));
+const MyPage = lazy(() => import('../pages/MyPage'));
+const Write = lazy(() => import('../pages/Write'));
+const SignUpCheck = lazy(() => import('../pages/SignUpCheck'));
+const MyInfoModify = lazy(() => import('../pages/MyInfoModify'))
+const Details = lazy(() => import('../pages/Details'))
+const Withdrawal = lazy(() => import('../pages/Withdrawal'));
+const MorePage = lazy(() => import('../pages/MorePage'))
+
 // Utils - Lazy
 const Kakao = lazy(() => import("../utils/kakao"));
 const Google = lazy(() => import("../utils/google"));
@@ -58,6 +60,7 @@ function App() {
         <Route path='/details' element={<Details />} />
         <Route path='/morepage' element={<MorePage />} />
         <Route path='/search/:keyword' element={<Search />} />
+        <Route path='/withdrawal' element={<Withdrawal />} />
         <Route path='*' element={<Main />} />
       </Routes>
     </Suspense>

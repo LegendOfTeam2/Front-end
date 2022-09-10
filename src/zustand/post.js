@@ -52,7 +52,7 @@ const usePostStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
-      set({ singerIsLike: resData.data });
+      set({ singerIsLike: resData.data.data });
       return resData.data.success;
     }
   },
@@ -62,7 +62,7 @@ const usePostStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
-      set({ makerIsLike: resData.data });
+      set({ makerIsLike: resData.data.data });
       return resData.data.success;
     }
   },
@@ -72,7 +72,7 @@ const usePostStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
-      set({ artistIsFollow: resData.data });
+      set({ artistIsFollow: resData.data.data });
       return resData.data.success;
     }
   },
@@ -83,7 +83,7 @@ const usePostStore = create((set) => ({
       .catch((err) => console.log(err));
 
     if (resData?.data.success) {
-      set({ bestSong: resData.data });
+      set({ bestSong: resData.data.data });
       set({ bestSongIsLoaded: true });
     }
   },
@@ -94,7 +94,7 @@ const usePostStore = create((set) => ({
       .catch((err) => console.log(err));
 
     if (resData?.data.success) {
-      set({ recentMaker: resData.data });
+      set({ recentMaker: resData.data.data });
       set({ recentMakerIsLoaded: true });
     }
   },
@@ -105,7 +105,7 @@ const usePostStore = create((set) => ({
       .catch((err) => console.log(err));
 
     if (resData?.data.success) {
-      set({ recentSinger: resData.data });
+      set({ recentSinger: resData.data.data });
       set({ recentSingerIsLoaded: true });
     }
   },
@@ -116,7 +116,7 @@ const usePostStore = create((set) => ({
       .catch((err) => console.log(err));
 
     if (resData?.data.success) {
-      set({ bestMaker: resData.data });
+      set({ bestMaker: resData.data.data });
       set({ bestMakerIsLoaded: true });
     }
   },
@@ -127,7 +127,7 @@ const usePostStore = create((set) => ({
       .catch((err) => console.log(err));
 
     if (resData?.data.success) {
-      set({ bestSinger: resData.data });
+      set({ bestSinger: resData.data.data });
       set({ bestSingerIsLoaded: true });
     }
   },
@@ -138,7 +138,7 @@ const usePostStore = create((set) => ({
       .catch((err) => console.log(err));
 
     if (resData?.data.success) {
-      set({ PowerArtist: resData.data });
+      set({ PowerArtist: resData.data.data });
       set({ PowerArtistLoaded: true });
     }
   },

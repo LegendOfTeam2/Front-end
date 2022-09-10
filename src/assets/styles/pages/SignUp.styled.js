@@ -19,6 +19,7 @@ export const SignUpBox = styled.div`
   justify-content: center;
   position: relative;
   overflow: scroll;
+  background-color: #ffffff;
   &::-webkit-scrollbar {
     display: none;
   }

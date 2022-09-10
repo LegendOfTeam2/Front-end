@@ -3,7 +3,7 @@ import React from "react";
 
 // Zustand
 import usePlayerStore from "../zustand/player";
-import { Collaboration, DisLike, OnPlay } from "../assets/images//image";
+import { DisCollaboration, DisLike, OnPlay } from "../assets/images//image";
 import {
   ImgBtmLeft,
   ImgBtmRight,
@@ -44,10 +44,10 @@ const PostSlider = ({
       </ImgMainBtmRight>
       <ImgTopLeft>나는 페페</ImgTopLeft>
       <DisImgTopRight>
-        <img src={Collaboration} alt='콜라보' />
+        <img src={DisCollaboration} alt='콜라보' />
       </DisImgTopRight>
       <ImgTopRight>
-        <img src={Collaboration} alt='콜라보' />
+        <img src={DisCollaboration} alt='콜라보' />
       </ImgTopRight>
       <ImgBtmLeft>
         <ImgBtmLeftDiv>

@@ -9,6 +9,7 @@ export const MainContainerDiv = styled.div`
   margin: 0;
   padding: 0;
   top: 155.5px;
+  z-index: -1;
 `;
 
 export const MainContainer = styled.div`

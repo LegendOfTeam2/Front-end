@@ -45,6 +45,7 @@ const Welcome = ({ isOpen, onCancel }) => {
       width: '620px',
       height: '510px',
       borderRadius: '40px',
+      backgroundColor : '#F9F9F9',
     },
   };
   

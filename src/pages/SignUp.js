@@ -14,6 +14,7 @@ import { debounce } from 'lodash';
 // Components
 import HashTagWithIcon from '../components/HashTagWithIcon';
 import UploadImage from '../components/UploadImage';
+import Welcome from '../components/modal/Welcome';
 
 // Element
 import Input from '../elements/Input';
@@ -44,8 +45,7 @@ import {
   SignUpBoxImagePreviewBoxSkeleton,
   SignUpButtonContainer,
 } from '../assets/styles/pages/SignUp.styled';
-import { largeLogo } from '../assets/images/image';
-import Welcome from '../components/modal/Welcome';
+import { LargeLogo } from '../assets/images/image';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -391,11 +391,11 @@ const SignUp = () => {
       <Welcome isOpen={isOpen} />
       <SignUpBox>
         <SignUpIcon onClick={() => navigate('/')}>
-          <GrClose className='icon-cancel'></GrClose>
+          <GrClose className='icon-cancel' color='red'></GrClose>
         </SignUpIcon>
         <SignUpForm onSubmit={(e) => onSubmitHandle(e)}>
           <SignUpLogo>
-            <SignUpLogoImg src={largeLogo}></SignUpLogoImg>
+            <SignUpLogoImg src={LargeLogo}></SignUpLogoImg>
           </SignUpLogo>
           <SignUpBoxInputContainer>
             <SignUpBoxInputGroup>
