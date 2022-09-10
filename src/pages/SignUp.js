@@ -14,6 +14,7 @@ import { debounce } from 'lodash';
 // Components
 import HashTagWithIcon from '../components/HashTagWithIcon';
 import UploadImage from '../components/UploadImage';
+import Welcome from '../components/modal/Welcome';
 
 // Element
 import Input from '../elements/Input';
@@ -59,7 +60,8 @@ const SignUp = () => {
   const [tags, setTags] = useState([]);
   const [file, setFile] = useState('');
   const [fileSrc, setFileSrc] = useState('');
-
+  const [isOpen , setOpen] = useState(false)
+  
   const emailRef = useRef();
   const emailIconRef = useRef();
   const emailSpanRef = useRef();
@@ -372,7 +374,8 @@ const SignUp = () => {
               signUpMember(newMember).then((res) => {
                 console.log(res);
                 if (res.success) {
-                  navigate('/signin');
+                  setOpen(true)
+                  // navigate('/signin');
                 }
               });
             }
@@ -385,6 +388,7 @@ const SignUp = () => {
 
   return (
     <SignUpContainer>
+      <Welcome isOpen={isOpen} />
       <SignUpBox>
         <SignUpIcon onClick={() => navigate('/')}>
           <GrClose className='icon-cancel'></GrClose>

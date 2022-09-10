@@ -27,18 +27,15 @@ const Post = ({
 }) => {
   return (
     <MyImgDivDiv>
-
-      <Myimg
-        src='https://i.pinimg.com/originals/51/31/a8/5131a8244ab74ea8523d59e1ba81606a.jpg'
-        alt=''
-      />
+      <Myimg src={imageUrl} alt='' />
       <ImgMyBtmRight>
-        <ImgNotSlideSpan>
-          아티스트 이름
-        </ImgNotSlideSpan>
+        <ImgNotSlideSpan>아티스트 이름</ImgNotSlideSpan>
       </ImgMyBtmRight>
       <MyImgTopLeft>나는 백예린</MyImgTopLeft>
-      <DisMyImgTopRight> <img src={Collaboration} alt='콜라보' /></DisMyImgTopRight>
+      <DisMyImgTopRight>
+        {" "}
+        <img src={Collaboration} alt='콜라보' />
+      </DisMyImgTopRight>
       <MyImgTopRight>
         <img src={Collaboration} alt='콜라보' />
       </MyImgTopRight>

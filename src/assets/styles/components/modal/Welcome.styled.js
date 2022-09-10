@@ -2,22 +2,22 @@ import styled from "styled-components";
 
 export const WlContainer = styled.div`
 width: 100%;
-height: auto;
+height: 100%;
 display: flex;
 justify-content: center;
-position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-`;
+`
+
 export const WlInBox = styled.div`
 width: 620px;
-height: auto;
+height: 520px;
 display: flex;
 justify-content: center;
 flex-direction: column;
+align-items: center;
 background-color: #F9F9F9;
-padding: 46px;
-border-radius: 40px;
+padding: 35px;
+position: relative;
+margin-bottom: 10px;
 `;
 export const Topicon = styled.div`
 width: 100%;
@@ -26,22 +26,31 @@ display: flex;
 justify-content: center;
 flex-direction: column;
 text-align: center;
-margin-top: 20px;
+margin-bottom: 25px;
 `;
 export const TextDiv = styled.div`
-width: 100%;
+width: 89%;
 height: auto;
 display: flex;
 justify-content: center;
 flex-direction: column;
 text-align: center;
 margin-top: 69px;
+position: absolute;
+top: 215px;
 `;
 export const TextSpan = styled.span`
-font-size: ${(props) => props.theme.fontSizes.xxxl};
-line-height: ${(props) => props.theme.lineHeight.xxxl};
+font-size: ${(props) => props.theme.fontSizes.xxxxl};
+line-height: ${(props) => props.theme.lineHeight.xxxxl};
 font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
 `;
+export const TextSpanSpan = styled.span`
+font-size: ${(props) => props.theme.fontSizes.xxxxl};
+line-height: ${(props) => props.theme.lineHeight.xxxxl};
+font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
+color: rgba(40, 202, 124, 1);
+`;
+
 export const WlDiv = styled.div`
 width: 100%;
 height: auto;
@@ -50,5 +59,5 @@ justify-content: center;
 flex-direction: column;
 text-align: center;
 margin-top: 75px;
-margin-bottom: 9px;
+margin-bottom: 10px;
 `;

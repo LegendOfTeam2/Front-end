@@ -30,6 +30,7 @@ import SignInBackground from './SignInBackground.png';
 import SignInBackgroundSm from './SignInBackgroundSm.png';
 import WithdrawalLogo from './WithdrawalLogo.png';
 import Exclamation from './Exclamation.png'
+import WelcomeMsg from "./WelcomeMsg.png";
 
 export {
   LargeLogo,
@@ -63,5 +64,6 @@ export {
   SignInBackground,
   SignInBackgroundSm,
   WithdrawalLogo,
-  Exclamation
+  Exclamation,
+  WelcomeMsg
 };
