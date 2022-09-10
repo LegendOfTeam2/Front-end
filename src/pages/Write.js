@@ -209,24 +209,10 @@ const Write = () => {
   }, [audio]);
 
   // Hashtag
-  useEffect(() => {
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-      }
-    });
-    return () => {
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-        }
-      });
-    };
-  });
-
   const addTag = useCallback(
     (event) => {
       if (event.key === 'Enter') {
+        event.preventDefault();
         if (event.target.value.length > 0) {
           if (tags.findIndex((tag) => tag === event.target.value) === -1) {
             setTags([...tags, event.target.value]);
@@ -324,7 +310,7 @@ const Write = () => {
       <WriteContainer>
         <WriteBox>
           <WriteIconContainer onClick={onHandleModal}>
-            <GrClose></GrClose>
+            <GrClose color='#cecece'></GrClose>
           </WriteIconContainer>
           <WriteCollaboContainer
             onClick={changeCollaborateStatus}

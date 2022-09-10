@@ -197,7 +197,7 @@ const Main = () => {
         <MainContainer>
           <MainImgDiv>
             <Slider {...settings}>
-              {Array(4)
+              {Array(1)
                 .fill("")
                 .map(() => (
                   <MainImgDivDiv>
