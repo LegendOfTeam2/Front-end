@@ -6,7 +6,6 @@ export const HeaderContainerDiv = styled.div`
   justify-content: center;
   background-color: #eeeceb;
   position: fixed;
-  z-index: 4;
   border-bottom: 2px solid #28ca7c;
 `;
 

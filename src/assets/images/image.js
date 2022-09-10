@@ -26,6 +26,8 @@ import Share38 from "./Share38.svg";
 import Putting from "./Putting.png";
 import Like38 from "./Like38.svg";
 import ErrorLogo from "./ErrorLogo.png";
+import WelcomeMsg from "./WelcomeMsg.png";
+
 
 
 export {
@@ -57,4 +59,5 @@ export {
   Putting,
   Like38,
   ErrorLogo,
+  WelcomeMsg
 };

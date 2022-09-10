@@ -1,42 +1,44 @@
 // React
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense } from "react";
 
 // Zustand
-import useMemberStore from '../zustand/member';
+import useMemberStore from "../zustand/member";
 
 // Packages
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
 // Pages
-import Search from '../pages/Search';
+import Search from "../pages/Search";
 
 // Components
-import Loading from '../components/Loading';
+import Loading from "../components/Loading";
 
 // Utils
-import { getCookie } from '../utils/cookie';
-import { useEffect } from 'react';
+import { getCookie } from "../utils/cookie";
+import { useEffect } from "react";
 
 // Pages -Lazy
-const Main = lazy(() => import('../pages/Main'));
-const SignIn = lazy(() => import('../pages/SignIn'));
-const SignUp = lazy(() => import('../pages/SignUp'));
-const MyPage = lazy(() => import('../pages/MyPage'));
-const Write = lazy(() => import('../pages/Write'));
-const SignUpCheck = lazy(() => import('../pages/SignUpCheck'));
-const MyInfoModify = lazy(() => import('../pages/MyInfoModify'))
-const Details = lazy(() => import('../pages/Details'))
+const Main = lazy(() => import("../pages/Main"));
+const SignIn = lazy(() => import("../pages/SignIn"));
+const SignUp = lazy(() => import("../pages/SignUp"));
+const MyPage = lazy(() => import("../pages/MyPage"));
+const Write = lazy(() => import("../pages/Write"));
+const SignUpCheck = lazy(() => import("../pages/SignUpCheck"));
+const MyInfoModify = lazy(() => import("../pages/MyInfoModify"));
+const Details = lazy(() => import("../pages/Details"));
+const MorePage = lazy(() => import("../pages/MorePage"));
+const Welcome = lazy(() => import("../components/modal/Welcome"));
 
 // Utils - Lazy
-const Kakao = lazy(() => import('../utils/kakao'));
-const Google = lazy(() => import('../utils/google'));
+const Kakao = lazy(() => import("../utils/kakao"));
+const Google = lazy(() => import("../utils/google"));
 
 function App() {
   const is_login = useMemberStore((state) => state.is_login);
   const changeLoginStatus = useMemberStore((state) => state.changeLoginStatus);
 
   useEffect(() => {
-    if (getCookie('authorization') !== undefined) {
+    if (getCookie("authorization") !== undefined) {
       changeLoginStatus(true);
     } else {
       changeLoginStatus(false);
@@ -56,7 +58,9 @@ function App() {
         <Route path='/write' element={is_login ? <Write /> : <Main />} />
         <Route path='/myinfomodify' element={<MyInfoModify />} />
         <Route path='/details' element={<Details />} />
+        <Route path='/morepage' element={<MorePage />} />
         <Route path='/search/:keyword' element={<Search />} />
+        <Route path='/test' element={<Welcome />} />
         <Route path='*' element={<Main />} />
       </Routes>
     </Suspense>

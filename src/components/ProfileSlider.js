@@ -1,15 +1,15 @@
 // React
-import { Fragment, useRef } from 'react';
+import { Fragment, useRef } from "react";
 // Packages
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
-} from 'react-icons/md';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+} from "react-icons/md";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 // Components
-import PostSlider from './PostSlider';
+import PostSlider from "./PostSlider";
 // Assests
 import {
   ArowLeft,
@@ -22,20 +22,18 @@ import {
   ProfileTextMake,
   ProfileTextNew,
   ProfileTextSingMakeDiv,
-} from '../assets/styles/components/ProfileSlider.styled';
-
-
+} from "../assets/styles/components/ProfileSlider.styled";
 
 const ProfileSlider = (props) => {
   const sliderRef = useRef();
 
   const settings = {
-    className: 'center',
+    className: "center",
     centerMode: true,
     infinite: true,
     slidesToShow: 4,
     arrows: false,
-    centerPadding: '-30px',
+    centerPadding: "-30px",
     ref: sliderRef,
     slideToScroll: 1,
   };
@@ -49,9 +47,7 @@ const ProfileSlider = (props) => {
               <ProfileTextSingMakeDiv>
                 <ProfileTextMake>더보기</ProfileTextMake>
               </ProfileTextSingMakeDiv>
-              <ProfileArrowDiv></ProfileArrowDiv>
             </ProfileTextDiv>
-
             <ArowLeft>
               <MdOutlineArrowBackIosNew
                 className='icon-prev'
@@ -62,7 +58,7 @@ const ProfileSlider = (props) => {
             </ArowLeft>
             <Slider {...settings}>
               {Array(6)
-                .fill('')
+                .fill("")
                 .map(() => (
                   <PostSlider width='167' height='167' />
                 ))}

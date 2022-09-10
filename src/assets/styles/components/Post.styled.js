@@ -2,22 +2,22 @@ import styled from "styled-components";
 
 
 export const MyImgDivDiv = styled.div`
-  width: 167px;
-  height: 167px;
+  width: 164.5px;
+  height: 164.5px;
   display: flex;
   position: relative;
 `;
 
 export const PostimgDivDiv = styled.div`
-  width: 167px;
-  height: 167px;
+  width: 164.5px;
+  height: 164.5px;
   display: flex;
   position: relative;
 `;
 
 export const Myimg = styled.img`
-  width: 167px;
-  height: 167px;
+  width: 164.5px;
+  height: 164.5px;
   border-radius: 19px;
   
   ${MyImgDivDiv}:hover & {

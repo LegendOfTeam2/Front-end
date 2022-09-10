@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const MainContainerDiv = styled.div`
   width: 100%;
@@ -6,7 +6,7 @@ export const MainContainerDiv = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;
-  margin:0;
+  margin: 0;
   padding: 0;
   top: 155.5px;
 `;
@@ -155,24 +155,12 @@ export const BtmProfileArrowDiv = styled.div`
 export const MainAudioPlay = styled.div`
   width: 100%;
   justify-content: center;
-  /* display:  ${({ animation }) => (animation ? 'flex' : 'none')}; */
   display: flex;
   position: fixed;
-  /* animation: fadeInUp 4s; */
   bottom: 0;
   left: 0;
   transform: translateY(${(props) => props.yIndex});
   transition: transform 0.3s ease-in;
-  /* @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translate3d(0, 100%, 0);
-    }
-    to {
-      opacity: 1;
-      transform: translateZ(0);
-    }
-  } */
 `;
 
 export const MainProfileSliderGroup = styled.div`
@@ -180,4 +168,50 @@ export const MainProfileSliderGroup = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
+`;
+
+export const DisMainPostImgDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 63px;
+`;
+
+export const DisMainPostImgDivDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 26px;
+  margin-top: 23px;
+`;
+export const DisMainPostImgDivNew = styled.span`
+  line-height: ${(props) => props.theme.lineHeight.xxxxl};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-size: ${(props) => props.theme.fontSizes.xxxxl};
+`;
+
+export const DisMainPostImgDivMakeDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-left: 36px;
+  gap: 40px;
+  margin-top: 3px;
+`;
+
+export const DisMainPostImgDivMake = styled.span`
+  line-height: ${(props) => props.theme.lineHeight.xl};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  margin-top: 3px;
+  color: rgba(204, 204, 204, 1);
+  &:hover {
+    cursor: pointer;
+  }
+`;
+export const DisMainPostImgDivImgDiv = styled.div`
+  width: 856px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3px;
 `;
