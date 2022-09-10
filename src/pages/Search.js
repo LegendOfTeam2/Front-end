@@ -46,6 +46,8 @@ const Search = () => {
   const navigate = useNavigate();
 
   const success = useSearchStore((state) => state.success);
+  const search = useSearchStore((state) => state.search);
+  
   return (
     <SearchContainer>
       <BackgroundCover />

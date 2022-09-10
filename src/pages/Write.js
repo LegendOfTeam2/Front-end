@@ -420,6 +420,7 @@ const Write = () => {
                   placeholder='가사 첨부...'
                   value={lyrics}
                   onChange={(e) => setLyrics(e.target.value)}
+                  maxLength={20000}
                 ></WriteTextArea>
               </WriteTextBox>
               <WriteTextBox>
@@ -433,6 +434,7 @@ const Write = () => {
                   placeholder='작업물 설명...'
                   value={intro}
                   onChange={(e) => setIntro(e.target.value)}
+                  maxLength={20000}
                   required
                 ></WriteTextArea>
               </WriteTextBox>

@@ -12,6 +12,8 @@ import Search from '../pages/Search';
 
 // Components
 import Loading from '../components/Loading';
+import WithdrawalConfirmModal from '../components/modal/WithdrawalConfirmModal';
+import WriteModal from '../components/modal/WriteModal';
 
 // Utils
 import { getCookie } from '../utils/cookie';
@@ -26,6 +28,7 @@ const Write = lazy(() => import('../pages/Write'));
 const SignUpCheck = lazy(() => import('../pages/SignUpCheck'));
 const MyInfoModify = lazy(() => import('../pages/MyInfoModify'))
 const Details = lazy(() => import('../pages/Details'))
+const Withdrawal = lazy(() => import('../pages/Withdrawal'))
 
 // Utils - Lazy
 const Kakao = lazy(() => import('../utils/kakao'));
@@ -57,6 +60,7 @@ function App() {
         <Route path='/myinfomodify' element={<MyInfoModify />} />
         <Route path='/details' element={<Details />} />
         <Route path='/search/:keyword' element={<Search />} />
+        <Route path='/withdrawal' element={<Withdrawal />} />
         <Route path='*' element={<Main />} />
       </Routes>
     </Suspense>

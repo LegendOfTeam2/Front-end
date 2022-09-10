@@ -8,3 +8,9 @@ export const LoadingImage = styled.img`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
+export const BackgroundCover = styled.div`
+  position:fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+`

@@ -61,7 +61,7 @@ const ProfileSlider = (props) => {
               />
             </ArowLeft>
             <Slider {...settings}>
-              {Array(6)
+              {Array(4)
                 .fill('')
                 .map(() => (
                   <PostSlider width='167' height='167' />

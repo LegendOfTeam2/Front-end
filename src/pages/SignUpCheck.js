@@ -22,7 +22,7 @@ import {
   UpTopTextDiv,
   UpTopTextSpan,
 } from '../assets/styles/pages/SignUpCheck.styled';
-import { largeLogo } from '../assets/images/image';
+import { LargeLogo } from '../assets/images/image';
 
 const SignUpCheck = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const SignUpCheck = () => {
       <UpInBox>
         <UpLogoDiv>
           <UpLogoDivDiv>
-            <UpLogoImg src={largeLogo} />
+            <UpLogoImg src={LargeLogo} />
           </UpLogoDivDiv>
         </UpLogoDiv>
 

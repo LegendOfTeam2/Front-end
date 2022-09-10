@@ -9,13 +9,13 @@ import shortid from 'shortid';
 // Components
 import UploadImage from '../components/UploadImage';
 import HashTagWithIcon from '../components/HashTagWithIcon';
+import Header from '../components/Header'
 
 // Elements
 import Input from '../elements/Input';
 
 // Assets
 import {
-  BackgroundCover,
   ModifyContainer,
   ModifyBox,
   ModifyNaviContainer,
@@ -31,8 +31,10 @@ import {
   ModifyInputDataBox,
   ModifyInputIconBox,
   ModifyHashTag,
-  ModifyHashTagBox
-} from '../assets/styles/pages/MyInfoModify.styled'
+  ModifyHashTagBox,
+  ModifyMemberDeleteContainer,
+  ModifyMemberDeleteText
+} from '../assets/styles/pages/MyInfoModify.styled';
 
 const MyInfoModify = () => {
   const [nickname, setNickname] = useState('');
@@ -96,7 +98,7 @@ const MyInfoModify = () => {
 
   return (
     <Fragment>
-      <BackgroundCover />
+      <Header></Header>
       <ModifyContainer>
         <ModifyBox>
           <ModifyNaviContainer>
@@ -203,6 +205,9 @@ const MyInfoModify = () => {
                 ></Input>
               </ModifyInputDataBox>
             </ModifyInputBox>
+            <ModifyMemberDeleteContainer onClick={() => navigate('/')}>
+                <ModifyMemberDeleteText>회원탈퇴</ModifyMemberDeleteText>
+              </ModifyMemberDeleteContainer>
           </ModifyInputContainer>
         </ModifyBox>
       </ModifyContainer>

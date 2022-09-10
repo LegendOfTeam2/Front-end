@@ -18,6 +18,7 @@ export const UpInBox = styled.div`
   padding: 43px;
   border-radius: 30px;
   box-shadow: 1px 1px 20px 5px grey;
+  background-color: #ffffff;
   @media ${(props) => props.theme.device.desktopL} {
     width: 861px;
   }
