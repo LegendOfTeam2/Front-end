@@ -116,6 +116,7 @@ const Main = () => {
   const makerIsLike = usePostStore((state) => state.makerIsLike);
   const artistIsFollow = usePostStore((state) => state.artistIsFollow);
 
+  console.log(bestMaker);
   useEffect(() => {
     if (getCookie("authorization") === undefined) {
       getRecentSinger();
@@ -123,8 +124,10 @@ const Main = () => {
       getBestMaker();
       getBestSinger();
       getPowerArtist();
+      getBestSong();
     } else {
       getSingerLikePost().then((res) => {
+        getBestSong();
         if (res) {
           getRecentSinger();
           getBestSinger();
@@ -144,52 +147,6 @@ const Main = () => {
     }
   }, []);
 
-  const mockDate = [
-    {
-      postId: "1",
-      imageUrl:
-        "https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/0_JTh3JET7ZCHaT_IJhG4VbhEpI.png",
-    },
-    {
-      postId: "2",
-      imageUrl:
-        "https://post-phinf.pstatic.net/MjAyMDA5MDRfMjcx/MDAxNTk5MjE4MDE5Mzcw.jLTW8nXn80IriL-CBHj88OG6mAcsrc4lLclqk25tAmUg.15AvCfPQCS31Ina-TeCFdha94JXUYgtANVS0Xa3vq9Ig.JPEG/f26f6953cc1ff7579f4582f476f2de46359cfb21c88707f25a0aa02a9c77b540_v1.jpg?type=w1200",
-    },
-    {
-      postId: "3",
-      imageUrl:
-        "https://images.khan.co.kr/article/2022/05/12/l_2022051202000700600130251.jpg",
-    },
-    {
-      postId: "4",
-      imageUrl:
-        "https://post-phinf.pstatic.net/MjAxOTA4MDJfMjM1/MDAxNTY0NzE0ODEyMDk4.5nXLk7-27EPK8Q0NyLFVaeE_umpkqwfV73UWtu0ZD5Ug.j9RXuTc1EAgw66FZB0wl32sLBNaY4R9HZYvzOkei38Ag.JPEG/%EB%94%94%EB%85%B8%EB%A7%88%EB%93%9C%ED%95%99%EA%B5%90_%EC%95%84%ED%8A%B8%EB%94%94%EB%A0%89%ED%84%B0_NSH_%EC%95%A8%EB%B2%94_%EC%BB%A4%EB%B2%84_%EB%94%94%EC%9E%90%EC%9D%B8_8.jpg?type=w1200",
-    },
-  ];
-
-  const mockDate2 = [
-    {
-      postId: "1",
-      imageUrl:
-        "https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/M7kpICX4bbcXfuMgX2DH0NT0qeg.png",
-    },
-    {
-      postId: "2",
-      imageUrl:
-        "http://image.kyobobook.co.kr/newimages/music/large/9155/2551925.jpg",
-    },
-    {
-      postId: "3",
-      imageUrl:
-        "http://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/081/665/579/81665579_1603496381499_1_600x600.JPG",
-    },
-    {
-      postId: "4",
-      imageUrl:
-        "https://cdnimg.melon.co.kr/cm/album/images/100/82/152/10082152_500.jpg?b9df75751e7cbc77a992502fcceccc02",
-    },
-  ];
-
   return (
     <Fragment>
       <Header />
@@ -206,7 +163,7 @@ const Main = () => {
                         "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpS97M%2FbtqSdupzCez%2FuqPigp7AcjhIZnlzCYdvd0%2Fimg.jpg"
                       }
                     ></MainImgDivImg>
-                    <MainImgDivDivDiv>Bast Song</MainImgDivDivDiv>
+                    <MainImgDivDivDiv>Best Song</MainImgDivDivDiv>
                     <MainImgDivBtnDiv>
                       <Button
                         _style={{
@@ -228,84 +185,132 @@ const Main = () => {
             </Slider>
           </MainImgDiv>
           <MainProfileSliderGroup>
-            {mockDate.length < 5 ? (
-              <DisMainPostImgDivImgDiv>
-                <DisMainPostImgDivDiv>
-                  <DisMainPostImgDivNew>싱어 최신작품</DisMainPostImgDivNew>
-                  <DisMainPostImgDivMakeDiv>
-                    <DisMainPostImgDivMake>더보기</DisMainPostImgDivMake>
-                  </DisMainPostImgDivMakeDiv>
-                </DisMainPostImgDivDiv>
-                <DisMainPostImgDiv>
-                  {mockDate.map((x) => (
-                    <Post key={x.postId} imageUrl={x.imageUrl} />
-                  ))}
-                </DisMainPostImgDiv>
-              </DisMainPostImgDivImgDiv>
+            {recentSingerIsLoaded ? (
+              recentSinger.length < 5 ? (
+                <DisMainPostImgDivImgDiv>
+                  <DisMainPostImgDivDiv>
+                    <DisMainPostImgDivNew>싱어 최신작품</DisMainPostImgDivNew>
+                    <DisMainPostImgDivMakeDiv>
+                      <DisMainPostImgDivMake>더보기</DisMainPostImgDivMake>
+                    </DisMainPostImgDivMakeDiv>
+                  </DisMainPostImgDivDiv>
+                  <DisMainPostImgDiv>
+                    {recentSinger.map((x) => (
+                      <Post
+                        key={x.postId}
+                        imageUrl={x.imageUrl.imageUrl}
+                        likes={x.likes}
+                        nickname={x.nickname}
+                        title={x.title}
+                        collaborate={x.collaborate}
+                        mediaUrl={x.mediaUrl.mediaUrl}
+                      />
+                    ))}
+                  </DisMainPostImgDiv>
+                </DisMainPostImgDivImgDiv>
+              ) : (
+                <>
+                  <ProfileSlider GrandTitle='싱어 최신작품' />
+                </>
+              )
             ) : (
-              <>
-                <ProfileSlider GrandTitle='싱어 최신작품' />
-              </>
+              <> </>
             )}
 
-            {mockDate.length < 5 ? (
-              <DisMainPostImgDivImgDiv>
-                <DisMainPostImgDivDiv>
-                  <DisMainPostImgDivNew>싱어 인기작품</DisMainPostImgDivNew>
-                  <DisMainPostImgDivMakeDiv>
-                    <DisMainPostImgDivMake>더보기</DisMainPostImgDivMake>
-                  </DisMainPostImgDivMakeDiv>
-                </DisMainPostImgDivDiv>
-                <DisMainPostImgDiv>
-                  {mockDate.map((x) => (
-                    <Post key={x.postId} imageUrl={x.imageUrl} />
-                  ))}
-                </DisMainPostImgDiv>
-              </DisMainPostImgDivImgDiv>
+            {bestSingerIsLoaded ? (
+              bestSinger.length < 5 ? (
+                <DisMainPostImgDivImgDiv>
+                  <DisMainPostImgDivDiv>
+                    <DisMainPostImgDivNew>싱어 인기작품</DisMainPostImgDivNew>
+                    <DisMainPostImgDivMakeDiv>
+                      <DisMainPostImgDivMake>더보기</DisMainPostImgDivMake>
+                    </DisMainPostImgDivMakeDiv>
+                  </DisMainPostImgDivDiv>
+                  <DisMainPostImgDiv>
+                    {bestSinger.map((x) => (
+                      <Post
+                        key={x.postId}
+                        imageUrl={x.imageUrl.imageUrl}
+                        likes={x.likes}
+                        nickname={x.nickname}
+                        title={x.title}
+                        collaborate={x.collaborate}
+                        mediaUrl={x.mediaUrl.mediaUrl}
+                      />
+                    ))}
+                  </DisMainPostImgDiv>
+                </DisMainPostImgDivImgDiv>
+              ) : (
+                <>
+                  <ProfileSlider GrandTitle='싱어 인기작품' />
+                </>
+              )
             ) : (
-              <>
-                <ProfileSlider GrandTitle='싱어 인기작품' />
-              </>
+              <></>
             )}
 
-            {mockDate2.length < 5 ? (
-              <DisMainPostImgDivImgDiv>
-                <DisMainPostImgDivDiv>
-                  <DisMainPostImgDivNew>메이커 최신작품</DisMainPostImgDivNew>
-                  <DisMainPostImgDivMakeDiv>
-                    <DisMainPostImgDivMake>더보기</DisMainPostImgDivMake>
-                  </DisMainPostImgDivMakeDiv>
-                </DisMainPostImgDivDiv>
-                <DisMainPostImgDiv>
-                  {mockDate2.map((x) => (
-                    <Post key={x.postId} imageUrl={x.imageUrl} />
-                  ))}
-                </DisMainPostImgDiv>
-              </DisMainPostImgDivImgDiv>
+            {recentMakerIsLoaded ? (
+              recentMaker.length < 5 ? (
+                <DisMainPostImgDivImgDiv>
+                  <DisMainPostImgDivDiv>
+                    <DisMainPostImgDivNew>메이커 최신작품</DisMainPostImgDivNew>
+                    <DisMainPostImgDivMakeDiv>
+                      <DisMainPostImgDivMake>더보기</DisMainPostImgDivMake>
+                    </DisMainPostImgDivMakeDiv>
+                  </DisMainPostImgDivDiv>
+                  <DisMainPostImgDiv>
+                    {recentMaker.map((x) => (
+                      <Post
+                        key={x.postId}
+                        imageUrl={x.imageUrl.imageUrl}
+                        likes={x.likes}
+                        nickname={x.nickname}
+                        title={x.title}
+                        collaborate={x.collaborate}
+                        mediaUrl={x.mediaUrl.mediaUrl}
+                      />
+                    ))}
+                  </DisMainPostImgDiv>
+                </DisMainPostImgDivImgDiv>
+              ) : (
+                <>
+                  <ProfileSlider GrandTitle='메이커 최신작품' />
+                </>
+              )
             ) : (
-              <>
-                <ProfileSlider GrandTitle='메이커 최신작품' />
-              </>
+              <></>
             )}
 
-            {mockDate2.length < 5 ? (
-              <DisMainPostImgDivImgDiv>
-                <DisMainPostImgDivDiv>
-                  <DisMainPostImgDivNew>메이커 인기작품</DisMainPostImgDivNew>
-                  <DisMainPostImgDivMakeDiv>
-                    <DisMainPostImgDivMake>더보기</DisMainPostImgDivMake>
-                  </DisMainPostImgDivMakeDiv>
-                </DisMainPostImgDivDiv>
-                <DisMainPostImgDiv>
-                  {mockDate2.map((x) => (
-                    <Post key={x.postId} imageUrl={x.imageUrl} />
-                  ))}
-                </DisMainPostImgDiv>
-              </DisMainPostImgDivImgDiv>
+            {bestMakerIsLoaded ? (
+              bestMaker.length < 5 ? (
+                <DisMainPostImgDivImgDiv>
+                  <DisMainPostImgDivDiv>
+                    <DisMainPostImgDivNew>메이커 인기작품</DisMainPostImgDivNew>
+                    <DisMainPostImgDivMakeDiv>
+                      <DisMainPostImgDivMake>더보기</DisMainPostImgDivMake>
+                    </DisMainPostImgDivMakeDiv>
+                  </DisMainPostImgDivDiv>
+                  <DisMainPostImgDiv>
+                    {bestMaker.map((x) => (
+                      <Post
+                        key={x.postId}
+                        imageUrl={x.imageUrl.imageUrl}
+                        likes={x.likes}
+                        nickname={x.nickname}
+                        title={x.title}
+                        collaborate={x.collaborate}
+                        mediaUrl={x.mediaUrl.mediaUrl}
+                      />
+                    ))}
+                  </DisMainPostImgDiv>
+                </DisMainPostImgDivImgDiv>
+              ) : (
+                <>
+                  <ProfileSlider GrandTitle='메이커 인기작품' />
+                </>
+              )
             ) : (
-              <>
-                <ProfileSlider GrandTitle='메이커 인기작품' />
-              </>
+              <></>
             )}
           </MainProfileSliderGroup>
           <BtmProfileImgDiv>

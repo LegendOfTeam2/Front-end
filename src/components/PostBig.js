@@ -12,7 +12,7 @@ import {
   BigMyImgTopRight,
   DisBigMyImgTopRight,
 } from "../assets/styles/components/PsotBig.styled";
-import { Collaboration40, DisLike40, OnPlay60 } from "../assets/images/image";
+import { DisCollaboration40, DisLike40, OnPlay60 } from "../assets/images/image";
 import React from "react";
 const PostBig = ({
   postId,
@@ -37,9 +37,9 @@ const PostBig = ({
         </BigImgNotSlideSpan>
       </BigImgMyBtmRight>
       <BigMyImgTopLeft>나는 백예린</BigMyImgTopLeft>
-      <DisBigMyImgTopRight><img src={Collaboration40} alt='콜라보' /></DisBigMyImgTopRight>
+      <DisBigMyImgTopRight><img src={DisCollaboration40} alt='콜라보' /></DisBigMyImgTopRight>
       <BigMyImgTopRight>
-        <img src={Collaboration40} alt='콜라보' />
+        <img src={DisCollaboration40} alt='콜라보' />
       </BigMyImgTopRight>
       <BigMyImgBtmLeft>
         <BigMyImgBtmLeftDiv>

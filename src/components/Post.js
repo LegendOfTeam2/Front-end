@@ -12,8 +12,8 @@ import {
   MyImgTopLeft,
   MyImgTopRight,
 } from "../assets/styles/components/Post.styled";
-import { Collaboration, DisLike, OnPlay } from "../assets/images/image";
-import React from "react";
+import { DisCollaboration,Collaborate, DisLike, OnPlay } from "../assets/images/image";
+import React, { useState } from "react";
 
 const Post = ({
   postId,
@@ -24,25 +24,26 @@ const Post = ({
   imageUrl,
   mediaUrl,
   nickname,
+  likes
 }) => {
   return (
     <MyImgDivDiv>
       <Myimg src={imageUrl} alt='' />
       <ImgMyBtmRight>
-        <ImgNotSlideSpan>아티스트 이름</ImgNotSlideSpan>
+        <ImgNotSlideSpan>{nickname}</ImgNotSlideSpan>
       </ImgMyBtmRight>
-      <MyImgTopLeft>나는 백예린</MyImgTopLeft>
+      <MyImgTopLeft>{title}</MyImgTopLeft>
       <DisMyImgTopRight>
-        {" "}
-        <img src={Collaboration} alt='콜라보' />
+        { collaborate ? (<img src={Collaborate} alt='콜라보' />):(<></>)}
+        
       </DisMyImgTopRight>
       <MyImgTopRight>
-        <img src={Collaboration} alt='콜라보' />
+      { collaborate ? (<img src={Collaborate} alt='콜라보' />):(<></>)}
       </MyImgTopRight>
       <MyImgBtmLeft>
         <MyImgBtmLeftDiv>
           <img src={DisLike} alt='좋아요 안한 상태' />
-          <MyImgBtmLeftspan>372</MyImgBtmLeftspan>
+          <MyImgBtmLeftspan>{likes}</MyImgBtmLeftspan>
         </MyImgBtmLeftDiv>
       </MyImgBtmLeft>
       <MyImgBtmRight>

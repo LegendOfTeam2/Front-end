@@ -16,7 +16,7 @@ import Header from "../components/Header";
 // Assests
 import {
   OnPlay96,
-  Collaboration38,
+  DisCollaboration38,
   DisLike38,
   Share38,
   Putting,
@@ -181,7 +181,7 @@ const Details = () => {
                   <DetailProfileBtmFirDiv>
                     <DetailClickHover>
                       <img
-                        src={Collaboration38}
+                        src={DisCollaboration38}
                         backgrond='white'
                         alt='콜라보'
                       />

@@ -5,19 +5,19 @@ width: 100%;
 height: 100%;
 display: flex;
 justify-content: center;
+background-color: #F9F9F9;
 `
 
 export const WlInBox = styled.div`
-width: 620px;
-height: 520px;
+width: 600px;
+height: 480px;
 display: flex;
 justify-content: center;
 flex-direction: column;
 align-items: center;
 background-color: #F9F9F9;
-padding: 35px;
 position: relative;
-margin-bottom: 10px;
+
 `;
 export const Topicon = styled.div`
 width: 100%;
@@ -59,5 +59,5 @@ justify-content: center;
 flex-direction: column;
 text-align: center;
 margin-top: 75px;
-margin-bottom: 10px;
+
 `;

@@ -391,7 +391,7 @@ const SignUp = () => {
       <Welcome isOpen={isOpen} />
       <SignUpBox>
         <SignUpIcon onClick={() => navigate('/')}>
-          <GrClose className='icon-cancel'></GrClose>
+          <GrClose className='icon-cancel' color='red'></GrClose>
         </SignUpIcon>
         <SignUpForm onSubmit={(e) => onSubmitHandle(e)}>
           <SignUpLogo>
