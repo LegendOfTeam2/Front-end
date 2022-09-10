@@ -208,6 +208,7 @@ const Write = () => {
     setAudio("");
   }, [audio]);
 
+  // Hashtag
   const addTag = useCallback(
     (event) => {
       if (event.key === "Enter") {
@@ -309,7 +310,7 @@ const Write = () => {
       <WriteContainer>
         <WriteBox>
           <WriteIconContainer onClick={onHandleModal}>
-            <GrClose></GrClose>
+            <GrClose color='#cecece'></GrClose>
           </WriteIconContainer>
           <WriteCollaboContainer
             onClick={changeCollaborateStatus}

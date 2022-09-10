@@ -1,5 +1,5 @@
 // React
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 
 // Zustand
 import useSearchStore from '../zustand/search';
@@ -46,8 +46,12 @@ const Search = () => {
   const navigate = useNavigate();
 
   const success = useSearchStore((state) => state.success);
-  const search = useSearchStore((state) => state.search);
-  
+  const searchKeyword = useSearchStore((state) => state.searchKeyword);
+
+  useEffect(() => {
+    searchKeyword(keyword, 'singer');
+  });
+
   return (
     <SearchContainer>
       <BackgroundCover />
