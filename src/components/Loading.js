@@ -2,11 +2,12 @@
 import { Fragment } from 'react';
 
 // Assets
-import { LoadingImage } from '../assets/styles/components/Loading.styled';
+import { LoadingImage, BackgroundCover } from '../assets/styles/components/Loading.styled';
 
 const Loading = () => {
   return (
     <Fragment>
+      <BackgroundCover />
       <LoadingImage src={require('../assets/images/loading.gif')} />
     </Fragment>
   );

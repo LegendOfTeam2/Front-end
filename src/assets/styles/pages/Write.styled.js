@@ -17,6 +17,7 @@ export const WriteBox = styled.div`
   position: relative;
   border-radius: 30px;
   box-shadow: 1px 1px 20px 5px grey;
+  background-color: #ffffff;
 `;
 export const WriteIconContainer = styled.div`
   position: absolute;

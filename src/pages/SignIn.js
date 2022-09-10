@@ -48,6 +48,7 @@ import {
   SignInBoxSocialBoxSocialIcon,
   SignInBoxCover,
 } from '../assets/styles/pages/SignIn.styled';
+import { SignInBackground, SignInBackgroundSm } from '../assets/images/image';
 
 const SignIn = () => {
   const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -319,7 +320,10 @@ const SignIn = () => {
                 <SignInBoxSignUpQuestionText>
                   회원이 아니신가요?
                 </SignInBoxSignUpQuestionText>
-                <SignInBoxSignUpQuestionText onClick={() => navigate('/signupcheck')} color={'#000000'}>
+                <SignInBoxSignUpQuestionText
+                  onClick={() => navigate('/signupcheck')}
+                  color={'#000000'}
+                >
                   회원가입하기
                 </SignInBoxSignUpQuestionText>
               </SignInBoxSignUpQuestion>
@@ -349,7 +353,7 @@ const SignIn = () => {
             </SignInBoxSocialBox>
           </SignInBoxSocialContainer>
         </SignInBoxMain>
-        <SignInBoxCover></SignInBoxCover>
+        <SignInBoxCover bg_img_lg={SignInBackground} bg_img_sm={SignInBackgroundSm}></SignInBoxCover>
       </SignInBox>
     </SignInContainer>
   );

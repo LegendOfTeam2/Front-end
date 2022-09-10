@@ -1,3 +1,4 @@
+// Assets
 import {
   DisMyImgTopRight,
   ImgMyBtmRight,
@@ -10,10 +11,10 @@ import {
   MyImgDivDiv,
   MyImgTopLeft,
   MyImgTopRight,
-  PostimgDivDiv,
 } from "../assets/styles/components/Post.styled";
-import { Collaboration, DisLike, OnPlay } from "../assets/images//image";
+import { Collaboration, DisLike, OnPlay } from "../assets/images/image";
 import React from "react";
+
 const Post = ({
   postId,
   position,

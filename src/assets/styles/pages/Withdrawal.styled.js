@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
-export const ModifyContainer = styled.div`
+export const WithdrawalContainer = styled.div`
   width: 100%;
   height: 100%;
   background-repeat: repeat-y;
   display: flex;
   justify-content: center;
 `;
-export const ModifyBox = styled.div`
+export const WithdrawalBox = styled.div`
   width: 1024px;
   height: auto;
 `;
-export const ModifyNaviContainer = styled.div`
+export const WithdrawalNaviContainer = styled.div`
   margin-top: 187px;
   border-top: 1px solid #e7e7e7;
   border-bottom: 1px solid #e7e7e7;
@@ -20,17 +20,17 @@ export const ModifyNaviContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 356px;
+  gap: 372px;
 `;
-export const ModifyNaviInfo = styled.span`
+export const WithdrawalNaviInfo = styled.span`
   width: auto;
   height: auto;
   line-height: ${(props) => props.theme.lineHeight.xxxxl};
   font-size: ${(props) => props.theme.fontSizes.xxxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  color: #28ca7c;
+  color: #de1b4a;
 `;
-export const ModifyNaviText = styled.span`
+export const WithdrawalNaviText = styled.span`
   width: auto;
   height: auto;
   line-height: ${(props) => props.theme.lineHeight.lg};
@@ -41,24 +41,38 @@ export const ModifyNaviText = styled.span`
     cursor: pointer;
   }
 `;
-export const ModifyProfileContainer = styled.div`
+export const WithdrawalNoticeContainer = styled.div`
   width: 100%;
   height: auto;
   display: flex;
-  justify-content: center;
-  padding: 60px 0 60px 0;
+  flex-direction: column;
+  align-items: center;
   border-bottom: 1px solid #e7e7e7;
+  gap: 69px;
 `;
-export const ModifyProfileBox = styled.div`
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  border: 1px solid #d9d9d9;
-  overflow: hidden;
-  position: relative;
-  background-color: #ffffff;
+export const WithdrawalNoticeBox = styled.div`
+  width: 642px;
+  height: auto;
+  background-color: rgba(222, 27, 74, 0.1);
+  border-radius: 8px;
+  padding: 18px 24px;
+  margin-top: 208px;
 `;
-export const ModifyProfileBoxImg = styled.img`
+export const WithdrawalNoticeText = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.fontSizes.xl};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  color: #de1b4a;
+`;
+export const WithdrawalNoticeLogo = styled.div`
+  width: auto;
+  height: auto;
+  margin-bottom: 211px;
+`;
+export const WithdrawalNoticeLogoImg = styled.img`
+  background-image: url(${(props) => props.src});
+`;
+export const WithdrawalProfileBoxImg = styled.img`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -66,26 +80,26 @@ export const ModifyProfileBoxImg = styled.img`
   background-position: center;
   background-size: contain;
 `;
-export const ModifyInputContainer = styled.div`
+export const WithdrawalInputContainer = styled.div`
   width: 100%;
   height: auto;
   display: flex;
   align-items: center;
   flex-direction: column;
 `;
-export const ModifyInputBox = styled.div`
+export const WithdrawalInputBox = styled.div`
   width: 800px;
   height: auto;
   display: flex;
   border-bottom: 1px solid #e7e7e7;
 `;
-export const ModifyInputTitle = styled.div`
+export const WithdrawalInputTitle = styled.div`
   width: 100%;
   height: auto;
   flex: 1;
   position: relative;
 `;
-export const ModifyInputText = styled.span`
+export const WithdrawalInputText = styled.span`
   position: absolute;
   left: 0;
   top: 35px;
@@ -95,12 +109,12 @@ export const ModifyInputText = styled.span`
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
-export const ModifyInputDataBox = styled.div`
+export const WithdrawalInputDataBox = styled.div`
   width: 654.01px;
   height: auto;
   position: relative;
 `;
-export const ModifyInputIconBox = styled.div`
+export const WithdrawalInputIconBox = styled.div`
   position: absolute;
   width: auto;
   height: auto;
@@ -111,8 +125,11 @@ export const ModifyInputIconBox = styled.div`
     width: 20px;
     height: 20px;
   }
+  &:hover{
+    cursor: pointer;
+  }
 `;
-export const ModifyHashTag = styled.input`
+export const WithdrawalHashTag = styled.input`
   width: 100%;
   height: auto;
   line-height: ${(props) => props.theme.fontSizes.lg};
@@ -125,23 +142,10 @@ export const ModifyHashTag = styled.input`
     color: #b4b4b4;
   }
 `;
-export const ModifyHashTagBox = styled.span`
+export const WithdrawalHashTagBox = styled.span`
   width: 100%;
   height: auto;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 `;
-export const ModifyMemberDeleteContainer = styled.div`
-  width: 800px;
-  height: auto;
-  text-align: end;
-  padding-top: 32px;
-`;
-export const ModifyMemberDeleteText = styled.span`
-  color: #de1b4a;
-  font-weight: ${(props) => props.theme.fontWeight.Bold};
-  font-size: ${(props) => props.theme.fontSizes.base};
-  line-height: ${(props) => props.theme.lineHeight.base};
-`;
-
