@@ -123,8 +123,10 @@ const Main = () => {
       getBestMaker();
       getBestSinger();
       getPowerArtist();
+      getBestSong();
     } else {
       getSingerLikePost().then((res) => {
+        getBestSong();
         if (res) {
           getRecentSinger();
           getBestSinger();

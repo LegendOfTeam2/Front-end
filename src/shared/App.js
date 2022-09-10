@@ -27,8 +27,6 @@ const SignUpCheck = lazy(() => import("../pages/SignUpCheck"));
 const MyInfoModify = lazy(() => import("../pages/MyInfoModify"));
 const Details = lazy(() => import("../pages/Details"));
 const MorePage = lazy(() => import("../pages/MorePage"));
-const Welcome = lazy(() => import("../components/modal/Welcome"));
-
 // Utils - Lazy
 const Kakao = lazy(() => import("../utils/kakao"));
 const Google = lazy(() => import("../utils/google"));
@@ -60,7 +58,6 @@ function App() {
         <Route path='/details' element={<Details />} />
         <Route path='/morepage' element={<MorePage />} />
         <Route path='/search/:keyword' element={<Search />} />
-        <Route path='/test' element={<Welcome />} />
         <Route path='*' element={<Main />} />
       </Routes>
     </Suspense>
