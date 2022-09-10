@@ -56,11 +56,11 @@ function App() {
         <Route path='/kakao/callback' element={<Kakao />} />
         <Route path='/google/callback' element={<Google />} />
         <Route path='/write' element={is_login ? <Write /> : <Main />} />
-        <Route path='/myinfomodify' element={<MyInfoModify />} />
+        <Route path='/myinfomodify' element={is_login ? <MyInfoModify /> : <Main />} />
         <Route path='/details' element={<Details />} />
         <Route path='/morepage' element={<MorePage />} />
         <Route path='/search/:keyword' element={<Search />} />
-        <Route path='/withdrawal' element={<Withdrawal />} />
+        <Route path='/withdrawal' element={is_login ? <Withdrawal /> : <Main />} />
         <Route path='*' element={<Main />} />
       </Routes>
     </Suspense>

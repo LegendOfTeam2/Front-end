@@ -2,12 +2,13 @@
 import create from 'zustand';
 
 // Utils
-import { searchApi } from '../utils/apis/search';
+import { searchKeywordApi } from '../utils/apis/search';
 
 const useSearchStore = create((set) => ({
   success: false,
-  search: async (payload) => {
-    const resData = await searchApi(payload)
+  searchKeyword: async (keyword, position) => {
+    console.log(keyword, position);
+    const resData = await searchKeywordApi(keyword, position)
       .then((res) => res)
       .catch((err) => console.log(err));
 
