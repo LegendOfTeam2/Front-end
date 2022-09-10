@@ -133,6 +133,29 @@ const MyPage = () => {
     leftRef.current.style.color = "black";
   }, []);
 
+  const mockDate = [
+    {
+      postId: "1",
+      imageUrl:
+        "https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/0_JTh3JET7ZCHaT_IJhG4VbhEpI.png",
+    },
+    {
+      postId: "2",
+      imageUrl:
+        "https://post-phinf.pstatic.net/MjAyMDA5MDRfMjcx/MDAxNTk5MjE4MDE5Mzcw.jLTW8nXn80IriL-CBHj88OG6mAcsrc4lLclqk25tAmUg.15AvCfPQCS31Ina-TeCFdha94JXUYgtANVS0Xa3vq9Ig.JPEG/f26f6953cc1ff7579f4582f476f2de46359cfb21c88707f25a0aa02a9c77b540_v1.jpg?type=w1200",
+    },
+    {
+      postId: "3",
+      imageUrl:
+        "https://images.khan.co.kr/article/2022/05/12/l_2022051202000700600130251.jpg",
+    },
+    {
+      postId: "4",
+      imageUrl:
+        "https://post-phinf.pstatic.net/MjAxOTA4MDJfMjM1/MDAxNTY0NzE0ODEyMDk4.5nXLk7-27EPK8Q0NyLFVaeE_umpkqwfV73UWtu0ZD5Ug.j9RXuTc1EAgw66FZB0wl32sLBNaY4R9HZYvzOkei38Ag.JPEG/%EB%94%94%EB%85%B8%EB%A7%88%EB%93%9C%ED%95%99%EA%B5%90_%EC%95%84%ED%8A%B8%EB%94%94%EB%A0%89%ED%84%B0_NSH_%EC%95%A8%EB%B2%94_%EC%BB%A4%EB%B2%84_%EB%94%94%EC%9E%90%EC%9D%B8_8.jpg?type=w1200",
+    },
+  ];
+
   return (
     <Fragment>
       <Header />
@@ -267,11 +290,8 @@ const MyPage = () => {
               <MyMidTextDivDivSpan>메인 게시물</MyMidTextDivDivSpan>
             </MyMidTextDivDiv>
             <MyTextDiv>
-              {Array(4)
-                .fill("")
-                .map(() => (
-                  <Post />
-                ))}
+            {mockDate.map((x) => (
+                  <Post key={x.postId} imageUrl={x.imageUrl}/>))}
             </MyTextDiv>
           </MyMidTextDiv>
           <MyBtmTextDiv>

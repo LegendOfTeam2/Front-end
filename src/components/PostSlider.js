@@ -1,8 +1,8 @@
 // React
-import React from 'react';
+import React from "react";
 
 // Zustand
-import usePlayerStore from '../zustand/player';
+import usePlayerStore from "../zustand/player";
 import { Collaboration, DisLike, OnPlay } from "../assets/images//image";
 import {
   ImgBtmLeft,
@@ -16,7 +16,7 @@ import {
   ImgBtmLeftDiv,
   ImgBtmLeftDivSapn,
   DisImgTopRight,
-} from '../assets/styles/components/PostSlide.styled';
+} from "../assets/styles/components/PostSlide.styled";
 const PostSlider = ({
   postId,
   position,
@@ -30,7 +30,7 @@ const PostSlider = ({
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
 
   const onPlayerHandle = () => {
-      viewStateChange(true);
+    viewStateChange(true);
   };
 
   return (
@@ -44,21 +44,20 @@ const PostSlider = ({
       </ImgMainBtmRight>
       <ImgTopLeft>나는 페페</ImgTopLeft>
       <DisImgTopRight>
-      <img src={Collaboration} alt='콜라보'/>
+        <img src={Collaboration} alt='콜라보' />
       </DisImgTopRight>
       <ImgTopRight>
-      <img src={Collaboration} alt='콜라보'/>
+        <img src={Collaboration} alt='콜라보' />
       </ImgTopRight>
       <ImgBtmLeft>
-      <ImgBtmLeftDiv>
-      <img src={DisLike} alt='좋아요 안한 상태' />
+        <ImgBtmLeftDiv>
+          <img src={DisLike} alt='좋아요 안한 상태' />
 
-      <ImgBtmLeftDivSapn>372</ImgBtmLeftDivSapn>
-      </ImgBtmLeftDiv>
-        
+          <ImgBtmLeftDivSapn>372</ImgBtmLeftDivSapn>
+        </ImgBtmLeftDiv>
       </ImgBtmLeft>
       <ImgBtmRight>
-      <img src={OnPlay} alt='플레이 버튼' onClick={onPlayerHandle}/>
+        <img src={OnPlay} alt='플레이 버튼' onClick={onPlayerHandle} />
       </ImgBtmRight>
     </ProfileImgDivDiv>
   );

@@ -1,5 +1,5 @@
 // Zustand
-import create from 'zustand';
+import create from "zustand";
 
 // Utils
 import {
@@ -9,75 +9,138 @@ import {
   getBestMakerApi,
   getBestSingerApi,
   getBestSongApi,
-} from '../utils/apis/post';
+  getMakerLikePostApi,
+  getSingerLikePostApi,
+  getFollowerListApi,
+  getPowerArtistApi,
+} from "../utils/apis/post";
 
 const usePostStore = create((set) => ({
-  bestSong_is_loaded: false,
+  bestSongIsLoaded: false,
   bestSong: [],
-  recentMaker_is_loaded: false,
-  recentMaker_is_like: [],
+
+  recentMakerIsLoaded: false,
   recentMaker: [],
-  recentsinger_is_loaded: false,
-  recentsinger_is_like: [],
-  recentsinger: [],
-  bestMaker_is_loaded: false,
-  bestMaker_is_like: [],
+
+  recentSingerIsLoaded: false,
+  recentSinger: [],
+
+  bestMakerIsLoaded: false,
   bestMaker: [],
-  bestSinger_is_loaded: false,
-  bestSinger_is_like: [],
+
+  bestSingerIsLoaded: false,
   bestSinger: [],
+
+  PowerArtistLoaded: false,
+  PowerArtist: [],
+
+  singerIsLike: [],
+
+  makerIsLike: [],
+
+  artistIsFollow: [],
 
   addPost: async (payload) => {
     const resData = await addPostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-
     return resData.data;
+  },
+
+  getSingerLikePost: async (payload) => {
+    const resData = await getSingerLikePostApi(payload)
+      .then((res) => res)
+      .catch((err) => console.log(err));
+    if (resData?.data.success) {
+      set({ singerIsLike: resData.data });
+      return resData.data.success;
+    }
+  },
+
+  getMakerLikePost: async (payload) => {
+    const resData = await getMakerLikePostApi(payload)
+      .then((res) => res)
+      .catch((err) => console.log(err));
+    if (resData?.data.success) {
+      set({ makerIsLike: resData.data });
+      return resData.data.success;
+    }
+  },
+
+  getFollowerList: async (payload) => {
+    const resData = await getFollowerListApi(payload)
+      .then((res) => res)
+      .catch((err) => console.log(err));
+    if (resData?.data.success) {
+      set({ artistIsFollow: resData.data });
+      return resData.data.success;
+    }
   },
 
   getBestSong: async (payload) => {
     const resData = await getBestSongApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-    set({ bestSong: resData.data });
 
-    return resData.data;
+    if (resData?.data.success) {
+      set({ bestSong: resData.data });
+      set({ bestSongIsLoaded: true });
+    }
   },
 
   getRecentMaker: async (payload) => {
     const resData = await getRecentMakerApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-    set({ recentMaker: resData.data });
 
-    return resData.data;
+    if (resData?.data.success) {
+      set({ recentMaker: resData.data });
+      set({ recentMakerIsLoaded: true });
+    }
   },
 
   getRecentSinger: async (payload) => {
     const resData = await getRecentSingerApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-    set({ recentsinger: resData.data });
 
-    return resData.data;
+    if (resData?.data.success) {
+      set({ recentSinger: resData.data });
+      set({ recentSingerIsLoaded: true });
+    }
   },
 
   getBestMaker: async (payload) => {
     const resData = await getBestMakerApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-    set({ recentsinger: resData.data });
 
-    return resData.data;
+    if (resData?.data.success) {
+      set({ bestMaker: resData.data });
+      set({ bestMakerIsLoaded: true });
+    }
   },
 
   getBestSinger: async (payload) => {
     const resData = await getBestSingerApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-    set({ recentsinger: resData.data });
 
-    return resData.data;
+    if (resData?.data.success) {
+      set({ bestSinger: resData.data });
+      set({ bestSingerIsLoaded: true });
+    }
+  },
+
+  getPowerArtist: async (payload) => {
+    const resData = await getPowerArtistApi(payload)
+      .then((res) => res)
+      .catch((err) => console.log(err));
+
+    if (resData?.data.success) {
+      set({ PowerArtist: resData.data });
+      set({ PowerArtistLoaded: true });
+    }
   },
 }));
 

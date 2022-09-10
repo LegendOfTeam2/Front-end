@@ -45,6 +45,7 @@ import {
   SignUpButtonContainer,
 } from '../assets/styles/pages/SignUp.styled';
 import { largeLogo } from '../assets/images/image';
+import Welcome from '../components/modal/Welcome';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -59,7 +60,8 @@ const SignUp = () => {
   const [tags, setTags] = useState([]);
   const [file, setFile] = useState('');
   const [fileSrc, setFileSrc] = useState('');
-
+  const [isOpen , setOpen] = useState(false)
+  
   const emailRef = useRef();
   const emailIconRef = useRef();
   const emailSpanRef = useRef();
@@ -372,7 +374,8 @@ const SignUp = () => {
               signUpMember(newMember).then((res) => {
                 console.log(res);
                 if (res.success) {
-                  navigate('/signin');
+                  setOpen(true)
+                  // navigate('/signin');
                 }
               });
             }
@@ -385,6 +388,7 @@ const SignUp = () => {
 
   return (
     <SignUpContainer>
+      <Welcome isOpen={isOpen} />
       <SignUpBox>
         <SignUpIcon onClick={() => navigate('/')}>
           <GrClose className='icon-cancel'></GrClose>

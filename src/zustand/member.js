@@ -53,8 +53,6 @@ const useMemberStore = create((set) => ({
       set({ is_login: resData?.data.success });
       return resData.data.success;
     }
-
-    return resData.data;
   },
   signOutMember: async (payload) => {
     const resData = await signOutMemberApi(payload)
@@ -65,9 +63,9 @@ const useMemberStore = create((set) => ({
       removeCookie('authorization');
       window.sessionStorage.setItem('refresh-token', '');
       set({ is_login: false });
+      return resData.data.success;
     }
 
-    return resData.data.success;
   },
   kakaoAuth: async (code) => {
     const resData = await kakaoAuthApi(code)
