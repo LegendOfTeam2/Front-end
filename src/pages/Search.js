@@ -1,5 +1,5 @@
 // React
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 // Zustand
 import useSearchStore from '../zustand/search';
@@ -42,15 +42,35 @@ import {
 import { ErrorLogo } from '../assets/images/image';
 
 const Search = () => {
+  const [page, setPage] = useState(0);
+
   const { keyword } = useParams();
   const navigate = useNavigate();
+
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      setPage((page) => page + 1);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const success = useSearchStore((state) => state.success);
   const searchKeyword = useSearchStore((state) => state.searchKeyword);
 
   useEffect(() => {
-    searchKeyword(keyword, 'singer');
-  });
+    if(page !== 0) {
+      searchKeyword(keyword, 'Singer', page);
+    }
+  }, [page]);
 
   return (
     <SearchContainer>

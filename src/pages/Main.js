@@ -9,22 +9,23 @@ import usePlayerStore from "../zustand/player";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-// Utils
-import Button from "../elements/Button";
-import { getCookie } from "../utils/cookie";
-
-// Pages
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
+
+// Utils
+import { getCookie } from "../utils/cookie";
 
 // Components
 import Header from "../components/Header";
 import PlayerMain from "../components/audioplayer/PlayerMain";
 import ProfileSlider from "../components/ProfileSlider";
 import HotArtist from "../components/HotArtist";
+
+// Elements
+import Button from "../elements/Button";
+
 // Assests
 import {
   MainProfileSliderGroup,
@@ -39,7 +40,6 @@ import {
   MainContainer,
   MainContainerDiv,
   MainImgDiv,
-  // MainImgFade,
   MainImgDivBtnDiv,
   MainImgDivDiv,
   MainImgDivDivDiv,

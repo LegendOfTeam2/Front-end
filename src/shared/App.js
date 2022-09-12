@@ -28,6 +28,7 @@ const MyInfoModify = lazy(() => import('../pages/MyInfoModify'))
 const Details = lazy(() => import('../pages/Details'))
 const Withdrawal = lazy(() => import('../pages/Withdrawal'));
 const MorePage = lazy(() => import('../pages/MorePage'))
+const Chat = lazy(() => import('../pages/Chat'))
 
 // Utils - Lazy
 const Kakao = lazy(() => import("../utils/kakao"));
@@ -61,6 +62,7 @@ function App() {
         <Route path='/morepage' element={<MorePage />} />
         <Route path='/search/:keyword' element={<Search />} />
         <Route path='/withdrawal' element={is_login ? <Withdrawal /> : <Main />} />
+        <Route path='/chat' element={<Chat />} />
         <Route path='*' element={<Main />} />
       </Routes>
     </Suspense>

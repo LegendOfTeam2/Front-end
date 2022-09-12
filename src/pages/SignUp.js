@@ -60,8 +60,8 @@ const SignUp = () => {
   const [tags, setTags] = useState([]);
   const [file, setFile] = useState('');
   const [fileSrc, setFileSrc] = useState('');
-  const [isOpen , setOpen] = useState(false)
-  
+  const [isOpen, setOpen] = useState(false)
+
   const emailRef = useRef();
   const emailIconRef = useRef();
   const emailSpanRef = useRef();
