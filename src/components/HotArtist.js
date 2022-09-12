@@ -1,5 +1,10 @@
+// Zustand
 import useFollowStore from "../zustand/follow";
 
+// Elements
+import Button from "../elements/Button";
+
+// Assets
 import {
   BtmBunDiv,
   BtmProfileDivDiv,
@@ -11,9 +16,8 @@ import {
   HotArtistImgDivDiv,
   MainProfileimg,
 } from "../assets/styles/components/HotArtist.styled";
-import Button from "../elements/Button";
 
-const HotArtist = () => {
+const HotArtist = ({nickname, follower}) => {
   const follow = useFollowStore((state) => state.follow);
 
   const onHandleFollow = () => {
@@ -30,10 +34,10 @@ const HotArtist = () => {
           />
         </BtmProfileDivDivDiv>
         <BtmTextDivDivDiv>
-          <BtmTextDivSpan>youngi_2</BtmTextDivSpan>
+          <BtmTextDivSpan>{nickname}</BtmTextDivSpan>
         </BtmTextDivDivDiv>
         <BtmTextDivDivSmDiv>
-          <BtmTextDivSmSpan>4,000팔로워</BtmTextDivSmSpan>
+          <BtmTextDivSmSpan>{follower} 팔로워</BtmTextDivSmSpan>
         </BtmTextDivDivSmDiv>
         <BtmBunDiv>
           <Button

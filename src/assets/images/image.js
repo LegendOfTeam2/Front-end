@@ -32,6 +32,9 @@ import WithdrawalLogo from './WithdrawalLogo.png';
 import Exclamation from './Exclamation.png'
 import WelcomeMsg from "./WelcomeMsg.png";
 import Collaborate from './Collaborate.svg';
+import Hide from './Hide.svg';
+import Show from './Show.svg';
+import Like24 from './Like24.svg';
 
 
 export {
@@ -68,5 +71,8 @@ export {
   WithdrawalLogo,
   Exclamation,
   WelcomeMsg,
-  Collaborate
+  Collaborate,
+  Hide,
+  Show,
+  Like24
 };

@@ -153,16 +153,7 @@ export const BtmProfileArrowDiv = styled.div`
   }
 `;
 
-export const MainAudioPlay = styled.div`
-  width: 100%;
-  justify-content: center;
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  transform: translateY(${(props) => props.yIndex});
-  transition: transform 0.3s ease-in;
-`;
+
 
 export const MainProfileSliderGroup = styled.div`
   width: auto;
@@ -216,3 +207,9 @@ export const DisMainPostImgDivImgDiv = styled.div`
   margin-right: auto;
   margin-bottom: 3px;
 `;
+export const MainHotArtistWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 45px;
+`;
+

@@ -9,8 +9,6 @@ import {
   getBestMakerApi,
   getBestSingerApi,
   getBestSongApi,
-  getMakerLikePostApi,
-  getSingerLikePostApi,
   getFollowerListApi,
   getPowerArtistApi,
 } from "../utils/apis/post";
@@ -34,10 +32,6 @@ const usePostStore = create((set) => ({
   PowerArtistLoaded: false,
   PowerArtist: [],
 
-  singerIsLike: [],
-
-  makerIsLike: [],
-
   artistIsFollow: [],
 
   addPost: async (payload) => {
@@ -45,26 +39,6 @@ const usePostStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
     return resData.data;
-  },
-
-  getSingerLikePost: async (payload) => {
-    const resData = await getSingerLikePostApi(payload)
-      .then((res) => res)
-      .catch((err) => console.log(err));
-    if (resData?.data.success) {
-      set({ singerIsLike: resData.data.data });
-      return resData.data.success;
-    }
-  },
-
-  getMakerLikePost: async (payload) => {
-    const resData = await getMakerLikePostApi(payload)
-      .then((res) => res)
-      .catch((err) => console.log(err));
-    if (resData?.data.success) {
-      set({ makerIsLike: resData.data.data });
-      return resData.data.success;
-    }
   },
 
   getFollowerList: async (payload) => {

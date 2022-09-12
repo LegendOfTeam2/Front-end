@@ -22,3 +22,6 @@ export const kakaoAuthApi = (payload) => {
 export const googleAuthApi = (payload) => {
   return api_basic.get(`/api/google/callback?code=${payload}`)
 };
+export const getMyImageApi = (payload) => {
+  return api_auth.get(`/auth/myimage`)
+};

@@ -72,6 +72,14 @@ const Search = () => {
     }
   }, [page]);
 
+  const onHandleSearchSinger = () => {
+    searchKeyword(keyword, 'Singer');
+  }
+
+  const onHandleSearchMaker = () => {
+    searchKeyword(keyword, 'Maker');
+  }
+
   return (
     <SearchContainer>
       <BackgroundCover />
@@ -83,9 +91,9 @@ const Search = () => {
           </SearchNaviIconBox>
           <SearchNaviTitle>검색 결과</SearchNaviTitle>
           <SearchNaviGroup>
-            <SearchNavi>싱어</SearchNavi>
+            <SearchNavi onClick={onHandleSearchSinger}>싱어</SearchNavi>
             <SearchNaviVertical>|</SearchNaviVertical>
-            <SearchNavi>메이커</SearchNavi>
+            <SearchNavi onClick={onHandleSearchMaker}>메이커</SearchNavi>
           </SearchNaviGroup>
         </SearchNaviContainer>
         <SearchInfo>

@@ -7,6 +7,7 @@ export const MyContainerDiv = styled.div`
   justify-content: center;
   position: absolute;
   top: 156.5px;
+  z-index: -1;
 `;
 
 export const MyContainer = styled.div`
@@ -53,9 +54,12 @@ export const MyleftDiv = styled.div`
 `;
 
 export const MyleftDivImg = styled.img`
+width: 264px;
+height: 264px;
   display: flex;
   flex-direction: row-reverse;
-  border-radius: 50%;
+  border-radius: 50%
+
 `;
 
 export const MyRightTopDivCl = styled.div`
@@ -102,6 +106,9 @@ export const MyRightTopButDivNotMember = styled.div`
   flex-direction: row;
   margin-left: 92px;
 `;
+export const MyRightTopDivSpanDiv = styled.div`
+  width: 200px;
+`;
 
 export const MyRightTopDivSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xxxl};
@@ -141,7 +148,6 @@ export const MyTagBoxTextSlideDiv = styled.div`
   width: auto;
   margin-top: 22px;
   margin-bottom: 22px;
-  display: ${({ tagSlider }) => (tagSlider ? "block" : "none")}; ;
 `;
 
 export const MyTagBoxTextSpanSlide = styled.span`
