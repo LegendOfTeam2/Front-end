@@ -6,7 +6,6 @@ export const SliderContainer = styled.div`
   width: 100%;
   --thumb-width: 20px;
   --thumb-height: 20px;
-  margin-top: 13px;
   ::before {
     content: "";
     background-color: white;
@@ -72,6 +71,37 @@ export const Range = styled.input`
   }
 `;
 
+export const PlayContainerOut = styled.div`
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+`;
+
+export const PlayContainerOutDiv = styled.div`
+  width: 74px;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(40, 202, 124, 1);
+  top: -30px;
+  border-top-left-radius:50%;
+  border-top-right-radius: 50%;
+  position: absolute;
+  z-index: -2;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+export const PlayContainerOutImg = styled.img`
+  position: absolute;
+  z-index: -2;
+  top: -2px;
+`;
+
 export const PlayContainer = styled.div`
   width: 800px;
   height: 152px;
@@ -79,7 +109,8 @@ export const PlayContainer = styled.div`
   background-color: #f9f9f9;
   border-radius: 20px;
   margin-bottom: 20px;
-  padding: 0 22px;
+
+  padding: 12px 22px;
 `;
 
 export const ControlPanelDiv = styled.div`
@@ -244,4 +275,26 @@ export const IconImgHover = styled.div`
   :hover {
     cursor: pointer;
   }
+`;
+
+export const MainAudioPlay = styled.div`
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  transform: translateY(${(props) => props.yIndex});
+  transition: transform 0.3s ease-in;
+`;
+
+export const MainAudioPlayDiv = styled.div`
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  transform: translateY(${(props) => props.yIndex});
+  transition: transform 0.3s ease-in;
 `;

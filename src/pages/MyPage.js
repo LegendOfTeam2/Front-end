@@ -41,6 +41,7 @@ import {
   MyRightTopDivCl,
   MyRightTopDivClDiv,
   MyRightTopDivSpan,
+  MyRightTopDivSpanDiv,
   MyRightTopIconDiv,
   MyTagBox,
   MyTagBoxTextSlide,
@@ -48,49 +49,62 @@ import {
   MyTagBoxTextSpanSlide,
   MyTextDiv,
 } from "../assets/styles/pages/MyPage.styled";
-import { DisMakerMarke,DisSingerMarker } from '../assets/images/image';
+import { DisMakerMarke, DisSingerMarker } from "../assets/images/image";
+import { useParams } from "react-router-dom";
 
 const MyPage = () => {
-  const [tagSlider, setTagSlider] = useState(false);
   const [page, setPage] = useState(0);
+  const [isLeftRef, setLeftREf] = useState(false);
+  const [isMidRef, setMidref] = useState(false);
+  const getProfilPost = useMyPageStore((state) => state.getProfilPost);
+  const profilPost = useMyPageStore((state) => state.profilPost);
+  const profilPosteIsLoaded = useMyPageStore((state) => state.profilPosteIsLoaded);
+  const getUploadPost = useMyPageStore(
+    (state) => state.getUploadPost
+  );
+  const getLikePost = useMyPageStore((state) => state.getLikePost);
+  const likePost = useMyPageStore(
+    (state) => state.likePost
+  );
 
-  const getUploadPost = useMyPageStore((state) => state.getUploadPost);
+  const likePostIsLoaded = useMyPageStore((state) => state.likePostIsLoaded);
+  const pofilUploadPost = useMyPageStore((state) => state.pofilUploadPost);
+
+  const playListPostIsLoaded = useMyPageStore((state) => state.playListPostIsLoaded);
+  const nickName = useParams();
 
   const leftRef = useRef();
   const midRef = useRef();
   const rightRef = useRef();
 
-  const handleScroll = () => {
-    const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight) {
-      setPage((page) => page + 1);
-    }
-  };
+  // const handleScroll = () => {
+  //   const scrollHeight = document.documentElement.scrollHeight;
+  //   const scrollTop = document.documentElement.scrollTop;
+  //   const clientHeight = document.documentElement.clientHeight;
+  //   if (scrollTop + clientHeight >= scrollHeight) {
+  //     setPage((page) => page + 1);
+  //   }
+  // };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    getProfilPost(nickName);
+    getUploadPost(nickName);
+    // window.addEventListener("scroll", handleScroll);
+    // return () => {
+    //   window.removeEventListener("scroll", handleScroll);
+    // };
   }, []);
 
-  useEffect(() => {
-    getUploadPost(page);
-  }, [page]);
-
-  const clickTag = () => {
-    setTagSlider(!tagSlider);
-  };
+  // useEffect(() => {
+  // getUploadPost(page);
+  // }, [page]);
 
   const settings = {
     className: "center",
     centerMode: true,
-    infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    centerPadding: "-10px",
+    centerPadding: "10px",
     arrows: false,
     variableWidth: true,
   };
@@ -103,6 +117,8 @@ const MyPage = () => {
         leftRef.current.style.color = "black";
         midRef.current.style.color = "rgba(180, 180, 180, 1)";
         rightRef.current.style.color = "rgba(180, 180, 180, 1)";
+        setLeftREf(true);
+        setMidref(false);
         break;
       }
       case "like": {
@@ -112,6 +128,9 @@ const MyPage = () => {
         leftRef.current.style.color = "rgba(180, 180, 180, 1)";
         midRef.current.style.color = "black";
         rightRef.current.style.color = "rgba(180, 180, 180, 1)";
+        setLeftREf(false);
+        setMidref(true);
+        getLikePost(nickName);
         break;
       }
       case "save": {
@@ -121,6 +140,8 @@ const MyPage = () => {
         leftRef.current.style.color = "rgba(180, 180, 180, 1)";
         midRef.current.style.color = "rgba(180, 180, 180, 1)";
         rightRef.current.style.color = "black";
+        setLeftREf(false);
+        setMidref(false);
         break;
       }
       default:
@@ -131,30 +152,8 @@ const MyPage = () => {
   useEffect(() => {
     leftRef.current.style.borderTopColor = "black";
     leftRef.current.style.color = "black";
+    setLeftREf(true);
   }, []);
-
-  const mockDate = [
-    {
-      postId: "1",
-      imageUrl:
-        "https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/0_JTh3JET7ZCHaT_IJhG4VbhEpI.png",
-    },
-    {
-      postId: "2",
-      imageUrl:
-        "https://post-phinf.pstatic.net/MjAyMDA5MDRfMjcx/MDAxNTk5MjE4MDE5Mzcw.jLTW8nXn80IriL-CBHj88OG6mAcsrc4lLclqk25tAmUg.15AvCfPQCS31Ina-TeCFdha94JXUYgtANVS0Xa3vq9Ig.JPEG/f26f6953cc1ff7579f4582f476f2de46359cfb21c88707f25a0aa02a9c77b540_v1.jpg?type=w1200",
-    },
-    {
-      postId: "3",
-      imageUrl:
-        "https://images.khan.co.kr/article/2022/05/12/l_2022051202000700600130251.jpg",
-    },
-    {
-      postId: "4",
-      imageUrl:
-        "https://post-phinf.pstatic.net/MjAxOTA4MDJfMjM1/MDAxNTY0NzE0ODEyMDk4.5nXLk7-27EPK8Q0NyLFVaeE_umpkqwfV73UWtu0ZD5Ug.j9RXuTc1EAgw66FZB0wl32sLBNaY4R9HZYvzOkei38Ag.JPEG/%EB%94%94%EB%85%B8%EB%A7%88%EB%93%9C%ED%95%99%EA%B5%90_%EC%95%84%ED%8A%B8%EB%94%94%EB%A0%89%ED%84%B0_NSH_%EC%95%A8%EB%B2%94_%EC%BB%A4%EB%B2%84_%EB%94%94%EC%9E%90%EC%9D%B8_8.jpg?type=w1200",
-    },
-  ];
 
   return (
     <Fragment>
@@ -164,10 +163,7 @@ const MyPage = () => {
           <MyProfileContainer>
             <Myleft>
               <MyleftDiv>
-                <MyleftDivImg
-                  src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAXC4jJpUonPTloaWOqn7U5jyshqEL0mPfqg&usqp=CAU'
-                  alt='프로필 이미지'
-                />
+                <MyleftDivImg src={profilPost.imageUrl} alt='프로필 이미지' />
               </MyleftDiv>
             </Myleft>
 
@@ -175,16 +171,28 @@ const MyPage = () => {
               <MyRightTopDivCl>
                 <MyRightTopDivClDiv>
                   <MyRightTopDiv>
-                    <div>
-                      <MyRightTopDivSpan>baekyeriiin</MyRightTopDivSpan>
-                    </div>
+                    <MyRightTopDivSpanDiv>
+                      <MyRightTopDivSpan>
+                        {profilPost.nickname}
+                      </MyRightTopDivSpan>
+                    </MyRightTopDivSpanDiv>
                     <img src={DisSingerMarker} backgrond='white' alt='이미지' />
-                    <img src={DisMakerMarke} backgrond='white' alt='로고이미지' />
+                    <img
+                      src={DisMakerMarke}
+                      backgrond='white'
+                      alt='로고이미지'
+                    />
 
                     <MyRightTopBtmDiv>
-                      <MyRightTopBtmDivSpan>곡 작업 10</MyRightTopBtmDivSpan>
-                      <MyRightTopBtmDivSpan>팔로워 4,000</MyRightTopBtmDivSpan>
-                      <MyRightTopBtmDivSpan>팔로우 350</MyRightTopBtmDivSpan>
+                      <MyRightTopBtmDivSpan>
+                        곡 작업 {profilPost.myPostConunt}
+                      </MyRightTopBtmDivSpan>
+                      <MyRightTopBtmDivSpan>
+                        팔로워 {profilPost.follower}
+                      </MyRightTopBtmDivSpan>
+                      <MyRightTopBtmDivSpan>
+                        팔로우 {profilPost.following}
+                      </MyRightTopBtmDivSpan>
                     </MyRightTopBtmDiv>
                   </MyRightTopDiv>
                   {getCookie("authorization") !== undefined ? (
@@ -263,23 +271,36 @@ const MyPage = () => {
                   )}
                 </MyRightTopDivClDiv>
                 <MyTagBox>
-                  <MyTagBoxTextSlide tagSlider={tagSlider}>
+                  <MyTagBoxTextSlide>
                     <Slider {...settings}>
-                      {Array(12)
-                        .fill("")
-                        .map(() => (
-                          <MyTagBoxTextSlideDiv>
-                            <MyTagBoxTextSpanSlide>
-                              # 더 보기보기
-                            </MyTagBoxTextSpanSlide>
-                          </MyTagBoxTextSlideDiv>
-                        ))}
+                      {profilPosteIsLoaded ? (
+                        profilPost.hashtag === [] ? (
+                          <Fragment></Fragment>
+                        ) : (
+                          profilPost.hashtag.map((x) => {
+                            return(
+                              <MyTagBoxTextSlideDiv>
+                              <MyTagBoxTextSpanSlide>{x}</MyTagBoxTextSpanSlide>
+                            </MyTagBoxTextSlideDiv>
+                            )
+                          }
+                          )
+                        )
+                      ) : (
+                        <Fragment></Fragment>
+                      )}
                     </Slider>
                   </MyTagBoxTextSlide>
                 </MyTagBox>
                 <MyRightBtmDiv>
                   <MyRightBtmDivSpan>
-                    감성을 전하는 래퍼 백예린 -ˋˏ * ٩( ◡̉̈ )۶ * ˎˊ-{" "}
+                    {profilPost.introduce !== null ? (
+                      <>{profilPost.introduce}</>
+                    ) : (
+                      <>
+                        아직 자기 소개를 작성하지 않았습니다 -ˋˏ * ٩( ◡̉̈ )۶ * ˎˊ-
+                      </>
+                    )}
                   </MyRightBtmDivSpan>
                 </MyRightBtmDiv>
               </MyRightTopDivCl>
@@ -290,8 +311,18 @@ const MyPage = () => {
               <MyMidTextDivDivSpan>메인 게시물</MyMidTextDivDivSpan>
             </MyMidTextDivDiv>
             <MyTextDiv>
-            {mockDate.map((x) => (
-                  <Post key={x.postId} imageUrl={x.imageUrl}/>))}
+              {pofilUploadPost.map((x) => (
+                <Post
+                  key={x.postId}
+                  imageUrl={x.imageUrl}
+                  likes={x.likeCount}
+                  nickname={x.nickname}
+                  title={x.title}
+                  collaborate={x.collaborate}
+                  mediaUrl={x.mediaUrl.mediaUrl}
+                  postId={x.postId}
+                />
+              ))}
             </MyTextDiv>
           </MyMidTextDiv>
           <MyBtmTextDiv>
@@ -313,11 +344,39 @@ const MyPage = () => {
           </MyBtmTextDiv>
 
           <MyBtmImgDiv>
-            {Array(12)
-              .fill("")
-              .map(() => (
-                <PostBig />
-              ))}
+            {isLeftRef ? (
+              pofilUploadPost.map((x) => (
+                <PostBig
+                  key={x.postId}
+                  imageUrl={x.imageUrl}
+                  likeCount={x.likeCount}
+                  nickname={x.nickname}
+                  title={x.title}
+                  collaborate={x.collaborate}
+                  mediaUrl={x.mediaUrl.mediaUrl}
+                  postId={x.postId}
+                />
+              ))
+            ) : (
+              <></>
+            )}
+
+            {isMidRef ? (
+              likePost.map((x) => (
+                <PostBig
+                  key={x.postId}
+                  imageUrl={x.imageUrl}
+                  likeCount={x.likeCount}
+                  nickname={x.nickname}
+                  title={x.title}
+                  collaborate={x.collaborate}
+                  mediaUrl={x.mediaUrl.mediaUrl}
+                  postId={x.postId}
+                />
+              ))
+            ) : (
+              <></>
+            )}
           </MyBtmImgDiv>
         </MyContainer>
       </MyContainerDiv>

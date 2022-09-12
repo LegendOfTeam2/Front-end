@@ -5,14 +5,6 @@ export const addPostApi = (payload) => {
   return api_auth.post(`/auth/post`, payload);
 };
 
-export const getMakerLikePostApi = (payload) => {
-  return api_auth.get(`/auth/makerlikepost`, payload);
-};
-
-export const getSingerLikePostApi = (payload) => {
-  return api_auth.get(`/auth/singerlikepost`, payload);
-};
-
 export const getFollowerListApi = (payload) => {
   return api_auth.get(`/auth/followerlist`, payload);
 };

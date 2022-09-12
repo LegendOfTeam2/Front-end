@@ -12,6 +12,7 @@ import {
   signOutMemberApi,
   kakaoAuthApi,
   googleAuthApi,
+  getMyImageApi
 } from '../utils/apis/member';
 
 const useMemberStore = create((set) => ({
@@ -95,6 +96,18 @@ const useMemberStore = create((set) => ({
       return resData.data.success;
     }
   },
+  getMyImage: async (payload) => {
+
+    const resData = await getMyImageApi(payload)
+      .then((res) => res)
+      .catch((err) => console.log(err));
+      console.log(resData);
+
+      return resData.data.data
+
+  },
+
+  
 }));
 
 export default useMemberStore;
