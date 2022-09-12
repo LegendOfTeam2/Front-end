@@ -12,7 +12,6 @@ import "slick-carousel/slick/slick-theme.css";
 import shortId from "shortid";
 
 // Utils
-import Button from "../elements/Button";
 import { getCookie } from "../utils/cookie";
 
 // Pages
@@ -26,8 +25,11 @@ import Header from "../components/Header";
 import PlayerMain from "../components/audioplayer/PlayerMain";
 import ProfileSlider from "../components/ProfileSlider";
 import HotArtist from "../components/HotArtist";
+
+// Elements
+import Button from "../elements/Button";
+
 // Assests
-import styled from "styled-components";
 import {
   MainProfileSliderGroup,
   BtmProfileImgDiv,
@@ -37,11 +39,9 @@ import {
   BtmProfileTextSingMakeDiv,
   MainArowLeft,
   MainArowRight,
-  MainAudioPlay,
   MainContainer,
   MainContainerDiv,
   MainImgDiv,
-  // MainImgFade,
   MainImgDivBtnDiv,
   MainImgDivDiv,
   MainImgDivDivDiv,
@@ -58,8 +58,6 @@ import Post from "../components/Post";
 
 const Main = () => {
   const sliderRef = useRef();
-
-  // const viewStateChange = usePlayerStore((state) => state.viewStateChange);
 
   const settings = {
     className: "center",

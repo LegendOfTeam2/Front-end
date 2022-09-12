@@ -1,3 +1,10 @@
+// Zustand
+import useFollowStore from "../zustand/follow";
+
+// Elements
+import Button from "../elements/Button";
+
+// Assets
 import {
   BtmBunDiv,
   BtmProfileDivDiv,
@@ -9,9 +16,14 @@ import {
   HotArtistImgDivDiv,
   MainProfileimg,
 } from "../assets/styles/components/HotArtist.styled";
-import Button from "../elements/Button";
 
-const HotArtist = ({ nickname, follower }) => {
+const HotArtist = ({nickname, follower}) => {
+  const follow = useFollowStore((state) => state.follow);
+
+  const onHandleFollow = () => {
+    follow('Test98');
+  }
+
   return (
     <HotArtistImgDivDiv>
       <BtmProfileDivDiv>
@@ -29,6 +41,7 @@ const HotArtist = ({ nickname, follower }) => {
         </BtmTextDivDivSmDiv>
         <BtmBunDiv>
           <Button
+            _onClick={onHandleFollow}
             _style={{
               width: "155px",
               height: "33px",
