@@ -28,23 +28,23 @@ const PostBig = ({
   return (
     <BigMyImgDivDiv>
       <BigMyimg
-        src='https://i.pinimg.com/originals/51/31/a8/5131a8244ab74ea8523d59e1ba81606a.jpg'
+        src={imageUrl}
         alt=''
       />
       <BigImgMyBtmRight>
         <BigImgNotSlideSpan>
-          아티스트 이름
+          {nickname}
         </BigImgNotSlideSpan>
       </BigImgMyBtmRight>
-      <BigMyImgTopLeft>나는 백예린</BigMyImgTopLeft>
-      <DisBigMyImgTopRight><img src={DisCollaboration40} alt='콜라보' /></DisBigMyImgTopRight>
+      <BigMyImgTopLeft>{title}</BigMyImgTopLeft>
+      <DisBigMyImgTopRight>{ collaborate ? (<img src={DisCollaboration40} alt='콜라보' />):(<></>)}</DisBigMyImgTopRight>
       <BigMyImgTopRight>
-        <img src={DisCollaboration40} alt='콜라보' />
+      { collaborate ? (<img src={DisCollaboration40} alt='콜라보' />):(<></>)}
       </BigMyImgTopRight>
       <BigMyImgBtmLeft>
         <BigMyImgBtmLeftDiv>
           <img src={DisLike40} alt='좋아요 안한 상태' />
-          <BigMyImgBtmLeftspan>372</BigMyImgBtmLeftspan>
+          <BigMyImgBtmLeftspan>{likeCount}</BigMyImgBtmLeftspan>
         </BigMyImgBtmLeftDiv>
       </BigMyImgBtmLeft>
       <BigMyImgBtmRight>

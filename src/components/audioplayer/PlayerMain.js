@@ -1,8 +1,12 @@
 // React
 import { useState, useRef, useEffect, useCallback } from "react";
+
+// Zustand
+import usePlayerStore from "../../zustand/player";
+
 // Components
-import songsdata from "./Audios";
 import Player from "./Player";
+
 // Assests
 import {
   DisRepeated,
@@ -15,6 +19,8 @@ import {
   NextPlay,
   Volume,
   MutedAll,
+  Hide,
+  Show,
 } from "../../assets/images/image";
 import {
   AllBtnContainer,
@@ -23,9 +29,12 @@ import {
   IconImgHover,
   ImgCover,
   IntroduceDiv,
+  MainAudioPlay,
   MidDiv,
   PlayContainer,
-  SingerIntroduceSpan,
+  PlayContainerOut,
+  PlayContainerOutDiv,
+  PlayContainerOutImg,
   SingerSpan,
   Timer,
   TimerDiv,
@@ -37,12 +46,15 @@ import {
 } from "../../assets/styles/components/Player.Styled";
 
 function PlayerMain() {
+  const playList = usePlayerStore((state) => state.playList);
+  const currentSong = usePlayerStore((state) => state.currentSong);
+  const setCurrentSong = usePlayerStore((state) => state.setCurrentSong);
+  const viewState = usePlayerStore((state) => state.viewState);
+  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const [percentage, setPercentage] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [currentSong, setCurrentSong] = useState(songsdata[0]);
-  const [songs, setSongs] = useState(songsdata);
   const [volume, setVolume] = useState(0.5);
   const [ismuted, setIsMuted] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
@@ -58,8 +70,20 @@ function PlayerMain() {
   };
 
   useEffect(() => {
+    setIsAutoplay(true);
+      if(isPlaying=== true){
+      setIsAutoplay(true);
+      }else{
+        setIsPlaying(false)
+        setIsAutoplay(false);
+      }
+    
+  
+  }, [setCurrentSong,isPlaying ]);
+
+  useEffect(() => {
     const audioEnd = audioRef.current.ended;
-    const index = [...songs].indexOf(currentSong); // 0
+    const index = playList.indexOf(playList[0]); // 0
     if (audioEnd) {
       if (isRandom) {
         callback(index);
@@ -71,13 +95,13 @@ function PlayerMain() {
 
   const callback = useCallback(
     (index) => {
-      const random = Math.floor(Math.random() * songs.length);
+      const random = Math.floor(Math.random() * playList.length);
       if (random !== index) {
-        setCurrentSong(songs[random]);
+        setCurrentSong(playList[random]);
         audioRef.current.currentTime = 0;
         setIsAutoplay(true);
       } else {
-        const filterRandom = songs.filter((x) => x.id !== random);
+        const filterRandom = playList.filter((x) => x.id !== random);
         const Retryrandom = Math.floor(Math.random() * filterRandom.length);
         setCurrentSong(filterRandom[Retryrandom]);
         audioRef.current.currentTime = 0;
@@ -113,12 +137,12 @@ function PlayerMain() {
   };
 
   const skipBack = () => {
-    const index = songs.findIndex((x) => x.title === currentSong.title);
+    const index = playList.findIndex((x) => x.title === currentSong.title);
 
     if (index === 0) {
-      setCurrentSong(songs[songs.length - 1]);
+      setCurrentSong(playList[playList.length - 1]);
     } else {
-      setCurrentSong(songs[index - 1]);
+      setCurrentSong(playList[index - 1]);
     }
     if (isPlaying === true) {
       setIsAutoplay(true);
@@ -129,11 +153,11 @@ function PlayerMain() {
   };
 
   const skipNext = () => {
-    const index = songs.findIndex((x) => x.title === currentSong.title);
-    if (index === songs.length - 1) {
-      setCurrentSong(songs[0]);
+    const index = playList.findIndex((x) => x.title === currentSong.title);
+    if (index === playList.length - 1) {
+      setCurrentSong(playList[0]);
     } else {
-      setCurrentSong(songs[index + 1]);
+      setCurrentSong(playList[index + 1]);
     }
     if (isPlaying === true) {
       setIsAutoplay(true);
@@ -227,89 +251,112 @@ function PlayerMain() {
     }
   }
 
+  const Folding = () => {
+    audioRef.current.currentTime = 0;
+    setIsAutoplay(false);
+    viewStateChange(false);
+  };
+
+  const RaiseIt = () => {
+    audioRef.current.currentTime = 0;
+    viewStateChange(true);
+  };
+
+
+
   return (
-    <PlayContainer>
-      <Player percentage={percentage} onChange={onChange} />
-      <audio
-        ref={audioRef}
-        onTimeUpdate={getCurrDuration}
-        onLoadedData={(e) => {
-          setDuration(e.currentTarget.duration.toFixed(2));
-        }}
-        src={currentSong.url}
-      ></audio>
+    <MainAudioPlay yIndex={viewState ? "0" : "100%"}>
+      <div>
+        <PlayContainerOut>
+          <PlayContainerOutDiv>
+          {viewState ? <PlayContainerOutImg src={Hide} alt='접기' onClick={Folding} /> : <PlayContainerOutImg src={Show} alt='올리기' onClick={RaiseIt} />}
+          
+          
+          </PlayContainerOutDiv>
+        </PlayContainerOut>
+        <PlayContainer>
+          <Player percentage={percentage} onChange={onChange} />
+          <audio
+            ref={audioRef}
+            onTimeUpdate={getCurrDuration}
+            onLoadedData={(e) => {
+              setDuration(e.currentTarget.duration.toFixed(2));
+            }}
+            src={currentSong?.mediaUrl}
+          ></audio>
 
-      <ControlPanelDiv>
-        <TimerDiv>
-          <Timer>{secondsToHms(currentTime)}</Timer>
+          <ControlPanelDiv>
+            <TimerDiv>
+              <Timer>{secondsToHms(currentTime)}</Timer>
 
-          <Timer>{secondsToHms(duration)}</Timer>
-        </TimerDiv>
+              <Timer>{secondsToHms(duration)}</Timer>
+            </TimerDiv>
 
-        <AllBtnContainer>
-          <BtnContainer>
-            <IconImgHover onClick={ClickLoop}>
-              {isLoop ? (
-                <img src={LoopPlay} alt='루프있을때' />
-              ) : (
-                <img src={DisRepeated} alt='루프없을때' />
-              )}
-            </IconImgHover>
+            <AllBtnContainer>
+              <BtnContainer>
+                <IconImgHover onClick={ClickLoop}>
+                  {isLoop ? (
+                    <img src={LoopPlay} alt='루프있을때' />
+                  ) : (
+                    <img src={DisRepeated} alt='루프없을때' />
+                  )}
+                </IconImgHover>
 
-            <IconImgHover onClick={RandomPlay}>
-              {isRandom ? (
-                <img src={RandomIcon} alt='랜덤' />
-              ) : (
-                <img src={DisRandomIcon} alt='램덤아닐때' />
-              )}
-            </IconImgHover>
-            <IconImgHover>
-              <img src={BackPlay} alt='그전곡' onClick={skipBack} />
-            </IconImgHover>
-            <IconImgHover onClick={play}>
-              {isPlaying ? (
-                <img src={StopPlay} alt='정지' />
-              ) : (
-                <img src={OnPlay} alt='재생' />
-              )}
-            </IconImgHover>
-            <IconImgHover>
-              <img src={NextPlay} alt='다음곡' onClick={skipNext} />
-            </IconImgHover>
-          </BtnContainer>
-          <MidDiv>
-            <div>
-              <ImgCover src={currentSong.imgurl} alt='' />
-            </div>
-            <IntroduceDiv>
-              <TitleSapn>{currentSong.title}</TitleSapn>
-              <SingerSpan>{currentSong.singer}</SingerSpan>
-              <SingerIntroduceSpan>{currentSong.introduce}</SingerIntroduceSpan>
-            </IntroduceDiv>
-          </MidDiv>
-          <VolumeolumeDiv>
-            <VolumeolumeDivDiv onClick={ClickMuted}>
-              {ismuted ? (
-                <img src={MutedAll} alt='음소거' />
-              ) : (
-                <img src={Volume} alt='불륨조절' />
-              )}
-            </VolumeolumeDivDiv>
-            <VolumeolumeDivbar>
-              <VolumeInput
-                type='range'
-                min='0'
-                max='1'
-                color='gray'
-                step='0.01'
-                value={volume}
-                onChange={rangeVolume}
-              />
-            </VolumeolumeDivbar>
-          </VolumeolumeDiv>
-        </AllBtnContainer>
-      </ControlPanelDiv>
-    </PlayContainer>
+                <IconImgHover onClick={RandomPlay}>
+                  {isRandom ? (
+                    <img src={RandomIcon} alt='랜덤' />
+                  ) : (
+                    <img src={DisRandomIcon} alt='램덤아닐때' />
+                  )}
+                </IconImgHover>
+                <IconImgHover>
+                  <img src={BackPlay} alt='그전곡' onClick={skipBack} />
+                </IconImgHover>
+                <IconImgHover onClick={play}>
+                  {isPlaying ? (
+                    <img src={StopPlay} alt='정지' />
+                  ) : (
+                    <img src={OnPlay} alt='재생' />
+                  )}
+                </IconImgHover>
+                <IconImgHover>
+                  <img src={NextPlay} alt='다음곡' onClick={skipNext} />
+                </IconImgHover>
+              </BtnContainer>
+              <MidDiv>
+                <div>
+                  <ImgCover src={currentSong?.imageUrl} alt='' />
+                </div>
+                <IntroduceDiv>
+                  <TitleSapn>{currentSong?.title}</TitleSapn>
+                  <SingerSpan>{currentSong?.nickname}</SingerSpan>
+                </IntroduceDiv>
+              </MidDiv>
+              <VolumeolumeDiv>
+                <VolumeolumeDivDiv onClick={ClickMuted}>
+                  {ismuted ? (
+                    <img src={MutedAll} alt='음소거' />
+                  ) : (
+                    <img src={Volume} alt='불륨조절' />
+                  )}
+                </VolumeolumeDivDiv>
+                <VolumeolumeDivbar>
+                  <VolumeInput
+                    type='range'
+                    min='0'
+                    max='1'
+                    color='gray'
+                    step='0.01'
+                    value={volume}
+                    onChange={rangeVolume}
+                  />
+                </VolumeolumeDivbar>
+              </VolumeolumeDiv>
+            </AllBtnContainer>
+          </ControlPanelDiv>
+        </PlayContainer>
+      </div>
+    </MainAudioPlay>
   );
 }
 

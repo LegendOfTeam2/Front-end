@@ -11,7 +11,7 @@ import {
 } from "../assets/styles/components/HotArtist.styled";
 import Button from "../elements/Button";
 
-const HotArtist = () => {
+const HotArtist = ({ nickname, follower }) => {
   return (
     <HotArtistImgDivDiv>
       <BtmProfileDivDiv>
@@ -22,10 +22,10 @@ const HotArtist = () => {
           />
         </BtmProfileDivDivDiv>
         <BtmTextDivDivDiv>
-          <BtmTextDivSpan>youngi_2</BtmTextDivSpan>
+          <BtmTextDivSpan>{nickname}</BtmTextDivSpan>
         </BtmTextDivDivDiv>
         <BtmTextDivDivSmDiv>
-          <BtmTextDivSmSpan>4,000팔로워</BtmTextDivSmSpan>
+          <BtmTextDivSmSpan>{follower} 팔로워</BtmTextDivSmSpan>
         </BtmTextDivDivSmDiv>
         <BtmBunDiv>
           <Button

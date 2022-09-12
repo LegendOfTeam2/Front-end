@@ -3,12 +3,13 @@ import { Fragment, useEffect, useRef } from "react";
 
 // Zustand
 import usePostStore from "../zustand/post";
-import usePlayerStore from "../zustand/player";
+import useLikeStore from "../zustand/like";
 
 // Packages
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import shortId from "shortid";
 
 // Utils
 import Button from "../elements/Button";
@@ -26,6 +27,7 @@ import PlayerMain from "../components/audioplayer/PlayerMain";
 import ProfileSlider from "../components/ProfileSlider";
 import HotArtist from "../components/HotArtist";
 // Assests
+import styled from "styled-components";
 import {
   MainProfileSliderGroup,
   BtmProfileImgDiv,
@@ -50,14 +52,14 @@ import {
   DisMainPostImgDivMakeDiv,
   DisMainPostImgDivMake,
   DisMainPostImgDiv,
+  MainHotArtistWrap,
 } from "../assets/styles/pages/Main.styled";
 import Post from "../components/Post";
 
 const Main = () => {
   const sliderRef = useRef();
 
-  const viewState = usePlayerStore((state) => state.viewState);
-  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
+  // const viewStateChange = usePlayerStore((state) => state.viewStateChange);
 
   const settings = {
     className: "center",
@@ -86,8 +88,8 @@ const Main = () => {
   const getBestSinger = usePostStore((state) => state.getBestSinger);
   const getPowerArtist = usePostStore((state) => state.getPowerArtist);
 
-  const getSingerLikePost = usePostStore((state) => state.getSingerLikePost);
-  const getMakerLikePost = usePostStore((state) => state.getMakerLikePost);
+  const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
+  const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
   const getFollowerList = usePostStore((state) => state.getFollowerList);
 
   const bestSongIsLoaded = usePostStore((state) => state.bestSongIsLoaded);
@@ -112,11 +114,10 @@ const Main = () => {
   const PowerArtistLoaded = usePostStore((state) => state.PowerArtistLoaded);
   const PowerArtist = usePostStore((state) => state.PowerArtist);
 
-  const singerIsLike = usePostStore((state) => state.singerIsLike);
-  const makerIsLike = usePostStore((state) => state.makerIsLike);
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
   const artistIsFollow = usePostStore((state) => state.artistIsFollow);
 
-  console.log(bestMaker);
   useEffect(() => {
     if (getCookie("authorization") === undefined) {
       getRecentSinger();
@@ -147,43 +148,82 @@ const Main = () => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(singerIsLike);
+    console.log(makerIsLike);
+  })
   return (
     <Fragment>
       <Header />
       <MainContainerDiv>
         <MainContainer>
-          <MainImgDiv>
-            <Slider {...settings}>
-              {Array(1)
-                .fill("")
-                .map(() => (
-                  <MainImgDivDiv>
-                    <MainImgDivImg
-                      img={
-                        "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpS97M%2FbtqSdupzCez%2FuqPigp7AcjhIZnlzCYdvd0%2Fimg.jpg"
-                      }
-                    ></MainImgDivImg>
-                    <MainImgDivDivDiv>Best Song</MainImgDivDivDiv>
-                    <MainImgDivBtnDiv>
-                      <Button
-                        _style={{
-                          width: "140px",
-                          height: "36px",
-                          bg_color: "rgba(255, 255, 255, 1)",
-                          bd_radius: "43px",
-                          color: "rgba(0, 0, 0, 1)",
-                          ft_weight: "700",
-                          ft_size: "12",
-                          bd_px: "1.5px",
-                          bd_color: "transparent",
-                        }}
-                        _text={"감상하기"}
-                      />
-                    </MainImgDivBtnDiv>
-                  </MainImgDivDiv>
-                ))}
-            </Slider>
-          </MainImgDiv>
+          {bestSongIsLoaded ? (
+            bestSong < 2 ? (
+              <MainImgDiv>
+                <Slider {...settings}>
+                  {bestSong.map((x) => (
+                    <MainImgDivDiv key={shortId.generate()}>
+                      <MainImgDivImg
+                        img={bestSong.imageUrl.imageUrl}
+                      ></MainImgDivImg>
+                      <MainImgDivDivDiv>Best Song</MainImgDivDivDiv>
+                      <MainImgDivBtnDiv>
+                        <Button
+                          _style={{
+                            width: "140px",
+                            height: "36px",
+                            bg_color: "rgba(255, 255, 255, 1)",
+                            bd_radius: "43px",
+                            color: "rgba(0, 0, 0, 1)",
+                            ft_weight: "700",
+                            ft_size: "12",
+                            bd_px: "1.5px",
+                            bd_color: "transparent",
+                          }}
+                          _text={"감상하기"}
+                        />
+                      </MainImgDivBtnDiv>
+                    </MainImgDivDiv>
+                  ))}
+                </Slider>
+              </MainImgDiv>
+            ) : (
+              <MainImgDiv>
+                <Slider {...settings}>
+                  {Array(1)
+                    .fill("")
+                    .map(() => (
+                      <MainImgDivDiv key={shortId.generate()}>
+                        <MainImgDivImg
+                          img={
+                            "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpS97M%2FbtqSdupzCez%2FuqPigp7AcjhIZnlzCYdvd0%2Fimg.jpg"
+                          }
+                        ></MainImgDivImg>
+                        <MainImgDivDivDiv>Best Song</MainImgDivDivDiv>
+                        <MainImgDivBtnDiv>
+                          <Button
+                            _style={{
+                              width: "140px",
+                              height: "36px",
+                              bg_color: "rgba(255, 255, 255, 1)",
+                              bd_radius: "43px",
+                              color: "rgba(0, 0, 0, 1)",
+                              ft_weight: "700",
+                              ft_size: "12",
+                              bd_px: "1.5px",
+                              bd_color: "transparent",
+                            }}
+                            _text={"감상하기"}
+                          />
+                        </MainImgDivBtnDiv>
+                      </MainImgDivDiv>
+                    ))}
+                </Slider>
+              </MainImgDiv>
+            )
+          ) : (
+            <></>
+          )}
           <MainProfileSliderGroup>
             {recentSingerIsLoaded ? (
               recentSinger.length < 5 ? (
@@ -195,17 +235,39 @@ const Main = () => {
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                    {recentSinger.map((x) => (
-                      <Post
-                        key={x.postId}
-                        imageUrl={x.imageUrl.imageUrl}
-                        likes={x.likes}
-                        nickname={x.nickname}
-                        title={x.title}
-                        collaborate={x.collaborate}
-                        mediaUrl={x.mediaUrl.mediaUrl}
-                      />
-                    ))}
+                  {recentSinger.map((x) => {
+                      if ([...singerIsLike].indexOf(x.postId) !== -1) {
+                        return (
+                          <Post
+                            key={shortId.generate()}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={true}
+                          />
+                        );
+                      } else {
+                        return (
+                          <Post
+                            key={shortId.generate()}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={false}
+                          />
+                        );
+                      }
+                    })}
                   </DisMainPostImgDiv>
                 </DisMainPostImgDivImgDiv>
               ) : (
@@ -227,17 +289,39 @@ const Main = () => {
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                    {bestSinger.map((x) => (
-                      <Post
-                        key={x.postId}
-                        imageUrl={x.imageUrl.imageUrl}
-                        likes={x.likes}
-                        nickname={x.nickname}
-                        title={x.title}
-                        collaborate={x.collaborate}
-                        mediaUrl={x.mediaUrl.mediaUrl}
-                      />
-                    ))}
+                    {bestSinger.map((x) => {
+                      if ([...singerIsLike].indexOf(x.postId) !== -1) {
+                        return (
+                          <Post
+                            key={shortId.generate()}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={true}
+                          />
+                        );
+                      } else {
+                        return (
+                          <Post
+                            key={shortId.generate()}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={false}
+                          />
+                        );
+                      }
+                    })}
                   </DisMainPostImgDiv>
                 </DisMainPostImgDivImgDiv>
               ) : (
@@ -261,13 +345,15 @@ const Main = () => {
                   <DisMainPostImgDiv>
                     {recentMaker.map((x) => (
                       <Post
-                        key={x.postId}
+                        key={shortId.generate()}
                         imageUrl={x.imageUrl.imageUrl}
                         likes={x.likes}
                         nickname={x.nickname}
                         title={x.title}
                         collaborate={x.collaborate}
                         mediaUrl={x.mediaUrl.mediaUrl}
+                        postId={x.postId}
+                        position={x.position}
                       />
                     ))}
                   </DisMainPostImgDiv>
@@ -293,13 +379,15 @@ const Main = () => {
                   <DisMainPostImgDiv>
                     {bestMaker.map((x) => (
                       <Post
-                        key={x.postId}
+                        key={shortId.generate()}
                         imageUrl={x.imageUrl.imageUrl}
                         likes={x.likes}
                         nickname={x.nickname}
                         title={x.title}
                         collaborate={x.collaborate}
                         mediaUrl={x.mediaUrl.mediaUrl}
+                        postId={x.postId}
+                        position={x.position}
                       />
                     ))}
                   </DisMainPostImgDiv>
@@ -313,41 +401,68 @@ const Main = () => {
               <></>
             )}
           </MainProfileSliderGroup>
-          <BtmProfileImgDiv>
-            <BtmProfileTextDiv>
-              <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
-              <BtmProfileTextSingMakeDiv>
-                <BtmProfileTextMake>더보기</BtmProfileTextMake>
-              </BtmProfileTextSingMakeDiv>
-            </BtmProfileTextDiv>
-            <MainArowLeft>
-              <MdOutlineArrowBackIosNew
-                className='icon-prev'
-                color='rgba(180, 180, 180, 1)'
-                size={30}
-                onClick={() => sliderRef.current.slickPrev()}
-              />
-            </MainArowLeft>
-            <Slider {...Btmsettings}>
-              {Array(6)
-                .fill("")
-                .map(() => (
-                  <HotArtist />
-                ))}
-            </Slider>
-            <MainArowRight>
-              <MdOutlineArrowForwardIos
-                className='icon-next'
-                color='rgba(180, 180, 180, 1)'
-                size={30}
-                onClick={() => sliderRef.current.slickNext()}
-              />
-            </MainArowRight>
-          </BtmProfileImgDiv>
-
-          <MainAudioPlay yIndex={viewState ? "0" : "100%"}>
-            <PlayerMain />
-          </MainAudioPlay>
+          {PowerArtistLoaded ? (
+            PowerArtist.length < 5 ? (
+              <BtmProfileImgDiv>
+                <BtmProfileTextDiv>
+                  <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
+                  <BtmProfileTextSingMakeDiv>
+                    <BtmProfileTextMake>더보기</BtmProfileTextMake>
+                  </BtmProfileTextSingMakeDiv>
+                </BtmProfileTextDiv>
+                <MainHotArtistWrap>
+                  {PowerArtist.map((x) => (
+                    <HotArtist
+                      key={x.nickname}
+                      nickname={x.nickname}
+                      follower={x.follower
+                        .toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                    />
+                  ))}
+                </MainHotArtistWrap>
+              </BtmProfileImgDiv>
+            ) : (
+              <BtmProfileImgDiv>
+                <BtmProfileTextDiv>
+                  <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
+                  <BtmProfileTextSingMakeDiv>
+                    <BtmProfileTextMake>더보기</BtmProfileTextMake>
+                  </BtmProfileTextSingMakeDiv>
+                </BtmProfileTextDiv>
+                <MainArowLeft>
+                  <MdOutlineArrowBackIosNew
+                    className='icon-prev'
+                    color='rgba(180, 180, 180, 1)'
+                    size={30}
+                    onClick={() => sliderRef.current.slickPrev()}
+                  />
+                </MainArowLeft>
+                <Slider {...Btmsettings}>
+                  {PowerArtist.map((x) => (
+                    <HotArtist
+                      key={x.nickname}
+                      nickname={x.nickname}
+                      follower={x.follower
+                        .toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                    />
+                  ))}
+                </Slider>
+                <MainArowRight>
+                  <MdOutlineArrowForwardIos
+                    className='icon-next'
+                    color='rgba(180, 180, 180, 1)'
+                    size={30}
+                    onClick={() => sliderRef.current.slickNext()}
+                  />
+                </MainArowRight>
+              </BtmProfileImgDiv>
+            )
+          ) : (
+            <></>
+          )}
+          <PlayerMain />
         </MainContainer>
       </MainContainerDiv>
     </Fragment>

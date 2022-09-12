@@ -1,19 +1,18 @@
 // React
-import { Fragment, useState, useCallback } from 'react';
+import { Fragment, useState, useCallback, useEffect } from "react";
 
 //Zustand
 import useMemberStore from "../zustand/member";
 
 // Package
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../utils/cookie";
 import jwt_decode from "jwt-decode";
-
 // Element
 import Button from "../elements/Button";
 import Input from "../elements/Input";
 
 // Utils
-import { getCookie } from "../utils/cookie";
 
 // Assests
 import {
@@ -32,10 +31,19 @@ import {
 import { HeaderlargeLogo, Search } from "../assets/images/image";
 
 const Header = () => {
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
 
   const signOutMember = useMemberStore((state) => state.signOutMember);
+  const getMyImage = useMemberStore((state) => state.getMyImage);
+
+  useEffect(() => {
+    if(getCookie("authorization") !== undefined){
+      const nickname =jwt_decode(getCookie("authorization")).sub
+      getMyImage({nickname}).then((res)=> {console.log(res);})
+    }
+    
+  }, []);
 
   const uploadHandle = () => {
     if (getCookie("authorization") !== undefined) {
@@ -61,13 +69,21 @@ const Header = () => {
   }, [keyword]);
 
   const onKeyUpSearch = useCallback((e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       if (e.target.value.length > 0) {
         navigate(`/search/${keyword}`);
       }
     }
-  })
-
+  });
+  const ProfilPage = () => {
+    if (getCookie("authorization") !== undefined) {
+      const nickname = jwt_decode(getCookie("authorization")).sub;
+      navigate(`/mypage/${nickname}`);
+    } else {
+      alert("로그인 후에 이용 가능합니다.");
+      navigate("/signin");
+    }
+  };
 
   return (
     <Fragment>
@@ -81,7 +97,7 @@ const Header = () => {
 
               <SearchDiv>
                 <SearchIconDiv onClick={onClickSearch}>
-                <img src={Search} backgrond='white' alt='검색' />
+                  <img src={Search} backgrond='white' alt='검색' />
                 </SearchIconDiv>
                 <Input
                   _value={keyword}
@@ -105,6 +121,7 @@ const Header = () => {
                 <ProfileImg
                   src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBB7pAaft41alybo-nWe0sQZg0kHIUUkrFvA&usqp=CAU'
                   alt='프로필'
+                  onClick={ProfilPage}
                 ></ProfileImg>
               </ProfileDiv>
               <BtmDiv>

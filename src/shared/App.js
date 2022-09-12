@@ -49,7 +49,7 @@ function App() {
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route path='/' exact='true' element={<Main />} />
-        <Route path='/mypage' element={<MyPage />} />
+        <Route path='/mypage/:nickname' element={<MyPage />} />
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signupcheck' element={<SignUpCheck />} />
