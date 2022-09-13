@@ -10,6 +10,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import shortId from "shortid";
+import jwt_decode from 'jwt-decode';
 
 // Utils
 import Button from "../elements/Button";
@@ -56,11 +57,10 @@ import {
 } from "../assets/styles/pages/Main.styled";
 import Post from "../components/Post";
 import { useNavigate } from "react-router-dom";
+import usePlayerStore from "../zustand/player";
 
 const Main = () => {
   const sliderRef = useRef();
-
-  // const viewStateChange = usePlayerStore((state) => state.viewStateChange);
 
   const settings = {
     className: "center",
@@ -121,6 +121,11 @@ const Main = () => {
   const makerIsLike = useLikeStore((state) => state.makerIsLike);
   const artistIsFollow = usePostStore((state) => state.artistIsFollow);
 
+  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
+  const addPlayList = usePlayerStore((state) => state.addPlayList);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -153,21 +158,31 @@ const Main = () => {
     }
   }, []);
 
-  const goToRecentSinger = () => {
-    navigate(`/morepage/recentsinger/`);
+  const play = () => {
+      viewStateChange(true);
+      setPlaying(true);
+      setIsAutoplay(true);
+      addPlayList({
+        postId: bestSong[0].postId,
+        title: bestSong[0].title,
+        nickname: bestSong[0].nickname,
+        mediaUrl: bestSong[0].mediaUrl.mediaUrl,
+        imageUrl: bestSong[0].imageUrl.imageUrl,
+        position: bestSong[0].position,
+      });
   };
 
-  const goToBestSinger = () => {
-    navigate(`/morepage/bestsinger/`);
+
+  const goToSinger = () => {
+    navigate(`/morepage/singer`);
   };
 
-  const goToRecentMaker = () => {
-    navigate(`/morepage/recentmaker/`);
+  const goToMaker = () => {
+    navigate(`/morepage/maker`);
   };
 
-  const goTobestnaker = () => {
-    navigate(`/morepage/bestmaker/`);
-  };
+
+
 
   return (
     <Fragment>
@@ -175,71 +190,35 @@ const Main = () => {
       <MainContainerDiv>
         <MainContainer>
           {bestSongIsLoaded ? (
-            bestSong < 2 ? (
-              <MainImgDiv>
-                <Slider {...settings}>
-                  {bestSong.map((x) => (
-                    <MainImgDivDiv key={shortId.generate()}>
-                      <MainImgDivImg
-                        img={bestSong.imageUrl.imageUrl}
-                      ></MainImgDivImg>
-                      <MainImgDivDivDiv>Best Song</MainImgDivDivDiv>
-                      <MainImgDivBtnDiv>
-                        <Button
-                          _style={{
-                            width: "140px",
-                            height: "36px",
-                            bg_color: "rgba(255, 255, 255, 1)",
-                            bd_radius: "43px",
-                            color: "rgba(0, 0, 0, 1)",
-                            ft_weight: "700",
-                            ft_size: "12",
-                            bd_px: "1.5px",
-                            bd_color: "transparent",
-                          }}
-                          _text={"감상하기"}
-                        />
-                      </MainImgDivBtnDiv>
-                    </MainImgDivDiv>
-                  ))}
-                </Slider>
-              </MainImgDiv>
-            ) : (
-              <MainImgDiv>
-                <Slider {...settings}>
-                  {Array(1)
-                    .fill("")
-                    .map(() => (
-                      <MainImgDivDiv key={shortId.generate()}>
-                        <MainImgDivImg
-                          img={
-                            "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpS97M%2FbtqSdupzCez%2FuqPigp7AcjhIZnlzCYdvd0%2Fimg.jpg"
-                          }
-                        ></MainImgDivImg>
-                        <MainImgDivDivDiv>Best Song</MainImgDivDivDiv>
-                        <MainImgDivBtnDiv>
-                          <Button
-                            _style={{
-                              width: "140px",
-                              height: "36px",
-                              bg_color: "rgba(255, 255, 255, 1)",
-                              bd_radius: "43px",
-                              color: "rgba(0, 0, 0, 1)",
-                              ft_weight: "700",
-                              ft_size: "12",
-                              bd_px: "1.5px",
-                              bd_color: "transparent",
-                            }}
-                            _text={"감상하기"}
-                          />
-                        </MainImgDivBtnDiv>
-                      </MainImgDivDiv>
-                    ))}
-                </Slider>
-              </MainImgDiv>
-            )
+            <MainImgDiv>
+              <Slider {...settings}>
+                {bestSong.map((x) => (
+                  <MainImgDivDiv key={shortId.generate()}>
+                    <MainImgDivImg img={x.imageUrl.imageUrl}></MainImgDivImg>
+                    <MainImgDivDivDiv>Best Song</MainImgDivDivDiv>
+                    <MainImgDivBtnDiv>
+                      <Button
+                        _style={{
+                          width: "140px",
+                          height: "36px",
+                          bg_color: "rgba(255, 255, 255, 1)",
+                          bd_radius: "43px",
+                          color: "rgba(0, 0, 0, 1)",
+                          ft_weight: "700",
+                          ft_size: "12",
+                          bd_px: "1.5px",
+                          bd_color: "transparent",
+                        }}
+                        _text={"감상하기"}
+                        _onClick={play}
+                      />
+                    </MainImgDivBtnDiv>
+                  </MainImgDivDiv>
+                ))}
+              </Slider>
+            </MainImgDiv>
           ) : (
-            <></>
+            <MainImgDiv></MainImgDiv>
           )}
           <MainProfileSliderGroup>
             {recentSingerIsLoaded ? (
@@ -248,7 +227,7 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>싱어 최신작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake onClick={goToRecentSinger}>
+                      <DisMainPostImgDivMake onClick={goToSinger}>
                         더보기
                       </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
@@ -291,7 +270,12 @@ const Main = () => {
                 </DisMainPostImgDivImgDiv>
               ) : (
                 <>
-                  <ProfileSlider name={'싱어 최신작품'} postList={recentSinger} GrandTitle='싱어 최신작품' />
+                  <ProfileSlider
+                    name={"싱어 최신작품"}
+                    position={"singer"}
+                    postList={recentSinger}
+                    GrandTitle='싱어 최신작품'
+                  />
                 </>
               )
             ) : (
@@ -304,7 +288,7 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>싱어 인기작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake onClick={goToBestSinger}>
+                      <DisMainPostImgDivMake onClick={goToSinger}>
                         더보기
                       </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
@@ -347,7 +331,12 @@ const Main = () => {
                 </DisMainPostImgDivImgDiv>
               ) : (
                 <>
-                  <ProfileSlider name={'싱어 인기작품'} postList={bestSinger} GrandTitle='싱어 인기작품' />
+                  <ProfileSlider
+                    name={"싱어 인기작품"}
+                    position={"singer"}
+                    postList={bestSinger}
+                    GrandTitle='싱어 인기작품'
+                  />
                 </>
               )
             ) : (
@@ -360,7 +349,7 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>메이커 최신작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake onClick={goToRecentMaker}>
+                      <DisMainPostImgDivMake onClick={goToMaker}>
                         더보기
                       </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
@@ -403,7 +392,12 @@ const Main = () => {
                 </DisMainPostImgDivImgDiv>
               ) : (
                 <>
-                  <ProfileSlider name={'메이커 최신작품'} postList={recentMaker} GrandTitle='메이커 최신작품' />
+                  <ProfileSlider
+                    name={"메이커 최신작품"}
+                    position={"maker"}
+                    postList={recentMaker}
+                    GrandTitle='메이커 최신작품'
+                  />
                 </>
               )
             ) : (
@@ -416,7 +410,9 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>메이커 인기작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake onClick={goTobestnaker}>더보기</DisMainPostImgDivMake>
+                      <DisMainPostImgDivMake onClick={goToMaker}>
+                        더보기
+                      </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
@@ -457,7 +453,12 @@ const Main = () => {
                 </DisMainPostImgDivImgDiv>
               ) : (
                 <>
-                  <ProfileSlider name={'메이커 인기작품'} postList={bestMaker} GrandTitle='메이커 인기작품' />
+                  <ProfileSlider
+                    name={"메이커 인기작품"}
+                    position={"maker"}
+                    postList={bestMaker}
+                    GrandTitle='메이커 인기작품'
+                  />
                 </>
               )
             ) : (
@@ -470,9 +471,7 @@ const Main = () => {
                 <BtmProfileTextDiv>
                   <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
                   <BtmProfileTextSingMakeDiv>
-                    <BtmProfileTextMake>
-                      더보기
-                    </BtmProfileTextMake>
+                    <BtmProfileTextMake>더보기</BtmProfileTextMake>
                   </BtmProfileTextSingMakeDiv>
                 </BtmProfileTextDiv>
                 <MainHotArtistWrap>
@@ -511,6 +510,7 @@ const Main = () => {
                       follower={x.follower
                         .toString()
                         .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                      imageUrl={x.imageUrl}
                     />
                   ))}
                 </Slider>
@@ -527,7 +527,6 @@ const Main = () => {
           ) : (
             <></>
           )}
-          <PlayerMain />
         </MainContainer>
       </MainContainerDiv>
     </Fragment>

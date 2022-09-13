@@ -40,6 +40,7 @@ import {
   SearchNoDataLogoImg,
 } from '../assets/styles/pages/Search.styled';
 import { ErrorLogo } from '../assets/images/image';
+import PlayerMain from '../components/audioplayer/PlayerMain';
 
 const Search = () => {
   const [category, setCategory] = useState('Singer');

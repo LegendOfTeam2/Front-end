@@ -96,9 +96,6 @@ const Header = () => {
     if (getCookie('authorization') !== undefined) {
       const nickname = jwt_decode(getCookie('authorization')).sub;
       navigate(`/mypage/${nickname}`);
-    } else {
-      alert('로그인 후에 이용 가능합니다.');
-      navigate('/signin');
     }
   };
 

@@ -7,12 +7,13 @@ import useLikeStore from "../zustand/like";
 import usePostStore from "../zustand/post";
 
 const MorePage = () => {
-  const Params = useParams();
+  const { position } = useParams();
   const leftRef = useRef();
   const rightRef = useRef();
 
-  const [recent, setRecent] = useState(true);
+  const [recent, setRecent] = useState(false);
   const [best, setBest] = useState(false);
+  const [category, setCategory] = useState("new");
 
   const getRecentMaker = usePostStore((state) => state.getRecentMaker);
   const getRecentSinger = usePostStore((state) => state.getRecentSinger);
@@ -38,18 +39,20 @@ const MorePage = () => {
 
   const categoryHandle = (state) => {
     switch (state) {
-      case "latest": {
+      case "new": {
         leftRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
         rightRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
         leftRef.current.style.color = "rgba(40, 202, 124, 1)";
         rightRef.current.style.color = "rgba(180, 180, 180, 1)";
+        setCategory('new');
         break;
       }
-      case "public": {
+      case "popular": {
         leftRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
         rightRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
         leftRef.current.style.color = "rgba(180, 180, 180, 1)";
         rightRef.current.style.color = "rgba(40, 202, 124, 1)";
+        setCategory('popular');
         break;
       }
       default:
@@ -62,32 +65,24 @@ const MorePage = () => {
     rightRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
   }, []);
 
-  console.log(Params.position);
-
   useEffect(() => {
-    if (Params.position === "singer") {
+    if (position === "singer") {
       getSingerLikePost().then((res) => {
         if (res) {
-          if (recent) {
-            getRecentSinger();
-          } else {
-            getBestSinger();
-          }
+          getRecentSinger();
+          getBestSinger();
         }
       });
     } else {
       getMakerLikePost().then((res) => {
         if (res) {
-          if (recent) {
-            getRecentMaker();
-          } else {
-            getBestMaker();
-          }
+          getRecentMaker();
+          getBestMaker();
         }
       });
     }
   }, []);
-
+  console.log(recentSinger);
   return (
     <Fragment>
       <Header></Header>
@@ -99,22 +94,84 @@ const MorePage = () => {
 
           <MoreBtmTextDiv>
             <MoreBtmTextDivDiv ref={leftRef}>
-              <MoreBtmDataDiv onClick={() => categoryHandle("latest")}>
+              <MoreBtmDataDiv onClick={() => categoryHandle("new")}>
                 최신
               </MoreBtmDataDiv>
             </MoreBtmTextDivDiv>
             <MoreBtmTextDivDiv ref={rightRef}>
-              <MoreBtmDataDiv onClick={() => categoryHandle("public")}>
+              <MoreBtmDataDiv onClick={() => categoryHandle("popular")}>
                 인기
               </MoreBtmDataDiv>
             </MoreBtmTextDivDiv>
           </MoreBtmTextDiv>
           <MoreBtmImgDiv>
-            {Array(12)
-              .fill("")
-              .map(() => (
-                <PostBig />
-              ))}
+            {position === "singer" ? (
+              category === "new" ? (
+                recentSingerIsLoaded ? (
+                  recentSinger.map((x) => (
+                    <PostBig
+                      key={x.postId}
+                      imageUrl={x.imageUrl.imageUrl}
+                      likeCount={x.likeCount}
+                      nickname={x.nickname}
+                      title={x.title}
+                      collaborate={x.collaborate}
+                      mediaUrl={x.mediaUrl.mediaUrl}
+                      postId={x.postId}
+                    />
+                  ))
+                ) : (
+                  <Fragment></Fragment>
+                )
+              ) : bestSingerIsLoaded ? (
+                bestSinger.map((x) => (
+                  <PostBig
+                    key={x.postId}
+                    imageUrl={x.imageUrl.imageUrl}
+                    likeCount={x.likeCount}
+                    nickname={x.nickname}
+                    title={x.title}
+                    collaborate={x.collaborate}
+                    mediaUrl={x.mediaUrl.mediaUrl}
+                    postId={x.postId}
+                  />
+                ))
+              ) : (
+                <Fragment></Fragment>
+              )
+            ) : category === "new" ? (
+              recentMakerIsLoaded ? (
+                recentMaker.map((x) => (
+                  <PostBig
+                    key={x.postId}
+                    imageUrl={x.imageUrl.imageUrl}
+                    likeCount={x.likeCount}
+                    nickname={x.nickname}
+                    title={x.title}
+                    collaborate={x.collaborate}
+                    mediaUrl={x.mediaUrl.mediaUrl}
+                    postId={x.postId}
+                  />
+                ))
+              ) : (
+                <Fragment></Fragment>
+              )
+            ) : bestMakerIsLoaded ? (
+              bestMaker.map((x) => (
+                <PostBig
+                  key={x.postId}
+                  imageUrl={x.imageUrl.imageUrl}
+                  likeCount={x.likeCount}
+                  nickname={x.nickname}
+                  title={x.title}
+                  collaborate={x.collaborate}
+                  mediaUrl={x.mediaUrl.mediaUrl}
+                  postId={x.postId}
+                />
+              ))
+            ) : (
+              <Fragment></Fragment>
+            )}
           </MoreBtmImgDiv>
         </MoreContainer>
       </MoreContainerDiv>

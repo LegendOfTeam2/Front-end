@@ -1,4 +1,3 @@
-
 import {
   BigImgMyBtmRight,
   BigImgNotSlideSpan,
@@ -12,8 +11,14 @@ import {
   BigMyImgTopRight,
   DisBigMyImgTopRight,
 } from "../assets/styles/components/PsotBig.styled";
-import { DisCollaboration40, DisLike40, OnPlay60 } from "../assets/images/image";
-import React from "react";
+import {
+  DisCollaboration40,
+  DisLike40,
+  OnPlay60,
+} from "../assets/images/image";
+import { memo } from "react";
+import usePlayerStore from "../zustand/player";
+
 const PostBig = ({
   postId,
   position,
@@ -23,23 +28,31 @@ const PostBig = ({
   imageUrl,
   mediaUrl,
   nickname,
-
 }) => {
+  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
+  const addPlayList = usePlayerStore((state) => state.addPlayList);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+
+  const Play = () => {
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
+  };
+
   return (
     <BigMyImgDivDiv>
-      <BigMyimg
-        src={imageUrl}
-        alt=''
-      />
+      <BigMyimg src={imageUrl} alt='' />
       <BigImgMyBtmRight>
-        <BigImgNotSlideSpan>
-          {nickname}
-        </BigImgNotSlideSpan>
+        <BigImgNotSlideSpan>{nickname}</BigImgNotSlideSpan>
       </BigImgMyBtmRight>
       <BigMyImgTopLeft>{title}</BigMyImgTopLeft>
-      <DisBigMyImgTopRight>{ collaborate ? (<img src={DisCollaboration40} alt='콜라보' />):(<></>)}</DisBigMyImgTopRight>
+      <DisBigMyImgTopRight>
+        {collaborate ? <img src={DisCollaboration40} alt='콜라보' /> : <></>}
+      </DisBigMyImgTopRight>
       <BigMyImgTopRight>
-      { collaborate ? (<img src={DisCollaboration40} alt='콜라보' />):(<></>)}
+        {collaborate ? <img src={DisCollaboration40} alt='콜라보' /> : <></>}
       </BigMyImgTopRight>
       <BigMyImgBtmLeft>
         <BigMyImgBtmLeftDiv>
@@ -47,11 +60,11 @@ const PostBig = ({
           <BigMyImgBtmLeftspan>{likeCount}</BigMyImgBtmLeftspan>
         </BigMyImgBtmLeftDiv>
       </BigMyImgBtmLeft>
-      <BigMyImgBtmRight>
+      <BigMyImgBtmRight onClick={Play}>
         <img src={OnPlay60} alt='플레이 버튼' />
       </BigMyImgBtmRight>
     </BigMyImgDivDiv>
   );
 };
 
-export default React.memo(PostBig);
+export default memo(PostBig);
