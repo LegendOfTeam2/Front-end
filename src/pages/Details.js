@@ -113,10 +113,8 @@ const Details = () => {
 
   const Play = () => {
     viewStateChange(true);
-    addPlayList( detailList.postId, detailList.title, detailList.nickname, detailList.mediaUrl, detailList.imageUrl, detailList.position );
+    addPlayList( { postId :detailList.postId, title: detailList.title, nickname:detailList.nickname, mediaUrl:detailList.mediaUrl, imageUrl:detailList.imageUrl, position:detailList.position} );
   };
-
-  console.log(detailList);
 
   return (
     <Fragment>

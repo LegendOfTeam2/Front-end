@@ -7,6 +7,7 @@ import {
   getUploadPostApi,
   getLikePostApi,
   getPlayListPostApi,
+  putProfileApi
 } from "../utils/apis/mypage";
 
 const useMyPageStore = create((set) => ({
@@ -19,13 +20,6 @@ const useMyPageStore = create((set) => ({
   playListPostIsLoaded: false,
   playListPost: [],
 
-  // getUploadPost: async (payload) => {
-  //   const resData = await getUploadPostApi(payload)
-  //     .then((res) => res)
-  //     .catch((err) => console.log(err));
-  //   return resData.data;
-  // },
-
   getProfilPost: async (payload) => {
     const resData = await getProfilPostApi(payload.nickname)
       .then((res) => res)
@@ -33,6 +27,8 @@ const useMyPageStore = create((set) => ({
     if (resData?.data.success) {
       set({ profilPost: resData.data.data });
       set({ profilPosteIsLoaded: resData.data.success });
+
+      return resData.data.data;
     }
   },
 
@@ -65,6 +61,14 @@ const useMyPageStore = create((set) => ({
       set({ playListPostIsLoaded: resData.data.success });
     }
   },
+  putProfile: async (nickname, paylaod) => {
+    const resData = await putProfileApi(nickname, paylaod)
+      .then((res) => res.data)
+      .catch((err) => console.log(err));
+
+    console.log(resData);
+    return resData.success;
+  }
 }));
 
 export default useMyPageStore;
