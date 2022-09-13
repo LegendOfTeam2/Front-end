@@ -24,7 +24,7 @@ import {
   ProfileTextSingMakeDiv,
 } from "../assets/styles/components/ProfileSlider.styled";
 
-const ProfileSlider = (props) => {
+const ProfileSlider = ({postList, name}) => {
   const sliderRef = useRef();
 
   const settings = {
@@ -36,6 +36,7 @@ const ProfileSlider = (props) => {
     centerPadding: "-30px",
     ref: sliderRef,
     slideToScroll: 1,
+    draggable: true,
   };
   return (
     <Fragment>
@@ -43,7 +44,7 @@ const ProfileSlider = (props) => {
         <ProfileContainer>
           <ProfileImgDiv>
             <ProfileTextDiv>
-              <ProfileTextNew>{props.GrandTitle}</ProfileTextNew>
+              <ProfileTextNew>{name}</ProfileTextNew>
               <ProfileTextSingMakeDiv>
                 <ProfileTextMake>더보기</ProfileTextMake>
               </ProfileTextSingMakeDiv>
@@ -57,10 +58,16 @@ const ProfileSlider = (props) => {
               />
             </ArowLeft>
             <Slider {...settings}>
-              {Array(6)
-                .fill("")
-                .map(() => (
-                  <PostSlider width='167' height='167' />
+              {postList.map((x) => (
+                  <PostSlider width='167' height='167' key={x.postId}
+                  imageUrl={x.imageUrl.imageUrl}
+                  likes={x.likes}
+                  nickname={x.nickname}
+                  title={x.title}
+                  collaborate={x.collaborate}
+                  mediaUrl={x.mediaUrl.mediaUrl}
+                  postId={x.postId}
+                  position={x.position} />
                 ))}
             </Slider>
             <ArowRight>

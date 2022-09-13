@@ -96,6 +96,19 @@ export const PlayContainerOutDiv = styled.div`
   }
 `;
 
+export const PlayContainerOutLongBar = styled.div`
+  width: 800px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(40, 202, 124, 1);
+  top: 18px;
+  border-radius: 20px 20px 0px 0px;
+  position: absolute;
+  z-index: -4;
+`;
+
 export const PlayContainerOutImg = styled.img`
   position: absolute;
   z-index: -2;
@@ -107,7 +120,7 @@ export const PlayContainer = styled.div`
   height: 152px;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.2);
   background-color: #f9f9f9;
-  border-radius: 20px;
+  border-radius: 0px 0px 20px 20px;
   margin-bottom: 20px;
 
   padding: 12px 22px;

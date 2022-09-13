@@ -12,7 +12,6 @@ const usePlayerStore = create((set) => ({
   addPlayList : (payload) => {
     set(state => {
       const newPlayList = state.playList.filter((play) => play.postId !==  payload.postId);
-      console.log(newPlayList);
       return {playList: [...newPlayList, payload].reverse()};
     });
     set({currentSong: payload});
