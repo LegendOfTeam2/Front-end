@@ -1,5 +1,5 @@
 // React
-import {useState, memo, useRef} from "react";
+import { useState, memo, useRef } from "react";
 
 // Zustand
 import usePlayerStore from "../zustand/player";
@@ -11,7 +11,12 @@ import { useNavigate } from "react-router-dom";
 // Utils
 import { getCookie } from "../utils/cookie";
 
-import { DisCollaboration, DisLike, OnPlay, Like24 } from "../assets/images/image";
+import {
+  DisCollaboration,
+  DisLike,
+  OnPlay,
+  Like24,
+} from "../assets/images/image";
 import {
   ImgBtmLeft,
   ImgBtmRight,
@@ -41,6 +46,8 @@ const PostSlider = ({
 
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
   const addLike = useLikeStore((state) => state.addLike);
 
   const likeCountRef = useRef();
@@ -48,6 +55,8 @@ const PostSlider = ({
 
   const Play = () => {
     viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
     addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
   };
 
@@ -58,10 +67,10 @@ const PostSlider = ({
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
           setIsLike(true);
-          likeCountRef.current.innerText = likes + 1
+          likeCountRef.current.innerText = likes + 1;
         } else {
           setIsLike(false);
-          likeCountRef.current.innerText = likes - 1
+          likeCountRef.current.innerText = likes - 1;
         }
       });
     }
@@ -69,14 +78,11 @@ const PostSlider = ({
 
   const goToDetail = () => {
     navigate(`/details/${position}/${postId}`);
-  }
+  };
 
   return (
     <ProfileImgDivDiv>
-      <Profileimg
-        src={imageUrl}
-        alt=''
-      />
+      <Profileimg src={imageUrl} alt='' />
       <ImgMainBtmRight>
         <ImgMainSpan>{nickname}</ImgMainSpan>
       </ImgMainBtmRight>
@@ -89,7 +95,7 @@ const PostSlider = ({
       </ImgTopRight>
       <ImgBtmLeft>
         <ImgBtmLeftDiv>
-        {isLike ? (
+          {isLike ? (
             <img src={Like24} alt='좋아요 상태' onClick={LikeClick} />
           ) : (
             <img src={DisLike} alt='좋아요 안한 상태' onClick={LikeClick} />

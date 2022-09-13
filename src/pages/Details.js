@@ -88,6 +88,10 @@ const Details = () => {
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const addLike = useLikeStore((state) => state.addLike);
 
+  const goToModify = () => {
+    navigate(`/ModifyWrite/${detailList.position}/${Params.postid}`);
+  };
+
   const HandelLyrics = () => {
     setLyrics(!lyrics);
   };
@@ -113,7 +117,16 @@ const Details = () => {
 
   const Play = () => {
     viewStateChange(true);
-    addPlayList( { postId :detailList.postId, title: detailList.title, nickname:detailList.nickname, mediaUrl:detailList.mediaUrl, imageUrl:detailList.imageUrl, position:detailList.position} );
+
+    addPlayList({
+      postId: detailList.postId,
+      title: detailList.title,
+      nickname: detailList.nickname,
+      mediaUrl: detailList.mediaUrl,
+      imageUrl: detailList.imageUrl,
+      position: detailList.position,
+    });
+
   };
 
   return (
@@ -131,7 +144,10 @@ const Details = () => {
                 />
               </DetailClickHover>
               <DetailProfileDiv>
-                <DetailProfileImg src={detailList.memberImageUrl} alt='프로필' />
+                <DetailProfileImg
+                  src={detailList.memberImageUrl}
+                  alt='프로필'
+                />
               </DetailProfileDiv>
 
               <DetailProfileImgTextTop>
@@ -144,29 +160,29 @@ const Details = () => {
                 detailList.nickname ? (
                   <DetailProfileBtnTopDivBtn>
                     <Button
-                  _style={{
-                    width: "122px",
-                    height: "45px",
-                    bg_color: "#28CA7C",
-                    bd_radius: "11px",
-                    color: "rgba(255, 255, 255, 1)",
-                    ft_size: "12",
-                  }}
-                  _text={"게시글 수정"}
-                  />
-                  <Button
-                    _style={{
-                      width: "122px",
-                      height: "45px",
-                      bg_color: "#cc0000",
-                      bd_radius: "11px",
-                      color: "rgba(255, 255, 255, 1)",
-                      ft_size: "12",
-                    }}
-                    _text={"게시글 삭제"}
-                  />
-                  
-                </DetailProfileBtnTopDivBtn>
+                      _style={{
+                        width: "122px",
+                        height: "45px",
+                        bg_color: "#28CA7C",
+                        bd_radius: "11px",
+                        color: "rgba(255, 255, 255, 1)",
+                        ft_size: "12",
+                      }}
+                      _text={"게시글 수정"}
+                      _onClick={goToModify}
+                    />
+                    <Button
+                      _style={{
+                        width: "122px",
+                        height: "45px",
+                        bg_color: "#cc0000",
+                        bd_radius: "11px",
+                        color: "rgba(255, 255, 255, 1)",
+                        ft_size: "12",
+                      }}
+                      _text={"게시글 삭제"}
+                    />
+                  </DetailProfileBtnTopDivBtn>
                 ) : (
                   <Button
                     _style={{
@@ -314,7 +330,6 @@ const Details = () => {
             </DetailBtmClickMoreSpan>
           </DetailBtmMoreDivDivDiv>
         </DetailContainer>
-        <PlayerMain />
       </DetailContainerDiv>
     </Fragment>
   );

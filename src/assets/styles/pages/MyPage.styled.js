@@ -103,9 +103,7 @@ export const MyRightTopButDiv = styled.div`
 export const MyRightTopButDivNotMember = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  margin-bottom: 22px;
+  flex-direction: row-reverse;
 `;
 export const MyRightTopDivSpanDiv = styled.div`
   width: 200px;
