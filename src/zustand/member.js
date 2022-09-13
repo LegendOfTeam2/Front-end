@@ -17,6 +17,7 @@ import {
 
 const useMemberStore = create((set) => ({
   is_login: false,
+  userImg:{},
   changeLoginStatus: (state) => {
     set({ is_login: state });
   },
@@ -101,7 +102,8 @@ const useMemberStore = create((set) => ({
     const resData = await getMyImageApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-      console.log(resData);
+      set({ userImg: resData?.data.data });
+
 
       return resData.data.data
 

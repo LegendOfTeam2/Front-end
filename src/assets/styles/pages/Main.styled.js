@@ -19,6 +19,7 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   .center {
+    
   }
 `;
 
@@ -210,6 +211,5 @@ export const DisMainPostImgDivImgDiv = styled.div`
 export const MainHotArtistWrap = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 45px;
 `;
 

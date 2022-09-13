@@ -58,8 +58,8 @@ function App() {
         <Route path='/google/callback' element={<Google />} />
         <Route path='/write' element={is_login ? <Write /> : <Main />} />
         <Route path='/myinfomodify' element={is_login ? <MyInfoModify /> : <Main />} />
-        <Route path='/details' element={<Details />} />
-        <Route path='/morepage' element={<MorePage />} />
+        <Route path='/details/:position/:postid' element={<Details />} />
+        <Route path='/morepage/:position' element={<MorePage />} />
         <Route path='/search/:keyword' element={<Search />} />
         <Route path='/withdrawal' element={is_login ? <Withdrawal /> : <Main />} />
         <Route path='/chat' element={<Chat />} />

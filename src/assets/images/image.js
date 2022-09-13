@@ -1,4 +1,4 @@
-import LargeLogo from './LargeLogo.svg';
+import LargeLogo from './largeLogo.svg';
 import HeaderlargeLogo from './HeaderlargeLogo.svg';
 import NextPlay from './NextPlay.svg';
 import DisRepeated from './DisRepeated.svg';

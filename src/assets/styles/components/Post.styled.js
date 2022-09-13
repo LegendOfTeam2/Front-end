@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-
 export const MyImgDivDiv = styled.div`
   width: 164.5px;
   height: 164.5px;
   display: flex;
   position: relative;
+
 `;
 
 export const PostimgDivDiv = styled.div`
@@ -19,7 +19,7 @@ export const Myimg = styled.img`
   width: 164.5px;
   height: 164.5px;
   border-radius: 19px;
-  
+
   ${MyImgDivDiv}:hover & {
     filter: brightness(50%);
   }
@@ -73,9 +73,10 @@ export const MyImgBtmLeft = styled.div`
   }
 `;
 export const MyImgBtmLeftDiv = styled.div`
-width: auto;
-display: flex;
-flex-direction: row;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  z-index: 10;
 `;
 
 export const MyImgBtmLeftspan = styled.span`
@@ -86,7 +87,6 @@ export const MyImgBtmLeftspan = styled.span`
   margin-left: 1px;
   margin-top: 3.5px;
 `;
-
 
 export const MyImgBtmRight = styled.div`
   position: absolute;
@@ -99,7 +99,7 @@ export const MyImgBtmRight = styled.div`
   }
 `;
 export const ImgNotSlideSpan = styled.span`
-  color: #FFFFFF;
+  color: #ffffff;
   line-height: ${(props) => props.theme.lineHeight.xs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.sm};
