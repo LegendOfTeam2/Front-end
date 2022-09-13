@@ -341,19 +341,39 @@ const Main = () => {
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                    {recentMaker.map((x) => (
-                      <Post
-                        key={shortId.generate()}
-                        imageUrl={x.imageUrl.imageUrl}
-                        likes={x.likes}
-                        nickname={x.nickname}
-                        title={x.title}
-                        collaborate={x.collaborate}
-                        mediaUrl={x.mediaUrl.mediaUrl}
-                        postId={x.postId}
-                        position={x.position}
-                      />
-                    ))}
+                  {recentMaker.map((x) => {
+                      if ([...singerIsLike].indexOf(x.postId) !== -1) {
+                        return (
+                          <Post
+                            key={shortId.generate()}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={true}
+                          />
+                        );
+                      } else {
+                        return (
+                          <Post
+                            key={shortId.generate()}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={false}
+                          />
+                        );
+                      }
+                    })}
                   </DisMainPostImgDiv>
                 </DisMainPostImgDivImgDiv>
               ) : (
@@ -375,19 +395,39 @@ const Main = () => {
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                    {bestMaker.map((x) => (
-                      <Post
-                        key={shortId.generate()}
-                        imageUrl={x.imageUrl.imageUrl}
-                        likes={x.likes}
-                        nickname={x.nickname}
-                        title={x.title}
-                        collaborate={x.collaborate}
-                        mediaUrl={x.mediaUrl.mediaUrl}
-                        postId={x.postId}
-                        position={x.position}
-                      />
-                    ))}
+                  {bestMaker.map((x) => {
+                      if ([...singerIsLike].indexOf(x.postId) !== -1) {
+                        return (
+                          <Post
+                            key={shortId.generate()}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={true}
+                          />
+                        );
+                      } else {
+                        return (
+                          <Post
+                            key={shortId.generate()}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={false}
+                          />
+                        );
+                      }
+                    })}
                   </DisMainPostImgDiv>
                 </DisMainPostImgDivImgDiv>
               ) : (

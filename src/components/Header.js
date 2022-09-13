@@ -1,15 +1,15 @@
 // React
-import { Fragment, useState, useCallback, useEffect } from "react";
+import { Fragment, useState, useCallback, useEffect } from 'react';
 
 //Zustand
 import useMemberStore from '../zustand/member';
 import useSearchStore from '../zustand/search';
 
-// Package
-import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
+// Packages
+import { useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
-// Element
+// Elements
 import Button from '../elements/Button';
 import Input from '../elements/Input';
 
@@ -30,22 +30,33 @@ import {
   SearchDiv,
   SearchIconDiv,
 } from '../assets/styles/components/Header.styled';
-import { HeaderlargeLogo, Search } from '../assets/images/image';
+import {
+  albumCover_1,
+  albumCover_2,
+  albumCover_3,
+  HeaderlargeLogo,
+  Search,
+} from '../assets/images/image';
 
 const Header = () => {
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
 
+  const setSearchKeyword = useSearchStore((state) => state.setSearchKeyword);
   const signOutMember = useMemberStore((state) => state.signOutMember);
-  const searchKeyword = useSearchStore((state) => state.searchKeyword)
   const getMyImage = useMemberStore((state) => state.getMyImage);
+  const myProfileImg = useMemberStore((state) => state.myProfileImg);
+  const myProfileImgIsLoaded = useMemberStore(
+    (state) => state.myProfileImgIsLoaded
+  );
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
 
   useEffect(() => {
-    if(getCookie("authorization") !== undefined){
-      const nickname =jwt_decode(getCookie("authorization")).sub
-      getMyImage({nickname}).then((res)=> {console.log(res);})
+    if (getCookie('authorization') !== undefined) {
+      const nickname = jwt_decode(getCookie('authorization')).sub;
+      getMyImage({ nickname });
     }
-    
   }, []);
 
   const uploadHandle = () => {
@@ -68,24 +79,29 @@ const Header = () => {
   };
 
   const onClickSearch = useCallback(() => {
-    navigate(`/search/${keyword}`);
+    setSearchKeyword(keyword);
+    navigate(`/search`);
   }, [keyword]);
 
-  const onKeyUpSearch = useCallback((e) => {
-    if (e.key === "Enter") {
-      if (e.target.value.length > 0) {
-        searchKeyword(keyword, 'Singer', 0);
-        navigate(`/search/${keyword}`);
+  const onKeyUpSearch = useCallback(
+    (e) => {
+      if (e.key === 'Enter') {
+        if (e.target.value.length > 0) {
+          setSearchKeyword(keyword);
+          navigate(`/search`);
+        }
       }
-    }
-  });
+    },
+    [keyword]
+  );
+
   const ProfilPage = () => {
-    if (getCookie("authorization") !== undefined) {
-      const nickname = jwt_decode(getCookie("authorization")).sub;
+    if (getCookie('authorization') !== undefined) {
+      const nickname = jwt_decode(getCookie('authorization')).sub;
       navigate(`/mypage/${nickname}`);
     } else {
-      alert("로그인 후에 이용 가능합니다.");
-      navigate("/signin");
+      alert('로그인 후에 이용 가능합니다.');
+      navigate('/signin');
     }
   };
 
@@ -122,11 +138,21 @@ const Header = () => {
             </LeftDiv>
             <RightDiv>
               <ProfileDiv>
-                <ProfileImg
-                  src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBB7pAaft41alybo-nWe0sQZg0kHIUUkrFvA&usqp=CAU'
-                  alt='프로필'
-                  onClick={ProfilPage}
-                ></ProfileImg>
+                {getCookie('authorization') === undefined ? (
+                  <Fragment></Fragment>
+                ) : myProfileImgIsLoaded ? (
+                  <ProfileImg
+                    src={
+                      myProfileImg.imgUrl === null
+                        ? profileImgArr[random]
+                        : myProfileImg.imgUrl
+                    }
+                    alt='프로필'
+                    onClick={ProfilPage}
+                  ></ProfileImg>
+                ) : (
+                  <Fragment></Fragment>
+                )}
               </ProfileDiv>
               <BtmDiv>
                 <Button

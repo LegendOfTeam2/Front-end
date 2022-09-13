@@ -60,7 +60,7 @@ function App() {
         <Route path='/myinfomodify' element={is_login ? <MyInfoModify /> : <Main />} />
         <Route path='/details' element={<Details />} />
         <Route path='/morepage' element={<MorePage />} />
-        <Route path='/search/:keyword' element={<Search />} />
+        <Route path='/search' element={<Search />} />
         <Route path='/withdrawal' element={is_login ? <Withdrawal /> : <Main />} />
         <Route path='/chat' element={<Chat />} />
         <Route path='*' element={<Main />} />

@@ -5,16 +5,37 @@ import create from 'zustand';
 import { searchKeywordApi } from '../utils/apis/search';
 
 const useSearchStore = create((set) => ({
-  success: false,
-  searchKeyword: async (keyword, position, page) => {
-    console.log(keyword, position);
-    const resData = await searchKeywordApi(keyword, position, page)
+  keyword: '',
+  singerSearchIsLoaded: false,
+  makerSearchIsLoaded: false,
+  singerSearchList: [],
+  makerSearchList: [],
+  setSearchKeyword: (keyword) => {
+    set({keyword: keyword});
+  },
+  searchKeyword: async (keyword, position) => {
+    const resData = await searchKeywordApi(keyword, position)
       .then((res) => res)
       .catch((err) => console.log(err));
 
-    console.log(resData);
-    return resData.data;
+    if (resData?.data.success) {
+      if (position === 'Singer') {
+        if (resData.data.data !== []) {
+          set({ singerSearchIsLoaded: resData.data.success });
+          set({ singerSearchList: resData.data.data });
+        }
+      } else {
+        if (resData.data.data !== []) {
+          set({ makerSearchIsLoaded: resData.data.success });
+          set({ makerSearchList: resData.data.data });
+        }
+      }
+    }
   },
+  resetList: () => {
+    set({singerSearchList: []});
+    set({makerSearchList: []});
+  }
 }));
 
 export default useSearchStore;

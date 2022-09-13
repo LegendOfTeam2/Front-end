@@ -1,16 +1,15 @@
-// Package
-import { GrGoogle } from 'react-icons/gr';
+// Packages
+import { GrGoogle, GrClose } from 'react-icons/gr';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 
-// Element
+// Elements
 import Button from '../elements/Button';
 
 // Assets
 import {
-  Googleicon,
-  Kakaoicon,
+  UpInIcon,
   UpContainer,
   UpInBox,
   UpLogoDiv,
@@ -39,6 +38,9 @@ const SignUpCheck = () => {
   return (
     <UpContainer>
       <UpInBox>
+        <UpInIcon onClick={() => navigate('/')}>
+          <GrClose className='icon-cancel' color='red'></GrClose>
+        </UpInIcon>
         <UpLogoDiv>
           <UpLogoDivDiv>
             <UpLogoImg src={LargeLogo} />
@@ -61,7 +63,7 @@ const SignUpCheck = () => {
                   bd_radius: '10px',
                   color: 'rgba(0, 0, 0, 1)',
                   ft_weight: '800',
-                  color: 'white',
+                  color: '#a3a3a3',
                   ft_size: '20',
                 }}
                 _text={'카카오톡 간편 가입하기'}
