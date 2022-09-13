@@ -1,18 +1,28 @@
 // React
-import { useState, Fragment, useCallback, useEffect } from 'react';
+import { useState, Fragment, useCallback, useEffect, useRef } from 'react';
+
+// Zustand
+import useMyPageStore from '../zustand/mypage';
+import useMemberStore from '../zustand/member';
 
 // Packages
 import { useNavigate } from 'react-router-dom';
 import { GrClose } from 'react-icons/gr';
 import shortid from 'shortid';
+import jwt_decode from 'jwt-decode';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Components
 import UploadImage from '../components/UploadImage';
 import HashTagWithIcon from '../components/HashTagWithIcon';
-import Header from '../components/Header'
+import Header from '../components/Header';
 
 // Elements
 import Input from '../elements/Input';
+
+// Utils
+import { getCookie } from '../utils/cookie';
 
 // Assets
 import {
@@ -33,17 +43,46 @@ import {
   ModifyHashTag,
   ModifyHashTagBox,
   ModifyMemberDeleteContainer,
-  ModifyMemberDeleteText
+  ModifyMemberDeleteText,
 } from '../assets/styles/pages/MyInfoModify.styled';
+import { toUpper } from 'lodash';
 
 const MyInfoModify = () => {
+  const nicknameDupCheck = useMemberStore((state) => state.nicknameDupCheck);
+  const putProfile = useMyPageStore((state) => state.putProfile);
+  const getProfilPost = useMyPageStore((state) => state.getProfilPost);
+
   const [nickname, setNickname] = useState('');
+  const [nicknameCheck, setNicknameCheck] = useState('');
   const [tags, setTags] = useState([]);
   const [intro, setIntro] = useState('');
   const [image, setImage] = useState('');
   const [imageSrc, setImageSrc] = useState('');
 
+  const nicknameIconRef = useRef();
+  const introIconRef = useRef();
+
   const navigate = useNavigate();
+
+  const newProfile = {
+    nickname,
+    imageUrl: image,
+    introduce: intro,
+    hashtag: tags,
+  };
+
+  useEffect(() => {
+    const nickname = jwt_decode(getCookie('authorization')).sub;
+    getProfilPost({ nickname }).then((res) => {
+      setNickname(res.nickname);
+      setTags(res.hashtag);
+      if (res.introduce !== null) setIntro(res.introduce);
+      if (res.imageUrl !== null) {
+        setImage(res.imageUrl);
+        setImageSrc(res.imageUrl);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
@@ -59,6 +98,47 @@ const MyInfoModify = () => {
       });
     };
   });
+
+  const deleteText = useCallback(
+    (state) => {
+      switch (state) {
+        case 'nickname': {
+          setNickname('');
+          break;
+        }
+        case 'intro': {
+          setIntro('');
+          break;
+        }
+        default:
+          break;
+      }
+    },
+    [nickname, intro]
+  );
+
+  useEffect(() => {
+    if (nickname !== '') nicknameIconRef.current.style.display = 'block';
+    else nicknameIconRef.current.style.display = 'none';
+    if (intro !== '') introIconRef.current.style.display = 'block';
+    else introIconRef.current.style.display = 'none';
+  }, [nickname, intro]);
+
+  useEffect(() => {
+    if (jwt_decode(getCookie('authorization')).sub === nickname) {
+      setNicknameCheck(true);
+    } else {
+      if (nickname !== '') {
+        nicknameDupCheck({ nickname }).then((res) => {
+          if (res) {
+            setNicknameCheck(true);
+          } else {
+            setNicknameCheck(false);
+          }
+        });
+      }
+    }
+  }, [nickname]);
 
   const addTag = useCallback(
     (event) => {
@@ -96,15 +176,33 @@ const MyInfoModify = () => {
     [tags]
   );
 
+  const onHandelModify = () => {
+    if (nicknameCheck === false) {
+      toast.error('중복되는 이메일입니다 !', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1500,
+        draggablePercent: 60,
+        hideProgressBar: true,
+      });
+    } else {
+      putProfile(jwt_decode(getCookie('authorization')).sub, newProfile).then(
+        (res) => {
+          if (res) navigate('/');
+        }
+      );
+    }
+  };
+
   return (
     <Fragment>
       <Header></Header>
       <ModifyContainer>
+        <ToastContainer/>
         <ModifyBox>
           <ModifyNaviContainer>
             <ModifyNaviText onClick={() => navigate(-1)}>취소</ModifyNaviText>
             <ModifyNaviInfo>프로필 수정</ModifyNaviInfo>
-            <ModifyNaviText>완료</ModifyNaviText>
+            <ModifyNaviText onClick={onHandelModify}>완료</ModifyNaviText>
           </ModifyNaviContainer>
           <ModifyProfileContainer>
             <ModifyProfileBox>
@@ -128,14 +226,17 @@ const MyInfoModify = () => {
                 <ModifyInputText>닉네임</ModifyInputText>
               </ModifyInputTitle>
               <ModifyInputDataBox>
-                <ModifyInputIconBox>
+                <ModifyInputIconBox
+                  onClick={() => deleteText('nickname')}
+                  ref={nicknameIconRef}
+                >
                   <GrClose className='icon'></GrClose>
                 </ModifyInputIconBox>
                 <Input
                   _type={'text'}
                   _value={nickname}
                   _onChange={(e) => setNickname(e.target.value)}
-                  _placeholder={'leeyoungji'}
+                  _placeholder={'닉네임을 입력해 주세요.'}
                   _style={{
                     width: '100%',
                     height: 'auto',
@@ -165,7 +266,6 @@ const MyInfoModify = () => {
                 ) : (
                   <ModifyHashTagBox>
                     {tags.map((tag) => {
-                      console.log(tag);
                       return (
                         <HashTagWithIcon
                           key={shortid.generate()}
@@ -183,14 +283,17 @@ const MyInfoModify = () => {
                 <ModifyInputText>소개</ModifyInputText>
               </ModifyInputTitle>
               <ModifyInputDataBox>
-                <ModifyInputIconBox>
+                <ModifyInputIconBox
+                  onClick={() => deleteText('intro')}
+                  ref={introIconRef}
+                >
                   <GrClose className='icon'></GrClose>
                 </ModifyInputIconBox>
                 <Input
                   _type={'text'}
                   _value={intro}
                   _onChange={(e) => setIntro(e.target.value)}
-                  _placeholder={'감성을 전달하는 이영지'}
+                  _placeholder={'자신을 소개하는 글을 작성해 주세요.'}
                   _style={{
                     width: '100%',
                     height: 'auto',
@@ -205,9 +308,11 @@ const MyInfoModify = () => {
                 ></Input>
               </ModifyInputDataBox>
             </ModifyInputBox>
-            <ModifyMemberDeleteContainer onClick={() => navigate('/')}>
-                <ModifyMemberDeleteText>회원탈퇴</ModifyMemberDeleteText>
-              </ModifyMemberDeleteContainer>
+            <ModifyMemberDeleteContainer
+              onClick={() => navigate('/withdrawal')}
+            >
+              <ModifyMemberDeleteText>회원탈퇴</ModifyMemberDeleteText>
+            </ModifyMemberDeleteContainer>
           </ModifyInputContainer>
         </ModifyBox>
       </ModifyContainer>
