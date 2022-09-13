@@ -117,6 +117,7 @@ const Details = () => {
 
   const Play = () => {
     viewStateChange(true);
+
     addPlayList({
       postId: detailList.postId,
       title: detailList.title,
@@ -125,6 +126,7 @@ const Details = () => {
       imageUrl: detailList.imageUrl,
       position: detailList.position,
     });
+
   };
 
   return (

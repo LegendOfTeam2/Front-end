@@ -107,6 +107,7 @@ export const ModifyInputIconBox = styled.div`
   top: 50%;
   right: 0;
   transform: translateY(-50%);
+  cursor: pointer;
   .icon {
     width: 20px;
     height: 20px;
@@ -137,6 +138,7 @@ export const ModifyMemberDeleteContainer = styled.div`
   height: auto;
   text-align: end;
   padding-top: 32px;
+  cursor: pointer;
 `;
 export const ModifyMemberDeleteText = styled.span`
   color: #de1b4a;

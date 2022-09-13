@@ -1,17 +1,26 @@
 // React
-import { Fragment, useRef, useEffect, useState } from "react";
+
+import { Fragment, useRef, useEffect, useState } from 'react';
+
 // Zustand
-import useMyPageStore from "../zustand/mypage";
-import useMemberStore from "../zustand/member";
+import useMyPageStore from '../zustand/mypage';
+import useMemberStore from '../zustand/member';
+
 // Packages
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { useNavigate } from 'react-router-dom';
+
 // Utils
-import Button from "../elements/Button";
-import { getCookie } from "../utils/cookie";
+import { getCookie } from '../utils/cookie';
+
 // Pages
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
+
+// Elements
+import Button from '../elements/Button';
+
 // Components
 import Header from "../components/Header";
 import Post from "../components/Post";
@@ -43,26 +52,21 @@ import {
   MyRightTopDivClDiv,
   MyRightTopDivSpan,
   MyRightTopDivSpanDiv,
-  MyRightTopIconDiv,
   MyTagBox,
   MyTagBoxTextSlide,
   MyTagBoxTextSlideDiv,
   MyTagBoxTextSpanSlide,
   MyTextDiv,
-} from "../assets/styles/pages/MyPage.styled";
-import {
-  albumCover_1,
-  albumCover_2,
-  albumCover_3,
-  DisMakerMarke,
-  DisSingerMarker,
-} from "../assets/images/image";
-import { useParams } from "react-router-dom";
+} from '../assets/styles/pages/MyPage.styled';
+import { DisMakerMarke, DisSingerMarker } from '../assets/images/image';
+import { useNavigate, useParams } from 'react-router-dom';
+
 
 const MyPage = () => {
   const [page, setPage] = useState(0);
   const [isLeftRef, setLeftREf] = useState(false);
   const [isMidRef, setMidref] = useState(false);
+
   const getProfilPost = useMyPageStore((state) => state.getProfilPost);
   const profilPost = useMyPageStore((state) => state.profilPost);
   const profilPosteIsLoaded = useMyPageStore(
@@ -78,10 +82,13 @@ const MyPage = () => {
   const playListPostIsLoaded = useMyPageStore(
     (state) => state.playListPostIsLoaded
   );
-  const nickName = useParams();
+  const setMyProfile = useMyPageStore((state) => state.setMyProfile);
 
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
+
+  const nickName = useParams();
+  const navigate = useNavigate();
 
   const leftRef = useRef();
   const midRef = useRef();
@@ -118,6 +125,7 @@ const MyPage = () => {
     arrows: false,
     variableWidth: true,
   };
+
   const categoryHandle = (state) => {
     switch (state) {
       case "work": {
@@ -157,6 +165,10 @@ const MyPage = () => {
       default:
         break;
     }
+  };
+
+  const onHandleModify = () => {
+    navigate('/myinfomodify');
   };
 
   useEffect(() => {
@@ -212,8 +224,10 @@ const MyPage = () => {
                       </MyRightTopBtmDivSpan>
                     </MyRightTopBtmDiv>
                   </MyRightTopDiv>
-                  {getCookie("authorization") !== undefined ? (
-                    jwt_decode(getCookie("authorization")).sub !==
+
+                  {getCookie('authorization') !== undefined ? (
+                    jwt_decode(getCookie('authorization')).sub !==
+
                     profilPost.nickname ? (
                       <MyRightTopButDiv>
                         <Button
@@ -244,18 +258,20 @@ const MyPage = () => {
                     ) : (
                       <MyRightTopButDiv>
                       <MyRightTopButDivNotMember>
-                        {" "}
+
                         <Button
                           _style={{
-                            width: "261px",
-                            height: "45px",
-                            bg_color: "#28CA7C",
-                            bd_radius: "11px",
-                            color: "rgba(255, 255, 255, 1)",
-                            ft_size: "12",
-                            ft_weight: "700",
+                            width: '122px',
+                            height: '45px',
+                            bg_color: '#28CA7C',
+                            bd_radius: '11px',
+                            color: 'rgba(255, 255, 255, 1)',
+                            ft_size: '12',
+                            ft_weight: '700',
                           }}
-                          _text={"프로필 수정"}
+                          _text={'프로필 수정'}
+                          _onClick={onHandleModify}
+
                         />
                       </MyRightTopButDivNotMember>
                       </MyRightTopButDiv>
@@ -317,9 +333,9 @@ const MyPage = () => {
                     {profilPost.introduce !== null ? (
                       <>{profilPost.introduce}</>
                     ) : (
-                      <>
+                      <Fragment>
                         아직 자기 소개를 작성하지 않았습니다 -ˋˏ * ٩( ◡̉̈ )۶ * ˎˊ-
-                      </>
+                      </Fragment>
                     )}
                   </MyRightBtmDivSpan>
                 </MyRightBtmDiv>

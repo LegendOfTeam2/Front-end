@@ -36,8 +36,12 @@ export const ImgMainSpan = styled.span`
 
 export const ImgTopLeft = styled.div`
   position: absolute;
-  top: 10%;
+  top: 7%;
   left: 8%;
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   color: rgba(40, 202, 124, 1);
   display: none;
   line-height: ${(props) => props.theme.lineHeight.xs};
