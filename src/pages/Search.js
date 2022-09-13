@@ -1,5 +1,5 @@
 // React
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useRef } from 'react';
 
 // Zustand
 import useSearchStore from '../zustand/search';
@@ -42,43 +42,48 @@ import {
 import { ErrorLogo } from '../assets/images/image';
 
 const Search = () => {
-  const [page, setPage] = useState(0);
-
-  const { keyword } = useParams();
+  const [category, setCategory] = useState('Singer');
+  const singerNaviRef = useRef();
+  const makerNaviRef = useRef();
   const navigate = useNavigate();
 
-  const handleScroll = () => {
-    const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight) {
-      setPage((page) => page + 1);
+  const keyword = useSearchStore((state) => state.keyword);
+  const searchKeyword = useSearchStore((state) => state.searchKeyword);
+  const singerSearchIsLoaded = useSearchStore(
+    (state) => state.singerSearchIsLoaded
+  );
+  const makerSearchIsLoaded = useSearchStore(
+    (state) => state.makerSearchIsLoaded
+  );
+  const singerSearchList = useSearchStore((state) => state.singerSearchList);
+  const makerSearchList = useSearchStore((state) => state.makerSearchList);
+
+  const onHandleSearchCategory = (category) => {
+    switch (category) {
+      case 'Singer': {
+        setCategory('Singer');
+        singerNaviRef.current.style.color = 'black';
+        makerNaviRef.current.style.color = '#b4b4b4';
+        break;
+      }
+      case 'Maker': {
+        setCategory('Maker');
+        makerNaviRef.current.style.color = 'black';
+        singerNaviRef.current.style.color = '#b4b4b4';
+        break;
+      }
+      default: {
+        break;
+      }
     }
   };
-
+  
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  const success = useSearchStore((state) => state.success);
-  const searchKeyword = useSearchStore((state) => state.searchKeyword);
-
-  useEffect(() => {
-    if(page !== 0) {
-      searchKeyword(keyword, 'Singer', page);
+    if (keyword !== '') {
+      searchKeyword(keyword, 'Singer');
+      searchKeyword(keyword, 'Maker');
     }
-  }, [page]);
-
-  const onHandleSearchSinger = () => {
-    searchKeyword(keyword, 'Singer');
-  }
-
-  const onHandleSearchMaker = () => {
-    searchKeyword(keyword, 'Maker');
-  }
+  }, [keyword]);
 
   return (
     <SearchContainer>
@@ -91,54 +96,143 @@ const Search = () => {
           </SearchNaviIconBox>
           <SearchNaviTitle>검색 결과</SearchNaviTitle>
           <SearchNaviGroup>
-            <SearchNavi onClick={onHandleSearchSinger}>싱어</SearchNavi>
+            <SearchNavi
+              className='search'
+              style={{ color: 'black' }}
+              onClick={() => onHandleSearchCategory('Singer')}
+              ref={singerNaviRef}
+            >
+              싱어({singerSearchIsLoaded ? singerSearchList.length : 0})
+            </SearchNavi>
             <SearchNaviVertical>|</SearchNaviVertical>
-            <SearchNavi onClick={onHandleSearchMaker}>메이커</SearchNavi>
+            <SearchNavi
+              className='maker'
+              onClick={() => onHandleSearchCategory('Maker')}
+              ref={makerNaviRef}
+            >
+              메이커({makerSearchIsLoaded ? makerSearchList.length : 0})
+            </SearchNavi>
           </SearchNaviGroup>
         </SearchNaviContainer>
         <SearchInfo>
-          {success ? (
-            <SearchInfoBox>
-              <SearchInfoNickname>{keyword}</SearchInfoNickname>
-              <SearchInfoText>에 대한 검색 결과</SearchInfoText>
-            </SearchInfoBox>
+          <SearchInfoBox>
+            {category === 'Singer' ? (
+              singerSearchList.length !== 0 ? (
+                <Fragment>
+                  <SearchInfoNickname>{keyword}</SearchInfoNickname>
+                  <SearchInfoText>에 대한 검색 결과</SearchInfoText>
+                </Fragment>
+              ) : (
+                <Fragment></Fragment>
+              )
+            ) : makerSearchList.length !== 0 ? (
+              <Fragment>
+                <SearchInfoNickname>{keyword}</SearchInfoNickname>
+                <SearchInfoText>에 대한 검색 결과</SearchInfoText>
+              </Fragment>
+            ) : (
+              <Fragment></Fragment>
+            )}
+          </SearchInfoBox>
+        </SearchInfo>
+        {category === 'Singer' ? (
+          singerSearchIsLoaded ? (
+            singerSearchList.length !== 0 ? (
+              <SearchDataContainer>
+                {singerSearchList.map((singer) => {
+                  return (
+                    <PostBig
+                      key={singer.postId}
+                      postId={singer.postId}
+                      likeCount={singer.makerlikeCnt}
+                      imageUrl={singer.imageUrl}
+                      mediaUrl={singer.mediaUrl}
+                      nickname={singer.nickname}
+                      collaborate={singer.collaborate}
+                      title={singer.title}
+                      position={'singer'}
+                    ></PostBig>
+                  );
+                })}
+              </SearchDataContainer>
+            ) : (
+              <SearchNoDataContainer>
+                <SearchNoDataInfo>
+                  <SeatchNoDataInfoBox>
+                    <SearchNoDataInfoNickname>
+                      {keyword}
+                    </SearchNoDataInfoNickname>
+                    <SearchNoDataInfoText>
+                      에 대한 검색 결과가 없습니다...
+                    </SearchNoDataInfoText>
+                  </SeatchNoDataInfoBox>
+                </SearchNoDataInfo>
+                <SearchNoDataNotice>
+                  <SearchNoDataNoticeBox>
+                    <SearchNoDataNoticeText>
+                      단어의 철자가 정확한지 확인해 보세요.
+                      <br />
+                      한글을 영어로 혹은 영어를 한글로 입력했는지 확인해 보세요.
+                      <br />
+                      리드미의 아티스트인지 확인해 보세요.
+                    </SearchNoDataNoticeText>
+                  </SearchNoDataNoticeBox>
+                </SearchNoDataNotice>
+                <SearchNoDataLogo>
+                  <SearchNoDataLogoImg src={ErrorLogo} />
+                </SearchNoDataLogo>
+              </SearchNoDataContainer>
+            )
           ) : (
             <Fragment></Fragment>
-          )}
-        </SearchInfo>
-        {success ? (
-          <SearchDataContainer>
-            {Array(12)
-              .fill('')
-              .map(() => (
-                <PostBig />
-              ))}
-          </SearchDataContainer>
+          )
+        ) : makerSearchIsLoaded ? (
+          makerSearchList.length !== 0 ? (
+            <SearchDataContainer>
+              {makerSearchList.map((maker) => {
+                return (
+                  <PostBig
+                    key={maker.postId}
+                    postId={maker.postId}
+                    likeCount={maker.makerlikeCnt}
+                    imageUrl={maker.imageUrl}
+                    mediaUrl={maker.mediaUrl}
+                    nickname={maker.nickname}
+                    collaborate={maker.collaborate}
+                    title={maker.title}
+                    position={'maker'}
+                  ></PostBig>
+                );
+              })}
+            </SearchDataContainer>
+          ) : (
+            <SearchNoDataContainer>
+              <SearchNoDataInfo>
+                <SeatchNoDataInfoBox>
+                  <SearchNoDataInfoNickname>{keyword}</SearchNoDataInfoNickname>
+                  <SearchNoDataInfoText>
+                    에 대한 검색 결과가 없습니다...
+                  </SearchNoDataInfoText>
+                </SeatchNoDataInfoBox>
+              </SearchNoDataInfo>
+              <SearchNoDataNotice>
+                <SearchNoDataNoticeBox>
+                  <SearchNoDataNoticeText>
+                    단어의 철자가 정확한지 확인해 보세요.
+                    <br />
+                    한글을 영어로 혹은 영어를 한글로 입력했는지 확인해 보세요.
+                    <br />
+                    리드미의 아티스트인지 확인해 보세요.
+                  </SearchNoDataNoticeText>
+                </SearchNoDataNoticeBox>
+              </SearchNoDataNotice>
+              <SearchNoDataLogo>
+                <SearchNoDataLogoImg src={ErrorLogo} />
+              </SearchNoDataLogo>
+            </SearchNoDataContainer>
+          )
         ) : (
-          <SearchNoDataContainer>
-            <SearchNoDataInfo>
-              <SeatchNoDataInfoBox>
-                <SearchNoDataInfoNickname>{keyword}</SearchNoDataInfoNickname>
-                <SearchNoDataInfoText>
-                  에 대한 검색 결과가 없습니다...
-                </SearchNoDataInfoText>
-              </SeatchNoDataInfoBox>
-            </SearchNoDataInfo>
-            <SearchNoDataNotice>
-              <SearchNoDataNoticeBox>
-                <SearchNoDataNoticeText>
-                  단어의 철자가 정확한지 확인해 보세요.
-                  <br />
-                  한글을 영어로 혹은 영어를 한글로 입력했는지 확인해 보세요.
-                  <br />
-                  리드미의 아티스트인지 확인해 보세요.
-                </SearchNoDataNoticeText>
-              </SearchNoDataNoticeBox>
-            </SearchNoDataNotice>
-            <SearchNoDataLogo>
-              <SearchNoDataLogoImg src={ErrorLogo} />
-            </SearchNoDataLogo>
-          </SearchNoDataContainer>
+          <Fragment></Fragment>
         )}
       </SearchBox>
     </SearchContainer>

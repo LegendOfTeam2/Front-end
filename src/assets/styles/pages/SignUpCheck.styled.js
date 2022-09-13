@@ -19,8 +19,29 @@ export const UpInBox = styled.div`
   border-radius: 30px;
   box-shadow: 1px 1px 20px 5px grey;
   background-color: #ffffff;
+  position: relative;
   @media ${(props) => props.theme.device.desktopL} {
     width: 861px;
+  }
+`;
+export const UpInIcon = styled.div`
+  position: absolute;
+  top: 26px;
+  right: 26px;
+  width: auto;
+  height: auto;
+  .icon-cancel {
+    width: 30px;
+    height: 30px;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  @media ${(props) => props.theme.device.desktopL} {
+    .icon-cancel {
+    width: 20px;
+    height: 20px;
+  }
   }
 `;
 export const UpLogoDiv = styled.div`

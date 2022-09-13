@@ -15,9 +15,19 @@ import {
   getMyImageApi
 } from '../utils/apis/member';
 
+// Assets
+import {
+  albumCover_1,
+  albumCover_2,
+  albumCover_3,
+} from '../assets/images/image';
+
 const useMemberStore = create((set) => ({
   is_login: false,
-  userImg:{},
+  myProfileImg: null,
+  myProfileImgIsLoaded: false,
+  profileImgArr: [albumCover_1, albumCover_2, albumCover_3],
+  random: parseInt(Math.random() * 3),
   changeLoginStatus: (state) => {
     set({ is_login: state });
   },
@@ -102,11 +112,11 @@ const useMemberStore = create((set) => ({
     const resData = await getMyImageApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-      set({ userImg: resData?.data.data });
 
-
-      return resData.data.data
-
+    if(resData?.data.success) {
+      set({myProfileImg: resData.data.data});
+      set({myProfileImgIsLoaded: resData.data.success});
+    }
   },
 
   

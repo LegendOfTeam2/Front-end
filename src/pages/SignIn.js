@@ -47,6 +47,7 @@ import {
   SignInBoxSocialBoxSocialGroup,
   SignInBoxSocialBoxSocialIcon,
   SignInBoxCover,
+  SignInBoxIcon,
 } from '../assets/styles/pages/SignIn.styled';
 import { SignInBackground, SignInBackgroundSm } from '../assets/images/image';
 
@@ -353,7 +354,14 @@ const SignIn = () => {
             </SignInBoxSocialBox>
           </SignInBoxSocialContainer>
         </SignInBoxMain>
-        <SignInBoxCover bg_img_lg={SignInBackground} bg_img_sm={SignInBackgroundSm}></SignInBoxCover>
+        <SignInBoxCover
+          bg_img_lg={SignInBackground}
+          bg_img_sm={SignInBackgroundSm}
+        >
+          <SignInBoxIcon onClick={() => navigate('/')}>
+            <GrClose color='red' className='icon-cancel'></GrClose>
+          </SignInBoxIcon>
+        </SignInBoxCover>
       </SignInBox>
     </SignInContainer>
   );

@@ -101,7 +101,8 @@ export const SearchDataContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: 25px;
 `;
 export const SearchNoDataContainer = styled.div`
   width: 100%;

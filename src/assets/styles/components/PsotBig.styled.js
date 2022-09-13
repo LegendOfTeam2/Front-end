@@ -29,7 +29,11 @@ export const BigImgMyBtmRight = styled.div`
 `;
 export const BigMyImgTopLeft = styled.div`
   position: absolute;
-  top: 10%;
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  top: 7%;
   left: 8%;
   color: rgba(40, 202, 124, 1);
   line-height: ${(props) => props.theme.lineHeight.xxl};

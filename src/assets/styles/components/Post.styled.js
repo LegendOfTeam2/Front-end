@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import styled from 'styled-components';
+=======
 import styled from "styled-components";
+>>>>>>> e8bb69fda375db99fd49e73ecac6b3b4f71badad
 
 export const MyImgDivDiv = styled.div`
   width: 164.5px;
@@ -37,7 +41,11 @@ export const ImgMyBtmRight = styled.div`
 `;
 export const MyImgTopLeft = styled.div`
   position: absolute;
-  top: 11%;
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  top: 7%;
   left: 8%;
   color: rgba(40, 202, 124, 1);
   display: none;
@@ -76,7 +84,10 @@ export const MyImgBtmLeftDiv = styled.div`
   width: auto;
   display: flex;
   flex-direction: row;
+<<<<<<< HEAD
+=======
   z-index: 10;
+>>>>>>> e8bb69fda375db99fd49e73ecac6b3b4f71badad
 `;
 
 export const MyImgBtmLeftspan = styled.span`

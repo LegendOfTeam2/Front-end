@@ -17,6 +17,7 @@ export const SignInBox = styled.div`
   height: auto;
   display: flex;
   background-color: #ffffff;
+  border-radius: 30px;
   @media ${(props) => props.theme.device.desktopL} {
     width: 861px;
   }
@@ -288,6 +289,7 @@ export const SignInBoxSocialBoxSocialIcon = styled.div`
   height: auto;
 `;
 export const SignInBoxCover = styled.div`
+  position: relative;
   width: 491px;
   height: auto;
   background-image: url(${(props) => props.bg_img_lg});
@@ -300,3 +302,25 @@ export const SignInBoxCover = styled.div`
     width: 441px;
   }
 `;
+export const SignInBoxIcon = styled.div`
+  opacity: 0.3;
+  position: absolute;
+  top: 26px;
+  right: 26px;
+  width: auto;
+  height: auto;
+  .icon-cancel {
+    width: 30px;
+    height: 30px;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  @media ${(props) => props.theme.device.desktopL} {
+    .icon-cancel {
+    width: 20px;
+    height: 20px;
+  }
+  }
+`;
+

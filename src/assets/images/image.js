@@ -35,9 +35,14 @@ import Collaborate from './Collaborate.svg';
 import Hide from './Hide.svg';
 import Show from './Show.svg';
 import Like24 from './Like24.svg';
-
+import albumCover_1 from './albumcover/albumCover_1.jpg';
+import albumCover_2 from './albumcover/albumCover_2.jpg';
+import albumCover_3 from './albumcover/albumCover_3.jpg';
 
 export {
+  albumCover_1,
+  albumCover_2,
+  albumCover_3,
   LargeLogo,
   HeaderlargeLogo,
   NextPlay,

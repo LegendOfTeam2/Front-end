@@ -4,6 +4,9 @@ import useFollowStore from "../zustand/follow";
 // Elements
 import Button from "../elements/Button";
 
+// Utils
+import { getCookie } from "../utils/cookie";
+
 // Assets
 import {
   BtmBunDiv,
@@ -21,7 +24,8 @@ const HotArtist = ({nickname, follower}) => {
   const follow = useFollowStore((state) => state.follow);
 
   const onHandleFollow = () => {
-    follow('Test98');
+    if(getCookie('authorization') !== undefined) follow(nickname);
+    else alert('로그인 후에 이용 가능합니다.');
   }
 
   return (

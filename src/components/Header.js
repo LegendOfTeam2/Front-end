@@ -1,17 +1,17 @@
 // React
-import { Fragment, useState, useCallback, useEffect } from "react";
+import { Fragment, useState, useCallback, useEffect } from 'react';
 
 //Zustand
 import useMemberStore from "../zustand/member";
 import useSearchStore from "../zustand/search";
 
-// Package
-import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
+// Packages
+import { useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
-// Element
-import Button from "../elements/Button";
-import Input from "../elements/Input";
+// Elements
+import Button from '../elements/Button';
+import Input from '../elements/Input';
 
 // Utils
 import { getCookie } from "../utils/cookie";
@@ -29,21 +29,29 @@ import {
   RightDiv,
   SearchDiv,
   SearchIconDiv,
-} from "../assets/styles/components/Header.styled";
-import { HeaderlargeLogo, Search } from "../assets/images/image";
+} from '../assets/styles/components/Header.styled';
+import {
+  HeaderlargeLogo,
+  Search,
+} from '../assets/images/image';
 
 const Header = () => {
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
 
+  const setSearchKeyword = useSearchStore((state) => state.setSearchKeyword);
   const signOutMember = useMemberStore((state) => state.signOutMember);
-  const searchKeyword = useSearchStore((state) => state.searchKeyword);
   const getMyImage = useMemberStore((state) => state.getMyImage);
-  const userImg = useMemberStore((state) => state.userImg);
+  const myProfileImg = useMemberStore((state) => state.myProfileImg);
+  const myProfileImgIsLoaded = useMemberStore(
+    (state) => state.myProfileImgIsLoaded
+  );
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
 
   useEffect(() => {
-    if (getCookie("authorization") !== undefined) {
-      const nickname = jwt_decode(getCookie("authorization")).sub;
+    if (getCookie('authorization') !== undefined) {
+      const nickname = jwt_decode(getCookie('authorization')).sub;
       getMyImage({ nickname });
     }
   }, []);
@@ -68,24 +76,29 @@ const Header = () => {
   };
 
   const onClickSearch = useCallback(() => {
-    navigate(`/search/${keyword}`);
+    setSearchKeyword(keyword);
+    navigate(`/search`);
   }, [keyword]);
 
-  const onKeyUpSearch = useCallback((e) => {
-    if (e.key === "Enter") {
-      if (e.target.value.length > 0) {
-        searchKeyword(keyword, "Singer", 0);
-        navigate(`/search/${keyword}`);
+  const onKeyUpSearch = useCallback(
+    (e) => {
+      if (e.key === 'Enter') {
+        if (e.target.value.length > 0) {
+          setSearchKeyword(keyword);
+          navigate(`/search`);
+        }
       }
-    }
-  });
+    },
+    [keyword]
+  );
+
   const ProfilPage = () => {
-    if (getCookie("authorization") !== undefined) {
-      const nickname = jwt_decode(getCookie("authorization")).sub;
+    if (getCookie('authorization') !== undefined) {
+      const nickname = jwt_decode(getCookie('authorization')).sub;
       navigate(`/mypage/${nickname}`);
     } else {
-      alert("로그인 후에 이용 가능합니다.");
-      navigate("/signin");
+      alert('로그인 후에 이용 가능합니다.');
+      navigate('/signin');
     }
   };
 
@@ -122,18 +135,20 @@ const Header = () => {
             </LeftDiv>
             <RightDiv>
               <ProfileDiv>
-                {getCookie("authorization") !== undefined ? (
+                {getCookie('authorization') === undefined ? (
+                  <Fragment></Fragment>
+                ) : myProfileImgIsLoaded ? (
                   <ProfileImg
-                    src={userImg.imgUrl}
+                    src={
+                      myProfileImg.imgUrl === null
+                        ? profileImgArr[random]
+                        : myProfileImg.imgUrl
+                    }
                     alt='프로필'
                     onClick={ProfilPage}
                   ></ProfileImg>
                 ) : (
-                  <ProfileImg
-                    src='http://image.genie.co.kr/Y/IMAGE/IMG_ARTIST/080/752/569/80752569_1640137283615_3_600x600.JPG'
-                    alt='프로필'
-                    onClick={ProfilPage}
-                  ></ProfileImg>
+                  <Fragment></Fragment>
                 )}
               </ProfileDiv>
               <BtmDiv>
