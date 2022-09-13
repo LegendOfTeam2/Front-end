@@ -12,6 +12,7 @@ import "slick-carousel/slick/slick-theme.css";
 import shortId from "shortid";
 
 // Utils
+import Button from "../elements/Button";
 import { getCookie } from "../utils/cookie";
 
 // Pages
@@ -25,11 +26,8 @@ import Header from "../components/Header";
 import PlayerMain from "../components/audioplayer/PlayerMain";
 import ProfileSlider from "../components/ProfileSlider";
 import HotArtist from "../components/HotArtist";
-
-// Elements
-import Button from "../elements/Button";
-
 // Assests
+import styled from "styled-components";
 import {
   MainProfileSliderGroup,
   BtmProfileImgDiv,
@@ -39,9 +37,11 @@ import {
   BtmProfileTextSingMakeDiv,
   MainArowLeft,
   MainArowRight,
+  MainAudioPlay,
   MainContainer,
   MainContainerDiv,
   MainImgDiv,
+  // MainImgFade,
   MainImgDivBtnDiv,
   MainImgDivDiv,
   MainImgDivDivDiv,
@@ -55,9 +55,12 @@ import {
   MainHotArtistWrap,
 } from "../assets/styles/pages/Main.styled";
 import Post from "../components/Post";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
   const sliderRef = useRef();
+
+  // const viewStateChange = usePlayerStore((state) => state.viewStateChange);
 
   const settings = {
     className: "center",
@@ -71,11 +74,13 @@ const Main = () => {
   };
   const Btmsettings = {
     className: "center",
+    initialSlide: 2,
     centerMode: true,
     infinite: true,
     slidesToShow: 4,
     arrows: false,
     centerPadding: "-30px",
+    draggable: true,
     ref: sliderRef,
   };
 
@@ -116,6 +121,8 @@ const Main = () => {
   const makerIsLike = useLikeStore((state) => state.makerIsLike);
   const artistIsFollow = usePostStore((state) => state.artistIsFollow);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (getCookie("authorization") === undefined) {
       getRecentSinger();
@@ -146,10 +153,22 @@ const Main = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(singerIsLike);
-    console.log(makerIsLike);
-  })
+  const goToRecentSinger = () => {
+    navigate(`/morepage/recentsinger/`);
+  };
+
+  const goToBestSinger = () => {
+    navigate(`/morepage/bestsinger/`);
+  };
+
+  const goToRecentMaker = () => {
+    navigate(`/morepage/recentmaker/`);
+  };
+
+  const goTobestnaker = () => {
+    navigate(`/morepage/bestmaker/`);
+  };
+
   return (
     <Fragment>
       <Header />
@@ -229,15 +248,17 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>싱어 최신작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake>더보기</DisMainPostImgDivMake>
+                      <DisMainPostImgDivMake onClick={goToRecentSinger}>
+                        더보기
+                      </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                  {recentSinger.map((x) => {
+                    {recentSinger.map((x) => {
                       if ([...singerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <Post
-                            key={shortId.generate()}
+                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -252,7 +273,7 @@ const Main = () => {
                       } else {
                         return (
                           <Post
-                            key={shortId.generate()}
+                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -270,7 +291,7 @@ const Main = () => {
                 </DisMainPostImgDivImgDiv>
               ) : (
                 <>
-                  <ProfileSlider GrandTitle='싱어 최신작품' />
+                  <ProfileSlider name={'싱어 최신작품'} postList={recentSinger} GrandTitle='싱어 최신작품' />
                 </>
               )
             ) : (
@@ -283,7 +304,9 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>싱어 인기작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake>더보기</DisMainPostImgDivMake>
+                      <DisMainPostImgDivMake onClick={goToBestSinger}>
+                        더보기
+                      </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
@@ -291,7 +314,7 @@ const Main = () => {
                       if ([...singerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <Post
-                            key={shortId.generate()}
+                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -306,7 +329,7 @@ const Main = () => {
                       } else {
                         return (
                           <Post
-                            key={shortId.generate()}
+                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -324,7 +347,7 @@ const Main = () => {
                 </DisMainPostImgDivImgDiv>
               ) : (
                 <>
-                  <ProfileSlider GrandTitle='싱어 인기작품' />
+                  <ProfileSlider name={'싱어 인기작품'} postList={bestSinger} GrandTitle='싱어 인기작품' />
                 </>
               )
             ) : (
@@ -337,15 +360,17 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>메이커 최신작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake>더보기</DisMainPostImgDivMake>
+                      <DisMainPostImgDivMake onClick={goToRecentMaker}>
+                        더보기
+                      </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                  {recentMaker.map((x) => {
-                      if ([...singerIsLike].indexOf(x.postId) !== -1) {
+                    {recentMaker.map((x) => {
+                      if ([...makerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <Post
-                            key={shortId.generate()}
+                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -360,7 +385,7 @@ const Main = () => {
                       } else {
                         return (
                           <Post
-                            key={shortId.generate()}
+                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -378,7 +403,7 @@ const Main = () => {
                 </DisMainPostImgDivImgDiv>
               ) : (
                 <>
-                  <ProfileSlider GrandTitle='메이커 최신작품' />
+                  <ProfileSlider name={'메이커 최신작품'} postList={recentMaker} GrandTitle='메이커 최신작품' />
                 </>
               )
             ) : (
@@ -391,15 +416,15 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>메이커 인기작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake>더보기</DisMainPostImgDivMake>
+                      <DisMainPostImgDivMake onClick={goTobestnaker}>더보기</DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                  {bestMaker.map((x) => {
-                      if ([...singerIsLike].indexOf(x.postId) !== -1) {
+                    {bestMaker.map((x) => {
+                      if ([...makerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <Post
-                            key={shortId.generate()}
+                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -414,7 +439,7 @@ const Main = () => {
                       } else {
                         return (
                           <Post
-                            key={shortId.generate()}
+                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -432,7 +457,7 @@ const Main = () => {
                 </DisMainPostImgDivImgDiv>
               ) : (
                 <>
-                  <ProfileSlider GrandTitle='메이커 인기작품' />
+                  <ProfileSlider name={'메이커 인기작품'} postList={bestMaker} GrandTitle='메이커 인기작품' />
                 </>
               )
             ) : (
@@ -445,7 +470,9 @@ const Main = () => {
                 <BtmProfileTextDiv>
                   <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
                   <BtmProfileTextSingMakeDiv>
-                    <BtmProfileTextMake>더보기</BtmProfileTextMake>
+                    <BtmProfileTextMake>
+                      더보기
+                    </BtmProfileTextMake>
                   </BtmProfileTextSingMakeDiv>
                 </BtmProfileTextDiv>
                 <MainHotArtistWrap>

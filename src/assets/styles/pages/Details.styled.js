@@ -9,6 +9,7 @@ export const DetailContainerDiv = styled.div`
   margin: 0;
   padding: 0;
   top: 156.5px;
+  z-index: -1;
 `;
 export const DetailContainer = styled.div`
   width: 1024px;
@@ -63,6 +64,12 @@ export const DetailProfileBtnTopDiv = styled.div`
   flex-direction: row;
   align-items: flex-end;
   margin-right: 27px;
+`;
+export const DetailProfileBtnTopDivBtn = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 19px;
 `;
 
 export const DetailProfileMidleTopDiv = styled.div`
@@ -277,7 +284,7 @@ export const DetailBtmMoreDiv = styled.div`
 
 export const DetailBtmMoreDivDiv = styled.div`
   width: 379px;
-  height: ${(props) => (props.introduction ? "auto" : "280px")};
+  height: ${(props) => (props.introduction ? "auto" : "100px")};
   overflow: hidden;
   padding: 36px 74px;
 `;

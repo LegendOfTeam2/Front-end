@@ -35,6 +35,7 @@ import {
   PlayContainerOut,
   PlayContainerOutDiv,
   PlayContainerOutImg,
+  PlayContainerOutLongBar,
   SingerSpan,
   Timer,
   TimerDiv,
@@ -70,17 +71,17 @@ function PlayerMain() {
   };
 
   useEffect(() => {
-    setIsAutoplay(true);
-      if(isPlaying=== true){
-      setIsAutoplay(true);
-      }else{
-        setIsPlaying(false)
+    setIsPlaying(true);
+    if (viewState) {
+      if (isPlaying) {
+        setIsPlaying(true);
+        setIsAutoplay(true);
+      } else {
         setIsAutoplay(false);
+        setIsPlaying(false);
       }
-    
-  
-  }, [setCurrentSong,isPlaying ]);
-
+    }
+  }, [viewState, currentSong, isPlaying]);
   useEffect(() => {
     const audioEnd = audioRef.current.ended;
     const index = playList.indexOf(playList[0]); // 0
@@ -252,26 +253,30 @@ function PlayerMain() {
   }
 
   const Folding = () => {
-    audioRef.current.currentTime = 0;
     setIsAutoplay(false);
+    setIsPlaying(false);
+    audioRef.current.pause();
     viewStateChange(false);
   };
 
   const RaiseIt = () => {
     audioRef.current.currentTime = 0;
+    setIsAutoplay(true);
     viewStateChange(true);
+    setIsPlaying(false);
   };
-
-
 
   return (
     <MainAudioPlay yIndex={viewState ? "0" : "100%"}>
       <div>
         <PlayContainerOut>
           <PlayContainerOutDiv>
-          {viewState ? <PlayContainerOutImg src={Hide} alt='접기' onClick={Folding} /> : <PlayContainerOutImg src={Show} alt='올리기' onClick={RaiseIt} />}
-          
-          
+            {viewState ? (
+              <PlayContainerOutImg src={Hide} alt='접기' onClick={Folding} />
+            ) : (
+              <PlayContainerOutImg src={Show} alt='올리기' onClick={RaiseIt} />
+            )}
+            <PlayContainerOutLongBar> </PlayContainerOutLongBar>
           </PlayContainerOutDiv>
         </PlayContainerOut>
         <PlayContainer>

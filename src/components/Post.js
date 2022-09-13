@@ -19,10 +19,11 @@ import {
   OnPlay,
   Like24,
 } from "../assets/images/image";
-import React, { useState, useRef } from "react";
+import { useState, useRef, memo } from "react";
 import usePlayerStore from "../zustand/player";
 import useLikeStore from "../zustand/like";
 import { getCookie } from "../utils/cookie";
+import { useNavigate } from "react-router-dom";
 const Post = ({
   postId,
   position,
@@ -37,6 +38,8 @@ const Post = ({
   const [isLike, setIsLike] = useState(likeState);
 
   const likeCountRef = useRef();
+  const navigate = useNavigate()
+  
 
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
@@ -62,13 +65,19 @@ const Post = ({
       });
     }
   };
+
+  const goToDetail = () => {
+    navigate(`/details/${position}/${postId}`);
+  }
+
+  
   return (
     <MyImgDivDiv>
       <Myimg src={imageUrl} alt='' />
       <ImgMyBtmRight>
         <ImgNotSlideSpan>{nickname}</ImgNotSlideSpan>
       </ImgMyBtmRight>
-      <MyImgTopLeft>{title}</MyImgTopLeft>
+      <MyImgTopLeft  onClick={goToDetail} >{title}</MyImgTopLeft>
       <DisMyImgTopRight>
         {collaborate ? <img src={Collaborate} alt='콜라보' /> : <></>}
       </DisMyImgTopRight>
@@ -93,4 +102,4 @@ const Post = ({
   );
 };
 
-export default React.memo(Post);
+export default memo(Post);

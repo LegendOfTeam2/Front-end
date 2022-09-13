@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 import styled from 'styled-components';
+=======
+import styled from "styled-components";
+>>>>>>> e8bb69fda375db99fd49e73ecac6b3b4f71badad
 
 export const MyImgDivDiv = styled.div`
   width: 164.5px;
   height: 164.5px;
   display: flex;
   position: relative;
+
 `;
 
 export const PostimgDivDiv = styled.div`
@@ -79,6 +84,10 @@ export const MyImgBtmLeftDiv = styled.div`
   width: auto;
   display: flex;
   flex-direction: row;
+<<<<<<< HEAD
+=======
+  z-index: 10;
+>>>>>>> e8bb69fda375db99fd49e73ecac6b3b4f71badad
 `;
 
 export const MyImgBtmLeftspan = styled.span`
