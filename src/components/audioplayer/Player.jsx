@@ -1,5 +1,5 @@
 // React
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, memo, useState } from "react";
 // Assests
 import {
   ProgressBarCover,
@@ -54,4 +54,4 @@ function Player({ percentage = 0, onChange }) {
   );
 }
 
-export default React.memo(Player);
+export default memo(Player);

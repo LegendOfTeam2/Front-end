@@ -1,18 +1,28 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
+import {
+  MoreBtmDataDiv,
+  MoreBtmImgDiv,
+  MoreBtmTextDiv,
+  MoreBtmTextDivDiv,
+  MoreContainer,
+  MoreContainerDiv,
+  MoreTopDiv,
+  MoreTopSpan,
+} from "../assets/styles/pages/MorePage.styled";
 import Header from "../components/Header";
 import PostBig from "../components/PostBig";
 import useLikeStore from "../zustand/like";
 import usePostStore from "../zustand/post";
 
 const MorePage = () => {
-  const Params = useParams();
+  const { position, ctg } = useParams();
   const leftRef = useRef();
   const rightRef = useRef();
 
-  const [recent, setRecent] = useState(true);
+  const [recent, setRecent] = useState(false);
   const [best, setBest] = useState(false);
+  const [category, setCategory] = useState(ctg);
 
   const getRecentMaker = usePostStore((state) => state.getRecentMaker);
   const getRecentSinger = usePostStore((state) => state.getRecentSinger);
@@ -38,18 +48,20 @@ const MorePage = () => {
 
   const categoryHandle = (state) => {
     switch (state) {
-      case "latest": {
+      case "new": {
         leftRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
         rightRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
         leftRef.current.style.color = "rgba(40, 202, 124, 1)";
         rightRef.current.style.color = "rgba(180, 180, 180, 1)";
+        setCategory("new");
         break;
       }
-      case "public": {
+      case "popular": {
         leftRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
         rightRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
         leftRef.current.style.color = "rgba(180, 180, 180, 1)";
         rightRef.current.style.color = "rgba(40, 202, 124, 1)";
+        setCategory("popular");
         break;
       }
       default:
@@ -57,32 +69,30 @@ const MorePage = () => {
     }
   };
   useEffect(() => {
-    leftRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
-    leftRef.current.style.color = "rgba(40, 202, 124, 1)";
-    rightRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
+    if (category === "new") {
+      leftRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
+      leftRef.current.style.color = "rgba(40, 202, 124, 1)";
+      rightRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
+    } else {
+      rightRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
+      rightRef.current.style.color = "rgba(40, 202, 124, 1)";
+      leftRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
+    }
   }, []);
 
-  console.log(Params.position);
-
   useEffect(() => {
-    if (Params.position === "singer") {
+    if (position === "singer") {
       getSingerLikePost().then((res) => {
         if (res) {
-          if (recent) {
-            getRecentSinger();
-          } else {
-            getBestSinger();
-          }
+          getRecentSinger();
+          getBestSinger();
         }
       });
     } else {
       getMakerLikePost().then((res) => {
         if (res) {
-          if (recent) {
-            getRecentMaker();
-          } else {
-            getBestMaker();
-          }
+          getRecentMaker();
+          getBestMaker();
         }
       });
     }
@@ -94,27 +104,98 @@ const MorePage = () => {
       <MoreContainerDiv>
         <MoreContainer>
           <MoreTopDiv>
-            <MoreTopSpan>싱어</MoreTopSpan>
+            {position === "singer" ? (
+              <MoreTopSpan>싱어</MoreTopSpan>
+            ) : (
+              <MoreTopSpan>메이커</MoreTopSpan>
+            )}
           </MoreTopDiv>
 
           <MoreBtmTextDiv>
             <MoreBtmTextDivDiv ref={leftRef}>
-              <MoreBtmDataDiv onClick={() => categoryHandle("latest")}>
+              <MoreBtmDataDiv onClick={() => categoryHandle("new")}>
                 최신
               </MoreBtmDataDiv>
             </MoreBtmTextDivDiv>
             <MoreBtmTextDivDiv ref={rightRef}>
-              <MoreBtmDataDiv onClick={() => categoryHandle("public")}>
+              <MoreBtmDataDiv onClick={() => categoryHandle("popular")}>
                 인기
               </MoreBtmDataDiv>
             </MoreBtmTextDivDiv>
           </MoreBtmTextDiv>
           <MoreBtmImgDiv>
-            {Array(12)
-              .fill("")
-              .map(() => (
-                <PostBig />
-              ))}
+            {position === "singer" ? (
+              category === "new" ? (
+                recentSingerIsLoaded ? (
+                  recentSinger.map((x) => (
+                    <PostBig
+                      key={x.postId}
+                      imageUrl={x.imageUrl.imageUrl}
+                      likeCount={x.likeCount}
+                      nickname={x.nickname}
+                      title={x.title}
+                      collaborate={x.collaborate}
+                      mediaUrl={x.mediaUrl.mediaUrl}
+                      postId={x.postId}
+                      position={x.position}
+                    />
+                  ))
+                ) : (
+                  <Fragment></Fragment>
+                )
+              ) : bestSingerIsLoaded ? (
+                bestSinger.map((x) => (
+                  <PostBig
+                    key={x.postId}
+                    imageUrl={x.imageUrl.imageUrl}
+                    likeCount={x.likeCount}
+                    nickname={x.nickname}
+                    title={x.title}
+                    collaborate={x.collaborate}
+                    mediaUrl={x.mediaUrl.mediaUrl}
+                    postId={x.postId}
+                    position={x.position}
+                  />
+                ))
+              ) : (
+                <Fragment></Fragment>
+              )
+            ) : category === "new" ? (
+              recentMakerIsLoaded ? (
+                recentMaker.map((x) => (
+                  <PostBig
+                    key={x.postId}
+                    imageUrl={x.imageUrl.imageUrl}
+                    likeCount={x.likeCount}
+                    nickname={x.nickname}
+                    title={x.title}
+                    collaborate={x.collaborate}
+                    mediaUrl={x.mediaUrl.mediaUrl}
+                    postId={x.postId}
+                    position={x.position}
+                  />
+                ))
+              ) : (
+                <Fragment></Fragment>
+              )
+            ) : bestMakerIsLoaded ? (
+              bestMaker.map((x) => (
+                <PostBig
+                  key={x.postId}
+                  k
+                  imageUrl={x.imageUrl.imageUrl}
+                  likeCount={x.likeCount}
+                  nickname={x.nickname}
+                  title={x.title}
+                  collaborate={x.collaborate}
+                  mediaUrl={x.mediaUrl.mediaUrl}
+                  postId={x.postId}
+                  position={x.position}
+                />
+              ))
+            ) : (
+              <Fragment></Fragment>
+            )}
           </MoreBtmImgDiv>
         </MoreContainer>
       </MoreContainerDiv>
@@ -123,79 +204,3 @@ const MorePage = () => {
 };
 
 export default MorePage;
-
-export const MoreContainerDiv = styled.div`
-  width: 100%;
-  background-color: #eeeceb;
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  top: 156.5px;
-`;
-
-export const MoreContainer = styled.div`
-  width: 1024px;
-  height: auto;
-  padding-top: 46px;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const MoreTopDiv = styled.div`
-  width: auto;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  border-top: 2px solid rgba(231, 231, 231, 1);
-  border-bottom: 2px solid rgba(231, 231, 231, 1);
-`;
-
-export const MoreTopSpan = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.xxxxl};
-  line-height: ${(props) => props.theme.lineHeight.xxxxl};
-  font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
-`;
-
-export const MoreBtmTextDiv = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 34px;
-`;
-
-export const MoreBtmTextDivDiv = styled.div`
-  padding-top: 7px;
-  padding-bottom: 60px;
-  width: 51px;
-  border-top: 4px solid transparent;
-  display: flex;
-  justify-content: center;
-  color: rgba(180, 180, 180, 1);
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-export const MoreBtmDataDiv = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.base};
-  line-height: ${(props) => props.theme.lineHeight.base};
-  font-weight: ${(props) => props.theme.fontWeight.Bold};
-  margin-top: 21px;
-`;
-
-export const MoreBtmImgDiv = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  padding-left: 24px;
-  padding-right: 24px;
-  margin-bottom: 24px;
-`;

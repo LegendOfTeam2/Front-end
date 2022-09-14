@@ -1,12 +1,9 @@
 // React
-import { useState, useRef, useEffect, useCallback } from "react";
-
+import { useState, useRef, useEffect, useCallback, memo } from "react";
 // Zustand
 import usePlayerStore from "../../zustand/player";
-
 // Components
 import Player from "./Player";
-
 // Assests
 import {
   DisRepeated,
@@ -52,14 +49,18 @@ function PlayerMain() {
   const setCurrentSong = usePlayerStore((state) => state.setCurrentSong);
   const viewState = usePlayerStore((state) => state.viewState);
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const playing = usePlayerStore((state) => state.playing);
+  const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+  const isAutoplay = usePlayerStore((state) => state.isAutoplay);
   const [percentage, setPercentage] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  // const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(0.5);
   const [ismuted, setIsMuted] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
-  const [isAutoplay, setIsAutoplay] = useState(false);
+  // const [isAutoplay, setIsAutoplay] = useState(false);
   const [isRandom, setIsRandom] = useState(false);
 
   const audioRef = useRef();
@@ -71,17 +72,18 @@ function PlayerMain() {
   };
 
   useEffect(() => {
-    setIsPlaying(true);
     if (viewState) {
-      if (isPlaying) {
-        setIsPlaying(true);
+      setPlaying(true);
+      setIsAutoplay(true);
+      if (playing) {
+        setPlaying(true);
         setIsAutoplay(true);
       } else {
         setIsAutoplay(false);
-        setIsPlaying(false);
+        setPlaying(false);
       }
     }
-  }, [viewState, currentSong, isPlaying]);
+  }, [viewState, playing, setPlaying, setIsAutoplay]);
   useEffect(() => {
     const audioEnd = audioRef.current.ended;
     const index = playList.indexOf(playList[0]); // 0
@@ -92,7 +94,7 @@ function PlayerMain() {
         skipNext();
       }
     }
-  }, [percentage, isRandom, isPlaying]);
+  }, [percentage, isRandom, playing]);
 
   const callback = useCallback(
     (index) => {
@@ -145,7 +147,7 @@ function PlayerMain() {
     } else {
       setCurrentSong(playList[index - 1]);
     }
-    if (isPlaying === true) {
+    if (playing === true) {
       setIsAutoplay(true);
     } else {
       setIsAutoplay(false);
@@ -160,7 +162,7 @@ function PlayerMain() {
     } else {
       setCurrentSong(playList[index + 1]);
     }
-    if (isPlaying === true) {
+    if (playing === true) {
       setIsAutoplay(true);
     } else {
       setIsAutoplay(false);
@@ -192,13 +194,13 @@ function PlayerMain() {
     const audio = audioRef.current;
     audio.volume = volume;
 
-    if (!isPlaying) {
-      setIsPlaying(true);
+    if (!playing) {
+      setPlaying(true);
       audio.play();
     }
 
-    if (isPlaying) {
-      setIsPlaying(false);
+    if (playing) {
+      setPlaying(false);
       audio.pause();
     }
   };
@@ -254,16 +256,15 @@ function PlayerMain() {
 
   const Folding = () => {
     setIsAutoplay(false);
-    setIsPlaying(false);
+    setPlaying(false);
     audioRef.current.pause();
     viewStateChange(false);
   };
 
   const RaiseIt = () => {
-    audioRef.current.currentTime = 0;
     setIsAutoplay(true);
     viewStateChange(true);
-    setIsPlaying(false);
+    setPlaying(false);
   };
 
   return (
@@ -318,7 +319,7 @@ function PlayerMain() {
                   <img src={BackPlay} alt='그전곡' onClick={skipBack} />
                 </IconImgHover>
                 <IconImgHover onClick={play}>
-                  {isPlaying ? (
+                  {playing ? (
                     <img src={StopPlay} alt='정지' />
                   ) : (
                     <img src={OnPlay} alt='재생' />

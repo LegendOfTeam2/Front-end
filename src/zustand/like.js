@@ -25,7 +25,6 @@ const useLikeStore = create((set) => ({
     const resData = await getSingerLikePostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-    console.log(resData);
     if (resData?.data.success) {
       set((state) => {
         if (resData.data.data !== []) {
@@ -44,7 +43,6 @@ const useLikeStore = create((set) => ({
     const resData = await getMakerLikePostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-    console.log(resData);
     if (resData?.data.success) {
       set((state) => {
         if (resData.data.data !== []) {

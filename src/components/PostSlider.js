@@ -1,5 +1,5 @@
 // React
-import {useState, memo, useRef} from "react";
+import { useState, memo, useRef } from "react";
 
 // Zustand
 import usePlayerStore from "../zustand/player";
@@ -11,7 +11,13 @@ import { useNavigate } from "react-router-dom";
 // Utils
 import { getCookie } from "../utils/cookie";
 
-import { DisCollaboration, DisLike, OnPlay, Like24 } from "../assets/images/image";
+import {
+  DisCollaboration,
+  DisLike,
+  OnPlay,
+  Like24,
+  Collaborate,
+} from "../assets/images/image";
 import {
   ImgBtmLeft,
   ImgBtmRight,
@@ -25,6 +31,7 @@ import {
   ImgBtmLeftDivSapn,
   DisImgTopRight,
 } from "../assets/styles/components/PostSlide.styled";
+import useMemberStore from "../zustand/member";
 const PostSlider = ({
   postId,
   position,
@@ -41,14 +48,28 @@ const PostSlider = ({
 
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
   const addLike = useLikeStore((state) => state.addLike);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
 
   const likeCountRef = useRef();
   const navigate = useNavigate();
 
   const Play = () => {
     viewStateChange(true);
-    addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
+    setPlaying(true);
+    setIsAutoplay(true);
+    addPlayList({
+      postId,
+      title,
+      nickname,
+      mediaUrl,
+      imageUrl,
+      position,
+      collaborate,
+    });
   };
 
   const LikeClick = () => {
@@ -58,10 +79,10 @@ const PostSlider = ({
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
           setIsLike(true);
-          likeCountRef.current.innerText = likes + 1
+          likeCountRef.current.innerText = likes + 1;
         } else {
           setIsLike(false);
-          likeCountRef.current.innerText = likes - 1
+          likeCountRef.current.innerText = likes - 1;
         }
       });
     }
@@ -69,27 +90,33 @@ const PostSlider = ({
 
   const goToDetail = () => {
     navigate(`/details/${position}/${postId}`);
-  }
-
+  };
   return (
     <ProfileImgDivDiv>
       <Profileimg
-        src={imageUrl}
+        src={
+          imageUrl === null
+            ? profileImgArr[random]
+            : imageUrl === ""
+            ? profileImgArr[random]
+            : imageUrl
+        }
         alt=''
       />
       <ImgMainBtmRight>
         <ImgMainSpan>{nickname}</ImgMainSpan>
       </ImgMainBtmRight>
       <ImgTopLeft onClick={goToDetail}>{title}</ImgTopLeft>
+
       <DisImgTopRight>
-        <img src={DisCollaboration} alt='콜라보' />
+        {collaborate ? <img src={Collaborate} alt='콜라보' /> : <></>}
       </DisImgTopRight>
       <ImgTopRight>
-        <img src={DisCollaboration} alt='콜라보' />
+        {collaborate ? <img src={Collaborate} alt='콜라보' /> : <></>}
       </ImgTopRight>
       <ImgBtmLeft>
         <ImgBtmLeftDiv>
-        {isLike ? (
+          {isLike ? (
             <img src={Like24} alt='좋아요 상태' onClick={LikeClick} />
           ) : (
             <img src={DisLike} alt='좋아요 안한 상태' onClick={LikeClick} />

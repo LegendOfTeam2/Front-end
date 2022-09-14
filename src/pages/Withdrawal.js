@@ -1,17 +1,17 @@
 // React
-import { useState, Fragment, useCallback, useEffect, useRef } from 'react';
+import { useState, Fragment, useCallback, useEffect, useRef } from "react";
 
 // Packages
-import { useNavigate } from 'react-router-dom';
-import { GrClose } from 'react-icons/gr';
+import { useNavigate } from "react-router-dom";
+import { GrClose } from "react-icons/gr";
 
 // Components
-import Header from '../components/Header';
-import WithdrawalConfirmModal from '../components/modal/WithdrawalConfirmModal';
-import WithdrawalNoticeModal from '../components/modal/WithdrawalNoticeModal';
+import Header from "../components/Header";
+import WithdrawalConfirmModal from "../components/modal/WithdrawalConfirmModal";
+import WithdrawalNoticeModal from "../components/modal/WithdrawalNoticeModal";
 
 // Elements
-import Input from '../elements/Input';
+import Input from "../elements/Input";
 
 // Assets
 import {
@@ -31,12 +31,12 @@ import {
   WithdrawalInputText,
   WithdrawalInputDataBox,
   WithdrawalInputIconBox,
-} from '../assets/styles/pages/Withdrawal.styled';
-import { ErrorLogo } from '../assets/images/image';
+} from "../assets/styles/pages/Withdrawal.styled";
+import { ErrorLogo } from "../assets/images/image";
 
 const Withdrawal = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isOpenConfirm, setOpenConfirm] = useState(false);
   const [isOpenNotice, setOpenNotice] = useState(false);
 
@@ -69,12 +69,12 @@ const Withdrawal = () => {
   const deleteText = useCallback(
     (state) => {
       switch (state) {
-        case 'email': {
-          setEmail('');
+        case "email": {
+          setEmail("");
           break;
         }
-        case 'password': {
-          setPassword('');
+        case "password": {
+          setPassword("");
           break;
         }
         default:
@@ -85,10 +85,10 @@ const Withdrawal = () => {
   );
 
   useEffect(() => {
-    if (email !== '') emailIconRef.current.style.display = 'block';
-    else emailIconRef.current.style.display = 'none';
-    if (password !== '') passwordIconRef.current.style.display = 'block';
-    else passwordIconRef.current.style.display = 'none';
+    if (email !== "") emailIconRef.current.style.display = "block";
+    else emailIconRef.current.style.display = "none";
+    if (password !== "") passwordIconRef.current.style.display = "block";
+    else passwordIconRef.current.style.display = "none";
   }, [email, password]);
 
   return (
@@ -103,7 +103,7 @@ const Withdrawal = () => {
       <WithdrawalContainer>
         <WithdrawalBox>
           <WithdrawalNaviContainer>
-            <WithdrawalNaviText onClick={() => navigate('/')}>
+            <WithdrawalNaviText onClick={() => navigate("/")}>
               취소
             </WithdrawalNaviText>
             <WithdrawalNaviInfo>회원탈퇴</WithdrawalNaviInfo>
@@ -131,26 +131,26 @@ const Withdrawal = () => {
               </WithdrawalInputTitle>
               <WithdrawalInputDataBox>
                 <WithdrawalInputIconBox
-                  onClick={() => deleteText('email')}
+                  onClick={() => deleteText("email")}
                   ref={emailIconRef}
                 >
                   <GrClose className='icon'></GrClose>
                 </WithdrawalInputIconBox>
                 <Input
-                  _type={'text'}
+                  _type={"text"}
                   _value={email}
                   _onChange={(e) => setEmail(e.target.value)}
-                  _placeholder={'이메일을 입력해 주세요.'}
+                  _placeholder={"이메일을 입력해 주세요."}
                   _style={{
-                    width: '100%',
-                    height: 'auto',
-                    bd_px: '0px',
-                    pd_top: '35px',
-                    pd_bottom: '35px',
-                    pd_right: '30px',
-                    ft_size: '20',
-                    line_height: '29',
-                    bg_color: 'transparent',
+                    width: "100%",
+                    height: "auto",
+                    bd_px: "0px",
+                    pd_top: "35px",
+                    pd_bottom: "35px",
+                    pd_right: "30px",
+                    ft_size: "20",
+                    line_height: "29",
+                    bg_color: "transparent",
                   }}
                 ></Input>
               </WithdrawalInputDataBox>
@@ -161,26 +161,26 @@ const Withdrawal = () => {
               </WithdrawalInputTitle>
               <WithdrawalInputDataBox>
                 <WithdrawalInputIconBox
-                  onClick={() => deleteText('password')}
+                  onClick={() => deleteText("password")}
                   ref={passwordIconRef}
                 >
                   <GrClose className='icon'></GrClose>
                 </WithdrawalInputIconBox>
                 <Input
-                  _type={'password'}
+                  _type={"password"}
                   _value={password}
                   _onChange={(e) => setPassword(e.target.value)}
-                  _placeholder={'비빌번호를 입력해 주세요.'}
+                  _placeholder={"비빌번호를 입력해 주세요."}
                   _style={{
-                    width: '100%',
-                    height: 'auto',
-                    bd_px: '0px',
-                    pd_top: '35px',
-                    pd_bottom: '35px',
-                    pd_right: '30px',
-                    ft_size: '20',
-                    line_height: '29',
-                    bg_color: 'transparent',
+                    width: "100%",
+                    height: "auto",
+                    bd_px: "0px",
+                    pd_top: "35px",
+                    pd_bottom: "35px",
+                    pd_right: "30px",
+                    ft_size: "20",
+                    line_height: "29",
+                    bg_color: "transparent",
                   }}
                 ></Input>
               </WithdrawalInputDataBox>

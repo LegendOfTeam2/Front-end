@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MainContainerDiv = styled.div`
   width: 100%;
-  background-color: #eeeceb;
+
   display: flex;
   justify-content: center;
   position: absolute;
@@ -64,6 +64,7 @@ export const BtmProfileImgDiv = styled.div`
   margin-right: auto;
   margin-bottom: 22%;
   position: relative;
+  
 `;
 export const MainArowLeft = styled.div`
   display: flex;

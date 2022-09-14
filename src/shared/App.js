@@ -1,11 +1,11 @@
 // React
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, Fragment } from "react";
 
 // Zustand
 import useMemberStore from "../zustand/member";
 
 // Packages
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 // Pages
 import Search from "../pages/Search";
@@ -16,19 +16,21 @@ import Loading from "../components/Loading";
 // Utils
 import { getCookie } from "../utils/cookie";
 import { useEffect } from "react";
+import PlayerMain from "../components/audioplayer/PlayerMain";
 
 // Pages -Lazy
-const Main = lazy(() => import('../pages/Main'));
-const SignIn = lazy(() => import('../pages/SignIn'));
-const SignUp = lazy(() => import('../pages/SignUp'));
-const MyPage = lazy(() => import('../pages/MyPage'));
-const Write = lazy(() => import('../pages/Write'));
-const SignUpCheck = lazy(() => import('../pages/SignUpCheck'));
-const MyInfoModify = lazy(() => import('../pages/MyInfoModify'))
-const Details = lazy(() => import('../pages/Details'))
-const Withdrawal = lazy(() => import('../pages/Withdrawal'));
-const MorePage = lazy(() => import('../pages/MorePage'))
-const Chat = lazy(() => import('../pages/Chat'))
+const Main = lazy(() => import("../pages/Main"));
+const SignIn = lazy(() => import("../pages/SignIn"));
+const SignUp = lazy(() => import("../pages/SignUp"));
+const MyPage = lazy(() => import("../pages/MyPage"));
+const Write = lazy(() => import("../pages/Write"));
+const ModifyWrite = lazy(() => import("../pages/ModifyWrite"));
+const SignUpCheck = lazy(() => import("../pages/SignUpCheck"));
+const MyInfoModify = lazy(() => import("../pages/MyInfoModify"));
+const Details = lazy(() => import("../pages/Details"));
+const Withdrawal = lazy(() => import("../pages/Withdrawal"));
+const MorePage = lazy(() => import("../pages/MorePage"));
+const Chat = lazy(() => import("../pages/Chat"));
 
 // Utils - Lazy
 const Kakao = lazy(() => import("../utils/kakao"));
@@ -37,6 +39,8 @@ const Google = lazy(() => import("../utils/google"));
 function App() {
   const is_login = useMemberStore((state) => state.is_login);
   const changeLoginStatus = useMemberStore((state) => state.changeLoginStatus);
+
+  let location = useLocation().pathname.split("/")[1];
 
   useEffect(() => {
     if (getCookie("authorization") !== undefined) {
@@ -57,15 +61,33 @@ function App() {
         <Route path='/kakao/callback' element={<Kakao />} />
         <Route path='/google/callback' element={<Google />} />
         <Route path='/write' element={is_login ? <Write /> : <Main />} />
-        <Route path='/myinfomodify' element={is_login ? <MyInfoModify /> : <Main />} />
-        <Route path='/morepage' element={<MorePage />} />
+        <Route
+          path='/ModifyWrite/:position/:postid'
+          element={is_login ? <ModifyWrite /> : <Main />}
+        />
+        <Route
+          path='/myinfomodify'
+          element={is_login ? <MyInfoModify /> : <Main />}
+        />
         <Route path='/search' element={<Search />} />
         <Route path='/details/:position/:postid' element={<Details />} />
-        <Route path='/morepage/:position' element={<MorePage />} />
-        <Route path='/withdrawal' element={is_login ? <Withdrawal /> : <Main />} />
+        <Route path='/morepage/:position/:ctg' element={<MorePage />} />
+        <Route
+          path='/withdrawal'
+          element={is_login ? <Withdrawal /> : <Main />}
+        />
         <Route path='/chat' element={<Chat />} />
         <Route path='*' element={<Main />} />
       </Routes>
+      {location === "" ||
+      location === "details" ||
+      location === "search" ||
+      location === "morepage" ||
+      location === "mypage" ? (
+        <PlayerMain />
+      ) : (
+        <Fragment></Fragment>
+      )}
     </Suspense>
   );
 }

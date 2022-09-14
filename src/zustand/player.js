@@ -3,6 +3,8 @@ import create from 'zustand';
 
 const usePlayerStore = create((set) => ({
   viewState: false,
+  playing: false,
+  isAutoplay: false,
   playList: [],
   currentSong: {},
   viewStateChange: (state) => {
@@ -18,7 +20,16 @@ const usePlayerStore = create((set) => ({
   },
   setCurrentSong : (payload) => {
     set({currentSong: payload});
+  },
+
+  setPlaying : (payload) => {
+    set({playing: payload});
+  },
+
+  setIsAutoplay : (payload) => {
+    set({isAutoplay: payload});
   }
+
 }));
 
 export default usePlayerStore;

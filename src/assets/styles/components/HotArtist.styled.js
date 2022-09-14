@@ -27,6 +27,9 @@ export const MainProfileimg = styled.img`
   width: 63px;
   height: 63px;
   border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const BtmTextDivDivDiv = styled.div`

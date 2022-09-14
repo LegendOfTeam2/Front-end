@@ -24,6 +24,7 @@ import usePlayerStore from "../zustand/player";
 import useLikeStore from "../zustand/like";
 import { getCookie } from "../utils/cookie";
 import { useNavigate } from "react-router-dom";
+import useMemberStore from "../zustand/member";
 const Post = ({
   postId,
   position,
@@ -38,15 +39,20 @@ const Post = ({
   const [isLike, setIsLike] = useState(likeState);
 
   const likeCountRef = useRef();
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
 
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const addLike = useLikeStore((state) => state.addLike);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
 
   const Play = () => {
     viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
     addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
   };
 
@@ -57,27 +63,36 @@ const Post = ({
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
           setIsLike(true);
-          likeCountRef.current.innerText = likes + 1
+          likeCountRef.current.innerText = likes + 1;
         } else {
           setIsLike(false);
-          likeCountRef.current.innerText = likes - 1
+          likeCountRef.current.innerText = likes - 1;
         }
       });
     }
   };
 
   const goToDetail = () => {
-    navigate(`/details/${position}/${postId}`);
-  }
-
-  
+    console.log(position);
+    if(position === "singer"){
+      position =  "Singer";
+    }else if(position === "maker"){
+      position = "Maker";
+    }else{
+      navigate(`/details/${position}/${postId}`);
+    }
+  };
   return (
     <MyImgDivDiv>
-      <Myimg src={imageUrl} alt='' />
+      <Myimg src={ imageUrl === null
+            ? profileImgArr[random]
+            : imageUrl === ""
+            ? profileImgArr[random]
+            : imageUrl} alt='' />
       <ImgMyBtmRight>
         <ImgNotSlideSpan>{nickname}</ImgNotSlideSpan>
       </ImgMyBtmRight>
-      <MyImgTopLeft  onClick={goToDetail} >{title}</MyImgTopLeft>
+      <MyImgTopLeft onClick={goToDetail}>{title}</MyImgTopLeft>
       <DisMyImgTopRight>
         {collaborate ? <img src={Collaborate} alt='콜라보' /> : <></>}
       </DisMyImgTopRight>

@@ -1,10 +1,8 @@
 // React
 import { useState, useRef, Fragment, useCallback, useEffect } from "react";
-
 // Zustand
 import useUploadStore from "../zustand/upload";
-import usePostStore from "../zustand/post";
-
+import useDetailStore from "../zustand/details";
 // Packages
 import { GrClose, GrAdd } from "react-icons/gr";
 import { ImHeadphones } from "react-icons/im";
@@ -13,18 +11,15 @@ import { SiBeatsbydre } from "react-icons/si";
 import { BsFillFileEarmarkMusicFill } from "react-icons/bs";
 import shortid from "shortid";
 import jwt_decode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getCookie } from "../utils/cookie";
-
 // Components
 import UploadImage from "../components/UploadImage";
 import HashTagWithIcon from "../components/HashTagWithIcon";
 import WriteModal from "../components/modal/WriteModal";
-
 // Elements
 import Input from "../elements/Input";
 import Button from "../elements/Button";
-
 // Essets
 import {
   WriteContainer,
@@ -67,21 +62,23 @@ import {
   WriteButtonContainer,
 } from "../assets/styles/pages/Write.styled";
 
-const Write = () => {
-  const [title, setTitle] = useState("");
-  const [lyrics, setLyrics] = useState("");
-  const [intro, setIntro] = useState("");
+const ModifyWrite = () => {
+  const uploadAudio = useUploadStore((state) => state.uploadAudio);
+  const getDetail = useDetailStore((state) => state.getDetail);
+  const detailList = useDetailStore((state) => state.detailList);
+  const detailListLoaded = useDetailStore((state) => state.detailListLoaded);
+  const putModifyWrite = useDetailStore((state) => state.putModifyWrite);
+
+  const [title, setTitle] = useState(detailList.title);
+  const [lyrics, setLyrics] = useState(detailList.lyrics);
+  const [intro, setIntro] = useState(detailList.content);
   const [image, setImage] = useState("");
-  const [imageSrc, setImageSrc] = useState("");
-  const [audio, setAudio] = useState("");
+  const [imageSrc, setImageSrc] = useState(detailList.imageUrl);
+  const [audio, setAudio] = useState(detailList.mediaUrl);
   const [tags, setTags] = useState([]);
   const [collaborate, setCollaborate] = useState(false);
   const [position, setPosition] = useState("");
   const [isOpen, setOpen] = useState(false);
-
-  const navigate = useNavigate();
-  const uploadAudio = useUploadStore((state) => state.uploadAudio);
-  const addPost = usePostStore((state) => state.addPost);
 
   const collaboBoxRef = useRef();
   const collaboTextRef = useRef();
@@ -97,7 +94,11 @@ const Write = () => {
   const audioNameRef = useRef();
   const audioSizeRef = useRef();
 
+  const Params = useParams();
+  const navigate = useNavigate();
+
   const newPost = {
+    postId: Params.postid,
     position,
     title,
     content: intro,
@@ -125,6 +126,15 @@ const Write = () => {
     if (intro !== "") introIconRef.current.style.display = "block";
     else introIconRef.current.style.display = "none";
   }, [title, lyrics, intro]);
+
+  useEffect(() => {
+    getDetail(Params);
+    if (detailListLoaded) {
+      setTitle(detailList.title);
+      setLyrics(detailList.lyrics);
+      setIntro(detailList.content);
+    }
+  }, []);
 
   const deleteText = useCallback(
     (state) => {
@@ -294,7 +304,7 @@ const Write = () => {
         alert("포지션을 선택해주세요.");
       } else {
         console.log(newPost);
-        addPost(newPost).then((res) => {
+        putModifyWrite(newPost).then((res) => {
           navigate("/");
         });
       }
@@ -491,7 +501,7 @@ const Write = () => {
           <WriteButtonContainer>
             <Button
               _type={"submit"}
-              _text={"업로드"}
+              _text={"게시글 수정"}
               _style={{
                 bd_radius: "5px",
                 width: "124px",
@@ -510,4 +520,4 @@ const Write = () => {
   );
 };
 
-export default Write;
+export default ModifyWrite;

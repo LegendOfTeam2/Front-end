@@ -26,7 +26,8 @@ export const SignInBoxMain = styled.div`
   width: 470px;
   height: auto;
   border-radius: 30px 0 0 30px;
-  box-shadow: 1px 1px 20px 5px grey;
+  border: 1px solid rgba(40, 202, 124, 1);
+  border-right: none;
   @media ${(props) => props.theme.device.desktopL} {
     width: 420px;
   }
@@ -48,6 +49,16 @@ export const SignInBoxIntroTop = styled.span`
   width: 100%;
   height: auto;
   text-align: center;
+  color: rgba(40, 202, 124, 1);
+`;
+
+export const SignInBoxIntroTopRegularSpan = styled.span`
+  line-height: ${(props) => props.theme.lineHeight.xxxl};
+  font-weight: ${(props) => props.theme.fontWeight.Regular};
+  font-size: ${(props) => props.theme.fontSizes.xxxl};
+`;
+
+export const SignInBoxIntroTopBoldSpan = styled.span`
   line-height: ${(props) => props.theme.lineHeight.xxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.xxxl};
@@ -55,6 +66,7 @@ export const SignInBoxIntroTop = styled.span`
 export const SignInBoxIntroBottom = styled.span`
   width: 100%;
   height: auto;
+  color: rgba(40, 202, 124, 1);
   text-align: center;
   line-height: ${(props) => props.theme.lineHeight.xxs};
   font-size: ${(props) => props.theme.fontSizes.xs};
@@ -254,20 +266,18 @@ export const SignInBoxSocialBoxSocialGroup = styled.div`
   justify-content: center;
   align-items: center;
   .icon-kakao {
-    width: 50px;
-    height: 50px;
-    background-color: #fee500;
-    border-radius: 10px;
-    box-shadow: 1px 1px 5px 1px grey;
+    background-color: #FEE500;
+    border-radius: 50%;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
     &:hover {
       cursor: pointer;
     }
   }
   .icon-google {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    box-shadow: 1px 1px 5px 1px grey;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
     &:hover {
       cursor: pointer;
     }
@@ -295,8 +305,9 @@ export const SignInBoxCover = styled.div`
   background-image: url(${(props) => props.bg_img_lg});
   background-size: cover;
   background-repeat: no-repeat;
+  border: 1px solid rgba(40, 202, 124, 1);
+  border-left: none;
   border-radius: 0 30px 30px 0;
-  box-shadow: 1px 1px 20px 5px grey;
   @media ${(props) => props.theme.device.desktopL} {
     background-image: url(${(props) => props.bg_img_sm});
     width: 441px;

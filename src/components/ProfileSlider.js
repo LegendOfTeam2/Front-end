@@ -23,9 +23,15 @@ import {
   ProfileTextNew,
   ProfileTextSingMakeDiv,
 } from "../assets/styles/components/ProfileSlider.styled";
+import { useNavigate } from "react-router-dom";
 
-const ProfileSlider = ({postList, name}) => {
+const ProfileSlider = ({ postList, name, position,ctg }) => {
   const sliderRef = useRef();
+  const navigate = useNavigate();
+
+  const goToPosition = () => {
+    navigate(`/morepage/${position}/${ctg}`);
+  };
 
   const settings = {
     className: "center",
@@ -37,6 +43,7 @@ const ProfileSlider = ({postList, name}) => {
     ref: sliderRef,
     slideToScroll: 1,
     draggable: true,
+    initialSlide: 2,
   };
   return (
     <Fragment>
@@ -46,7 +53,7 @@ const ProfileSlider = ({postList, name}) => {
             <ProfileTextDiv>
               <ProfileTextNew>{name}</ProfileTextNew>
               <ProfileTextSingMakeDiv>
-                <ProfileTextMake>더보기</ProfileTextMake>
+                <ProfileTextMake onClick={goToPosition}>더보기</ProfileTextMake>
               </ProfileTextSingMakeDiv>
             </ProfileTextDiv>
             <ArowLeft>
@@ -59,7 +66,10 @@ const ProfileSlider = ({postList, name}) => {
             </ArowLeft>
             <Slider {...settings}>
               {postList.map((x) => (
-                  <PostSlider width='167' height='167' key={x.postId}
+                <PostSlider
+                  width='167'
+                  height='167'
+                  key={x.postId}
                   imageUrl={x.imageUrl.imageUrl}
                   likes={x.likes}
                   nickname={x.nickname}
@@ -67,8 +77,9 @@ const ProfileSlider = ({postList, name}) => {
                   collaborate={x.collaborate}
                   mediaUrl={x.mediaUrl.mediaUrl}
                   postId={x.postId}
-                  position={x.position} />
-                ))}
+                  position={x.position}
+                />
+              ))}
             </Slider>
             <ArowRight>
               <MdOutlineArrowForwardIos

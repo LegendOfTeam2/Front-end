@@ -7,6 +7,8 @@ import Button from "../elements/Button";
 // Utils
 import { getCookie } from "../utils/cookie";
 
+// Packages
+import jwt_decode from 'jwt-decode';
 // Assets
 import {
   BtmBunDiv,
@@ -19,22 +21,40 @@ import {
   HotArtistImgDivDiv,
   MainProfileimg,
 } from "../assets/styles/components/HotArtist.styled";
+import useMemberStore from "../zustand/member";
+import { useNavigate } from "react-router-dom";
 
-const HotArtist = ({nickname, follower}) => {
+const HotArtist = ({nickname, follower,imageUrl}) => {
   const follow = useFollowStore((state) => state.follow);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
+
+  const navigate = useNavigate();
 
   const onHandleFollow = () => {
     if(getCookie('authorization') !== undefined) follow(nickname);
     else alert('로그인 후에 이용 가능합니다.');
   }
 
+  const ProfilPage = () => {
+      navigate(`/mypage/${nickname}`);
+  };
+
   return (
     <HotArtistImgDivDiv>
       <BtmProfileDivDiv>
         <BtmProfileDivDivDiv>
           <MainProfileimg
-            src='https://blog.kakaocdn.net/dn/bRSp9b/btqDbkIMBLv/uFGktm4owJCRMMsXkQBgKk/img.jpg'
+            src={
+              imageUrl === null
+            ? profileImgArr[random]
+            : imageUrl === ""
+            ? profileImgArr[random]
+            : imageUrl
+            }
             alt=''
+
+            onClick={ProfilPage}
           />
         </BtmProfileDivDivDiv>
         <BtmTextDivDivDiv>
