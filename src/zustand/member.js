@@ -108,7 +108,7 @@ const useMemberStore = create((set) => ({
     }
   },
   getMyImage: async (payload) => {
-
+    console.log(payload);
     const resData = await getMyImageApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
