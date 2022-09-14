@@ -16,7 +16,7 @@ export const WriteBox = styled.div`
   justify-content: center;
   position: relative;
   border-radius: 30px;
-  box-shadow: 1px 1px 20px 5px grey;
+  border: 1px solid rgba(40, 202, 124, 1) ;
   background-color: #ffffff;
 `;
 export const WriteIconContainer = styled.div`

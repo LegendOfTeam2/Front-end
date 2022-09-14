@@ -11,7 +11,7 @@ export const BackgroundCover = styled.div`
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: #eeeceb;
+  background-color: white;
   z-index: -1;
 `;
 export const SearchBox = styled.div`
@@ -35,6 +35,7 @@ export const SearchNaviIconBox = styled.div`
   .icon {
     width: 35px;
     height: 35px;
+    color: rgba(40, 202, 124, 1);
   }
   &:hover {
     cursor: pointer;
@@ -45,7 +46,7 @@ export const SearchNaviTitle = styled.span`
   width: auto;
   height: auto;
   top: 50%;
-  left: 90px;
+  left: 450px;
   transform: translateY(-50%);
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.xxxxl};
@@ -55,7 +56,7 @@ export const SearchNaviGroup = styled.div`
   width: auto;
   height: 100%;
   position: absolute;
-  left: 238px;
+  right: 12px;
   display: flex;
   align-items: center;
   color: #b4b4b4;

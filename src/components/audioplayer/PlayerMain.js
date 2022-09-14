@@ -1,11 +1,9 @@
 // React
 import { useState, useRef, useEffect, useCallback, memo } from "react";
-
 // Zustand
 import usePlayerStore from "../../zustand/player";
 // Components
 import Player from "./Player";
-
 // Assests
 import {
   DisRepeated,
@@ -66,16 +64,17 @@ function PlayerMain() {
   const [isRandom, setIsRandom] = useState(false);
 
   const audioRef = useRef();
-  
+
   const onChange = (e) => {
     const audio = audioRef.current;
     audio.currentTime = (audio.duration / 100) * e.target.value;
     setPercentage(e.target.value);
   };
-  
+
   useEffect(() => {
     if (viewState) {
       setPlaying(true);
+      setIsAutoplay(true);
       if (playing) {
         setPlaying(true);
         setIsAutoplay(true);
@@ -84,7 +83,7 @@ function PlayerMain() {
         setPlaying(false);
       }
     }
-  }, [viewState, playing]);
+  }, [viewState, playing, setPlaying, setIsAutoplay]);
   useEffect(() => {
     const audioEnd = audioRef.current.ended;
     const index = playList.indexOf(playList[0]); // 0

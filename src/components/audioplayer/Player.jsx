@@ -1,5 +1,5 @@
 // React
-import { useEffect, useRef, memo , useState } from "react";
+import { useEffect, useRef, memo, useState } from "react";
 // Assests
 import {
   ProgressBarCover,

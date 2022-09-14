@@ -16,6 +16,7 @@ import {
   DisLike,
   OnPlay,
   Like24,
+  Collaborate,
 } from "../assets/images/image";
 import {
   ImgBtmLeft,
@@ -30,6 +31,7 @@ import {
   ImgBtmLeftDivSapn,
   DisImgTopRight,
 } from "../assets/styles/components/PostSlide.styled";
+import useMemberStore from "../zustand/member";
 const PostSlider = ({
   postId,
   position,
@@ -49,6 +51,8 @@ const PostSlider = ({
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
   const addLike = useLikeStore((state) => state.addLike);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
 
   const likeCountRef = useRef();
   const navigate = useNavigate();
@@ -57,7 +61,15 @@ const PostSlider = ({
     viewStateChange(true);
     setPlaying(true);
     setIsAutoplay(true);
-    addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
+    addPlayList({
+      postId,
+      title,
+      nickname,
+      mediaUrl,
+      imageUrl,
+      position,
+      collaborate,
+    });
   };
 
   const LikeClick = () => {
@@ -79,19 +91,28 @@ const PostSlider = ({
   const goToDetail = () => {
     navigate(`/details/${position}/${postId}`);
   };
-
   return (
     <ProfileImgDivDiv>
-      <Profileimg src={imageUrl} alt='' />
+      <Profileimg
+        src={
+          imageUrl === null
+            ? profileImgArr[random]
+            : imageUrl === ""
+            ? profileImgArr[random]
+            : imageUrl
+        }
+        alt=''
+      />
       <ImgMainBtmRight>
         <ImgMainSpan>{nickname}</ImgMainSpan>
       </ImgMainBtmRight>
       <ImgTopLeft onClick={goToDetail}>{title}</ImgTopLeft>
+
       <DisImgTopRight>
-        <img src={DisCollaboration} alt='콜라보' />
+        {collaborate ? <img src={Collaborate} alt='콜라보' /> : <></>}
       </DisImgTopRight>
       <ImgTopRight>
-        <img src={DisCollaboration} alt='콜라보' />
+        {collaborate ? <img src={Collaborate} alt='콜라보' /> : <></>}
       </ImgTopRight>
       <ImgBtmLeft>
         <ImgBtmLeftDiv>

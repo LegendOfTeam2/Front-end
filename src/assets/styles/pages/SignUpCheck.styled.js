@@ -17,7 +17,7 @@ export const UpInBox = styled.div`
   flex-direction: column;
   padding: 43px;
   border-radius: 30px;
-  box-shadow: 1px 1px 20px 5px grey;
+  border: 1px solid rgba(40, 202, 124, 1);
   background-color: #ffffff;
   position: relative;
   @media ${(props) => props.theme.device.desktopL} {
@@ -79,6 +79,7 @@ export const UpTopTextSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xxxl};
   line-height: ${(props) => props.theme.lineHeight.xxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
+  color: rgba(40, 202, 124, 1);
 `;
 export const UpTopBtmDiv = styled.div`
   width: 100%;

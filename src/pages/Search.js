@@ -1,16 +1,16 @@
 // React
-import { Fragment, useEffect, useState, useRef } from 'react';
+import { Fragment, useEffect, useState, useRef } from "react";
 
 // Zustand
-import useSearchStore from '../zustand/search';
+import useSearchStore from "../zustand/search";
 
 // Packages
-import { MdOutlineArrowBackIosNew } from 'react-icons/md';
-import PostBig from '../components/PostBig';
-import { useParams, useNavigate } from 'react-router-dom';
+import { MdOutlineArrowBackIosNew } from "react-icons/md";
+import PostBig from "../components/PostBig";
+import { useNavigate } from "react-router-dom";
 
 // Components
-import Header from '../components/Header';
+import Header from "../components/Header";
 
 // Assets
 import {
@@ -38,12 +38,11 @@ import {
   SearchNoDataNoticeText,
   SearchNoDataLogo,
   SearchNoDataLogoImg,
-} from '../assets/styles/pages/Search.styled';
-import { ErrorLogo } from '../assets/images/image';
-import PlayerMain from '../components/audioplayer/PlayerMain';
+} from "../assets/styles/pages/Search.styled";
+import { ErrorLogo } from "../assets/images/image";
 
 const Search = () => {
-  const [category, setCategory] = useState('Singer');
+  const [category, setCategory] = useState("Singer");
   const singerNaviRef = useRef();
   const makerNaviRef = useRef();
   const navigate = useNavigate();
@@ -61,16 +60,16 @@ const Search = () => {
 
   const onHandleSearchCategory = (category) => {
     switch (category) {
-      case 'Singer': {
-        setCategory('Singer');
-        singerNaviRef.current.style.color = 'black';
-        makerNaviRef.current.style.color = '#b4b4b4';
+      case "Singer": {
+        setCategory("Singer");
+        singerNaviRef.current.style.color = "rgba(40, 202, 124, 1)";
+        makerNaviRef.current.style.color = "#b4b4b4";
         break;
       }
-      case 'Maker': {
-        setCategory('Maker');
-        makerNaviRef.current.style.color = 'black';
-        singerNaviRef.current.style.color = '#b4b4b4';
+      case "Maker": {
+        setCategory("Maker");
+        makerNaviRef.current.style.color = "rgba(40, 202, 124, 1)";
+        singerNaviRef.current.style.color = "#b4b4b4";
         break;
       }
       default: {
@@ -78,11 +77,11 @@ const Search = () => {
       }
     }
   };
-  
+
   useEffect(() => {
-    if (keyword !== '') {
-      searchKeyword(keyword, 'Singer');
-      searchKeyword(keyword, 'Maker');
+    if (keyword !== "") {
+      searchKeyword(keyword, "Singer");
+      searchKeyword(keyword, "Maker");
     }
   }, [keyword]);
 
@@ -99,8 +98,8 @@ const Search = () => {
           <SearchNaviGroup>
             <SearchNavi
               className='search'
-              style={{ color: 'black' }}
-              onClick={() => onHandleSearchCategory('Singer')}
+              style={{ color: "rgba(40, 202, 124, 1)" }}
+              onClick={() => onHandleSearchCategory("Singer")}
               ref={singerNaviRef}
             >
               싱어({singerSearchIsLoaded ? singerSearchList.length : 0})
@@ -108,7 +107,7 @@ const Search = () => {
             <SearchNaviVertical>|</SearchNaviVertical>
             <SearchNavi
               className='maker'
-              onClick={() => onHandleSearchCategory('Maker')}
+              onClick={() => onHandleSearchCategory("Maker")}
               ref={makerNaviRef}
             >
               메이커({makerSearchIsLoaded ? makerSearchList.length : 0})
@@ -117,7 +116,7 @@ const Search = () => {
         </SearchNaviContainer>
         <SearchInfo>
           <SearchInfoBox>
-            {category === 'Singer' ? (
+            {category === "Singer" ? (
               singerSearchList.length !== 0 ? (
                 <Fragment>
                   <SearchInfoNickname>{keyword}</SearchInfoNickname>
@@ -136,7 +135,7 @@ const Search = () => {
             )}
           </SearchInfoBox>
         </SearchInfo>
-        {category === 'Singer' ? (
+        {category === "Singer" ? (
           singerSearchIsLoaded ? (
             singerSearchList.length !== 0 ? (
               <SearchDataContainer>
@@ -151,7 +150,7 @@ const Search = () => {
                       nickname={singer.nickname}
                       collaborate={singer.collaborate}
                       title={singer.title}
-                      position={'singer'}
+                      position={"singer"}
                     ></PostBig>
                   );
                 })}
@@ -201,7 +200,7 @@ const Search = () => {
                     nickname={maker.nickname}
                     collaborate={maker.collaborate}
                     title={maker.title}
-                    position={'maker'}
+                    position={"maker"}
                   ></PostBig>
                 );
               })}

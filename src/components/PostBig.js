@@ -12,12 +12,14 @@ import {
   DisBigMyImgTopRight,
 } from "../assets/styles/components/PsotBig.styled";
 import {
-  DisCollaboration40,
+  Collaboration44,
   DisLike40,
   OnPlay60,
 } from "../assets/images/image";
 import { memo } from "react";
 import usePlayerStore from "../zustand/player";
+import { useNavigate } from "react-router-dom";
+import useMemberStore from "../zustand/member";
 
 const PostBig = ({
   postId,
@@ -33,7 +35,10 @@ const PostBig = ({
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
-
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
+  const navigate = useNavigate();
+  
   const Play = () => {
     viewStateChange(true);
     setPlaying(true);
@@ -41,18 +46,33 @@ const PostBig = ({
     addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
   };
 
+  const goToDetail = () => {
+    console.log(position);
+    if(position === "singer"){
+      position =  "Singer";
+    }else if(position === "maker"){
+      position = "Maker";
+    }else{
+      navigate(`/details/${position}/${postId}`);
+    }
+  };
+  console.log(mediaUrl);
   return (
     <BigMyImgDivDiv>
-      <BigMyimg src={imageUrl} alt='' />
+      <BigMyimg src={imageUrl === null
+            ? profileImgArr[random]
+            : imageUrl === ""
+            ? profileImgArr[random]
+            : imageUrl} alt='' />
       <BigImgMyBtmRight>
         <BigImgNotSlideSpan>{nickname}</BigImgNotSlideSpan>
       </BigImgMyBtmRight>
-      <BigMyImgTopLeft>{title}</BigMyImgTopLeft>
+      <BigMyImgTopLeft onClick={goToDetail}>{title}</BigMyImgTopLeft>
       <DisBigMyImgTopRight>
-        {collaborate ? <img src={DisCollaboration40} alt='콜라보' /> : <></>}
+        {collaborate ? <img src={Collaboration44} alt='콜라보' /> : <></>}
       </DisBigMyImgTopRight>
       <BigMyImgTopRight>
-        {collaborate ? <img src={DisCollaboration40} alt='콜라보' /> : <></>}
+        {collaborate ? <img src={Collaboration44} alt='콜라보' /> : <></>}
       </BigMyImgTopRight>
       <BigMyImgBtmLeft>
         <BigMyImgBtmLeftDiv>

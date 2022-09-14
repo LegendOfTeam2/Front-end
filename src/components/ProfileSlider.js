@@ -25,12 +25,12 @@ import {
 } from "../assets/styles/components/ProfileSlider.styled";
 import { useNavigate } from "react-router-dom";
 
-const ProfileSlider = ({ postList, name, position }) => {
+const ProfileSlider = ({ postList, name, position,ctg }) => {
   const sliderRef = useRef();
   const navigate = useNavigate();
 
   const goToPosition = () => {
-    navigate(`/morepage/${position}/`);
+    navigate(`/morepage/${position}/${ctg}`);
   };
 
   const settings = {

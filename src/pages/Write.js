@@ -31,15 +31,12 @@ import {
   WriteBox,
   WriteIconContainer,
   WriteCollaboContainer,
-  // WriteCollaboBox,
   WriteCollaboIcon,
   WriteCollaboText,
   WriteSingerContainer,
-  // WriteSingerBox,
   WriteSingerIcon,
   WriteSingerText,
   WriteMakerContainer,
-  // WriteMakerBox,
   WriteMakerIcon,
   WriteMakerText,
   WriteForm,
@@ -362,8 +359,7 @@ const Write = () => {
                 <GrClose className='icon'></GrClose>
               </WriteInputIcon>
               <Input
-                _type=
-                {"text"}
+                _type={"text"}
                 _value={title}
                 _onChange={(e) => setTitle(e.target.value)}
                 _placeholder={"작업물의 제목을 입력해 주세요."}

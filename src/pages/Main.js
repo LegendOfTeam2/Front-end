@@ -1,34 +1,29 @@
 // React
 import { Fragment, useEffect, useRef } from "react";
-
+import { useNavigate } from "react-router-dom";
 // Zustand
 import usePostStore from "../zustand/post";
 import useLikeStore from "../zustand/like";
-
+import usePlayerStore from "../zustand/player";
 // Packages
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import shortId from "shortid";
-import jwt_decode from 'jwt-decode';
-
 // Utils
 import Button from "../elements/Button";
 import { getCookie } from "../utils/cookie";
-
 // Pages
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-
 // Components
 import Header from "../components/Header";
-import PlayerMain from "../components/audioplayer/PlayerMain";
 import ProfileSlider from "../components/ProfileSlider";
 import HotArtist from "../components/HotArtist";
+import Post from "../components/Post";
 // Assests
-import styled from "styled-components";
 import {
   MainProfileSliderGroup,
   BtmProfileImgDiv,
@@ -38,11 +33,9 @@ import {
   BtmProfileTextSingMakeDiv,
   MainArowLeft,
   MainArowRight,
-  MainAudioPlay,
   MainContainer,
   MainContainerDiv,
   MainImgDiv,
-  // MainImgFade,
   MainImgDivBtnDiv,
   MainImgDivDiv,
   MainImgDivDivDiv,
@@ -55,9 +48,6 @@ import {
   DisMainPostImgDiv,
   MainHotArtistWrap,
 } from "../assets/styles/pages/Main.styled";
-import Post from "../components/Post";
-import { useNavigate } from "react-router-dom";
-import usePlayerStore from "../zustand/player";
 
 const Main = () => {
   const sliderRef = useRef();
@@ -125,9 +115,7 @@ const Main = () => {
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
-
   const navigate = useNavigate();
-
   useEffect(() => {
     if (getCookie("authorization") === undefined) {
       getRecentSinger();
@@ -159,31 +147,27 @@ const Main = () => {
   }, []);
 
   const play = () => {
-      viewStateChange(true);
-      setPlaying(true);
-      setIsAutoplay(true);
-      addPlayList({
-        postId: bestSong[0].postId,
-        title: bestSong[0].title,
-        nickname: bestSong[0].nickname,
-        mediaUrl: bestSong[0].mediaUrl.mediaUrl,
-        imageUrl: bestSong[0].imageUrl.imageUrl,
-        position: bestSong[0].position,
-      });
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    addPlayList({
+      postId: bestSong[0].postId,
+      title: bestSong[0].title,
+      nickname: bestSong[0].nickname,
+      mediaUrl: bestSong[0].mediaUrl.mediaUrl,
+      imageUrl: bestSong[0].imageUrl.imageUrl,
+      position: bestSong[0].position,
+    });
   };
 
-
-  const goToSinger = () => {
-    navigate(`/morepage/singer`);
+  const goToSinger = (category) => {
+    navigate(`/morepage/singer/${category}`);
   };
 
-  const goToMaker = () => {
-    navigate(`/morepage/maker`);
+  const goToMaker = (category) => {
+    navigate(`/morepage/maker/${category}`);
   };
-
-
-
-
+  console.log(PowerArtist);
   return (
     <Fragment>
       <Header />
@@ -227,7 +211,7 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>싱어 최신작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake onClick={goToSinger}>
+                      <DisMainPostImgDivMake onClick={()=>goToSinger('new')}>
                         더보기
                       </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
@@ -275,6 +259,7 @@ const Main = () => {
                     position={"singer"}
                     postList={recentSinger}
                     GrandTitle='싱어 최신작품'
+                    ctg='new'
                   />
                 </>
               )
@@ -288,7 +273,7 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>싱어 인기작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake onClick={goToSinger}>
+                      <DisMainPostImgDivMake onClick={()=>goToSinger('popular')}>
                         더보기
                       </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
@@ -336,6 +321,7 @@ const Main = () => {
                     position={"singer"}
                     postList={bestSinger}
                     GrandTitle='싱어 인기작품'
+                    ctg='popular'
                   />
                 </>
               )
@@ -349,7 +335,7 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>메이커 최신작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake onClick={goToMaker}>
+                      <DisMainPostImgDivMake onClick={()=>goToMaker('new')}>
                         더보기
                       </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
@@ -397,6 +383,7 @@ const Main = () => {
                     position={"maker"}
                     postList={recentMaker}
                     GrandTitle='메이커 최신작품'
+                    ctg='new'
                   />
                 </>
               )
@@ -410,7 +397,7 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>메이커 인기작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake onClick={goToMaker}>
+                      <DisMainPostImgDivMake onClick={()=>goToMaker('popular')}>
                         더보기
                       </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
@@ -458,6 +445,7 @@ const Main = () => {
                     position={"maker"}
                     postList={bestMaker}
                     GrandTitle='메이커 인기작품'
+                    ctg='popular'
                   />
                 </>
               )
@@ -470,15 +458,13 @@ const Main = () => {
               <BtmProfileImgDiv>
                 <BtmProfileTextDiv>
                   <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
-                  <BtmProfileTextSingMakeDiv>
-                    <BtmProfileTextMake>더보기</BtmProfileTextMake>
-                  </BtmProfileTextSingMakeDiv>
                 </BtmProfileTextDiv>
                 <MainHotArtistWrap>
                   {PowerArtist.map((x) => (
                     <HotArtist
                       key={x.nickname}
                       nickname={x.nickname}
+                      imageUrl={x.imageUrl}
                       follower={x.follower
                         .toString()
                         .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
@@ -490,9 +476,6 @@ const Main = () => {
               <BtmProfileImgDiv>
                 <BtmProfileTextDiv>
                   <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
-                  <BtmProfileTextSingMakeDiv>
-                    <BtmProfileTextMake>더보기</BtmProfileTextMake>
-                  </BtmProfileTextSingMakeDiv>
                 </BtmProfileTextDiv>
                 <MainArowLeft>
                   <MdOutlineArrowBackIosNew

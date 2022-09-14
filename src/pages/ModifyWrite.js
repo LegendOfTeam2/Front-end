@@ -1,10 +1,8 @@
 // React
 import { useState, useRef, Fragment, useCallback, useEffect } from "react";
-
 // Zustand
 import useUploadStore from "../zustand/upload";
-import usePostStore from "../zustand/post";
-
+import useDetailStore from "../zustand/details";
 // Packages
 import { GrClose, GrAdd } from "react-icons/gr";
 import { ImHeadphones } from "react-icons/im";
@@ -15,31 +13,25 @@ import shortid from "shortid";
 import jwt_decode from "jwt-decode";
 import { useNavigate, useParams } from "react-router-dom";
 import { getCookie } from "../utils/cookie";
-
 // Components
 import UploadImage from "../components/UploadImage";
 import HashTagWithIcon from "../components/HashTagWithIcon";
 import WriteModal from "../components/modal/WriteModal";
-
 // Elements
 import Input from "../elements/Input";
 import Button from "../elements/Button";
-
 // Essets
 import {
   WriteContainer,
   WriteBox,
   WriteIconContainer,
   WriteCollaboContainer,
-  // WriteCollaboBox,
   WriteCollaboIcon,
   WriteCollaboText,
   WriteSingerContainer,
-  // WriteSingerBox,
   WriteSingerIcon,
   WriteSingerText,
   WriteMakerContainer,
-  // WriteMakerBox,
   WriteMakerIcon,
   WriteMakerText,
   WriteForm,
@@ -69,7 +61,6 @@ import {
   WriteHashTagBox,
   WriteButtonContainer,
 } from "../assets/styles/pages/Write.styled";
-import useDetailStore from "../zustand/details";
 
 const ModifyWrite = () => {
   const uploadAudio = useUploadStore((state) => state.uploadAudio);
@@ -107,7 +98,7 @@ const ModifyWrite = () => {
   const navigate = useNavigate();
 
   const newPost = {
-    postid: Params.postid,
+    postId: Params.postid,
     position,
     title,
     content: intro,
