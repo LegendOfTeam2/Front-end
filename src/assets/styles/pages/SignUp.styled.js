@@ -185,7 +185,7 @@ export const SignUpBoxImagePreviewBoxImg = styled.img`
   height: 236px;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 60%;
+  border-radius: 50%;
   background-color: #d9d9d9;
   background-size: contain;
   background-position: center;

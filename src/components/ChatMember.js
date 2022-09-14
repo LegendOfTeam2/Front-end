@@ -7,10 +7,9 @@ const ChatMember = () => {
         <ChatMemberProfileImg></ChatMemberProfileImg>
       </ChatMemberProfileContainer>
       <ChatMemberTextContainer>
-        <ChatMemberTextNickname>Nickname</ChatMemberTextNickname>
+        <ChatMemberTextNickname>닉네임</ChatMemberTextNickname>
         <ChatMemberTextMessage>
-          Hello world!Hello world!Hello world!Hello world!Hello world!Hello
-          world!Hello world!Hello world!Hello world!
+          안녕하세요, 같이 작업 하고 싶어서 콜라보 보내드렸어요!
         </ChatMemberTextMessage>
       </ChatMemberTextContainer>
     </ChatMemberContainer>
