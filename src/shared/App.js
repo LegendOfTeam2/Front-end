@@ -71,7 +71,7 @@ function App() {
         />
         <Route path='/search' element={<Search />} />
         <Route path='/details/:position/:postid' element={<Details />} />
-        <Route path='/morepage/:position' element={<MorePage />} />
+        <Route path='/morepage/:position/:ctg' element={<MorePage />} />
         <Route
           path='/withdrawal'
           element={is_login ? <Withdrawal /> : <Main />}

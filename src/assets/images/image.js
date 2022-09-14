@@ -1,4 +1,4 @@
-import LargeLogo from './LargeLogo.svg';
+import LargeLogo from './largeLogo.svg';
 import HeaderlargeLogo from './HeaderlargeLogo.svg';
 import NextPlay from './NextPlay.svg';
 import DisRepeated from './DisRepeated.svg';
@@ -12,9 +12,8 @@ import OnPlay60 from './OnPlay60.svg';
 import OnPlay96 from './OnPlay96.svg';
 import StopPlay from './StopPlay.svg';
 import Volume from './Volume.svg';
-import DisCollaboration from './DisCollaboration.svg';
 import DisCollaboration38 from './DisCollaboration38.svg';
-import DisCollaboration40 from './DisCollaboration40.svg';
+import Collaboration44 from './Collaboration44.svg';
 import DisLike from './DisLike.svg';
 import DisLike38 from './DisLike38.svg';
 import DisLike40 from './DisLike40.svg';
@@ -38,6 +37,12 @@ import Like24 from './Like24.svg';
 import albumCover_1 from './albumcover/albumCover_1.jpg';
 import albumCover_2 from './albumcover/albumCover_2.jpg';
 import albumCover_3 from './albumcover/albumCover_3.jpg';
+import GooglePhoto from './GooglePhoto.png';
+import KakaoTalkPhoto from './KakaoTalkPhoto.png';
+import ShowPw from './ShowPw.svg';
+import HidePw from './HidePw.svg';
+import Xbox20 from './Xbox20.svg';
+
 
 export {
   albumCover_1,
@@ -55,10 +60,9 @@ export {
   OnPlay,
   StopPlay,
   Volume,
-  DisCollaboration,
   DisLike,
   OnPlay60,
-  DisCollaboration40,
+  Collaboration44,
   DisLike40,
   MutedAll,
   Search,
@@ -79,5 +83,11 @@ export {
   Collaborate,
   Hide,
   Show,
-  Like24
+  Like24,
+  KakaoTalkPhoto,
+  GooglePhoto,
+  ShowPw,
+  HidePw,
+  Xbox20
+  
 };

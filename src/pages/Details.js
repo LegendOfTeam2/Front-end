@@ -3,6 +3,8 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 // Zustand
 import useDetailStore from "../zustand/details";
+import usePlayerStore from "../zustand/player";
+import useMemberStore from "../zustand/member";
 // Packages
 import {
   MdOutlineArrowBackIosNew,
@@ -68,10 +70,6 @@ import {
   PositionMidRighTopTextDiv,
 } from "../assets/styles/pages/Details.styled";
 
-import PlayerMain from "../components/audioplayer/PlayerMain";
-import usePlayerStore from "../zustand/player";
-import useLikeStore from "../zustand/like";
-
 const Details = () => {
   const [lyrics, setLyrics] = useState(false);
   const [introduction, setIntroduction] = useState(false);
@@ -79,14 +77,16 @@ const Details = () => {
   const Params = useParams();
 
   const getDetail = useDetailStore((state) => state.getDetail);
+  const detailListLoaded = useDetailStore((state) => state.detailListLoaded);
   const detailList = useDetailStore((state) => state.detailList);
+  const deleteDetail = useDetailStore((state) => state.deleteDetail);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
 
   const navigate = useNavigate();
-  const copyLinkRef = useRef();
 
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
-  const addLike = useLikeStore((state) => state.addLike);
 
   const goToModify = () => {
     navigate(`/ModifyWrite/${detailList.position}/${Params.postid}`);
@@ -117,7 +117,6 @@ const Details = () => {
 
   const Play = () => {
     viewStateChange(true);
-
     addPlayList({
       postId: detailList.postId,
       title: detailList.title,
@@ -126,7 +125,18 @@ const Details = () => {
       imageUrl: detailList.imageUrl,
       position: detailList.position,
     });
+  };
 
+  const ProfilPage = () => {
+    navigate(`/mypage/${detailList.nickname}`);
+  };
+
+  const deleteDetailClick = () => {
+    deleteDetail({
+      postId: detailList.postId,
+      position: detailList.position,
+      nickname: detailList.nickname,
+    });
   };
 
   return (
@@ -145,8 +155,13 @@ const Details = () => {
               </DetailClickHover>
               <DetailProfileDiv>
                 <DetailProfileImg
-                  src={detailList.memberImageUrl}
+                  src={
+                    detailList.memberImageUrl === null
+                      ? profileImgArr[random]
+                      : detailList.memberImageUrl
+                  }
                   alt='프로필'
+                  onClick={ProfilPage}
                 />
               </DetailProfileDiv>
 
@@ -181,6 +196,7 @@ const Details = () => {
                         ft_size: "12",
                       }}
                       _text={"게시글 삭제"}
+                      _onClick={deleteDetailClick}
                     />
                   </DetailProfileBtnTopDivBtn>
                 ) : (
@@ -207,7 +223,16 @@ const Details = () => {
             </PositionMarkerDiv>
             <PositionMidDiv>
               <PositionMidLeftImgDiv>
-                <PositionMidLeftImg src={detailList.imageUrl} alt='앨범커버' />
+                <PositionMidLeftImg
+                  src={
+                    detailList.imageUrl === null
+                      ? profileImgArr[random]
+                      : detailList.imageUrl === ""
+                      ? profileImgArr[random]
+                      : detailList.imageUrl
+                  }
+                  alt='앨범커버'
+                />
               </PositionMidLeftImgDiv>
               <PositionMidRightDiv>
                 <PositionMidRighTopTextDiv>
@@ -216,10 +241,11 @@ const Details = () => {
                   </PositionMidRighTopLeftTextDiv>
                   <PositionMidRighTopRigtTextDiv>
                     <PositionMidRighTopRightLeftTextSpan>
-                      등록일
+                      등록일:
                     </PositionMidRighTopRightLeftTextSpan>
                     <PositionMidRighTopRightRightTextSpan>
-                      {detailList.createdAt}
+                    {detailListLoaded ? (detailList.createdAt.substr(0, 11)):<></>}
+                      
                     </PositionMidRighTopRightRightTextSpan>
                   </PositionMidRighTopRigtTextDiv>
                 </PositionMidRighTopTextDiv>

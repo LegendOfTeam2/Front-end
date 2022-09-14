@@ -1,26 +1,17 @@
 // React
-
-import { Fragment, useRef, useEffect, useState } from 'react';
-
+import { Fragment, useRef, useEffect, useState } from "react";
 // Zustand
-import useMyPageStore from '../zustand/mypage';
-import useMemberStore from '../zustand/member';
-
+import useMyPageStore from "../zustand/mypage";
+import useMemberStore from "../zustand/member";
 // Packages
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { useNavigate } from 'react-router-dom';
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 // Utils
-import { getCookie } from '../utils/cookie';
-
+import Button from "../elements/Button";
+import { getCookie } from "../utils/cookie";
 // Pages
-import jwt_decode from 'jwt-decode';
-
-// Elements
-import Button from '../elements/Button';
-
+import jwt_decode from "jwt-decode";
 // Components
 import Header from "../components/Header";
 import Post from "../components/Post";
@@ -57,10 +48,9 @@ import {
   MyTagBoxTextSlideDiv,
   MyTagBoxTextSpanSlide,
   MyTextDiv,
-} from '../assets/styles/pages/MyPage.styled';
-import { DisMakerMarke, DisSingerMarker } from '../assets/images/image';
-import { useNavigate, useParams } from 'react-router-dom';
-
+} from "../assets/styles/pages/MyPage.styled";
+import { DisMakerMarke, DisSingerMarker } from "../assets/images/image";
+import { useNavigate, useParams } from "react-router-dom";
 
 const MyPage = () => {
   const [page, setPage] = useState(0);
@@ -76,13 +66,7 @@ const MyPage = () => {
   const getLikePost = useMyPageStore((state) => state.getLikePost);
   const likePost = useMyPageStore((state) => state.likePost);
 
-  const likePostIsLoaded = useMyPageStore((state) => state.likePostIsLoaded);
   const pofilUploadPost = useMyPageStore((state) => state.pofilUploadPost);
-
-  const playListPostIsLoaded = useMyPageStore(
-    (state) => state.playListPostIsLoaded
-  );
-  const setMyProfile = useMyPageStore((state) => state.setMyProfile);
 
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
@@ -168,7 +152,7 @@ const MyPage = () => {
   };
 
   const onHandleModify = () => {
-    navigate('/myinfomodify');
+    navigate("/myinfomodify");
   };
 
   useEffect(() => {
@@ -176,7 +160,7 @@ const MyPage = () => {
     leftRef.current.style.color = "black";
     setLeftREf(true);
   }, []);
-
+  console.log(pofilUploadPost);
   return (
     <Fragment>
       <Header />
@@ -187,7 +171,9 @@ const MyPage = () => {
               <MyleftDiv>
                 <MyleftDivImg
                   src={
-                    profilPost.imageUrl === null
+                      profilPost.imageUrl === null
+                      ? profileImgArr[random]
+                      : profilPost.imageUrl === ""
                       ? profileImgArr[random]
                       : profilPost.imageUrl
                   }
@@ -224,10 +210,8 @@ const MyPage = () => {
                       </MyRightTopBtmDivSpan>
                     </MyRightTopBtmDiv>
                   </MyRightTopDiv>
-
-                  {getCookie('authorization') !== undefined ? (
-                    jwt_decode(getCookie('authorization')).sub !==
-
+                  {getCookie("authorization") !== undefined ? (
+                    jwt_decode(getCookie("authorization")).sub !==
                     profilPost.nickname ? (
                       <MyRightTopButDiv>
                         <Button
@@ -257,23 +241,22 @@ const MyPage = () => {
                       </MyRightTopButDiv>
                     ) : (
                       <MyRightTopButDiv>
-                      <MyRightTopButDivNotMember>
-
-                        <Button
-                          _style={{
-                            width: '122px',
-                            height: '45px',
-                            bg_color: '#28CA7C',
-                            bd_radius: '11px',
-                            color: 'rgba(255, 255, 255, 1)',
-                            ft_size: '12',
-                            ft_weight: '700',
-                          }}
-                          _text={'프로필 수정'}
-                          _onClick={onHandleModify}
-
-                        />
-                      </MyRightTopButDivNotMember>
+                        <MyRightTopButDivNotMember>
+                          {" "}
+                          <Button
+                            _style={{
+                              width: "261px",
+                              height: "45px",
+                              bg_color: "#28CA7C",
+                              bd_radius: "11px",
+                              color: "rgba(255, 255, 255, 1)",
+                              ft_size: "12",
+                              ft_weight: "700",
+                            }}
+                            _text={"프로필 수정"}
+                            _onClick={onHandleModify}
+                          />
+                        </MyRightTopButDivNotMember>
                       </MyRightTopButDiv>
                     )
                   ) : (
@@ -355,8 +338,9 @@ const MyPage = () => {
                   nickname={x.nickname}
                   title={x.title}
                   collaborate={x.collaborate}
-                  mediaUrl={x.mediaUrl.mediaUrl}
+                  mediaUrl={x.mediaUrl}
                   postId={x.postId}
+                  position={x.position}
                 />
               ))}
             </MyTextDiv>
@@ -389,8 +373,9 @@ const MyPage = () => {
                   nickname={x.nickname}
                   title={x.title}
                   collaborate={x.collaborate}
-                  mediaUrl={x.mediaUrl.mediaUrl}
+                  mediaUrl={x.mediaUrl}
                   postId={x.postId}
+                  position={x.position}
                 />
               ))
             ) : (
@@ -406,8 +391,9 @@ const MyPage = () => {
                   nickname={x.nickname}
                   title={x.title}
                   collaborate={x.collaborate}
-                  mediaUrl={x.mediaUrl.mediaUrl}
+                  mediaUrl={x.mediaUrl}
                   postId={x.postId}
+                  position={x.position}
                 />
               ))
             ) : (

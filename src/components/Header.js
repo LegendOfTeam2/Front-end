@@ -1,17 +1,17 @@
 // React
-import { Fragment, useState, useCallback, useEffect } from 'react';
+import { Fragment, useState, useCallback, useEffect } from "react";
 
 //Zustand
 import useMemberStore from "../zustand/member";
 import useSearchStore from "../zustand/search";
 
 // Packages
-import { useNavigate } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 // Elements
-import Button from '../elements/Button';
-import Input from '../elements/Input';
+import Button from "../elements/Button";
+import Input from "../elements/Input";
 
 // Utils
 import { getCookie } from "../utils/cookie";
@@ -29,14 +29,11 @@ import {
   RightDiv,
   SearchDiv,
   SearchIconDiv,
-} from '../assets/styles/components/Header.styled';
-import {
-  HeaderlargeLogo,
-  Search,
-} from '../assets/images/image';
+} from "../assets/styles/components/Header.styled";
+import { HeaderlargeLogo, Search } from "../assets/images/image";
 
 const Header = () => {
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
 
   const setSearchKeyword = useSearchStore((state) => state.setSearchKeyword);
@@ -50,8 +47,8 @@ const Header = () => {
   const random = useMemberStore((state) => state.random);
 
   useEffect(() => {
-    if (getCookie('authorization') !== undefined) {
-      const nickname = jwt_decode(getCookie('authorization')).sub;
+    if (getCookie("authorization") !== undefined) {
+      const nickname = jwt_decode(getCookie("authorization")).sub;
       getMyImage({ nickname });
     }
   }, []);
@@ -82,7 +79,7 @@ const Header = () => {
 
   const onKeyUpSearch = useCallback(
     (e) => {
-      if (e.key === 'Enter') {
+      if (e.key === "Enter") {
         if (e.target.value.length > 0) {
           setSearchKeyword(keyword);
           navigate(`/search`);
@@ -93,12 +90,12 @@ const Header = () => {
   );
 
   const ProfilPage = () => {
-    if (getCookie('authorization') !== undefined) {
-      const nickname = jwt_decode(getCookie('authorization')).sub;
+    if (getCookie("authorization") !== undefined) {
+      const nickname = jwt_decode(getCookie("authorization")).sub;
       navigate(`/mypage/${nickname}`);
     }
   };
-
+  console.log(myProfileImg);
   return (
     <Fragment>
       <HeaderContainerDiv>
@@ -122,7 +119,6 @@ const Header = () => {
                     height: "36px",
                     border: "1px solid black",
                     bd_color: "rgba(40, 202, 124, 1)",
-                    bg_color: "#F4F4F4",
                     bd_radius: "44px",
                     pd_left: "50px",
                   }}
@@ -132,14 +128,16 @@ const Header = () => {
             </LeftDiv>
             <RightDiv>
               <ProfileDiv>
-                {getCookie('authorization') === undefined ? (
+                {getCookie("authorization") === undefined ? (
                   <Fragment></Fragment>
                 ) : myProfileImgIsLoaded ? (
                   <ProfileImg
                     src={
-                      myProfileImg.imgUrl === null
+                      myProfileImg === null
                         ? profileImgArr[random]
-                        : myProfileImg.imgUrl
+                        : myProfileImg === ""
+                        ? profileImgArr[random]
+                        : myProfileImg
                     }
                     alt='프로필'
                     onClick={ProfilPage}
@@ -166,7 +164,7 @@ const Header = () => {
                     _style={{
                       width: "122px",
                       height: "45 px",
-                      bg_color: "rgba(255, 255, 255, 1)",
+                      bg_color: "#F9F9F9",
                       bd_radius: "11px",
                       color: "rgba(0, 0, 0, 1)",
                       ft_size: "12",
@@ -181,7 +179,7 @@ const Header = () => {
                     _style={{
                       width: "122px",
                       height: "45px",
-                      bg_color: "rgba(255, 255, 255, 1)",
+                      bg_color: "#F9F9F9",
                       bd_radius: "11px",
                       color: "rgba(0, 0, 0, 1)",
                       ft_size: "12",

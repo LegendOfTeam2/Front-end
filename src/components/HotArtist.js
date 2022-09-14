@@ -47,8 +47,10 @@ const HotArtist = ({nickname, follower,imageUrl}) => {
           <MainProfileimg
             src={
               imageUrl === null
-                ? profileImgArr[random]
-                : imageUrl
+            ? profileImgArr[random]
+            : imageUrl === ""
+            ? profileImgArr[random]
+            : imageUrl
             }
             alt=''
 

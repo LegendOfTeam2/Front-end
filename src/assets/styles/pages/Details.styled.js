@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const DetailContainerDiv = styled.div`
   width: 100%;
-  background-color: #eeeceb;
   display: flex;
   justify-content: center;
   position: absolute;

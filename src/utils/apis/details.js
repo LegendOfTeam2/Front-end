@@ -9,5 +9,8 @@ export const getDetailApi = (payload) => {
     return api_auth.put(`/auth/post`, payload);
   };
 
+  export const deleteDetailApi = (payload) => {
+    return api_auth.delete(`/auth/post`, payload);
+  };
   
   

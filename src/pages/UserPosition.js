@@ -16,7 +16,6 @@ import {
   UserInBox,
 } from "../assets/styles/pages/UserPosition.styled";
 
-
 const UserPosition = () => {
   return (
     <UserContainer>
