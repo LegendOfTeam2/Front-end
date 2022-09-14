@@ -1,48 +1,68 @@
+// React
 import { Fragment, useState, useEffect } from 'react';
 
+// Packages
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
-
-import Header from '../components/Header';
-import styled from 'styled-components';
+import jwt_decode from 'jwt-decode';
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+
+// Components
+import Header from '../components/Header';
+import Message from '../components/Message';
 import ChatMember from '../components/ChatMember';
+
+// Elements
 import Button from '../elements/Button';
-import jwt_decode from 'jwt-decode';
+
+// Utils
 import { getCookie } from '../utils/cookie';
 
-const SERVER_URL = process.env.REACT_APP_REST_API_IP_TEST;
-let sockJS = new SockJS(`http://${SERVER_URL}/websocket`);
-let stompClient = over(sockJS);
-
+import styled from 'styled-components';
 const Chat = () => {
+  const SERVER_URL = process.env.REACT_APP_REST_API_IP_TEST;
+  const sockJS = new SockJS(`http://${SERVER_URL}/ws/chat`);
+  const stompClient = over(sockJS);
+
   const nickname = jwt_decode(getCookie('authorization')).sub;
 
   const [message, setMessage] = useState('');
   const [contents, setContents] = useState([]);
+  const [roomId, setRoomId] = useState(1);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     stompClient.connect({}, () => {
-      stompClient.subscribe('/topic/roomId', (data) => {
+      stompClient.subscribe(`/topic/chat/room/${roomId}`, (data) => {
         const newMessage = JSON.parse(data.body);
         addMessage(newMessage);
       });
     });
-  }, [contents]);
+  }, []);
 
   const onHandleClick = () => {
-    const newMessage = { nickname, message };
-    stompClient.send('/hello', {}, JSON.stringify(newMessage));
+    const newMessage = { type: 'TALK', roomId, sender: nickname, message };
+    stompClient.send('/app/chat/message', {}, JSON.stringify(newMessage));
     setMessage('');
+  };
+
+  const onHandleEnter = (e) => {
+    if (e.key === 'Enter') {
+      const newMessage = { type: 'TALK', roomId, sender: nickname, message };
+      stompClient.send('/app/chat/message', {}, JSON.stringify(newMessage));
+      setMessage('');
+    }
   };
 
   const addMessage = (message) => {
     setContents((prev) => [...prev, message]);
-    console.log(contents);
   };
+
+  useEffect(() => {
+    console.log(contents);
+  }, [contents]);
 
   return (
     <Fragment>
@@ -74,14 +94,28 @@ const Chat = () => {
                 <ChatDataRoomProfileImg></ChatDataRoomProfileImg>
               </ChatDataRoomProfileBox>
               <ChatDataRoomTextContainer>
-                <ChatDataRoomTextNickname>Nickname</ChatDataRoomTextNickname>
+                <ChatDataRoomTextNickname>닉네임</ChatDataRoomTextNickname>
               </ChatDataRoomTextContainer>
             </ChatDataRoomProfileContainer>
-            <ChatDataRoomMessageContainer></ChatDataRoomMessageContainer>
+            <ChatDataRoomMessageContainer>
+              {contents.map((element, idx) => {
+                let messageState = false;
+                if (nickname === element.sender) messageState = true;
+                return (
+                  <Message
+                    key={idx}
+                    sender={element.sender}
+                    message={element.message}
+                    messageState={messageState}
+                  />
+                );
+              })}
+            </ChatDataRoomMessageContainer>
             <ChatDataRoomInputContainer>
               <ChatDataRoomInput
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                onKeyUp={(e) => onHandleEnter(e)}
               ></ChatDataRoomInput>
               <ChatDataRoomButtonBox>
                 <Button
@@ -214,6 +248,7 @@ export const ChatDataRoomTextNickname = styled.span`
 export const ChatDataRoomMessageContainer = styled.div`
   width: 100%;
   height: 600px;
+  padding: 20px;
   border-bottom: 1px solid #b4b4b4;
   display: flex;
   flex-direction: column;
