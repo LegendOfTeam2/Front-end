@@ -1,13 +1,15 @@
 // React
 
-// Redux
+// Packages
+import jwt_decode from "jwt-decode";
 
 // Package
 import ReactModal from "react-modal";
 
 // Element
 import Button from "../../elements/Button";
-
+// Utils
+import { getCookie } from "../../utils/cookie";
 // styled
 import {
   TextDiv,
@@ -20,6 +22,7 @@ import {
 } from "../../assets/styles/components/modal/Welcome.styled";
 import { WelcomeMsg } from "../../assets/images/image";
 import { useNavigate } from "react-router-dom";
+
 
 const Welcome = ({ isOpen, onCancel }) => {
   const navigate = useNavigate()
@@ -48,7 +51,7 @@ const Welcome = ({ isOpen, onCancel }) => {
       backgroundColor : '#F9F9F9',
     },
   };
-  
+
     
   return (
     <ReactModal isOpen={isOpen} style={customStyles}>
@@ -60,7 +63,7 @@ const Welcome = ({ isOpen, onCancel }) => {
             </div>
           </Topicon>
           <TextDiv>
-            <TextSpan>환영합니다! <TextSpanSpan>yungji_2 님</TextSpanSpan></TextSpan>
+            <TextSpan>환영합니다! <TextSpanSpan> {getCookie("authorization") !== undefined ? (jwt_decode(getCookie("authorization")).sub):(<></>)}</TextSpanSpan></TextSpan>
             <TextSpan>아티스트님의 작품이 기대됩니다!</TextSpan>
           </TextDiv>
           <WlDiv>

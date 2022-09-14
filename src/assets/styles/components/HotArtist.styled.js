@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const HotArtistImgDivDiv = styled.div`
-  width: 100%;
+  width: 167px;
   display: flex;
   position: relative;
   margin-top: 24px;
+  
 `;
 
 export const BtmProfileDivDiv = styled.div`

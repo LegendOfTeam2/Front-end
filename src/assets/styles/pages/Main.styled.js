@@ -212,5 +212,6 @@ export const DisMainPostImgDivImgDiv = styled.div`
 export const MainHotArtistWrap = styled.div`
   display: flex;
   flex-direction: row;
+  gap: 40px;
 `;
 
