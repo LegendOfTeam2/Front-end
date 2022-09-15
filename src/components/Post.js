@@ -11,20 +11,20 @@ import {
   MyImgDivDiv,
   MyImgTopLeft,
   MyImgTopRight,
-} from "../assets/styles/components/Post.styled";
+} from '../assets/styles/components/Post.styled';
 import {
   DisCollaboration,
   Collaborate,
   DisLike,
   OnPlay,
   Like24,
-} from "../assets/images/image";
-import { useState, useRef, memo } from "react";
-import usePlayerStore from "../zustand/player";
-import useLikeStore from "../zustand/like";
-import { getCookie } from "../utils/cookie";
-import { useNavigate } from "react-router-dom";
-import useMemberStore from "../zustand/member";
+} from '../assets/images/image';
+import { useState, useRef, memo } from 'react';
+import usePlayerStore from '../zustand/player';
+import useLikeStore from '../zustand/like';
+import { getCookie } from '../utils/cookie';
+import { useNavigate } from 'react-router-dom';
+import useMemberStore from '../zustand/member';
 const Post = ({
   postId,
   position,
@@ -57,8 +57,8 @@ const Post = ({
   };
 
   const LikeClick = () => {
-    if (getCookie("authorization") === undefined) {
-      alert("로그인 후 이용해 주세요.");
+    if (getCookie('authorization') === undefined) {
+      alert('로그인 후 이용해 주세요.');
       navigate('/signin');
     } else {
       addLike({ postId, position }).then((res) => {
@@ -71,23 +71,27 @@ const Post = ({
     }
   };
 
-
   const goToDetail = () => {
-    if(position === "singer"){
-      position = "Singer";
-    }else if(position === "maker"){
-      position = "Maker";
-    }else{
+    if (position === 'singer') {
+      position = 'Singer';
+    } else if (position === 'maker') {
+      position = 'Maker';
+    } else {
       navigate(`/detail/${position}/${postId}`);
     }
   };
   return (
     <MyImgDivDiv key={postId}>
-      <Myimg src={ imageUrl === null
+      <Myimg
+        src={
+          imageUrl === null
             ? profileImgArr[random]
-            : imageUrl === ""
+            : imageUrl === ''
             ? profileImgArr[random]
-            : imageUrl} alt='' />
+            : imageUrl
+        }
+        alt=''
+      />
       <ImgMyBtmRight>
         <ImgNotSlideSpan>{nickname}</ImgNotSlideSpan>
       </ImgMyBtmRight>

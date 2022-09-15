@@ -16,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
     }
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: #EEECEB;
   }
 `;
 

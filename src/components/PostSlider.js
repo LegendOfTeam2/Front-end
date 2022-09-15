@@ -80,10 +80,8 @@ const PostSlider = ({
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
           setIsLike(true);
-          likeCountRef.current.innerText = likes + 1;
         } else {
           setIsLike(false);
-          likeCountRef.current.innerText = likes - 1;
         }
       });
     }

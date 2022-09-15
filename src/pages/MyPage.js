@@ -164,7 +164,7 @@ const MyPage = () => {
     leftRef.current.style.color = "black";
     setLeftREf(true);
   }, []);
-
+  console.log(profilPost);
   return (
     <Fragment>
       <Header />

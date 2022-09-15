@@ -54,7 +54,7 @@ const PostBig = ({
   const addLike = useLikeStore((state) => state.addLike);
 
   const [isLike, setIsLike] = useState(likeState);
-  const likeCountRef = useRef();
+
 
   const navigate = useNavigate();
 
@@ -72,7 +72,7 @@ const PostBig = ({
     }else if(position === "maker"){
       position = "Maker";
     }else{
-      navigate(`/details/${position}/${postId}`);
+      navigate(`/detail/${position}/${postId}`);
     }
   };
 
@@ -117,8 +117,8 @@ const PostBig = ({
           ) : (
             <img src={DisLike40} alt='좋아요 안한 상태' onClick={LikeClick} />
           )}
-          <BigMyImgBtmLeftspan ref={likeCountRef}>
-            {likeCount}
+          <BigMyImgBtmLeftspan>
+              좋아요
           </BigMyImgBtmLeftspan>
         </BigMyImgBtmLeftDiv>
       </BigMyImgBtmLeft>
