@@ -9,9 +9,9 @@ const useFollowStore = create((set) => ({
     const resData = await followApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-
-    console.log(resData);
-    return resData.data;
+    if(resData?.data.success) {
+      return resData.data.data;
+    }
   },
 }));
 

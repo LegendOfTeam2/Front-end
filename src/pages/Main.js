@@ -1,27 +1,27 @@
 // React
-import { Fragment, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Fragment, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 // Zustand
-import usePostStore from "../zustand/post";
-import useLikeStore from "../zustand/like";
-import usePlayerStore from "../zustand/player";
+import usePostStore from '../zustand/post';
+import useLikeStore from '../zustand/like';
+import usePlayerStore from '../zustand/player';
 // Packages
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 // Utils
-import Button from "../elements/Button";
-import { getCookie } from "../utils/cookie";
+import Button from '../elements/Button';
+import { getCookie } from '../utils/cookie';
 // Pages
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
-} from "react-icons/md";
+} from 'react-icons/md';
 // Components
-import Header from "../components/Header";
-import ProfileSlider from "../components/ProfileSlider";
-import HotArtist from "../components/HotArtist";
-import Post from "../components/Post";
+import Header from '../components/Header';
+import ProfileSlider from '../components/ProfileSlider';
+import HotArtist from '../components/HotArtist';
+import Post from '../components/Post';
 // Assests
 import {
   MainProfileSliderGroup,
@@ -44,29 +44,29 @@ import {
   DisMainPostImgDivMake,
   DisMainPostImgDiv,
   MainHotArtistWrap,
-} from "../assets/styles/pages/Main.styled";
+} from '../assets/styles/pages/Main.styled';
 
 const Main = () => {
   const sliderRef = useRef();
 
   const settings = {
-    className: "center",
+    className: 'center',
     centerMode: true,
     infinite: true,
     autoplay: true,
     autoplaySpeed: 4000,
     slidesToShow: 1,
     arrows: false,
-    centerPadding: "80px",
+    centerPadding: '80px',
   };
   const Btmsettings = {
-    className: "center",
+    className: 'center',
     initialSlide: 2,
     centerMode: true,
     infinite: true,
     slidesToShow: 4,
     arrows: false,
-    centerPadding: "-30px",
+    centerPadding: '-30px',
     draggable: true,
     ref: sliderRef,
   };
@@ -116,7 +116,7 @@ const Main = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (getCookie("authorization") === undefined) {
+    if (getCookie('authorization') === undefined) {
       getRecentSinger();
       getRecentMaker();
       getBestMaker();
@@ -167,7 +167,6 @@ const Main = () => {
     navigate(`/morepage/maker/${category}`);
   };
 
-
   return (
     <Fragment>
       <Header />
@@ -183,17 +182,17 @@ const Main = () => {
                     <MainImgDivBtnDiv>
                       <Button
                         _style={{
-                          width: "140px",
-                          height: "36px",
-                          bg_color: "rgba(255, 255, 255, 1)",
-                          bd_radius: "43px",
-                          color: "rgba(0, 0, 0, 1)",
-                          ft_weight: "700",
-                          ft_size: "12",
-                          bd_px: "1.5px",
-                          bd_color: "transparent",
+                          width: '140px',
+                          height: '36px',
+                          bg_color: 'rgba(255, 255, 255, 1)',
+                          bd_radius: '43px',
+                          color: 'rgba(0, 0, 0, 1)',
+                          ft_weight: '700',
+                          ft_size: '12',
+                          bd_px: '1.5px',
+                          bd_color: 'transparent',
                         }}
-                        _text={"감상하기"}
+                        _text={'감상하기'}
                         _onClick={play}
                       />
                     </MainImgDivBtnDiv>
@@ -211,7 +210,7 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>싱어 최신작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake onClick={()=>goToSinger('new')}>
+                      <DisMainPostImgDivMake onClick={() => goToSinger('new')}>
                         더보기
                       </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
@@ -253,8 +252,8 @@ const Main = () => {
               ) : (
                 <>
                   <ProfileSlider
-                    name={"싱어 최신작품"}
-                    position={"singer"}
+                    name={'싱어 최신작품'}
+                    position={'singer'}
                     postList={recentSinger}
                     GrandTitle='싱어 최신작품'
                     ctg='new'
@@ -271,7 +270,9 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>싱어 인기작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake onClick={()=>goToSinger('popular')}>
+                      <DisMainPostImgDivMake
+                        onClick={() => goToSinger('popular')}
+                      >
                         더보기
                       </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
@@ -313,8 +314,8 @@ const Main = () => {
               ) : (
                 <>
                   <ProfileSlider
-                    name={"싱어 인기작품"}
-                    position={"singer"}
+                    name={'싱어 인기작품'}
+                    position={'singer'}
                     postList={bestSinger}
                     GrandTitle='싱어 인기작품'
                     ctg='popular'
@@ -331,7 +332,7 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>메이커 최신작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake onClick={()=>goToMaker('new')}>
+                      <DisMainPostImgDivMake onClick={() => goToMaker('new')}>
                         더보기
                       </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
@@ -373,8 +374,8 @@ const Main = () => {
               ) : (
                 <>
                   <ProfileSlider
-                    name={"메이커 최신작품"}
-                    position={"maker"}
+                    name={'메이커 최신작품'}
+                    position={'maker'}
                     postList={recentMaker}
                     GrandTitle='메이커 최신작품'
                     ctg='new'
@@ -391,7 +392,9 @@ const Main = () => {
                   <DisMainPostImgDivDiv>
                     <DisMainPostImgDivNew>메이커 인기작품</DisMainPostImgDivNew>
                     <DisMainPostImgDivMakeDiv>
-                      <DisMainPostImgDivMake onClick={()=>goToMaker('popular')}>
+                      <DisMainPostImgDivMake
+                        onClick={() => goToMaker('popular')}
+                      >
                         더보기
                       </DisMainPostImgDivMake>
                     </DisMainPostImgDivMakeDiv>
@@ -433,8 +436,8 @@ const Main = () => {
               ) : (
                 <>
                   <ProfileSlider
-                    name={"메이커 인기작품"}
-                    position={"maker"}
+                    name={'메이커 인기작품'}
+                    position={'maker'}
                     postList={bestMaker}
                     GrandTitle='메이커 인기작품'
                     ctg='popular'
@@ -452,15 +455,31 @@ const Main = () => {
                   <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
                 </BtmProfileTextDiv>
                 <MainHotArtistWrap>
-                  {PowerArtist.map((x) => (
-                    <HotArtist
-                      nickname={x.nickname}
-                      imageUrl={x.imageUrl}
-                      follower={x.follower
-                        .toString()
-                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
-                    />
-                  ))}
+                  {PowerArtist.map((x) => {
+                    if(artistIsFollow.indexOf(x.nickname) < 0) {
+                      return (
+                        <HotArtist
+                          nickname={x.nickname}
+                          imageUrl={x.imageUrl}
+                          follower={x.follower
+                            .toString()
+                            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                          isFollow={false}
+                        />
+                      );
+                    } else {
+                      return (
+                        <HotArtist
+                          nickname={x.nickname}
+                          imageUrl={x.imageUrl}
+                          follower={x.follower
+                            .toString()
+                            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                          isFollow={true}
+                        />
+                      );
+                    }
+                  })}
                 </MainHotArtistWrap>
               </BtmProfileImgDiv>
             ) : (
@@ -477,15 +496,31 @@ const Main = () => {
                   />
                 </MainArowLeft>
                 <Slider {...Btmsettings}>
-                  {PowerArtist.map((x) => (
-                    <HotArtist
-                      nickname={x.nickname}
-                      follower={x.follower
-                        .toString()
-                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
-                      imageUrl={x.imageUrl}
-                    />
-                  ))}
+                  {PowerArtist.map((x) => {
+                    if(artistIsFollow.indexOf(x.nickname) < 0) {
+                      return (
+                        <HotArtist
+                          nickname={x.nickname}
+                          follower={x.follower
+                            .toString()
+                            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                          imageUrl={x.imageUrl}
+                          isFollow={false}
+                        />
+                      );
+                    }  else {
+                      return (
+                        <HotArtist
+                          nickname={x.nickname}
+                          follower={x.follower
+                            .toString()
+                            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                          imageUrl={x.imageUrl}
+                          isFollow={true}
+                        />
+                      );
+                    }
+                  })}
                 </Slider>
                 <MainArowRight>
                   <MdOutlineArrowForwardIos

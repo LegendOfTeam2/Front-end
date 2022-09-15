@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import usePlayerStore from "../zustand/player";
 import useMemberStore from "../zustand/member";
 import usePostStore from '../zustand/post';
+import useLikeStore from '../zustand/like';
 
 // Packages
 import {
@@ -13,11 +14,18 @@ import {
   MdOutlineKeyboardArrowUp,
 } from "react-icons/md";
 import jwt_decode from "jwt-decode";
-// Utils
-import Button from "../elements/Button";
-import { getCookie } from "../utils/cookie";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Components
 import Header from "../components/Header";
+
+// Elements
+import Button from "../elements/Button";
+
+// Utils
+import { getCookie } from "../utils/cookie";
+
 // Assests
 import {
   OnPlay96,
@@ -74,7 +82,7 @@ import {
 const Detail = () => {
   const [lyrics, setLyrics] = useState(false);
   const [introduction, setIntroduction] = useState(false);
-  const [like, setLike] = useState(false);
+  const [isLike, setIsLike] = useState(false);
   const Params = useParams();
 
   const getDetail = usePostStore((state) => state.getDetail);
@@ -87,6 +95,9 @@ const Detail = () => {
   const random = useMemberStore((state) => state.random);
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
+  const addLike = useLikeStore((state) => state.addLike);
+
+  const likeCountRef = useRef();
 
   const navigate = useNavigate();
 
@@ -108,7 +119,32 @@ const Detail = () => {
   };
 
   const onHandelLike = () => {
-    setLike(!like);
+    if (getCookie('authorization') === undefined) {
+      alert('로그인 후 이용해 주세요.');
+      navigate('/signin');
+    } else {
+      addLike({ postId: detailList.postId, position: detailList.position }).then((res) => {
+        if (res.success && res.data) {
+          toast.info('게시글에 좋아요를 눌렀습니다.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1500,
+            draggablePercent: 60,
+            hideProgressBar: true,
+          });
+          setIsLike(true);
+          likeCountRef.current.innerText = Number(likeCountRef.current.innerText) + 1;
+        } else {
+          toast.info('게시글에 좋아요를 취소했습니다.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1500,
+            draggablePercent: 60,
+            hideProgressBar: true,
+          });
+          setIsLike(false);
+          likeCountRef.current.innerText = Number(likeCountRef.current.innerText) - 1;
+        }
+      });
+    }
   };
 
   useEffect(() => {
@@ -152,6 +188,7 @@ const Detail = () => {
   return (
     <Fragment>
       <Header />
+      <ToastContainer />
       <DetailContainerDiv>
         <DetailContainer>
           <DetailTopDiv>
@@ -225,7 +262,7 @@ const Detail = () => {
                   />
                 )
               ) : (
-                <></>
+                <Fragment></Fragment>
               )}
             </DetailProfileBtnTopDiv>
           </DetailTopDiv>
@@ -276,14 +313,13 @@ const Detail = () => {
                 </PositionMidMidTextDiv>
                 <DetailProfileBtmDiv>
                   <DetailProfileBtmFirDiv>
-                    {like ? (
+                    {isLike ? (
                       <DetailClickHover>
-                        {" "}
                         <img
                           src={Like38}
                           onClick={onHandelLike}
                           alt='좋아요'
-                        />{" "}
+                        />
                       </DetailClickHover>
                     ) : (
                       <DetailClickHover>
@@ -294,7 +330,7 @@ const Detail = () => {
                         />
                       </DetailClickHover>
                     )}
-                    <DetailProfileBtmFirSpan>
+                    <DetailProfileBtmFirSpan ref={likeCountRef}>
                       {detailList.likes}
                     </DetailProfileBtmFirSpan>
                   </DetailProfileBtmFirDiv>

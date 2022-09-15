@@ -1,21 +1,21 @@
 // React
-import { Fragment, useRef, useEffect, useState } from "react";
+import { Fragment, useRef, useEffect, useState } from 'react';
 // Zustand
-import useMyPageStore from "../zustand/mypage";
-import useMemberStore from "../zustand/member";
+import useMyPageStore from '../zustand/mypage';
+import useMemberStore from '../zustand/member';
 // Packages
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 // Utils
-import Button from "../elements/Button";
-import { getCookie } from "../utils/cookie";
+import Button from '../elements/Button';
+import { getCookie } from '../utils/cookie';
 // Pages
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 // Components
-import Header from "../components/Header";
-import Post from "../components/Post";
-import PostBig from "../components/PostBig";
+import Header from '../components/Header';
+import Post from '../components/Post';
+import PostBig from '../components/PostBig';
 // Assests
 import {
   MyBtmDataDiv,
@@ -48,10 +48,10 @@ import {
   MyTagBoxTextSlideDiv,
   MyTagBoxTextSpanSlide,
   MyTextDiv,
-} from "../assets/styles/pages/MyPage.styled";
-import { DisMakerMarke, DisSingerMarker } from "../assets/images/image";
-import { useNavigate, useParams } from "react-router-dom";
-import useLikeStore from "../zustand/like";
+} from '../assets/styles/pages/MyPage.styled';
+import { DisMakerMarke, DisSingerMarker } from '../assets/images/image';
+import { useNavigate, useParams } from 'react-router-dom';
+import useLikeStore from '../zustand/like';
 
 const MyPage = () => {
   const [page, setPage] = useState(0);
@@ -105,47 +105,47 @@ const MyPage = () => {
   // }, [page]);
 
   const settings = {
-    className: "center",
+    className: 'center',
     centerMode: true,
-    slidesToShow: 1,
+    slidesToShow: profilPosteIsLoaded ? profilPost.hashtag.length : 0,
     slidesToScroll: 1,
-    centerPadding: "10px",
+    centerPadding: '10px',
     arrows: false,
     variableWidth: true,
   };
 
   const categoryHandle = (state) => {
     switch (state) {
-      case "work": {
-        leftRef.current.style.borderTopColor = "black";
-        midRef.current.style.borderTopColor = "transparent";
-        rightRef.current.style.borderTopColor = "transparent";
-        leftRef.current.style.color = "black";
-        midRef.current.style.color = "rgba(180, 180, 180, 1)";
-        rightRef.current.style.color = "rgba(180, 180, 180, 1)";
+      case 'work': {
+        leftRef.current.style.borderTopColor = 'black';
+        midRef.current.style.borderTopColor = 'transparent';
+        rightRef.current.style.borderTopColor = 'transparent';
+        leftRef.current.style.color = 'black';
+        midRef.current.style.color = 'rgba(180, 180, 180, 1)';
+        rightRef.current.style.color = 'rgba(180, 180, 180, 1)';
         setLeftREf(true);
         setMidref(false);
         break;
       }
-      case "like": {
-        leftRef.current.style.borderTopColor = "transparent";
-        midRef.current.style.borderTopColor = "black";
-        rightRef.current.style.borderTopColor = "transparent";
-        leftRef.current.style.color = "rgba(180, 180, 180, 1)";
-        midRef.current.style.color = "black";
-        rightRef.current.style.color = "rgba(180, 180, 180, 1)";
+      case 'like': {
+        leftRef.current.style.borderTopColor = 'transparent';
+        midRef.current.style.borderTopColor = 'black';
+        rightRef.current.style.borderTopColor = 'transparent';
+        leftRef.current.style.color = 'rgba(180, 180, 180, 1)';
+        midRef.current.style.color = 'black';
+        rightRef.current.style.color = 'rgba(180, 180, 180, 1)';
         setLeftREf(false);
         setMidref(true);
         getLikePost(nickName);
         break;
       }
-      case "save": {
-        leftRef.current.style.borderTopColor = "transparent";
-        midRef.current.style.borderTopColor = "transparent";
-        rightRef.current.style.borderTopColor = "black";
-        leftRef.current.style.color = "rgba(180, 180, 180, 1)";
-        midRef.current.style.color = "rgba(180, 180, 180, 1)";
-        rightRef.current.style.color = "black";
+      case 'save': {
+        leftRef.current.style.borderTopColor = 'transparent';
+        midRef.current.style.borderTopColor = 'transparent';
+        rightRef.current.style.borderTopColor = 'black';
+        leftRef.current.style.color = 'rgba(180, 180, 180, 1)';
+        midRef.current.style.color = 'rgba(180, 180, 180, 1)';
+        rightRef.current.style.color = 'black';
         setLeftREf(false);
         setMidref(false);
         break;
@@ -156,12 +156,12 @@ const MyPage = () => {
   };
 
   const onHandleModify = () => {
-    navigate("/myinfomodify");
+    navigate('/myinfomodify');
   };
 
   useEffect(() => {
-    leftRef.current.style.borderTopColor = "black";
-    leftRef.current.style.color = "black";
+    leftRef.current.style.borderTopColor = 'black';
+    leftRef.current.style.color = 'black';
     setLeftREf(true);
   }, []);
 
@@ -175,9 +175,9 @@ const MyPage = () => {
               <MyleftDiv>
                 <MyleftDivImg
                   src={
-                      profilPost.imageUrl === null
+                    profilPost.imageUrl === null
                       ? profileImgArr[random]
-                      : profilPost.imageUrl === ""
+                      : profilPost.imageUrl === ''
                       ? profileImgArr[random]
                       : profilPost.imageUrl
                   }
@@ -192,7 +192,9 @@ const MyPage = () => {
                   <MyRightTopDiv>
                     <MyRightTopDivSpanDiv>
                       <MyRightTopDivSpan>
-                        {profilPost.nickname}
+                        {profilPosteIsLoaded
+                          ? profilPost.nickname.slice(0, 9)
+                          : profilPost.nickname}
                       </MyRightTopDivSpan>
                     </MyRightTopDivSpanDiv>
                     <img src={DisSingerMarker} backgrond='white' alt='이미지' />
@@ -214,50 +216,51 @@ const MyPage = () => {
                       </MyRightTopBtmDivSpan>
                     </MyRightTopBtmDiv>
                   </MyRightTopDiv>
-                  {getCookie("authorization") !== undefined ? (
-                    jwt_decode(getCookie("authorization")).sub !==
+                  {getCookie('authorization') !== undefined ? (
+                    jwt_decode(getCookie('authorization')).sub !==
                     profilPost.nickname ? (
                       <MyRightTopButDiv>
                         <Button
                           _style={{
-                            width: "122px",
-                            height: "45px",
-                            bg_color: "#E7E7E7",
-                            bd_radius: "11px",
-                            color: "#121212",
-                            ft_size: "12",
-                            ft_weight: "700",
+                            width: '122px',
+                            height: '45px',
+                            bg_color: '#E7E7E7',
+                            bd_radius: '11px',
+                            color: '#121212',
+                            ft_size: '12',
+                            ft_weight: '700',
                           }}
-                          _text={"메세지"}
+                          _text={'메세지'}
+                          _onClick={() => navigate('/chat')}
                         />
                         <Button
                           _style={{
-                            width: "122px",
-                            height: "45px",
-                            bg_color: "#28CA7C",
-                            bd_radius: "11px",
-                            color: "rgba(255, 255, 255, 1)",
-                            ft_size: "12",
-                            ft_weight: "700",
+                            width: '122px',
+                            height: '45px',
+                            bg_color: '#28CA7C',
+                            bd_radius: '11px',
+                            color: 'rgba(255, 255, 255, 1)',
+                            ft_size: '12',
+                            ft_weight: '700',
                           }}
-                          _text={"팔로우"}
+                          _text={'팔로우'}
                         />
                       </MyRightTopButDiv>
                     ) : (
                       <MyRightTopButDiv>
                         <MyRightTopButDivNotMember>
-                          {" "}
+                          {' '}
                           <Button
                             _style={{
-                              width: "261px",
-                              height: "45px",
-                              bg_color: "#28CA7C",
-                              bd_radius: "11px",
-                              color: "rgba(255, 255, 255, 1)",
-                              ft_size: "12",
-                              ft_weight: "700",
+                              width: '261px',
+                              height: '45px',
+                              bg_color: '#28CA7C',
+                              bd_radius: '11px',
+                              color: 'rgba(255, 255, 255, 1)',
+                              ft_size: '12',
+                              ft_weight: '700',
                             }}
-                            _text={"프로필 수정"}
+                            _text={'프로필 수정'}
                             _onClick={onHandleModify}
                           />
                         </MyRightTopButDivNotMember>
@@ -267,27 +270,27 @@ const MyPage = () => {
                     <MyRightTopButDiv>
                       <Button
                         _style={{
-                          width: "122px",
-                          height: "45px",
-                          bg_color: "#E7E7E7",
-                          bd_radius: "11px",
-                          color: "#121212",
-                          ft_size: "12",
-                          ft_weight: "700",
+                          width: '122px',
+                          height: '45px',
+                          bg_color: '#E7E7E7',
+                          bd_radius: '11px',
+                          color: '#121212',
+                          ft_size: '12',
+                          ft_weight: '700',
                         }}
-                        _text={"메세지"}
+                        _text={'메세지'}
                       />
                       <Button
                         _style={{
-                          width: "122px",
-                          height: "45px",
-                          bg_color: "#28CA7C",
-                          bd_radius: "11px",
-                          color: "rgba(255, 255, 255, 1)",
-                          ft_size: "12",
-                          ft_weight: "700",
+                          width: '122px',
+                          height: '45px',
+                          bg_color: '#28CA7C',
+                          bd_radius: '11px',
+                          color: 'rgba(255, 255, 255, 1)',
+                          ft_size: '12',
+                          ft_weight: '700',
                         }}
-                        _text={"팔로우"}
+                        _text={'팔로우'}
                       />
                     </MyRightTopButDiv>
                   )}
@@ -300,6 +303,7 @@ const MyPage = () => {
                           <Fragment></Fragment>
                         ) : (
                           profilPost.hashtag.map((x) => {
+                            console.log(x);
                             return (
                               <MyTagBoxTextSlideDiv>
                                 <MyTagBoxTextSpanSlide>
@@ -318,7 +322,7 @@ const MyPage = () => {
                 <MyRightBtmDiv>
                   <MyRightBtmDivSpan>
                     {profilPost.introduce !== null ? (
-                      <>{profilPost.introduce}</>
+                      <Fragment>{profilPost.introduce}</Fragment>
                     ) : (
                       <Fragment>
                         아직 자기 소개를 작성하지 않았습니다 -ˋˏ * ٩( ◡̉̈ )۶ * ˎˊ-
@@ -351,17 +355,17 @@ const MyPage = () => {
           </MyMidTextDiv>
           <MyBtmTextDiv>
             <MyBtmTextDivDiv ref={leftRef}>
-              <MyBtmDataDiv onClick={() => categoryHandle("work")}>
+              <MyBtmDataDiv onClick={() => categoryHandle('work')}>
                 작업물
               </MyBtmDataDiv>
             </MyBtmTextDivDiv>
             <MyBtmTextDivDiv ref={midRef}>
-              <MyBtmDataDiv onClick={() => categoryHandle("like")}>
+              <MyBtmDataDiv onClick={() => categoryHandle('like')}>
                 좋아요
               </MyBtmDataDiv>
             </MyBtmTextDivDiv>
             <MyBtmTextDivDiv ref={rightRef}>
-              <MyBtmDataDiv onClick={() => categoryHandle("save")}>
+              <MyBtmDataDiv onClick={() => categoryHandle('save')}>
                 보관함
               </MyBtmDataDiv>
             </MyBtmTextDivDiv>

@@ -51,7 +51,12 @@ const usePostStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
-      set({ artistIsFollow: resData.data.data });
+      set((state) => {
+        const followerIdList = resData.data.data.map((element) => {
+          return element.nickname;
+        })
+        return {artistIsFollow: followerIdList};
+      });
       return resData.data.success;
     }
   },

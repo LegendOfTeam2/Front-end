@@ -136,10 +136,12 @@ export const PositionMidRighTopTextDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 13px;
 `;
 
 export const PositionMidRighTopLeftTextDiv = styled.div`
+  max-width: 450px;
   font-size: ${(props) => props.theme.fontSizes.xxxxl};
   line-height: ${(props) => props.theme.lineHeight.xxxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};

@@ -132,11 +132,11 @@ const Header = () => {
                 ) : myProfileImgIsLoaded ? (
                   <ProfileImg
                     src={
-                      myProfileImg.imgUrl === null
+                      myProfileImg === null
                         ? profileImgArr[random]
-                        : myProfileImg.imgUrl === ""
+                        : myProfileImg === ""
                         ? profileImgArr[random]
-                        : myProfileImg.imgUrl
+                        : myProfileImg
                     }
                     alt='프로필'
                     onClick={ProfilPage}
