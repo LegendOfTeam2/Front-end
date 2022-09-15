@@ -257,7 +257,11 @@ export const ChatDataRoomMessageContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  column-gap: 10px;
+  gap: 20px;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 export const ChatDataRoomInputContainer = styled.div`
   width: 100%;

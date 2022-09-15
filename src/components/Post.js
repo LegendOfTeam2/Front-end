@@ -58,7 +58,8 @@ const Post = ({
 
   const LikeClick = () => {
     if (getCookie("authorization") === undefined) {
-      alert("로그인후 이용해주세요");
+      alert("로그인 후 이용해 주세요.");
+      navigate('/signin');
     } else {
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
@@ -73,9 +74,8 @@ const Post = ({
   };
 
   const goToDetail = () => {
-    console.log(position);
     if(position === "singer"){
-      position =  "Singer";
+      position = "Singer";
     }else if(position === "maker"){
       position = "Maker";
     }else{
@@ -106,7 +106,6 @@ const Post = ({
           ) : (
             <img src={DisLike} alt='좋아요 안한 상태' onClick={LikeClick} />
           )}
-
           <MyImgBtmLeftspan ref={likeCountRef}>{likes}</MyImgBtmLeftspan>
         </MyImgBtmLeftDiv>
       </MyImgBtmLeft>
