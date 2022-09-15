@@ -1,3 +1,10 @@
+// React
+import { Fragment } from 'react';
+
+// Packages
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Assets
 import {
   DisMyImgTopRight,
@@ -11,20 +18,20 @@ import {
   MyImgDivDiv,
   MyImgTopLeft,
   MyImgTopRight,
-} from "../assets/styles/components/Post.styled";
+} from '../assets/styles/components/Post.styled';
 import {
   DisCollaboration,
   Collaborate,
   DisLike,
   OnPlay,
   Like24,
-} from "../assets/images/image";
-import { useState, useRef, memo } from "react";
-import usePlayerStore from "../zustand/player";
-import useLikeStore from "../zustand/like";
-import { getCookie } from "../utils/cookie";
-import { useNavigate } from "react-router-dom";
-import useMemberStore from "../zustand/member";
+} from '../assets/images/image';
+import { useState, useRef, memo } from 'react';
+import usePlayerStore from '../zustand/player';
+import useLikeStore from '../zustand/like';
+import { getCookie } from '../utils/cookie';
+import { useNavigate } from 'react-router-dom';
+import useMemberStore from '../zustand/member';
 const Post = ({
   postId,
   position,
@@ -57,39 +64,56 @@ const Post = ({
   };
 
   const LikeClick = () => {
-    if (getCookie("authorization") === undefined) {
-      alert("로그인 후 이용해 주세요.");
+    if (getCookie('authorization') === undefined) {
+      alert('로그인 후 이용해 주세요.');
       navigate('/signin');
     } else {
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
+          toast.info('게시글에 좋아요를 눌렀습니다.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1500,
+            draggablePercent: 60,
+            hideProgressBar: true,
+          });
           setIsLike(true);
         } else {
+          toast.info('게시글에 좋아요를 취소했습니다.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1500,
+            draggablePercent: 60,
+            hideProgressBar: true,
+          });
           setIsLike(false);
         }
       });
     }
   };
 
-
   const goToDetail = () => {
-    if(position === "singer"){
-      position = "Singer";
-    }else if(position === "maker"){
-      position = "Maker";
-    }else{
+    if (position === 'singer') {
+      position = 'Singer';
+    } else if (position === 'maker') {
+      position = 'Maker';
+    } else {
       navigate(`/detail/${position}/${postId}`);
     }
   };
   return (
     <MyImgDivDiv key={postId}>
-      <Myimg src={ imageUrl === null
+      <Myimg
+        src={
+          imageUrl === null
             ? profileImgArr[random]
-            : imageUrl === ""
+            : imageUrl === ''
             ? profileImgArr[random]
-            : imageUrl} alt='' />
+            : imageUrl
+        }
+        alt=''
+      />
+      <ToastContainer />
       <ImgMyBtmRight>
-        <ImgNotSlideSpan>{nickname}</ImgNotSlideSpan>
+        <ImgNotSlideSpan>{nickname.slice(0, 9)}</ImgNotSlideSpan>
       </ImgMyBtmRight>
       <MyImgTopLeft onClick={goToDetail}>{title}</MyImgTopLeft>
       <DisMyImgTopRight>
@@ -105,7 +129,6 @@ const Post = ({
           ) : (
             <img src={DisLike} alt='좋아요 안한 상태' onClick={LikeClick} />
           )}
-
           <MyImgBtmLeftspan>좋아요</MyImgBtmLeftspan>
         </MyImgBtmLeftDiv>
       </MyImgBtmLeft>

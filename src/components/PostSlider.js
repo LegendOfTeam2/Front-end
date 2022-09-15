@@ -1,5 +1,5 @@
 // React
-import { useState, memo, useRef } from "react";
+import { useState, memo, useRef, Fragment } from "react";
 
 // Zustand
 import usePlayerStore from "../zustand/player";
@@ -7,12 +7,13 @@ import useLikeStore from "../zustand/like";
 
 // Packages
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Utils
 import { getCookie } from "../utils/cookie";
 
 import {
-  DisCollaboration,
   DisLike,
   OnPlay,
   Like24,
@@ -54,7 +55,6 @@ const PostSlider = ({
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
-  const likeCountRef = useRef();
   const navigate = useNavigate();
 
   const Play = () => {
@@ -79,11 +79,21 @@ const PostSlider = ({
     } else {
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
+          toast.info('게시글에 좋아요를 눌렀습니다.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1500,
+            draggablePercent: 60,
+            hideProgressBar: true,
+          });
           setIsLike(true);
-          likeCountRef.current.innerText = likes + 1;
         } else {
+          toast.info('게시글에 좋아요를 취소했습니다.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1500,
+            draggablePercent: 60,
+            hideProgressBar: true,
+          });
           setIsLike(false);
-          likeCountRef.current.innerText = likes - 1;
         }
       });
     }
@@ -94,6 +104,7 @@ const PostSlider = ({
   };
   return (
     <ProfileImgDivDiv key={postId}>
+      <ToastContainer />
       <Profileimg
         src={
           imageUrl === null
@@ -105,12 +116,12 @@ const PostSlider = ({
         alt=''
       />
       <ImgMainBtmRight>
-        <ImgMainSpan>{nickname}</ImgMainSpan>
+        <ImgMainSpan>{nickname.slice(0, 9)}</ImgMainSpan>
       </ImgMainBtmRight>
       <ImgTopLeft onClick={goToDetail}>{title}</ImgTopLeft>
 
       <DisImgTopRight>
-        {collaborate ? <img src={Collaborate} alt='콜라보' /> : <></>}
+        {collaborate ? <img src={Collaborate} alt='콜라보' /> : <Fragment></Fragment>}
       </DisImgTopRight>
       <ImgTopRight>
         {collaborate ? <img src={Collaborate} alt='콜라보' /> : <></>}

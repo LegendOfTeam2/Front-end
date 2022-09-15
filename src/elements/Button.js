@@ -1,7 +1,7 @@
 // Style
 import { StyledButton } from '../assets/styles/elements/Button.styled';
 
-const Button = ({ _type, _text, _style, _onClick, _form }) => {
+const Button = ({ _type, _text, _style, _onClick, _form, _ref }) => {
   return (
     <StyledButton
       type={_type}
@@ -26,6 +26,7 @@ const Button = ({ _type, _text, _style, _onClick, _form }) => {
       position={_style?.position}
       line_height={_style.line_height}
       form={_form}
+      ref={_ref}
     >
       {_text}
     </StyledButton>
