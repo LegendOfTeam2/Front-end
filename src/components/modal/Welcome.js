@@ -24,9 +24,9 @@ import { WelcomeMsg } from "../../assets/images/image";
 import { useNavigate } from "react-router-dom";
 
 
-const Welcome = ({ isOpen, onCancel }) => {
+const Welcome = ({ isOpen, onCancel,nickname }) => {
   const navigate = useNavigate()
-
+  
   const handleClickCancel = () => {
     navigate('/signin');
   };
@@ -63,7 +63,7 @@ const Welcome = ({ isOpen, onCancel }) => {
             </div>
           </Topicon>
           <TextDiv>
-            <TextSpan>환영합니다! <TextSpanSpan> {getCookie("authorization") !== undefined ? (jwt_decode(getCookie("authorization")).sub):(<></>)}</TextSpanSpan></TextSpan>
+            <TextSpan>환영합니다! <TextSpanSpan> {nickname}님!</TextSpanSpan></TextSpan>
             <TextSpan>아티스트님의 작품이 기대됩니다!</TextSpan>
           </TextDiv>
           <WlDiv>

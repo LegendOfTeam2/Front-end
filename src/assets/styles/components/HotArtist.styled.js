@@ -13,6 +13,7 @@ export const BtmProfileDivDiv = styled.div`
   height: auto;
   border: 1px solid #cccccc;
   border-radius: 8px;
+  background-color: #F9F9F9;
   display: flex;
   flex-direction: column;
 `;

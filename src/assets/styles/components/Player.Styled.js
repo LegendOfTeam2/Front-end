@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SliderContainer = styled.div`
   --progress-bar-height: 10px;
@@ -7,7 +7,7 @@ export const SliderContainer = styled.div`
   --thumb-width: 20px;
   --thumb-height: 20px;
   ::before {
-    content: "";
+    content: '';
     background-color: white;
     width: 99%;
     height: calc(var(--progress-bar-height) - 1px);
@@ -87,7 +87,7 @@ export const PlayContainerOutDiv = styled.div`
   justify-content: center;
   background-color: rgba(40, 202, 124, 1);
   top: -30px;
-  border-top-left-radius:50%;
+  border-top-left-radius: 50%;
   border-top-right-radius: 50%;
   position: absolute;
   z-index: -2;
@@ -242,6 +242,9 @@ export const IntroduceDiv = styled.div`
 `;
 
 export const TitleSapn = styled.span`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.base};
   font-weight: ${(props) => props.theme.fontWeight.Medium}; ;

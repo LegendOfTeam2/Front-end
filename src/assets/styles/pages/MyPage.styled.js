@@ -16,7 +16,6 @@ export const MyContainer = styled.div`
   display: flex;
   flex-direction: column;
   .center {
-    /* center 모드일때 center 외 속성에게 사용 */
     opacity: 0.8;
     transition: all 300ms ease;
     transform: scale(0.99);
