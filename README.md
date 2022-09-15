@@ -1,5 +1,5 @@
 # Getting Started with Create React App# Mate Runner
-<img height="250" src="/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/MainLogo.jpeg"></img>
+<img height="250" src="https://user-images.githubusercontent.com/108949232/190432270-6ae11497-694c-4648-9ece-4eaa8fa7aa05.jpeg" alt="메인로고" width=1200 height=1000 ></img>
 > **_배고픈 음악인을 위한 사이트_** 🧑🏿‍🎤🧑‍🎤<br/><br/>
 > **개발기간: 2022.08.26 ~ 2022.10.07**
 
@@ -41,30 +41,34 @@ _.**Singer 와 Maker 의 만남**._
 
 > 🔑 구글이랑 카카오 계정을 통해 회원가입, 로그인을 할 수 있어요!
 
-<img src="/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/1-1.png" width=50% height=50%>
+<img src="https://user-images.githubusercontent.com/108949232/190432848-87c54321-fcb5-49e6-91c5-89594af3ebc4.png" alt="1번" width=50% height=50%>
 
 
 > 🎼 업로드한 게시물을 최신순 인기순 으로 확인 할 수 있습니다!
 
-<img src="/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/2-1.png" width=30%>
-<img src="/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/2-2.png" width=30% height=30%>
+<img src="https://user-images.githubusercontent.com/108949232/190433018-92f8c4e0-1c6f-4b25-9048-3a8d6b28da6e.png" alt="2-1번" width=30%>
+<img src="https://user-images.githubusercontent.com/108949232/190433163-2196d15a-83e6-4642-b652-2296a64793d3.png" alt="2-2번" width=30% height=30%>
+<img width=30% height=30% alt="스크린샷 2022-09-15 오후 10 39 12" src="https://user-images.githubusercontent.com/108949232/190433321-04e05c7a-715b-40ba-a78f-350ae38a5abe.png">
 
 
 > 🎵 가사 곡소개 포지션 콜라보 의사 제목 앨범 커버 오디오를 직접 업로드 할 수 있습니다!
 
-<img src="/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/3-1.png" width=50% height=50%>
+<img width=50% height=50% alt="스크린샷 2022-09-15 오후 10 44 45" src="https://user-images.githubusercontent.com/108949232/190433543-4e2a3e56-cd80-45e1-a078-6031a8bc7d79.png">
+
 
 > 🎹 올린 음악을 재생바로 들으실수 있습니다! 
 
-<img src="/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/4-1.png" width=80%>
+<img width=80% alt="스크린샷 2022-09-15 오후 10 48 04" src="https://user-images.githubusercontent.com/108949232/190433830-abcdb461-f015-47e9-8e5f-ac99df77d4d2.png">
+
 
 > 🤝 마음에 드는 음악을 발견 하셨다면 채팅으로 같이 곡잡업을 할 수 있는지 물어볼수 있습니다!
 
-<img src="/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/5-1.png" width=50%>
+<img width=50% alt="스크린샷 2022-09-15 오후 10 50 12" src="https://user-images.githubusercontent.com/108949232/190433968-24ef4e4d-6262-469a-b545-84e6ada7229a.png">
+
 
 > 🧚‍♀️ 자기에 맞는 포지션을 고른뒤 업로드 개수를 올려보세요 사용자가 싱어인지 메이커인지 알 수 있는 배지를 드립니다 :)
 
-<img src="/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/6-1.png" width=100%>
+<img src="https://file+.vscode-resource.vscode-cdn.net/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/6-1.png" width=100%>
 
 <br/>
 
@@ -72,7 +76,7 @@ _.**Singer 와 Maker 의 만남**._
 
 ### ⏺ MVVM-C & Clean Architecture
 
-<img width="994" alt="/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/7-1.png" src="/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/7-1.png">
+<img width="994" alt="마지막" src="https://file+.vscode-resource.vscode-cdn.net/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/7-1.png">
 
 ## FE
 > **React**
