@@ -82,6 +82,8 @@ const Detail = () => {
   const detailList = usePostStore((state) => state.detailList);
   const deleteDetail = usePostStore((state) => state.deleteDetail);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
   const random = useMemberStore((state) => state.random);
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
@@ -122,6 +124,8 @@ const Detail = () => {
 
   const Play = () => {
     viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
     addPlayList({
       postId: detailList.postId,
       title: detailList.title,
@@ -163,6 +167,8 @@ const Detail = () => {
                 <DetailProfileImg
                   src={
                     detailList.memberImageUrl === null
+                      ? profileImgArr[random]
+                      : detailList.memberImageUrl === ""
                       ? profileImgArr[random]
                       : detailList.memberImageUrl
                   }
@@ -250,8 +256,11 @@ const Detail = () => {
                       등록일:
                     </PositionMidRighTopRightLeftTextSpan>
                     <PositionMidRighTopRightRightTextSpan>
-                    {detailListLoaded ? (detailList.createdAt.substr(0, 11)):<></>}
-                      
+                      {detailListLoaded ? (
+                        detailList.createdAt.substr(0, 11)
+                      ) : (
+                        <></>
+                      )}
                     </PositionMidRighTopRightRightTextSpan>
                   </PositionMidRighTopRigtTextDiv>
                 </PositionMidRighTopTextDiv>

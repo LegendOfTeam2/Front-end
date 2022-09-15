@@ -41,7 +41,7 @@ const HotArtist = ({nickname, follower,imageUrl}) => {
   };
 
   return (
-    <HotArtistImgDivDiv>
+    <HotArtistImgDivDiv key={nickname}>
       <BtmProfileDivDiv>
         <BtmProfileDivDivDiv>
           <MainProfileimg

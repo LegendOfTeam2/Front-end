@@ -12,10 +12,10 @@ const useLikeStore = create((set) => ({
   makerIsLike: [],
 
   addLike: async (payload) => {
+    console.log(payload);
     const resData = await addLikeApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-
     if (resData?.data.success) {
       // set({ likeState: resData.data.data });
       return resData.data;

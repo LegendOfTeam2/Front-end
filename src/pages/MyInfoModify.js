@@ -44,6 +44,7 @@ const MyInfoModify = () => {
   const nicknameDupCheck = useMemberStore((state) => state.nicknameDupCheck);
   const putProfile = useMyPageStore((state) => state.putProfile);
   const getProfilPost = useMyPageStore((state) => state.getProfilPost);
+  const signOutMember = useMemberStore((state) => state.signOutMember);
 
   const [nickname, setNickname] = useState("");
   const [nicknameCheck, setNicknameCheck] = useState("");
@@ -180,7 +181,16 @@ const MyInfoModify = () => {
     } else {
       putProfile(jwt_decode(getCookie("authorization")).sub, newProfile).then(
         (res) => {
-          if (res) navigate("/");
+          if (res) {
+            signOutMember({
+              nickname: jwt_decode(getCookie("authorization")).sub,
+            }).then((res) => {
+              if (res) {
+                alert("다시 로그인 해주세요");
+                navigate("/signin");
+              }
+            });            
+          }
         }
       );
     }
@@ -193,7 +203,7 @@ const MyInfoModify = () => {
         <ToastContainer />
         <ModifyBox>
           <ModifyNaviContainer>
-            <ModifyNaviText onClick={() => navigate(-1)}>취소</ModifyNaviText>
+            <ModifyNaviText onClick={() => navigate(-1)}>이전</ModifyNaviText>
             <ModifyNaviInfo>프로필 수정</ModifyNaviInfo>
             <ModifyNaviText onClick={onHandelModify}>완료</ModifyNaviText>
           </ModifyNaviContainer>

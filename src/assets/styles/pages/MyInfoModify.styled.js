@@ -141,9 +141,13 @@ export const ModifyMemberDeleteContainer = styled.div`
   cursor: pointer;
 `;
 export const ModifyMemberDeleteText = styled.span`
-  color: #de1b4a;
+  color: rgba(180, 180, 180, 1);
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.base};
+  &:hover {
+    cursor: pointer;
+    color: rgba(222, 27, 74, 1);
+  }
 `;
 

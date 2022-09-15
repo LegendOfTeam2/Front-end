@@ -31,7 +31,8 @@ import {
   DisLike40,
   Like40,
   OnPlay60,
-} from '../assets/images/image';
+} from "../assets/images/image";
+
 
 const PostBig = ({
   postId,
@@ -42,7 +43,6 @@ const PostBig = ({
   imageUrl,
   mediaUrl,
   nickname,
-  likes,
   likeState,
 }) => {
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
@@ -65,39 +65,34 @@ const PostBig = ({
     addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
   };
 
+
+  const goToDetail = () => {
+    if(position === "singer"){
+      position =  "Singer";
+    }else if(position === "maker"){
+      position = "Maker";
+    }else{
+      navigate(`/details/${position}/${postId}`);
+    }
+  };
+
   const LikeClick = () => {
-    if (getCookie('authorization') === undefined) {
-      alert('로그인 후 이용해 주세요.');
-      navigate('/signin');
+    if (getCookie("authorization") === undefined) {
+      alert("로그인후 이용해주세요");
     } else {
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
           setIsLike(true);
-          likeCountRef.current.innerText = likes + 1;
         } else {
           setIsLike(false);
-          likeCountRef.current.innerText = likes - 1;
         }
       });
     }
   };
 
-  const goToDetail = () => {
-    console.log(position);
-    if (position === 'singer') {
-      position = 'Singer';
-    } else if (position === 'maker') {
-      position = 'Maker';
-    } else {
-      navigate(`/detail/${position}/${postId}`);
-    }
-  };
-  console.log(mediaUrl);
   return (
-    <BigMyImgDivDiv>
-      <BigMyimg
-        src={
-          imageUrl === null
+    <BigMyImgDivDiv key={postId}>
+      <BigMyimg src={imageUrl === null
             ? profileImgArr[random]
             : imageUrl === ''
             ? profileImgArr[random]

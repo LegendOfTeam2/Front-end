@@ -64,14 +64,13 @@ const Post = ({
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
           setIsLike(true);
-          likeCountRef.current.innerText = likes + 1;
         } else {
           setIsLike(false);
-          likeCountRef.current.innerText = likes - 1;
         }
       });
     }
   };
+
 
   const goToDetail = () => {
     if(position === "singer"){
@@ -83,7 +82,7 @@ const Post = ({
     }
   };
   return (
-    <MyImgDivDiv>
+    <MyImgDivDiv key={postId}>
       <Myimg src={ imageUrl === null
             ? profileImgArr[random]
             : imageUrl === ""
@@ -106,7 +105,8 @@ const Post = ({
           ) : (
             <img src={DisLike} alt='좋아요 안한 상태' onClick={LikeClick} />
           )}
-          <MyImgBtmLeftspan ref={likeCountRef}>{likes}</MyImgBtmLeftspan>
+
+          <MyImgBtmLeftspan>좋아요</MyImgBtmLeftspan>
         </MyImgBtmLeftDiv>
       </MyImgBtmLeft>
       <MyImgBtmRight>
