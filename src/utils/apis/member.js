@@ -23,5 +23,5 @@ export const googleAuthApi = (payload) => {
   return api_basic.get(`/api/google/callback?code=${payload}`)
 };
 export const getMyImageApi = (payload) => {
-  return api_auth.post(`/auth/myimage`, payload)
+  return api_auth.post(`/auth/myimage`, payload);
 };

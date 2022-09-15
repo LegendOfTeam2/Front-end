@@ -43,16 +43,20 @@ const Chat = () => {
   }, []);
 
   const onHandleClick = () => {
-    const newMessage = { type: 'TALK', roomId, sender: nickname, message };
-    stompClient.send('/app/chat/message', {}, JSON.stringify(newMessage));
-    setMessage('');
+    if (message !== '' && message !== ' ') {
+      const newMessage = { type: 'TALK', roomId, sender: nickname, message };
+      stompClient.send('/app/chat/message', {}, JSON.stringify(newMessage));
+      setMessage('');
+    }
   };
 
   const onHandleEnter = (e) => {
     if (e.key === 'Enter') {
-      const newMessage = { type: 'TALK', roomId, sender: nickname, message };
-      stompClient.send('/app/chat/message', {}, JSON.stringify(newMessage));
-      setMessage('');
+      if (message !== '' && message !== ' ') {
+        const newMessage = { type: 'TALK', roomId, sender: nickname, message };
+        stompClient.send('/app/chat/message', {}, JSON.stringify(newMessage));
+        setMessage('');
+      }
     }
   };
 
@@ -253,6 +257,11 @@ export const ChatDataRoomMessageContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  gap: 20px;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 export const ChatDataRoomInputContainer = styled.div`
   width: 100%;

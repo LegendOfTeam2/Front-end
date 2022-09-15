@@ -74,7 +74,8 @@ const PostSlider = ({
 
   const LikeClick = () => {
     if (getCookie("authorization") === undefined) {
-      alert("로그인후 이용해주세요");
+      alert("로그인 후 이용해 주세요.");
+      navigate('/signin');
     } else {
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {

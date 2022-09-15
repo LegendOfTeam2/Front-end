@@ -1,3 +1,18 @@
+// React
+import { useState, useRef, memo } from 'react';
+
+// Zustand
+import usePlayerStore from '../zustand/player';
+import useMemberStore from '../zustand/member';
+import useLikeStore from '../zustand/like';
+
+// Packages
+import { useNavigate } from 'react-router-dom';
+
+// Utils
+import { getCookie } from '../utils/cookie';
+
+// Assets
 import {
   BigImgMyBtmRight,
   BigImgNotSlideSpan,
@@ -10,18 +25,13 @@ import {
   BigMyImgTopLeft,
   BigMyImgTopRight,
   DisBigMyImgTopRight,
-} from "../assets/styles/components/PsotBig.styled";
+} from '../assets/styles/components/PsotBig.styled';
 import {
   Collaboration44,
   DisLike40,
+  Like40,
   OnPlay60,
 } from "../assets/images/image";
-import { memo, useState } from "react";
-import usePlayerStore from "../zustand/player";
-import { useNavigate } from "react-router-dom";
-import useMemberStore from "../zustand/member";
-import { getCookie } from "../utils/cookie";
-import useLikeStore from "../zustand/like";
 
 
 const PostBig = ({
@@ -44,16 +54,17 @@ const PostBig = ({
   const addLike = useLikeStore((state) => state.addLike);
 
   const [isLike, setIsLike] = useState(likeState);
-  
+  const likeCountRef = useRef();
+
   const navigate = useNavigate();
 
-  
   const Play = () => {
     viewStateChange(true);
     setPlaying(true);
     setIsAutoplay(true);
     addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
   };
+
 
   const goToDetail = () => {
     if(position === "singer"){
@@ -84,9 +95,12 @@ const PostBig = ({
     <BigMyImgDivDiv key={postId}>
       <BigMyimg src={imageUrl === null
             ? profileImgArr[random]
-            : imageUrl === ""
+            : imageUrl === ''
             ? profileImgArr[random]
-            : imageUrl} alt='' />
+            : imageUrl
+        }
+        alt=''
+      />
       <BigImgMyBtmRight>
         <BigImgNotSlideSpan>{nickname}</BigImgNotSlideSpan>
       </BigImgMyBtmRight>
@@ -99,8 +113,14 @@ const PostBig = ({
       </BigMyImgTopRight>
       <BigMyImgBtmLeft>
         <BigMyImgBtmLeftDiv>
-          <img src={DisLike40} alt='좋아요 안한 상태' />
-          <BigMyImgBtmLeftspan>좋아요</BigMyImgBtmLeftspan>
+          {isLike ? (
+            <img src={Like40} alt='좋아요 상태' onClick={LikeClick} />
+          ) : (
+            <img src={DisLike40} alt='좋아요 안한 상태' onClick={LikeClick} />
+          )}
+          <BigMyImgBtmLeftspan ref={likeCountRef}>
+            {likeCount}
+          </BigMyImgBtmLeftspan>
         </BigMyImgBtmLeftDiv>
       </BigMyImgBtmLeft>
       <BigMyImgBtmRight onClick={Play}>

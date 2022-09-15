@@ -235,7 +235,7 @@ export const DetailBtmLyricsDiv = styled.div`
 
 export const DetailBtmLyricsDivDiv = styled.div`
   width: 379px;
-  height: ${(props) => (props.lyrics ? "auto" : "280px")};
+  height: ${(props) => (props.lyrics ? "auto" : "200px")};
   overflow: hidden;
   padding: 36px 74px;
 `;
@@ -283,7 +283,7 @@ export const DetailBtmMoreDiv = styled.div`
 
 export const DetailBtmMoreDivDiv = styled.div`
   width: 379px;
-  height: ${(props) => (props.introduction ? "auto" : "100px")};
+  height: ${(props) => (props.introduction ? "auto" : "200px")};
   overflow: hidden;
   padding: 36px 74px;
 `;

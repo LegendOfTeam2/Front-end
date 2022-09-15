@@ -24,7 +24,7 @@ const SignIn = lazy(() => import("../pages/SignIn"));
 const SignUp = lazy(() => import("../pages/SignUp"));
 const MyPage = lazy(() => import("../pages/MyPage"));
 const Write = lazy(() => import("../pages/Write"));
-const ModifyWrite = lazy(() => import("../pages/ModifyWrite"));
+const WriteModify = lazy(() => import("../pages/WriteModify"));
 const SignUpCheck = lazy(() => import("../pages/SignUpCheck"));
 const MyInfoModify = lazy(() => import("../pages/MyInfoModify"));
 const Details = lazy(() => import("../pages/Details"));
@@ -63,7 +63,7 @@ function App() {
         <Route path='/write' element={is_login ? <Write /> : <Main />} />
         <Route
           path='/ModifyWrite/:position/:postid'
-          element={is_login ? <ModifyWrite /> : <Main />}
+          element={is_login ? <WriteModify /> : <Main />}
         />
         <Route
           path='/myinfomodify'
