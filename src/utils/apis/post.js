@@ -32,3 +32,14 @@ export const getBestSingerApi = (payload) => {
 export const getPowerArtistApi = (payload) => {
   return api_basic.get(`/api/powerartist`, payload);
 };
+export const getDetailApi = (payload) => {
+  return api_basic.get(
+    `/api/post/${payload.postid}?position=${payload.position}`
+  );
+};
+export const putModifyWriteApi = (payload) => {
+  return api_auth.put(`/auth/post`, payload);
+};
+export const deleteDetailApi = (postId, position) => {
+  return api_auth.delete(`/auth/post/${postId}?position=${position}`);
+};

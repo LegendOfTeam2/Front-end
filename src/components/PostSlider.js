@@ -90,7 +90,7 @@ const PostSlider = ({
   };
 
   const goToDetail = () => {
-    navigate(`/details/${position}/${postId}`);
+    navigate(`/detail/${position}/${postId}`);
   };
   return (
     <ProfileImgDivDiv key={postId}>

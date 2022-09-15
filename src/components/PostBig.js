@@ -90,7 +90,6 @@ const PostBig = ({
     }
   };
 
-
   return (
     <BigMyImgDivDiv key={postId}>
       <BigMyimg src={imageUrl === null
