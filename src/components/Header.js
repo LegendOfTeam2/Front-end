@@ -95,7 +95,6 @@ const Header = () => {
       navigate(`/mypage/${nickname}`);
     }
   };
-  console.log(myProfileImg);
   return (
     <Fragment>
       <HeaderContainerDiv>
