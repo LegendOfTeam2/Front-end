@@ -9,7 +9,6 @@ import usePlayerStore from "../zustand/player";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import shortId from "shortid";
 // Utils
 import Button from "../elements/Button";
 import { getCookie } from "../utils/cookie";
@@ -28,9 +27,7 @@ import {
   MainProfileSliderGroup,
   BtmProfileImgDiv,
   BtmProfileTextDiv,
-  BtmProfileTextMake,
   BtmProfileTextNew,
-  BtmProfileTextSingMakeDiv,
   MainArowLeft,
   MainArowRight,
   MainContainer,
@@ -167,6 +164,7 @@ const Main = () => {
   const goToMaker = (category) => {
     navigate(`/morepage/maker/${category}`);
   };
+
   return (
     <Fragment>
       <Header />
@@ -176,7 +174,7 @@ const Main = () => {
             <MainImgDiv>
               <Slider {...settings}>
                 {bestSong.map((x) => (
-                  <MainImgDivDiv key={shortId.generate()}>
+                  <MainImgDivDiv key={x.postId}>
                     <MainImgDivImg img={x.imageUrl.imageUrl}></MainImgDivImg>
                     <MainImgDivDivDiv>Best Song</MainImgDivDivDiv>
                     <MainImgDivBtnDiv>
@@ -220,7 +218,6 @@ const Main = () => {
                       if ([...singerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <Post
-                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -235,7 +232,6 @@ const Main = () => {
                       } else {
                         return (
                           <Post
-                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -282,7 +278,6 @@ const Main = () => {
                       if ([...singerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <Post
-                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -297,7 +292,6 @@ const Main = () => {
                       } else {
                         return (
                           <Post
-                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -344,7 +338,6 @@ const Main = () => {
                       if ([...makerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <Post
-                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -359,7 +352,6 @@ const Main = () => {
                       } else {
                         return (
                           <Post
-                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -406,7 +398,6 @@ const Main = () => {
                       if ([...makerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <Post
-                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -421,7 +412,6 @@ const Main = () => {
                       } else {
                         return (
                           <Post
-                            key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -461,7 +451,6 @@ const Main = () => {
                 <MainHotArtistWrap>
                   {PowerArtist.map((x) => (
                     <HotArtist
-                      key={x.nickname}
                       nickname={x.nickname}
                       imageUrl={x.imageUrl}
                       follower={x.follower
@@ -487,7 +476,6 @@ const Main = () => {
                 <Slider {...Btmsettings}>
                   {PowerArtist.map((x) => (
                     <HotArtist
-                      key={x.nickname}
                       nickname={x.nickname}
                       follower={x.follower
                         .toString()

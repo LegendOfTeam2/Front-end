@@ -92,7 +92,7 @@ const PostSlider = ({
     navigate(`/details/${position}/${postId}`);
   };
   return (
-    <ProfileImgDivDiv>
+    <ProfileImgDivDiv key={postId}>
       <Profileimg
         src={
           imageUrl === null
@@ -122,7 +122,7 @@ const PostSlider = ({
             <img src={DisLike} alt='좋아요 안한 상태' onClick={LikeClick} />
           )}
 
-          <ImgBtmLeftDivSapn>{likes}</ImgBtmLeftDivSapn>
+          <ImgBtmLeftDivSapn>좋아요</ImgBtmLeftDivSapn>
         </ImgBtmLeftDiv>
       </ImgBtmLeft>
       <ImgBtmRight>

@@ -108,7 +108,7 @@ const Post = ({
             <img src={DisLike} alt='좋아요 안한 상태' onClick={LikeClick} />
           )}
 
-          <MyImgBtmLeftspan ref={likeCountRef}>{likes}</MyImgBtmLeftspan>
+          <MyImgBtmLeftspan>좋아요</MyImgBtmLeftspan>
         </MyImgBtmLeftDiv>
       </MyImgBtmLeft>
       <MyImgBtmRight>

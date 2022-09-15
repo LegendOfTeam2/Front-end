@@ -47,7 +47,6 @@ const PostBig = ({
   };
 
   const goToDetail = () => {
-    console.log(position);
     if(position === "singer"){
       position =  "Singer";
     }else if(position === "maker"){
@@ -77,7 +76,7 @@ const PostBig = ({
       <BigMyImgBtmLeft>
         <BigMyImgBtmLeftDiv>
           <img src={DisLike40} alt='좋아요 안한 상태' />
-          <BigMyImgBtmLeftspan>{likeCount}</BigMyImgBtmLeftspan>
+          <BigMyImgBtmLeftspan>좋아요</BigMyImgBtmLeftspan>
         </BigMyImgBtmLeftDiv>
       </BigMyImgBtmLeft>
       <BigMyImgBtmRight onClick={Play}>
