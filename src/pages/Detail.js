@@ -2,9 +2,10 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 // Zustand
-import useDetailStore from "../zustand/details";
 import usePlayerStore from "../zustand/player";
 import useMemberStore from "../zustand/member";
+import usePostStore from '../zustand/post';
+
 // Packages
 import {
   MdOutlineArrowBackIosNew,
@@ -68,18 +69,18 @@ import {
   PositionMidRighTopRightRightTextSpan,
   PositionMidRighTopRigtTextDiv,
   PositionMidRighTopTextDiv,
-} from "../assets/styles/pages/Details.styled";
+} from "../assets/styles/pages/Detail.styled";
 
-const Details = () => {
+const Detail = () => {
   const [lyrics, setLyrics] = useState(false);
   const [introduction, setIntroduction] = useState(false);
   const [like, setLike] = useState(false);
   const Params = useParams();
 
-  const getDetail = useDetailStore((state) => state.getDetail);
-  const detailListLoaded = useDetailStore((state) => state.detailListLoaded);
-  const detailList = useDetailStore((state) => state.detailList);
-  const deleteDetail = useDetailStore((state) => state.deleteDetail);
+  const getDetail = usePostStore((state) => state.getDetail);
+  const detailListLoaded = usePostStore((state) => state.detailListLoaded);
+  const detailList = usePostStore((state) => state.detailList);
+  const deleteDetail = usePostStore((state) => state.deleteDetail);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
@@ -114,7 +115,7 @@ const Details = () => {
 
   const clip = () => {
     navigator.clipboard.writeText(
-      `http://localhost:3000/details/${Params.position}/${Params.postid}`
+      `http://localhost:3000/detail/${Params.position}/${Params.postid}`
     );
     alert("공유하기 url 완료");
   };
@@ -366,4 +367,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default Detail;

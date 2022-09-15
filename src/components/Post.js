@@ -79,7 +79,7 @@ const Post = ({
     }else if(position === "maker"){
       position = "Maker";
     }else{
-      navigate(`/details/${position}/${postId}`);
+      navigate(`/detail/${position}/${postId}`);
     }
   };
   return (

@@ -27,7 +27,7 @@ const Write = lazy(() => import("../pages/Write"));
 const WriteModify = lazy(() => import("../pages/WriteModify"));
 const SignUpCheck = lazy(() => import("../pages/SignUpCheck"));
 const MyInfoModify = lazy(() => import("../pages/MyInfoModify"));
-const Details = lazy(() => import("../pages/Details"));
+const Detail = lazy(() => import("../pages/Detail"));
 const Withdrawal = lazy(() => import("../pages/Withdrawal"));
 const MorePage = lazy(() => import("../pages/MorePage"));
 const Chat = lazy(() => import("../pages/Chat"));
@@ -70,7 +70,7 @@ function App() {
           element={is_login ? <MyInfoModify /> : <Main />}
         />
         <Route path='/search' element={<Search />} />
-        <Route path='/details/:position/:postid' element={<Details />} />
+        <Route path='/detail/:position/:postid' element={<Detail />} />
         <Route path='/morepage/:position/:ctg' element={<MorePage />} />
         <Route
           path='/withdrawal'
@@ -80,7 +80,7 @@ function App() {
         <Route path='*' element={<Main />} />
       </Routes>
       {location === "" ||
-      location === "details" ||
+      location === "detail" ||
       location === "search" ||
       location === "morepage" ||
       location === "mypage" ? (
