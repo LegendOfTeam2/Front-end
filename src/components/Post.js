@@ -20,7 +20,6 @@ import {
   MyImgTopRight,
 } from '../assets/styles/components/Post.styled';
 import {
-  DisCollaboration,
   Collaborate,
   DisLike,
   OnPlay,

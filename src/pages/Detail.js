@@ -1,9 +1,9 @@
 // React
-import { Fragment, useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 // Zustand
-import usePlayerStore from "../zustand/player";
-import useMemberStore from "../zustand/member";
+import usePlayerStore from '../zustand/player';
+import useMemberStore from '../zustand/member';
 import usePostStore from '../zustand/post';
 import useLikeStore from '../zustand/like';
 
@@ -12,19 +12,19 @@ import {
   MdOutlineArrowBackIosNew,
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
-} from "react-icons/md";
-import jwt_decode from "jwt-decode";
+} from 'react-icons/md';
+import jwt_decode from 'jwt-decode';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Components
-import Header from "../components/Header";
+import Header from '../components/Header';
 
 // Elements
-import Button from "../elements/Button";
+import Button from '../elements/Button';
 
 // Utils
-import { getCookie } from "../utils/cookie";
+import { getCookie } from '../utils/cookie';
 
 // Assests
 import {
@@ -34,7 +34,7 @@ import {
   Share38,
   Putting,
   Like38,
-} from "../assets/images/image";
+} from '../assets/images/image';
 import {
   DetailBtmClickLyricsSpan,
   DetailBtmClickMoreSpan,
@@ -77,7 +77,7 @@ import {
   PositionMidRighTopRightRightTextSpan,
   PositionMidRighTopRigtTextDiv,
   PositionMidRighTopTextDiv,
-} from "../assets/styles/pages/Detail.styled";
+} from '../assets/styles/pages/Detail.styled';
 
 const Detail = () => {
   const [lyrics, setLyrics] = useState(false);
@@ -104,7 +104,7 @@ const Detail = () => {
   const deletePost = {
     postId: detailList.postId,
     position: detailList.position,
-  }
+  };
 
   const goToModify = () => {
     navigate(`/ModifyWrite/${detailList.position}/${Params.postid}`);
@@ -123,7 +123,10 @@ const Detail = () => {
       alert('로그인 후 이용해 주세요.');
       navigate('/signin');
     } else {
-      addLike({ postId: detailList.postId, position: detailList.position }).then((res) => {
+      addLike({
+        postId: detailList.postId,
+        position: detailList.position,
+      }).then((res) => {
         if (res.success && res.data) {
           toast.info('게시글에 좋아요를 눌렀습니다.', {
             position: toast.POSITION.BOTTOM_RIGHT,
@@ -132,7 +135,8 @@ const Detail = () => {
             hideProgressBar: true,
           });
           setIsLike(true);
-          likeCountRef.current.innerText = Number(likeCountRef.current.innerText) + 1;
+          likeCountRef.current.innerText =
+            Number(likeCountRef.current.innerText) + 1;
         } else {
           toast.info('게시글에 좋아요를 취소했습니다.', {
             position: toast.POSITION.BOTTOM_RIGHT,
@@ -141,7 +145,8 @@ const Detail = () => {
             hideProgressBar: true,
           });
           setIsLike(false);
-          likeCountRef.current.innerText = Number(likeCountRef.current.innerText) - 1;
+          likeCountRef.current.innerText =
+            Number(likeCountRef.current.innerText) - 1;
         }
       });
     }
@@ -152,10 +157,13 @@ const Detail = () => {
   }, []);
 
   const clip = () => {
-    navigator.clipboard.writeText(
-      `http://localhost:3000/detail/${Params.position}/${Params.postid}`
-    );
-    alert("공유하기 url 완료");
+    navigator.clipboard
+      .writeText(
+        `http://localhost:3000/detail/${Params.position}/${Params.postid}`
+      )
+      .then(() => {
+        alert('링크 복사 완료');
+      });
   };
 
   const Play = () => {
@@ -171,15 +179,15 @@ const Detail = () => {
       position: detailList.position,
     });
   };
-
+  console.log(detailList);
   const ProfilPage = () => {
     navigate(`/mypage/${detailList.nickname}`);
   };
 
   const deleteDetailClick = () => {
     deleteDetail(deletePost).then((res) => {
-      if(res) {
-        alert('게시글이 삭제되었습니다.')
+      if (res) {
+        alert('게시글이 삭제되었습니다.');
         navigate('/');
       }
     });
@@ -205,7 +213,7 @@ const Detail = () => {
                   src={
                     detailList.memberImageUrl === null
                       ? profileImgArr[random]
-                      : detailList.memberImageUrl === ""
+                      : detailList.memberImageUrl === ''
                       ? profileImgArr[random]
                       : detailList.memberImageUrl
                   }
@@ -219,46 +227,46 @@ const Detail = () => {
               </DetailProfileImgTextTop>
             </DetailProfileImgTextTopDiv>
             <DetailProfileBtnTopDiv>
-              {getCookie("authorization") !== undefined ? (
-                jwt_decode(getCookie("authorization")).sub ===
+              {getCookie('authorization') !== undefined ? (
+                jwt_decode(getCookie('authorization')).sub ===
                 detailList.nickname ? (
                   <DetailProfileBtnTopDivBtn>
                     <Button
                       _style={{
-                        width: "122px",
-                        height: "45px",
-                        bg_color: "#28CA7C",
-                        bd_radius: "11px",
-                        color: "rgba(255, 255, 255, 1)",
-                        ft_size: "12",
+                        width: '122px',
+                        height: '45px',
+                        bg_color: '#28CA7C',
+                        bd_radius: '11px',
+                        color: 'rgba(255, 255, 255, 1)',
+                        ft_size: '12',
                       }}
-                      _text={"게시글 수정"}
+                      _text={'게시글 수정'}
                       _onClick={goToModify}
                     />
                     <Button
                       _style={{
-                        width: "122px",
-                        height: "45px",
-                        bg_color: "#cc0000",
-                        bd_radius: "11px",
-                        color: "rgba(255, 255, 255, 1)",
-                        ft_size: "12",
+                        width: '122px',
+                        height: '45px',
+                        bg_color: '#cc0000',
+                        bd_radius: '11px',
+                        color: 'rgba(255, 255, 255, 1)',
+                        ft_size: '12',
                       }}
-                      _text={"게시글 삭제"}
+                      _text={'게시글 삭제'}
                       _onClick={deleteDetailClick}
                     />
                   </DetailProfileBtnTopDivBtn>
                 ) : (
                   <Button
                     _style={{
-                      width: "122px",
-                      height: "45px",
-                      bg_color: "#28CA7C",
-                      bd_radius: "11px",
-                      color: "rgba(255, 255, 255, 1)",
-                      ft_size: "12",
+                      width: '122px',
+                      height: '45px',
+                      bg_color: '#28CA7C',
+                      bd_radius: '11px',
+                      color: 'rgba(255, 255, 255, 1)',
+                      ft_size: '12',
                     }}
-                    _text={"메세지"}
+                    _text={'메세지'}
                   />
                 )
               ) : (
@@ -276,7 +284,7 @@ const Detail = () => {
                   src={
                     detailList.imageUrl === null
                       ? profileImgArr[random]
-                      : detailList.imageUrl === ""
+                      : detailList.imageUrl === ''
                       ? profileImgArr[random]
                       : detailList.imageUrl
                   }
@@ -315,11 +323,7 @@ const Detail = () => {
                   <DetailProfileBtmFirDiv>
                     {isLike ? (
                       <DetailClickHover>
-                        <img
-                          src={Like38}
-                          onClick={onHandelLike}
-                          alt='좋아요'
-                        />
+                        <img src={Like38} onClick={onHandelLike} alt='좋아요' />
                       </DetailClickHover>
                     ) : (
                       <DetailClickHover>
@@ -365,25 +369,34 @@ const Detail = () => {
               </PositionMidRightDiv>
             </PositionMidDiv>
           </PositionAllDiv>
+
           <DetailTopLyrics>가사</DetailTopLyrics>
+
           <DetailBtmLyricsDivDiv lyrics={lyrics}>
             <DetailBtmLyricsDivSpan>{detailList.lyrics}</DetailBtmLyricsDivSpan>
           </DetailBtmLyricsDivDiv>
           <DetailBtmLyricsDivDivDiv>
-            <DetailBtmClickLyricsSpan onClick={HandelLyrics}>
-              {lyrics ? (
-                <>
-                  <DetailBtmLyricsSpan>접기</DetailBtmLyricsSpan>
-                  <MdOutlineKeyboardArrowUp size={40} />
-                </>
+            {detailListLoaded ? (
+              detailList.lyrics.length > 65 ? (
+                <DetailBtmClickLyricsSpan onClick={HandelLyrics}>
+                  {lyrics ? (
+                    <>
+                      <DetailBtmLyricsSpan>접기</DetailBtmLyricsSpan>
+                      <MdOutlineKeyboardArrowUp size={40} />
+                    </>
+                  ) : (
+                    <>
+                      <DetailBtmLyricsSpan>펼치기</DetailBtmLyricsSpan>
+                      <MdOutlineKeyboardArrowDown size={40} />
+                    </>
+                  )}
+                </DetailBtmClickLyricsSpan>
               ) : (
-                <>
-                  {" "}
-                  <DetailBtmLyricsSpan>펼치기</DetailBtmLyricsSpan>
-                  <MdOutlineKeyboardArrowDown size={40} />
-                </>
-              )}
-            </DetailBtmClickLyricsSpan>
+                <></>
+              )
+            ) : (
+              <></>
+            )}
           </DetailBtmLyricsDivDivDiv>
           <DetailTopLyrics>소개글</DetailTopLyrics>
           <DetailBtmMoreDiv>
@@ -392,19 +405,27 @@ const Detail = () => {
             </DetailBtmMoreDivDiv>
           </DetailBtmMoreDiv>
           <DetailBtmMoreDivDivDiv>
-            <DetailBtmClickMoreSpan onClick={HandelMore}>
-              {introduction ? (
-                <>
-                  <DetailBtmMoreSpan>접기</DetailBtmMoreSpan>
-                  <MdOutlineKeyboardArrowUp size={40} />
-                </>
+            {detailListLoaded ? (
+              detailList.content.length > 65 ? (
+                <DetailBtmClickMoreSpan onClick={HandelMore}>
+                  {introduction ? (
+                    <>
+                      <DetailBtmMoreSpan>접기</DetailBtmMoreSpan>
+                      <MdOutlineKeyboardArrowUp size={40} />
+                    </>
+                  ) : (
+                    <>
+                      <DetailBtmMoreSpan>펼치기</DetailBtmMoreSpan>
+                      <MdOutlineKeyboardArrowDown size={40} />
+                    </>
+                  )}
+                </DetailBtmClickMoreSpan>
               ) : (
-                <>
-                  <DetailBtmMoreSpan>펼치기</DetailBtmMoreSpan>
-                  <MdOutlineKeyboardArrowDown size={40} />
-                </>
-              )}
-            </DetailBtmClickMoreSpan>
+                <></>
+              )
+            ) : (
+              <></>
+            )}
           </DetailBtmMoreDivDivDiv>
         </DetailContainer>
       </DetailContainerDiv>

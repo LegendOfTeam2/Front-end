@@ -207,7 +207,7 @@ const MyPage = () => {
 
                     <MyRightTopBtmDiv>
                       <MyRightTopBtmDivSpan>
-                        곡 작업 {profilPost.myPostConunt}
+                        곡 작업 {profilPost.allPostCnt}
                       </MyRightTopBtmDivSpan>
                       <MyRightTopBtmDivSpan>
                         팔로워 {profilPost.follower}
@@ -303,9 +303,9 @@ const MyPage = () => {
                         profilPost.hashtag === [] ? (
                           <Fragment></Fragment>
                         ) : (
-                          profilPost.hashtag.map((x) => {
+                          profilPost.hashtag.map((x,idx) => {
                             return (
-                              <MyTagBoxTextSlideDiv>
+                              <MyTagBoxTextSlideDiv key={idx}>
                                 <MyTagBoxTextSpanSlide>
                                   {x}
                                 </MyTagBoxTextSpanSlide>
