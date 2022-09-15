@@ -32,7 +32,10 @@ _.**Singer 와 Maker 의 만남**._
 ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
 ![Yarn](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white)
 
+<img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="actions"><img>
+<img src="https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white" alt="mysql"><img>
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+
 
 
 <br/>
@@ -68,7 +71,7 @@ _.**Singer 와 Maker 의 만남**._
 
 > 🧚‍♀️ 자기에 맞는 포지션을 고른뒤 업로드 개수를 올려보세요 사용자가 싱어인지 메이커인지 알 수 있는 배지를 드립니다 :)
 
-<img src="https://file+.vscode-resource.vscode-cdn.net/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/6-1.png" width=100%>
+<img src="https://user-images.githubusercontent.com/108949232/190437932-2bfd55d4-4473-4c89-89e0-d3f52322dd4b.png" width=100%>
 
 <br/>
 
@@ -76,7 +79,7 @@ _.**Singer 와 Maker 의 만남**._
 
 ### ⏺ MVVM-C & Clean Architecture
 
-<img width="994" alt="마지막" src="https://file+.vscode-resource.vscode-cdn.net/Users/seodong-ug/Desktop/singer/Front-end/src/assets/images/Team/7-1.png">
+<img width="994" alt="마지막" src="https://user-images.githubusercontent.com/108949232/190438450-599a5044-c9a5-4f73-8782-baa5c5210446.png">
 
 ## FE
 > **React**

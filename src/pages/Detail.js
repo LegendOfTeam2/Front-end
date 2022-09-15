@@ -89,10 +89,7 @@ const Detail = () => {
   const addPlayList = usePlayerStore((state) => state.addPlayList);
 
   const navigate = useNavigate();
-  const lyricsRef = useRef();
-  const contentRef = useRef();
 
-  console.dir(contentRef.current);
 
   const deletePost = {
     postId: detailList.postId,
@@ -344,19 +341,23 @@ const Detail = () => {
           </DetailBtmLyricsDivDiv>
           <DetailBtmLyricsDivDivDiv>
             {detailListLoaded ? (
-              <DetailBtmClickLyricsSpan onClick={HandelLyrics}>
-                {lyrics ? (
-                  <>
-                    <DetailBtmLyricsSpan>접기</DetailBtmLyricsSpan>
-                    <MdOutlineKeyboardArrowUp size={40} />
-                  </>
-                ) : (
-                  <>
-                    <DetailBtmLyricsSpan>펼치기</DetailBtmLyricsSpan>
-                    <MdOutlineKeyboardArrowDown size={40} />
-                  </>
-                )}
-              </DetailBtmClickLyricsSpan>
+              detailList.lyrics.length > 65 ? (
+                <DetailBtmClickLyricsSpan onClick={HandelLyrics}>
+                  {lyrics ? (
+                    <>
+                      <DetailBtmLyricsSpan>접기</DetailBtmLyricsSpan>
+                      <MdOutlineKeyboardArrowUp size={40} />
+                    </>
+                  ) : (
+                    <>
+                      <DetailBtmLyricsSpan>펼치기</DetailBtmLyricsSpan>
+                      <MdOutlineKeyboardArrowDown size={40} />
+                    </>
+                  )}
+                </DetailBtmClickLyricsSpan>
+              ) : (
+                <></>
+              )
             ) : (
               <></>
             )}
@@ -364,25 +365,31 @@ const Detail = () => {
           <DetailTopLyrics>소개글</DetailTopLyrics>
           <DetailBtmMoreDiv>
             <DetailBtmMoreDivDiv introduction={introduction}>
-              <DetailBtmMoreDivSpan>
-                가라사대가라사대가라사대가라사대가라사대가라사대가라사대가
-              </DetailBtmMoreDivSpan>
+              <DetailBtmMoreDivSpan>{detailList.content}</DetailBtmMoreDivSpan>
             </DetailBtmMoreDivDiv>
           </DetailBtmMoreDiv>
           <DetailBtmMoreDivDivDiv>
-            <DetailBtmClickMoreSpan onClick={HandelMore}>
-              {introduction ? (
-                <>
-                  <DetailBtmMoreSpan>접기</DetailBtmMoreSpan>
-                  <MdOutlineKeyboardArrowUp size={40} />
-                </>
+            {detailListLoaded ? (
+              detailList.content.length > 65 ? (
+                <DetailBtmClickMoreSpan onClick={HandelMore}>
+                  {introduction ? (
+                    <>
+                      <DetailBtmMoreSpan>접기</DetailBtmMoreSpan>
+                      <MdOutlineKeyboardArrowUp size={40} />
+                    </>
+                  ) : (
+                    <>
+                      <DetailBtmMoreSpan>펼치기</DetailBtmMoreSpan>
+                      <MdOutlineKeyboardArrowDown size={40} />
+                    </>
+                  )}
+                </DetailBtmClickMoreSpan>
               ) : (
-                <>
-                  <DetailBtmMoreSpan>펼치기</DetailBtmMoreSpan>
-                  <MdOutlineKeyboardArrowDown size={40} />
-                </>
-              )}
-            </DetailBtmClickMoreSpan>
+                <></>
+              )
+            ) : (
+              <></>
+            )}
           </DetailBtmMoreDivDivDiv>
         </DetailContainer>
       </DetailContainerDiv>
