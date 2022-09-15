@@ -8,6 +8,8 @@ import useLikeStore from '../zustand/like';
 
 // Packages
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Utils
 import { getCookie } from '../utils/cookie';
@@ -31,8 +33,7 @@ import {
   DisLike40,
   Like40,
   OnPlay60,
-} from "../assets/images/image";
-
+} from '../assets/images/image';
 
 const PostBig = ({
   postId,
@@ -55,7 +56,6 @@ const PostBig = ({
 
   const [isLike, setIsLike] = useState(likeState);
 
-
   const navigate = useNavigate();
 
   const Play = () => {
@@ -65,25 +65,37 @@ const PostBig = ({
     addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
   };
 
-
   const goToDetail = () => {
-    if(position === "singer"){
-      position =  "Singer";
-    }else if(position === "maker"){
-      position = "Maker";
-    }else{
+    if (position === 'singer') {
+      position = 'Singer';
+    } else if (position === 'maker') {
+      position = 'Maker';
+    } else {
       navigate(`/detail/${position}/${postId}`);
     }
   };
 
   const LikeClick = () => {
-    if (getCookie("authorization") === undefined) {
-      alert("로그인후 이용해주세요");
+    if (getCookie('authorization') === undefined) {
+      alert('로그인후 이용해주세요');
+      navigate('/signin');
     } else {
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
+          toast.info('게시글에 좋아요를 눌렀습니다.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1500,
+            draggablePercent: 60,
+            hideProgressBar: true,
+          });
           setIsLike(true);
         } else {
+          toast.info('게시글에 좋아요를 취소했습니다.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1500,
+            draggablePercent: 60,
+            hideProgressBar: true,
+          });
           setIsLike(false);
         }
       });
@@ -92,7 +104,9 @@ const PostBig = ({
 
   return (
     <BigMyImgDivDiv key={postId}>
-      <BigMyimg src={imageUrl === null
+      <BigMyimg
+        src={
+          imageUrl === null
             ? profileImgArr[random]
             : imageUrl === ''
             ? profileImgArr[random]
@@ -100,8 +114,9 @@ const PostBig = ({
         }
         alt=''
       />
+      <ToastContainer />
       <BigImgMyBtmRight>
-        <BigImgNotSlideSpan>{nickname}</BigImgNotSlideSpan>
+        <BigImgNotSlideSpan>{nickname.slice(0, 9)}</BigImgNotSlideSpan>
       </BigImgMyBtmRight>
       <BigMyImgTopLeft onClick={goToDetail}>{title}</BigMyImgTopLeft>
       <DisBigMyImgTopRight>
@@ -117,9 +132,7 @@ const PostBig = ({
           ) : (
             <img src={DisLike40} alt='좋아요 안한 상태' onClick={LikeClick} />
           )}
-          <BigMyImgBtmLeftspan>
-              좋아요
-          </BigMyImgBtmLeftspan>
+          <BigMyImgBtmLeftspan>좋아요</BigMyImgBtmLeftspan>
         </BigMyImgBtmLeftDiv>
       </BigMyImgBtmLeft>
       <BigMyImgBtmRight onClick={Play}>

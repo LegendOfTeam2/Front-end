@@ -1,3 +1,10 @@
+// React
+import { Fragment } from 'react';
+
+// Packages
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Assets
 import {
   DisMyImgTopRight,
@@ -13,7 +20,6 @@ import {
   MyImgTopRight,
 } from '../assets/styles/components/Post.styled';
 import {
-  DisCollaboration,
   Collaborate,
   DisLike,
   OnPlay,
@@ -63,8 +69,20 @@ const Post = ({
     } else {
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
+          toast.info('게시글에 좋아요를 눌렀습니다.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1500,
+            draggablePercent: 60,
+            hideProgressBar: true,
+          });
           setIsLike(true);
         } else {
+          toast.info('게시글에 좋아요를 취소했습니다.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1500,
+            draggablePercent: 60,
+            hideProgressBar: true,
+          });
           setIsLike(false);
         }
       });
@@ -92,8 +110,9 @@ const Post = ({
         }
         alt=''
       />
+      <ToastContainer />
       <ImgMyBtmRight>
-        <ImgNotSlideSpan>{nickname}</ImgNotSlideSpan>
+        <ImgNotSlideSpan>{nickname.slice(0, 9)}</ImgNotSlideSpan>
       </ImgMyBtmRight>
       <MyImgTopLeft onClick={goToDetail}>{title}</MyImgTopLeft>
       <DisMyImgTopRight>
@@ -109,7 +128,6 @@ const Post = ({
           ) : (
             <img src={DisLike} alt='좋아요 안한 상태' onClick={LikeClick} />
           )}
-
           <MyImgBtmLeftspan>좋아요</MyImgBtmLeftspan>
         </MyImgBtmLeftDiv>
       </MyImgBtmLeft>

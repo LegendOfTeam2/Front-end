@@ -7,7 +7,6 @@ import {
 } from "../utils/apis/like";
 
 const useLikeStore = create((set) => ({
-  // likeState: false,
   singerIsLike: [],
   makerIsLike: [],
 
@@ -17,7 +16,6 @@ const useLikeStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
-      // set({ likeState: resData.data.data });
       return resData.data;
     }
   },
@@ -49,7 +47,6 @@ const useLikeStore = create((set) => ({
           const likeList = resData.data.data.map((post) => {
             return post.makerId;
           });
-
           return { makerIsLike: likeList };
         }
       });
