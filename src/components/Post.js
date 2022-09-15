@@ -72,8 +72,9 @@ const Post = ({
     }
   };
 
+
+
   const goToDetail = () => {
-    console.log(position);
     if(position === "singer"){
       position =  "Singer";
     }else if(position === "maker"){
@@ -83,7 +84,7 @@ const Post = ({
     }
   };
   return (
-    <MyImgDivDiv>
+    <MyImgDivDiv key={postId}>
       <Myimg src={ imageUrl === null
             ? profileImgArr[random]
             : imageUrl === ""

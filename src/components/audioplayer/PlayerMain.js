@@ -72,15 +72,27 @@ function PlayerMain() {
   };
 
   useEffect(() => {
+    if (playList.length > 0) {
+      if (currentSong.postId === playList[0].postId) {
+        const audio = audioRef.current;
+        if (playing) {
+          audio.currentTime = 0;
+          setPlaying(true);
+          audio.play();
+        }
+      }
+    }
+  }, [currentSong.postId, playList, playing, setPlaying]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
     if (viewState) {
-      setPlaying(true);
-      setIsAutoplay(true);
       if (playing) {
         setPlaying(true);
-        setIsAutoplay(true);
+        audio.play();
       } else {
-        setIsAutoplay(false);
         setPlaying(false);
+        audio.pause();
       }
     }
   }, [viewState, playing, setPlaying, setIsAutoplay]);

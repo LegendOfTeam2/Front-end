@@ -193,7 +193,7 @@ const MyInfoModify = () => {
         <ToastContainer />
         <ModifyBox>
           <ModifyNaviContainer>
-            <ModifyNaviText onClick={() => navigate(-1)}>취소</ModifyNaviText>
+            <ModifyNaviText onClick={() => navigate(-1)}>이전</ModifyNaviText>
             <ModifyNaviInfo>프로필 수정</ModifyNaviInfo>
             <ModifyNaviText onClick={onHandelModify}>완료</ModifyNaviText>
           </ModifyNaviContainer>

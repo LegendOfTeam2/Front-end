@@ -10,6 +10,7 @@ export const getDetailApi = (payload) => {
   };
 
   export const deleteDetailApi = (payload) => {
+    console.log(payload);
     return api_auth.delete(`/auth/post`, payload);
   };
   

@@ -104,6 +104,7 @@ export const MyImgBtmRight = styled.div`
 `;
 export const ImgNotSlideSpan = styled.span`
   color: #ffffff;
+  text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
   line-height: ${(props) => props.theme.lineHeight.xs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.sm};

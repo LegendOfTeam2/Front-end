@@ -167,7 +167,6 @@ const Main = () => {
   const goToMaker = (category) => {
     navigate(`/morepage/maker/${category}`);
   };
-  console.log(PowerArtist);
   return (
     <Fragment>
       <Header />

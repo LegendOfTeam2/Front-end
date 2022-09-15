@@ -56,9 +56,9 @@ const PostBig = ({
       navigate(`/details/${position}/${postId}`);
     }
   };
-  console.log(mediaUrl);
+
   return (
-    <BigMyImgDivDiv>
+    <BigMyImgDivDiv key={postId}>
       <BigMyimg src={imageUrl === null
             ? profileImgArr[random]
             : imageUrl === ""
