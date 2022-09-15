@@ -108,18 +108,15 @@ const useMemberStore = create((set) => ({
     }
   },
   getMyImage: async (payload) => {
-
     const resData = await getMyImageApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
 
     if(resData?.data.success) {
-      set({myProfileImg: resData.data.data});
+      set({myProfileImg: resData.data.data.imgUrl});
       set({myProfileImgIsLoaded: resData.data.success});
     }
   },
-
-  
 }));
 
 export default useMemberStore;

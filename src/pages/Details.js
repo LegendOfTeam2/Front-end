@@ -82,11 +82,15 @@ const Details = () => {
   const deleteDetail = useDetailStore((state) => state.deleteDetail);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
+  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
+  const addPlayList = usePlayerStore((state) => state.addPlayList);
 
   const navigate = useNavigate();
 
-  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
-  const addPlayList = usePlayerStore((state) => state.addPlayList);
+  const deletePost = {
+    postId: detailList.postId,
+    position: detailList.position,
+  }
 
   const goToModify = () => {
     navigate(`/ModifyWrite/${detailList.position}/${Params.postid}`);
@@ -100,7 +104,7 @@ const Details = () => {
     setIntroduction(!introduction);
   };
 
-  const HandelLike = () => {
+  const onHandelLike = () => {
     setLike(!like);
   };
 
@@ -132,10 +136,11 @@ const Details = () => {
   };
 
   const deleteDetailClick = () => {
-    deleteDetail({
-      postId: detailList.postId,
-      position: detailList.position,
-      nickname: detailList.nickname,
+    deleteDetail(deletePost).then((res) => {
+      if(res) {
+        alert('게시글이 삭제되었습니다.')
+        navigate('/');
+      }
     });
   };
 
@@ -266,7 +271,7 @@ const Details = () => {
                         {" "}
                         <img
                           src={Like38}
-                          onClick={HandelLike}
+                          onClick={onHandelLike}
                           alt='좋아요'
                         />{" "}
                       </DetailClickHover>
@@ -274,7 +279,7 @@ const Details = () => {
                       <DetailClickHover>
                         <img
                           src={DisLike38}
-                          onClick={HandelLike}
+                          onClick={onHandelLike}
                           alt='싫어요'
                         />
                       </DetailClickHover>

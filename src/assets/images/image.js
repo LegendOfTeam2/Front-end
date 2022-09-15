@@ -1,4 +1,4 @@
-import LargeLogo from './largeLogo.svg';
+import LargeLogo from './LargeLogo.svg';
 import HeaderlargeLogo from './HeaderlargeLogo.svg';
 import NextPlay from './NextPlay.svg';
 import DisRepeated from './DisRepeated.svg';
@@ -28,12 +28,13 @@ import ErrorLogo from './ErrorLogo.png';
 import SignInBackground from './SignInBackground.png';
 import SignInBackgroundSm from './SignInBackgroundSm.png';
 import WithdrawalLogo from './WithdrawalLogo.png';
-import Exclamation from './Exclamation.png'
-import WelcomeMsg from "./WelcomeMsg.png";
+import Exclamation from './Exclamation.png';
+import WelcomeMsg from './WelcomeMsg.png';
 import Collaborate from './Collaborate.svg';
 import Hide from './Hide.svg';
 import Show from './Show.svg';
 import Like24 from './Like24.svg';
+import Like40 from './Like40.svg';
 import albumCover_1 from './albumcover/albumCover_1.jpg';
 import albumCover_2 from './albumcover/albumCover_2.jpg';
 import albumCover_3 from './albumcover/albumCover_3.jpg';
@@ -42,7 +43,6 @@ import KakaoTalkPhoto from './KakaoTalkPhoto.png';
 import ShowPw from './ShowPw.svg';
 import HidePw from './HidePw.svg';
 import Xbox20 from './Xbox20.svg';
-
 
 export {
   albumCover_1,
@@ -88,6 +88,6 @@ export {
   GooglePhoto,
   ShowPw,
   HidePw,
-  Xbox20
-  
+  Xbox20,
+  Like40,
 };
