@@ -112,7 +112,9 @@ const Main = () => {
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+
   const navigate = useNavigate();
+
   useEffect(() => {
     if (getCookie("authorization") === undefined) {
       getRecentSinger();
@@ -164,6 +166,7 @@ const Main = () => {
   const goToMaker = (category) => {
     navigate(`/morepage/maker/${category}`);
   };
+
 
   return (
     <Fragment>

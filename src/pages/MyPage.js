@@ -51,6 +51,7 @@ import {
 } from "../assets/styles/pages/MyPage.styled";
 import { DisMakerMarke, DisSingerMarker } from "../assets/images/image";
 import { useNavigate, useParams } from "react-router-dom";
+import useLikeStore from "../zustand/like";
 
 const MyPage = () => {
   const [page, setPage] = useState(0);
@@ -73,6 +74,9 @@ const MyPage = () => {
 
   const nickName = useParams();
   const navigate = useNavigate();
+
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
 
   const leftRef = useRef();
   const midRef = useRef();
@@ -160,7 +164,7 @@ const MyPage = () => {
     leftRef.current.style.color = "black";
     setLeftREf(true);
   }, []);
-  console.log(pofilUploadPost);
+
   return (
     <Fragment>
       <Header />

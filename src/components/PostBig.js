@@ -16,10 +16,13 @@ import {
   DisLike40,
   OnPlay60,
 } from "../assets/images/image";
-import { memo } from "react";
+import { memo, useState } from "react";
 import usePlayerStore from "../zustand/player";
 import { useNavigate } from "react-router-dom";
 import useMemberStore from "../zustand/member";
+import { getCookie } from "../utils/cookie";
+import useLikeStore from "../zustand/like";
+
 
 const PostBig = ({
   postId,
@@ -30,6 +33,7 @@ const PostBig = ({
   imageUrl,
   mediaUrl,
   nickname,
+  likeState,
 }) => {
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
@@ -37,7 +41,12 @@ const PostBig = ({
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
+  const addLike = useLikeStore((state) => state.addLike);
+
+  const [isLike, setIsLike] = useState(likeState);
+  
   const navigate = useNavigate();
+
   
   const Play = () => {
     viewStateChange(true);
@@ -55,6 +64,21 @@ const PostBig = ({
       navigate(`/details/${position}/${postId}`);
     }
   };
+
+  const LikeClick = () => {
+    if (getCookie("authorization") === undefined) {
+      alert("로그인후 이용해주세요");
+    } else {
+      addLike({ postId, position }).then((res) => {
+        if (res.success && res.data) {
+          setIsLike(true);
+        } else {
+          setIsLike(false);
+        }
+      });
+    }
+  };
+
 
   return (
     <BigMyImgDivDiv key={postId}>
