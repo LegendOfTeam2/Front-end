@@ -89,7 +89,7 @@ const PostBig = ({
     } else if (position === 'maker') {
       position = 'Maker';
     } else {
-      navigate(`/details/${position}/${postId}`);
+      navigate(`/detail/${position}/${postId}`);
     }
   };
   console.log(mediaUrl);

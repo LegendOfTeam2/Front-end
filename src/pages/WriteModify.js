@@ -2,7 +2,7 @@
 import { useState, useRef, Fragment, useCallback, useEffect } from 'react';
 // Zustand
 import useUploadStore from '../zustand/upload';
-import useDetailStore from '../zustand/details';
+import usePostStore from '../zustand/post';
 // Packages
 import { GrClose, GrAdd } from 'react-icons/gr';
 import { ImHeadphones } from 'react-icons/im';
@@ -64,10 +64,8 @@ import {
 
 const WriteModify = () => {
   const uploadAudio = useUploadStore((state) => state.uploadAudio);
-  const getDetail = useDetailStore((state) => state.getDetail);
-  const detailList = useDetailStore((state) => state.detailList);
-  const detailListLoaded = useDetailStore((state) => state.detailListLoaded);
-  const putModifyWrite = useDetailStore((state) => state.putModifyWrite);
+  const getDetail = usePostStore((state) => state.getDetail);
+  const putModifyWrite = usePostStore((state) => state.putModifyWrite);
 
   const [title, setTitle] = useState('');
   const [lyrics, setLyrics] = useState('');
