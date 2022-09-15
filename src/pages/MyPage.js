@@ -109,6 +109,7 @@ const MyPage = () => {
     centerMode: true,
     slidesToShow: profilPosteIsLoaded ? profilPost.hashtag.length : 0,
     slidesToScroll: 1,
+    infinite: false,
     centerPadding: '10px',
     arrows: false,
     variableWidth: true,
@@ -303,7 +304,6 @@ const MyPage = () => {
                           <Fragment></Fragment>
                         ) : (
                           profilPost.hashtag.map((x) => {
-                            console.log(x);
                             return (
                               <MyTagBoxTextSlideDiv>
                                 <MyTagBoxTextSpanSlide>

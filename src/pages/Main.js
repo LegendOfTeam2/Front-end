@@ -216,10 +216,11 @@ const Main = () => {
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                    {recentSinger.map((x) => {
+                    {recentSinger.map((x, idx) => {
                       if ([...singerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <Post
+                            key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -234,6 +235,7 @@ const Main = () => {
                       } else {
                         return (
                           <Post
+                            key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -278,10 +280,11 @@ const Main = () => {
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                    {bestSinger.map((x) => {
+                    {bestSinger.map((x, idx) => {
                       if ([...singerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <Post
+                            key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -296,6 +299,7 @@ const Main = () => {
                       } else {
                         return (
                           <Post
+                            key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -338,10 +342,11 @@ const Main = () => {
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                    {recentMaker.map((x) => {
+                    {recentMaker.map((x, idx) => {
                       if ([...makerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <Post
+                            key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -356,6 +361,7 @@ const Main = () => {
                       } else {
                         return (
                           <Post
+                            key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -400,10 +406,11 @@ const Main = () => {
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                    {bestMaker.map((x) => {
+                    {bestMaker.map((x, idx) => {
                       if ([...makerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <Post
+                            key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -418,6 +425,7 @@ const Main = () => {
                       } else {
                         return (
                           <Post
+                            key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
                             nickname={x.nickname}
@@ -456,7 +464,7 @@ const Main = () => {
                 </BtmProfileTextDiv>
                 <MainHotArtistWrap>
                   {PowerArtist.map((x) => {
-                    if(artistIsFollow.indexOf(x.nickname) < 0) {
+                    if (artistIsFollow.indexOf(x.nickname) < 0) {
                       return (
                         <HotArtist
                           nickname={x.nickname}
@@ -496,10 +504,11 @@ const Main = () => {
                   />
                 </MainArowLeft>
                 <Slider {...Btmsettings}>
-                  {PowerArtist.map((x) => {
-                    if(artistIsFollow.indexOf(x.nickname) < 0) {
+                  {PowerArtist.map((x, idx) => {
+                    if (artistIsFollow.indexOf(x.nickname) < 0) {
                       return (
                         <HotArtist
+                          key={idx}
                           nickname={x.nickname}
                           follower={x.follower
                             .toString()
@@ -508,9 +517,10 @@ const Main = () => {
                           isFollow={false}
                         />
                       );
-                    }  else {
+                    } else {
                       return (
                         <HotArtist
+                          key={idx}
                           nickname={x.nickname}
                           follower={x.follower
                             .toString()
