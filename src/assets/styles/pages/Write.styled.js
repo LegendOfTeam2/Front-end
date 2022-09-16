@@ -8,6 +8,7 @@ export const WriteContainer = styled.div`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  z-index: -1;
 `;
 export const WriteBox = styled.div`
   width: 961px;

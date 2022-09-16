@@ -6,6 +6,7 @@ export const WithdrawalContainer = styled.div`
   background-repeat: repeat-y;
   display: flex;
   justify-content: center;
+  z-index: -1;
 `;
 export const WithdrawalBox = styled.div`
   width: 1024px;
