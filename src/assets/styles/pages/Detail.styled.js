@@ -96,7 +96,7 @@ export const PositionMarkerDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #28ca7c;
+  background-color: #28ca7c;
   border-radius: 25px;
 `;
 
@@ -104,7 +104,7 @@ export const PositionMarkerSpan = styled.div`
   font-size: ${(props) => props.theme.fontSizes.xl};
   line-height: ${(props) => props.theme.lineHeight.xl};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
-  color: #28ca7c;
+  color: white;
 `;
 
 export const PositionMidDiv = styled.div`

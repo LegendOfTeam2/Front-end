@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const HotArtistImgDivDiv = styled.div`
   width: 167px;
-  display: flex;
+  display: 167px;
   position: relative;
   margin-top: 24px;
   
@@ -10,7 +10,7 @@ export const HotArtistImgDivDiv = styled.div`
 
 export const BtmProfileDivDiv = styled.div`
   width: 167px;
-  height: auto;
+  height: 170px;
   border: 1px solid #cccccc;
   border-radius: 8px;
   background-color: #F9F9F9;
