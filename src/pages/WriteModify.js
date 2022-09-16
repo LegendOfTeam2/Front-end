@@ -405,8 +405,8 @@ const WriteModify = () => {
                 _type={'text'}
                 _value={title}
                 _onChange={(e) => setTitle(e.target.value)}
-                _placeholder={'작업물의 제목을 입력해 주세요.(15자 이내)'}
-                _maxLength={15}
+                _placeholder={'작업물의 제목을 입력해 주세요.(30자 이내)'}
+                _maxLength={30}
                 _style={{
                   width: '776px',
                   height: 'auto',

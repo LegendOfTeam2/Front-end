@@ -5,6 +5,7 @@ export const MoreContainerDiv = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;
+  z-index: -1;
   margin: 0;
   padding: 0;
   top: 156.5px;

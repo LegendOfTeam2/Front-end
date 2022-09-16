@@ -18,6 +18,8 @@ export const SearchBox = styled.div`
   width: 1024px;
   height: auto;
   margin-top: 246px;
+  z-index: -1;
+  position: absolute;
 `;
 export const SearchNaviContainer = styled.div`
   width: 100%;
