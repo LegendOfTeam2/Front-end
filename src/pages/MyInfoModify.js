@@ -17,7 +17,7 @@ import Header from '../components/Header';
 // Elements
 import Input from '../elements/Input';
 // Utils
-import { getCookie } from '../utils/cookie';
+import { getCookie, removeCookie } from '../utils/cookie';
 // Assets
 import {
   ModifyContainer,
@@ -67,7 +67,7 @@ const MyInfoModify = () => {
 
   useEffect(() => {
     const nickname = jwt_decode(getCookie('authorization')).sub;
-    getProfilPost({ nickname }).then((res) => {
+    getProfilPost(nickname).then((res) => {
       setNickname(res.nickname);
       setTags(res.hashtag);
       if (res.introduce !== null) setIntro(res.introduce);
@@ -171,28 +171,36 @@ const MyInfoModify = () => {
   );
 
   const onHandelModify = () => {
-    if (nicknameCheck === false) {
-      toast.error('중복되는 이메일입니다 !', {
-        position: toast.POSITION.TOP_CENTER,
+    if (nickname === '') {
+      toast.info('닉네임을 입력해 주세요.', {
+        position: toast.POSITION.BOTTOM_RIGHT,
         autoClose: 1500,
         draggablePercent: 60,
         hideProgressBar: true,
       });
     } else {
-      putProfile(jwt_decode(getCookie('authorization')).sub, newProfile).then(
-        (res) => {
-          if (res) {
-            signOutMember({
-              nickname: jwt_decode(getCookie('authorization')).sub,
-            }).then((res) => {
-              if (res) {
-                alert('다시 로그인 해주세요');
-                navigate('/signin');
-              }
-            });
+      if (nicknameCheck === false) {
+        toast.error('중복되는 이메일입니다 !', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
+      } else {
+        putProfile(jwt_decode(getCookie('authorization')).sub, newProfile).then(
+          (res) => {
+            if (res) {
+              signOutMember({
+                nickname: jwt_decode(getCookie('authorization')).sub,
+              });
+              removeCookie('authorization');
+              window.sessionStorage.setItem('refresh-token', '');
+              alert('로그아웃 되었습니다.');
+              navigate('/');
+            }
           }
-        }
-      );
+        );
+      }
     }
   };
 

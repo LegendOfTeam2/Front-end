@@ -82,6 +82,7 @@ export const DetailProfileMidleTopDiv = styled.div`
 
 export const PositionAllDiv = styled.div`
   width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   padding: 53px 37px 80px 74px;
@@ -172,7 +173,6 @@ export const PositionMidMidTextDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 36px;
 `;
 
 export const PositionMidMidLeftTextDiv = styled.div`
