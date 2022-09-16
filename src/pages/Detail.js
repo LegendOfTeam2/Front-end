@@ -159,26 +159,18 @@ const Detail = () => {
   }, []);
 
   const clip = () => {
-    // navigator.clipboard
-    //   .writeText(
-    //     `http://localhost:3000/detail/${Params.position}/${Params.postid}`
-    //   )
-    //   .then(() => {
-    //     alert('링크 복사 완료');
-    //   });
-    try {
-      document.execCommand(
-        `http://watchao-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/detail/${Params.position}/${Params.postid}`
-      );
-      toast.info('URL 복사가 완료되었습니다.', {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        autoClose: 1500,
-        draggablePercent: 60,
-        hideProgressBar: true,
+    navigator.clipboard
+      .writeText(
+        `https://rhythme.shop/detail/${Params.position}/${Params.postid}`
+      )
+      .then(() => {
+        toast.info('URL 복사가 완료되었습니다.', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
       });
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   const Play = () => {
@@ -292,11 +284,6 @@ const Detail = () => {
           </DetailTopDiv>
           <PositionAllDiv>
             <PositionMarkerDiv>
-            {detailList.position === '싱어' ? (
-                  <img src={SingerWhite} onClick={onHandelLike} alt='싱어' />
-                ) : (
-                  <img src={MakerWhite} onClick={onHandelLike} alt='메이커' />
-                )}
               <PositionMarkerSpan>
                 {detailList.position}
               </PositionMarkerSpan>

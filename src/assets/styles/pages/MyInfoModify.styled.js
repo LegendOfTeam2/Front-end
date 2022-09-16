@@ -139,6 +139,7 @@ export const ModifyMemberDeleteContainer = styled.div`
   height: auto;
   text-align: end;
   padding-top: 32px;
+  padding-top: 100px;
   cursor: pointer;
 `;
 export const ModifyMemberDeleteText = styled.span`

@@ -72,9 +72,9 @@ const useMemberStore = create((set) => ({
     //   .catch((err) => console.log(err));
 
     // if (resData?.data.success) {
-      removeCookie('authorization');
-      window.sessionStorage.setItem('refresh-token', '');
-      set({ is_login: false });
+      // removeCookie('authorization');
+      // window.sessionStorage.setItem('refresh-token', '');
+      // set({ is_login: false });
       // return resData.data.success;
     // }
 
