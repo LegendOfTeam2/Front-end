@@ -1,4 +1,4 @@
-# Getting Started with Create React App# Mate Runner
+# RhythMe
 <img height="250" src="https://user-images.githubusercontent.com/108949232/190432270-6ae11497-694c-4648-9ece-4eaa8fa7aa05.jpeg" alt="메인로고" width=1200 height=1000 ></img>
 > **_배고픈 음악인을 위한 사이트_** 🧑🏿‍🎤🧑‍🎤<br/><br/>
 > **개발기간: 2022.08.26 ~ 2022.10.07**
@@ -14,7 +14,7 @@
 
 이 두분을 매칭 해주는 사이트를 만들기를 생각했습니다
 
-_.**Singer 와 Maker 의 만남**._
+_**Singer 와 Maker 의 만남**._
 
 <br/>
 
