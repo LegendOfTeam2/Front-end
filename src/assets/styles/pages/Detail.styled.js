@@ -82,7 +82,6 @@ export const DetailProfileMidleTopDiv = styled.div`
 
 export const PositionAllDiv = styled.div`
   width: 100%;
-  height: auto;
   display: flex;
   flex-direction: column;
   padding: 53px 37px 80px 74px;
@@ -96,7 +95,7 @@ export const PositionMarkerDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #28ca7c;
+  border: 1px solid #28ca7c;
   border-radius: 25px;
 `;
 
@@ -104,7 +103,7 @@ export const PositionMarkerSpan = styled.div`
   font-size: ${(props) => props.theme.fontSizes.xl};
   line-height: ${(props) => props.theme.lineHeight.xl};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
-  color: white;
+  color: #28ca7c;
 `;
 
 export const PositionMidDiv = styled.div`
@@ -210,128 +209,4 @@ export const DetailProfileBtmFirDiv = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-`;
-
-export const DetailProfileBtmFirSpan = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.xl};
-  line-height: ${(props) => props.theme.lineHeight.lg};
-  font-weight: ${(props) => props.theme.fontWeight.Medium};
-  color: rgba(40, 202, 124, 1);
-  margin-top: 4px;
-`;
-
-export const DetailProfileBtmSecSpan = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.xl};
-  line-height: ${(props) => props.theme.lineHeight.lg};
-  font-weight: ${(props) => props.theme.fontWeight.Medium};
-  color: rgba(40, 202, 124, 1);
-  margin-top: 4px;
-`;
-
-export const DetailTopLyrics = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.xxxxl};
-  line-height: ${(props) => props.theme.lineHeight.xxxxl};
-  font-weight: ${(props) => props.theme.fontWeight.Bold};
-  border-bottom: 1px solid rgba(180, 180, 180, 1);
-  padding: 16px 74px;
-`;
-
-export const DetailBtmLyricsDiv = styled.div`
-  width: 100%;
-  height: auto;
-`;
-
-export const DetailBtmLyricsDivDiv = styled.div`
-  width: 379px;
-  height: ${(props) => (props.lyrics ? "auto" : "200px")};
-  overflow: hidden;
-  padding: 36px 74px;
-`;
-
-export const DetailBtmLyricsDivSpan = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.xl};
-  line-height: ${(props) => props.theme.lineHeight.lg};
-  font-weight: ${(props) => props.theme.fontWeight.Medium};
-  white-space: pre-wrap;
-  word-break: break-all;
-  overflow: auto;
-`;
-
-export const DetailBtmLyricsDivDivDiv = styled.div`
-  width: 100%;
-  height: 140px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid rgba(180, 180, 180, 1);
-`;
-
-export const DetailBtmLyricsSpan = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.xl};
-  line-height: ${(props) => props.theme.lineHeight.lg};
-  font-weight: ${(props) => props.theme.fontWeight.Bold};
-`;
-
-export const DetailBtmClickLyricsSpan = styled.div`
-  width: auto;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-//소개글
-export const DetailBtmMoreDiv = styled.div`
-  width: 100%;
-  height: auto;
-`;
-
-export const DetailBtmMoreDivDiv = styled.div`
-  width: 379px;
-  height: ${(props) => (props.introduction ? "auto" : "200px")};
-  overflow: hidden;
-  padding: 36px 74px;
-`;
-
-export const DetailBtmMoreDivSpan = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.xl};
-  line-height: ${(props) => props.theme.lineHeight.lg};
-  font-weight: ${(props) => props.theme.fontWeight.Medium};
-  white-space: pre-wrap;
-  word-break: break-all;
-  overflow: auto;
-`;
-export const DetailBtmMoreDivDivDiv = styled.div`
-  width: 100%;
-  height: 140px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid rgba(180, 180, 180, 1);
-`;
-
-export const DetailBtmMoreSpan = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.xl};
-  line-height: ${(props) => props.theme.lineHeight.lg};
-  font-weight: ${(props) => props.theme.fontWeight.Bold};
-`;
-
-export const DetailBtmClickMoreSpan = styled.div`
-  width: auto;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-export const DetailClickHover = styled.div`
-  &:hover {
-    cursor: pointer;
-  }
 `;
