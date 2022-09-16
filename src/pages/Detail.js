@@ -162,7 +162,12 @@ const Detail = () => {
         `https://rhythme.shop/detail/${Params.position}/${Params.postid}`
       )
       .then(() => {
-        alert('링크 복사 완료');
+        toast.info('URL 복사가 완료되었습니다.', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
       });
   };
 
@@ -179,7 +184,7 @@ const Detail = () => {
       position: detailList.position,
     });
   };
-  
+
   const ProfilPage = () => {
     navigate(`/mypage/${detailList.nickname}`);
   };
@@ -267,7 +272,7 @@ const Detail = () => {
                       ft_size: '12',
                     }}
                     _text={'메세지'}
-                    _onClick={()=>navigate('/chat')}
+                    _onClick={() => navigate('/chat')}
                   />
                 )
               ) : (
