@@ -307,6 +307,7 @@ export const DetailBtmMoreDivDivDiv = styled.div`
   width: 100%;
   height: 140px;
   display: flex;
+  margin-bottom: 180px;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid rgba(180, 180, 180, 1);
