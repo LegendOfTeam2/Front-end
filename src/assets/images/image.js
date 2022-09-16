@@ -43,6 +43,8 @@ import KakaoTalkPhoto from './KakaoTalkPhoto.png';
 import ShowPw from './ShowPw.svg';
 import HidePw from './HidePw.svg';
 import Xbox20 from './Xbox20.svg';
+import SingerMarker from './SingerMarker.svg';
+import MakerMarke from './MakerMarke.svg';
 
 export {
   albumCover_1,
@@ -90,4 +92,6 @@ export {
   HidePw,
   Xbox20,
   Like40,
+  SingerMarker,
+  MakerMarke
 };

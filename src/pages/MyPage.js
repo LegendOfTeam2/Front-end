@@ -58,7 +58,12 @@ import {
   MyTagBoxTextSpanSlide,
   MyTextDiv,
 } from '../assets/styles/pages/MyPage.styled';
-import { DisMakerMarke, DisSingerMarker } from '../assets/images/image';
+import {
+  DisMakerMarke,
+  DisSingerMarker,
+  MakerMarke,
+  SingerMarker,
+} from '../assets/images/image';
 import { useNavigate, useParams } from 'react-router-dom';
 import useLikeStore from '../zustand/like';
 import usePostStore from '../zustand/post';
@@ -79,6 +84,9 @@ const MyPage = () => {
   const likePost = useMyPageStore((state) => state.likePost);
 
   const getFollowerList = usePostStore((state) => state.getFollowerList);
+  const pofilUploadPostIsLoaded = usePostStore(
+    (state) => state.pofilUploadPostIsLoaded
+  );
   const artistIsFollow = usePostStore((state) => state.artistIsFollow);
   const artistIsFollowIsLoaded = usePostStore(
     (state) => state.artistIsFollowIsLoaded
@@ -121,6 +129,13 @@ const MyPage = () => {
 
   useEffect(() => {
     getUploadPost(nickname);
+    setLeftREf(true);
+    leftRef.current.style.borderTopColor = 'black';
+    midRef.current.style.borderTopColor = 'transparent';
+    rightRef.current.style.borderTopColor = 'transparent';
+    leftRef.current.style.color = 'black';
+    midRef.current.style.color = 'rgba(180, 180, 180, 1)';
+    rightRef.current.style.color = 'rgba(180, 180, 180, 1)';
     getFollowerList().then((res) => {
       if (res) {
         getProfilPost(nickname);
@@ -128,9 +143,7 @@ const MyPage = () => {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(artistIsFollowIsLoaded);
-  });
+  console.log(profilPost);
 
   const settings = {
     className: 'center',
@@ -210,7 +223,7 @@ const MyPage = () => {
         });
       }
     });
-  }
+  };
 
   return (
     <Fragment>
@@ -245,12 +258,24 @@ const MyPage = () => {
                           : profilPost.nickname}
                       </MyRightTopDivSpan>
                     </MyRightTopDivSpanDiv>
-                    <img src={DisSingerMarker} backgrond='white' alt='이미지' />
-                    <img
-                      src={DisMakerMarke}
-                      backgrond='white'
-                      alt='로고이미지'
-                    />
+                    {profilPost.singerPostCnt > 10 ? (
+                      <img src={SingerMarker} backgrond='white' alt='이미지' />
+                    ) : (
+                      <img
+                        src={DisSingerMarker}
+                        backgrond='white'
+                        alt='이미지'
+                      />
+                    )}
+                    {profilPost.makerPostCnt > 10 ? (
+                      <img src={MakerMarke} backgrond='white' alt='이미지' />
+                    ) : (
+                      <img
+                        src={DisMakerMarke}
+                        backgrond='white'
+                        alt='로고이미지'
+                      />
+                    )}
 
                     <MyRightTopBtmDiv>
                       <MyRightTopBtmDivSpan>
