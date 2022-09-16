@@ -30,6 +30,7 @@ const usePlayerStore = create((set) => ({
     set({isAutoplay: payload});
   }
 
+
 }));
 
 export default usePlayerStore;

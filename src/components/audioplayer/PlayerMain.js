@@ -76,13 +76,21 @@ function PlayerMain() {
       if (currentSong.postId === playList[0].postId) {
         const audio = audioRef.current;
         if (playing) {
-          audio.currentTime = 0;
           setPlaying(true);
           audio.play();
         }
       }
     }
   }, [currentSong.postId, playList, playing, setPlaying]);
+
+  useEffect(()=>{
+      if(viewState){
+        if(currentSong.postId === playList[0].postId){
+          audioRef.current.currentTime = 0;
+        }
+      }
+  },[currentSong])
+
 
   useEffect(() => {
     const audio = audioRef.current;
