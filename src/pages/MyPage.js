@@ -143,8 +143,6 @@ const MyPage = () => {
     });
   }, []);
 
-  console.log(profilPost);
-
   const settings = {
     className: 'center',
     centerMode: true,
