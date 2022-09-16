@@ -34,6 +34,8 @@ import {
   Share38,
   Putting,
   Like38,
+  MakerWhite,
+  SingerWhite,
 } from '../assets/images/image';
 import {
   DetailBtmClickLyricsSpan,
@@ -165,14 +167,16 @@ const Detail = () => {
     //     alert('링크 복사 완료');
     //   });
     try {
-      document.execCommand(`http://watchao-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/detail/${Params.position}/${Params.postid}`)
+      document.execCommand(
+        `http://watchao-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/detail/${Params.position}/${Params.postid}`
+      );
       toast.info('URL 복사가 완료되었습니다.', {
         position: toast.POSITION.BOTTOM_RIGHT,
         autoClose: 1500,
         draggablePercent: 60,
         hideProgressBar: true,
       });
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   };
@@ -190,7 +194,7 @@ const Detail = () => {
       position: detailList.position,
     });
   };
-  
+
   const ProfilPage = () => {
     navigate(`/mypage/${detailList.nickname}`);
   };
@@ -278,7 +282,7 @@ const Detail = () => {
                       ft_size: '12',
                     }}
                     _text={'메세지'}
-                    _onClick={()=>navigate('/chat')}
+                    _onClick={() => navigate('/chat')}
                   />
                 )
               ) : (
@@ -288,7 +292,14 @@ const Detail = () => {
           </DetailTopDiv>
           <PositionAllDiv>
             <PositionMarkerDiv>
-              <PositionMarkerSpan>{detailList.position}</PositionMarkerSpan>
+            {detailList.position === '싱어' ? (
+                  <img src={SingerWhite} onClick={onHandelLike} alt='싱어' />
+                ) : (
+                  <img src={MakerWhite} onClick={onHandelLike} alt='메이커' />
+                )}
+              <PositionMarkerSpan>
+                {detailList.position}
+              </PositionMarkerSpan>
             </PositionMarkerDiv>
             <PositionMidDiv>
               <PositionMidLeftImgDiv>

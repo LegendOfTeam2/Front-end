@@ -45,6 +45,9 @@ import HidePw from './HidePw.svg';
 import Xbox20 from './Xbox20.svg';
 import SingerMarker from './SingerMarker.svg';
 import MakerMarke from './MakerMarke.svg';
+import SingerWhite from './SingerWhite.svg';
+import MakerWhite from './MakerWhite.svg';
+
 
 export {
   albumCover_1,
@@ -93,5 +96,7 @@ export {
   Xbox20,
   Like40,
   SingerMarker,
-  MakerMarke
+  MakerMarke,
+  MakerWhite,
+  SingerWhite
 };
