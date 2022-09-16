@@ -34,6 +34,8 @@ import {
   Share38,
   Putting,
   Like38,
+  MakerWhite,
+  SingerWhite,
 } from '../assets/images/image';
 import {
   DetailBtmClickLyricsSpan,
@@ -282,7 +284,9 @@ const Detail = () => {
           </DetailTopDiv>
           <PositionAllDiv>
             <PositionMarkerDiv>
-              <PositionMarkerSpan>{detailList.position}</PositionMarkerSpan>
+              <PositionMarkerSpan>
+                {detailList.position}
+              </PositionMarkerSpan>
             </PositionMarkerDiv>
             <PositionMidDiv>
               <PositionMidLeftImgDiv>

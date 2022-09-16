@@ -82,7 +82,6 @@ export const DetailProfileMidleTopDiv = styled.div`
 
 export const PositionAllDiv = styled.div`
   width: 100%;
-  height: auto;
   display: flex;
   flex-direction: column;
   padding: 53px 37px 80px 74px;
@@ -190,7 +189,7 @@ export const PositionMidMidRightTextDiv = styled.div`
   height: auto;
   position: absolute;
   right: 18px;
-  top: 70 px;
+  top: 70px;
 `;
 
 export const DetailProfileBtmDiv = styled.div`
