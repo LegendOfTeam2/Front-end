@@ -15,7 +15,7 @@ export const HeaderContainer = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-  margin-top: 64px;
+  margin-top: 24px;
   margin-bottom: 24px;
 `;
 

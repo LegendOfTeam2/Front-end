@@ -7,7 +7,7 @@ export const DetailContainerDiv = styled.div`
   position: absolute;
   margin: 0;
   padding: 0;
-  top: 156.5px;
+  top: 96.5px;
   z-index: -1;
 `;
 export const DetailContainer = styled.div`
@@ -130,6 +130,7 @@ export const PositionMidRightDiv = styled.div`
   width: 672px;
   height: 247px;
   float: right;
+  position: relative;
 `;
 
 export const PositionMidRighTopTextDiv = styled.div`
@@ -187,14 +188,19 @@ export const PositionMidMidLeftTextDiv = styled.div`
 export const PositionMidMidRightTextDiv = styled.div`
   width: auto;
   height: auto;
+  position: absolute;
+  right: 18px;
+  top: 70 px;
 `;
 
 export const DetailProfileBtmDiv = styled.div`
-  width: 100%;
+  width: 100%;  
   height: auto;
   display: flex;
   flex-direction: row;
   gap: 74px;
+  top: 214px;
+  position: absolute;
 `;
 
 export const DetailProfileBtmFirDiv = styled.div`

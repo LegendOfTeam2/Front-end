@@ -8,7 +8,7 @@ export const MoreContainerDiv = styled.div`
   z-index: -1;
   margin: 0;
   padding: 0;
-  top: 156.5px;
+  top: 90.5px;
   z-index: -1;
 `;
 
@@ -74,5 +74,5 @@ export const MoreBtmImgDiv = styled.div`
   gap: 24px;
   padding-left: 24px;
   padding-right: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 220px;
 `;
