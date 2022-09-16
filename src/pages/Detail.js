@@ -179,7 +179,7 @@ const Detail = () => {
       position: detailList.position,
     });
   };
-  console.log(detailList);
+  
   const ProfilPage = () => {
     navigate(`/mypage/${detailList.nickname}`);
   };
@@ -267,6 +267,7 @@ const Detail = () => {
                       ft_size: '12',
                     }}
                     _text={'메세지'}
+                    _onClick={()=>navigate('/chat')}
                   />
                 )
               ) : (
