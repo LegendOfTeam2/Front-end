@@ -25,8 +25,30 @@ const Confirm = ({ isOpen, onCancel }) => {
   const handleClickCancel = () => {
     onCancel();
   };
+
+  const customStyles = {
+    overlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(20, 20, 20, 0.75)',
+    },
+    content: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '620px',
+      height: '510px',
+      borderRadius: '40px',
+      backgroundColor : '#F9F9F9',
+    },
+  };
+
   return (
-    <ReactModal isOpen={isOpen}>
+    <ReactModal isOpen={isOpen} style={customStyles}>
       <CfContainer>
         <CfInBox>
           <CfTopicon>
