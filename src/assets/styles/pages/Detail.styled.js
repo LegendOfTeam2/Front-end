@@ -189,7 +189,7 @@ export const PositionMidMidRightTextDiv = styled.div`
   height: auto;
   position: absolute;
   right: 18px;
-  top: 70 px;
+  top: 70px;
 `;
 
 export const DetailProfileBtmDiv = styled.div`
