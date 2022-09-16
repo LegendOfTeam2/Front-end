@@ -8,6 +8,7 @@ export const UpContainer = styled.div`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  z-index: -1;
 `;
 export const UpInBox = styled.div`
   width: 961px;
