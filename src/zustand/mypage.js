@@ -21,7 +21,7 @@ const useMyPageStore = create((set) => ({
   playListPost: [],
 
   getProfilPost: async (payload) => {
-    const resData = await getProfilPostApi(payload.nickname)
+    const resData = await getProfilPostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
@@ -33,7 +33,7 @@ const useMyPageStore = create((set) => ({
   },
 
   getUploadPost: async (payload) => {
-    const resData = await getUploadPostApi(payload.nickname)
+    const resData = await getUploadPostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
@@ -43,7 +43,7 @@ const useMyPageStore = create((set) => ({
   },
 
   getLikePost: async (payload) => {
-    const resData = await getLikePostApi(payload.nickname)
+    const resData = await getLikePostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
@@ -53,7 +53,7 @@ const useMyPageStore = create((set) => ({
   },
 
   getPlayListPost: async (payload) => {
-    const resData = await getPlayListPostApi(payload.nickname)
+    const resData = await getPlayListPostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
