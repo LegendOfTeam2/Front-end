@@ -195,7 +195,7 @@ const MyInfoModify = () => {
               });
               removeCookie('authorization');
               window.sessionStorage.setItem('refresh-token', '');
-              alert('로그아웃 되었습니다.');
+              alert('다시 로그인 부탁드립니다.');
               navigate('/');
             }
           }
