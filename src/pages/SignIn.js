@@ -60,8 +60,8 @@ import {
 const SignIn = () => {
   const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
   const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  const KAKAO_REDIRECT_URI = "http://localhost:3000/kakao/callback";
-  const GOOGLE_REDIRECT_URI = "http://localhost:3000/google/callback";
+  const KAKAO_REDIRECT_URI = "http://watchao-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/kakao/callback";
+  const GOOGLE_REDIRECT_URI = "http://watchao-bucket-deploy.s3-website.ap-northeast-2.amazonaws.com/google/callback";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

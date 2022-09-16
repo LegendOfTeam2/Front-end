@@ -36,6 +36,7 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   const random = useMemberStore((state) => state.random);
 
   const followButtonRef = useRef();
+  const followerCntRef = useRef();
 
   const navigate = useNavigate();
 
@@ -59,6 +60,8 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
               draggablePercent: 60,
               hideProgressBar: true,
             });
+            followerCntRef.current.innerText =
+              Number(followerCntRef.current.innerText) + 1;
           } else {
             followButtonRef.current.innerText = '팔로우';
             followButtonRef.current.style.backgroundColor = '#28CA7C';
@@ -68,6 +71,8 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
               draggablePercent: 60,
               hideProgressBar: true,
             });
+            followerCntRef.current.innerText =
+              Number(followerCntRef.current.innerText) - 1;
           }
         });
       }
@@ -102,7 +107,8 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
           <BtmTextDivSpan>{nickname.slice(0, 9)}</BtmTextDivSpan>
         </BtmTextDivDivDiv>
         <BtmTextDivDivSmDiv>
-          <BtmTextDivSmSpan>{follower} 팔로워</BtmTextDivSmSpan>
+          <BtmTextDivSmSpan ref={followerCntRef}>{follower}</BtmTextDivSmSpan>
+          <BtmTextDivSmSpan> 팔로워</BtmTextDivSmSpan>
         </BtmTextDivDivSmDiv>
         <BtmBunDiv>
           {isFollow ? (
