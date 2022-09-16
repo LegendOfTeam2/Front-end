@@ -1,21 +1,30 @@
 // React
 import { Fragment, useRef, useEffect, useState } from 'react';
+
 // Zustand
 import useMyPageStore from '../zustand/mypage';
 import useMemberStore from '../zustand/member';
+import useFollowStore from '../zustand/follow';
+
 // Packages
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-// Utils
-import Button from '../elements/Button';
-import { getCookie } from '../utils/cookie';
-// Pages
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import jwt_decode from 'jwt-decode';
+
+// Utils
+import { getCookie } from '../utils/cookie';
+
+// Elements
+import Button from '../elements/Button';
+
 // Components
 import Header from '../components/Header';
 import Post from '../components/Post';
 import PostBig from '../components/PostBig';
+
 // Assests
 import {
   MyBtmDataDiv,
@@ -49,14 +58,21 @@ import {
   MyTagBoxTextSpanSlide,
   MyTextDiv,
 } from '../assets/styles/pages/MyPage.styled';
-import { DisMakerMarke, DisSingerMarker } from '../assets/images/image';
+import {
+  DisMakerMarke,
+  DisSingerMarker,
+  MakerMarke,
+  SingerMarker,
+} from '../assets/images/image';
 import { useNavigate, useParams } from 'react-router-dom';
 import useLikeStore from '../zustand/like';
+import usePostStore from '../zustand/post';
 
 const MyPage = () => {
-  const [page, setPage] = useState(0);
+  // const [page, setPage] = useState(0);
   const [isLeftRef, setLeftREf] = useState(false);
   const [isMidRef, setMidref] = useState(false);
+  // const [isFollow, setIsFollow] = useState(false);
 
   const getProfilPost = useMyPageStore((state) => state.getProfilPost);
   const profilPost = useMyPageStore((state) => state.profilPost);
@@ -67,12 +83,22 @@ const MyPage = () => {
   const getLikePost = useMyPageStore((state) => state.getLikePost);
   const likePost = useMyPageStore((state) => state.likePost);
 
+  const getFollowerList = usePostStore((state) => state.getFollowerList);
+  const pofilUploadPostIsLoaded = usePostStore(
+    (state) => state.pofilUploadPostIsLoaded
+  );
+  const artistIsFollow = usePostStore((state) => state.artistIsFollow);
+  const artistIsFollowIsLoaded = usePostStore(
+    (state) => state.artistIsFollowIsLoaded
+  );
+
   const pofilUploadPost = useMyPageStore((state) => state.pofilUploadPost);
 
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
+  const follow = useFollowStore((state) => state.follow);
 
-  const nickName = useParams();
+  const { nickname } = useParams();
   const navigate = useNavigate();
 
   const singerIsLike = useLikeStore((state) => state.singerIsLike);
@@ -81,6 +107,7 @@ const MyPage = () => {
   const leftRef = useRef();
   const midRef = useRef();
   const rightRef = useRef();
+  const followButtonRef = useRef();
 
   // const handleScroll = () => {
   //   const scrollHeight = document.documentElement.scrollHeight;
@@ -91,18 +118,30 @@ const MyPage = () => {
   //   }
   // };
 
-  useEffect(() => {
-    getProfilPost(nickName);
-    getUploadPost(nickName);
-    // window.addEventListener("scroll", handleScroll);
-    // return () => {
-    //   window.removeEventListener("scroll", handleScroll);
-    // };
-  }, []);
-
   // useEffect(() => {
-  // getUploadPost(page);
-  // }, [page]);
+
+  // if(){}
+  // window.addEventListener("scroll", handleScroll);
+  // return () => {
+  //   window.removeEventListener("scroll", handleScroll);
+  // };
+  // }, []);
+
+  useEffect(() => {
+    getUploadPost(nickname);
+    setLeftREf(true);
+    leftRef.current.style.borderTopColor = 'black';
+    midRef.current.style.borderTopColor = 'transparent';
+    rightRef.current.style.borderTopColor = 'transparent';
+    leftRef.current.style.color = 'black';
+    midRef.current.style.color = 'rgba(180, 180, 180, 1)';
+    rightRef.current.style.color = 'rgba(180, 180, 180, 1)';
+    getFollowerList().then((res) => {
+      if (res) {
+        getProfilPost(nickname);
+      }
+    });
+  }, []);
 
   const settings = {
     className: 'center',
@@ -137,7 +176,7 @@ const MyPage = () => {
         rightRef.current.style.color = 'rgba(180, 180, 180, 1)';
         setLeftREf(false);
         setMidref(true);
-        getLikePost(nickName);
+        getLikePost(nickname);
         break;
       }
       case 'save': {
@@ -175,10 +214,35 @@ const MyPage = () => {
     leftRef.current.style.color = 'black';
     setLeftREf(true);
   }, []);
+  
+  const onHandleFollow = () => {
+    follow(nickname).then((res) => {
+      if (res) {
+        followButtonRef.current.innerText = '팔로잉';
+        followButtonRef.current.style.backgroundColor = '#CC0000';
+        toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
+      } else {
+        followButtonRef.current.innerText = '팔로우';
+        followButtonRef.current.style.backgroundColor = '#28CA7C';
+        toast.info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
+      }
+    });
+  };
 
   return (
     <Fragment>
       <Header />
+      <ToastContainer />
       <MyContainerDiv>
         <MyContainer>
           <MyProfileContainer>
@@ -208,12 +272,24 @@ const MyPage = () => {
                           : profilPost.nickname}
                       </MyRightTopDivSpan>
                     </MyRightTopDivSpanDiv>
-                    <img src={DisSingerMarker} backgrond='white' alt='이미지' />
-                    <img
-                      src={DisMakerMarke}
-                      backgrond='white'
-                      alt='로고이미지'
-                    />
+                    {profilPost.singerPostCnt > 10 ? (
+                      <img src={SingerMarker} backgrond='white' alt='이미지' />
+                    ) : (
+                      <img
+                        src={DisSingerMarker}
+                        backgrond='white'
+                        alt='이미지'
+                      />
+                    )}
+                    {profilPost.makerPostCnt > 10 ? (
+                      <img src={MakerMarke} backgrond='white' alt='이미지' />
+                    ) : (
+                      <img
+                        src={DisMakerMarke}
+                        backgrond='white'
+                        alt='로고이미지'
+                      />
+                    )}
 
                     <MyRightTopBtmDiv>
                       <MyRightTopBtmDivSpan>
@@ -244,23 +320,57 @@ const MyPage = () => {
                           _text={'메세지'}
                           _onClick={onHandleChat}
                         />
-                        <Button
-                          _style={{
-                            width: '122px',
-                            height: '45px',
-                            bg_color: '#28CA7C',
-                            bd_radius: '11px',
-                            color: 'rgba(255, 255, 255, 1)',
-                            ft_size: '12',
-                            ft_weight: '700',
-                          }}
-                          _text={'팔로우'}
-                        />
+                        {artistIsFollowIsLoaded ? (
+                          artistIsFollow.indexOf(nickname) !== -1 ? (
+                            <Button
+                              _style={{
+                                width: '122px',
+                                height: '45px',
+                                bg_color: '#cc0000',
+                                bd_radius: '11px',
+                                color: 'rgba(255, 255, 255, 1)',
+                                ft_size: '12',
+                                ft_weight: '700',
+                              }}
+                              _text={'팔로잉'}
+                              _onClick={onHandleFollow}
+                              _ref={followButtonRef}
+                            />
+                          ) : (
+                            <Button
+                              _style={{
+                                width: '122px',
+                                height: '45px',
+                                bg_color: '#28CA7C',
+                                bd_radius: '11px',
+                                color: 'rgba(255, 255, 255, 1)',
+                                ft_size: '12',
+                                ft_weight: '700',
+                              }}
+                              _text={'팔로우'}
+                              _onClick={onHandleFollow}
+                              _ref={followButtonRef}
+                            />
+                          )
+                        ) : (
+                          <Button
+                            _style={{
+                              width: '122px',
+                              height: '45px',
+                              bg_color: '#cecece',
+                              bd_radius: '11px',
+                              color: 'rgba(255, 255, 255, 1)',
+                              ft_size: '12',
+                              ft_weight: '700',
+                            }}
+                            _text={''}
+                            _ref={followButtonRef}
+                          />
+                        )}
                       </MyRightTopButDiv>
                     ) : (
                       <MyRightTopButDiv>
                         <MyRightTopButDivNotMember>
-                          {' '}
                           <Button
                             _style={{
                               width: '261px',
@@ -314,7 +424,7 @@ const MyPage = () => {
                         profilPost.hashtag === [] ? (
                           <Fragment></Fragment>
                         ) : (
-                          profilPost.hashtag.map((x,idx) => {
+                          profilPost.hashtag.map((x, idx) => {
                             return (
                               <MyTagBoxTextSlideDiv key={idx}>
                                 <MyTagBoxTextSpanSlide>

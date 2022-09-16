@@ -35,6 +35,7 @@ const usePostStore = create((set) => ({
   PowerArtistLoaded: false,
   PowerArtist: [],
 
+  artistIsFollowIsLoaded:false,
   artistIsFollow: [],
 
   detailListLoaded: false,
@@ -51,6 +52,7 @@ const usePostStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
+      set({ artistIsFollowIsLoaded: resData.data.success });
       set((state) => {
         const followerIdList = resData.data.data.map((element) => {
           return element.nickname;
