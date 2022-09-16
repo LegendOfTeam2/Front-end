@@ -82,7 +82,6 @@ export const DetailProfileMidleTopDiv = styled.div`
 
 export const PositionAllDiv = styled.div`
   width: 100%;
-  height: auto;
   display: flex;
   flex-direction: column;
   padding: 53px 37px 80px 74px;
@@ -96,7 +95,7 @@ export const PositionMarkerDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #28ca7c;
+  border: 1px solid #28ca7c;
   border-radius: 25px;
 `;
 
@@ -104,7 +103,7 @@ export const PositionMarkerSpan = styled.div`
   font-size: ${(props) => props.theme.fontSizes.xl};
   line-height: ${(props) => props.theme.lineHeight.xl};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
-  color: white;
+  color: #28ca7c;
 `;
 
 export const PositionMidDiv = styled.div`
