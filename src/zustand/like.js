@@ -1,17 +1,16 @@
-import create from "zustand";
+import create from 'zustand';
 
 import {
   addLikeApi,
   getMakerLikePostApi,
   getSingerLikePostApi,
-} from "../utils/apis/like";
+} from '../utils/apis/like';
 
 const useLikeStore = create((set) => ({
   singerIsLike: [],
   makerIsLike: [],
 
   addLike: async (payload) => {
-    console.log(payload);
     const resData = await addLikeApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
