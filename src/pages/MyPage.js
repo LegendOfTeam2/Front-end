@@ -141,7 +141,7 @@ const MyPage = () => {
         getProfilPost(nickname);
       }
     });
-  }, []);
+  }, [nickname]);
 
   const settings = {
     className: 'center',

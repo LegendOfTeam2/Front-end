@@ -5,7 +5,7 @@ export const MyContainerDiv = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;
-  top: 156.5px;
+  top: 125.5px;
   z-index: -1;
 `;
 
@@ -245,7 +245,8 @@ export const MyBtmImgDiv = styled.div`
   gap: 24px;
   padding-left: 24px;
   padding-right: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 220px;
+  
 `;
 
 export const MyBtmImgDivDiv = styled.div`

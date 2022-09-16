@@ -179,7 +179,6 @@ const Detail = () => {
       position: detailList.position,
     });
   };
-  console.log(detailList);
   const ProfilPage = () => {
     navigate(`/mypage/${detailList.nickname}`);
   };
