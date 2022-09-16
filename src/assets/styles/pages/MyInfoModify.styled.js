@@ -132,6 +132,7 @@ export const ModifyHashTagBox = styled.span`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  padding-bottom: 10px;
 `;
 export const ModifyMemberDeleteContainer = styled.div`
   width: 800px;

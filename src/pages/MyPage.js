@@ -143,8 +143,6 @@ const MyPage = () => {
     });
   }, []);
 
-  console.log(profilPost);
-
   const settings = {
     className: 'center',
     centerMode: true,
@@ -201,6 +199,22 @@ const MyPage = () => {
     navigate('/myinfomodify');
   };
 
+  const onHandleChat = () => {
+    console.log('test');
+    if(getCookie('authorization') === undefined) {
+      alert('로그인 후에 이용 가능합니다.');
+      navigate('/signin');
+    } else {
+      navigate('/chat');
+    }
+  }
+
+  useEffect(() => {
+    leftRef.current.style.borderTopColor = 'black';
+    leftRef.current.style.color = 'black';
+    setLeftREf(true);
+  }, []);
+  
   const onHandleFollow = () => {
     follow(nickname).then((res) => {
       if (res) {
@@ -304,7 +318,7 @@ const MyPage = () => {
                             ft_weight: '700',
                           }}
                           _text={'메세지'}
-                          _onClick={() => navigate('/chat')}
+                          _onClick={onHandleChat}
                         />
                         {artistIsFollowIsLoaded ? (
                           artistIsFollow.indexOf(nickname) !== -1 ? (
@@ -375,7 +389,31 @@ const MyPage = () => {
                     )
                   ) : (
                     <MyRightTopButDiv>
-                      <></>
+                      <Button
+                        _style={{
+                          width: '122px',
+                          height: '45px',
+                          bg_color: '#E7E7E7',
+                          bd_radius: '11px',
+                          color: '#121212',
+                          ft_size: '12',
+                          ft_weight: '700',
+                        }}
+                        _text={'메세지'}
+                        _onClick={onHandleChat}
+                      />
+                      <Button
+                        _style={{
+                          width: '122px',
+                          height: '45px',
+                          bg_color: '#28CA7C',
+                          bd_radius: '11px',
+                          color: 'rgba(255, 255, 255, 1)',
+                          ft_size: '12',
+                          ft_weight: '700',
+                        }}
+                        _text={'팔로우'}
+                      />
                     </MyRightTopButDiv>
                   )}
                 </MyRightTopDivClDiv>
