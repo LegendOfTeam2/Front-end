@@ -76,7 +76,6 @@ function PlayerMain() {
       if (currentSong.postId === playList[0].postId) {
         const audio = audioRef.current;
         if (playing) {
-          audio.currentTime = 0;
           setPlaying(true);
           audio.play();
         }
