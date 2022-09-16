@@ -67,16 +67,16 @@ const useMemberStore = create((set) => ({
     }
   },
   signOutMember: async (payload) => {
-    const resData = await signOutMemberApi(payload)
-      .then((res) => res)
-      .catch((err) => console.log(err));
+    // const resData = await signOutMemberApi(payload)
+    //   .then((res) => res)
+    //   .catch((err) => console.log(err));
 
-    if (resData?.data.success) {
+    // if (resData?.data.success) {
       removeCookie('authorization');
       window.sessionStorage.setItem('refresh-token', '');
       set({ is_login: false });
-      return resData.data.success;
-    }
+      // return resData.data.success;
+    // }
 
   },
   kakaoAuth: async (code) => {
