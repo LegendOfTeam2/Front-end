@@ -52,10 +52,18 @@ const Chat = () => {
 
   const onHandleEnter = (e) => {
     if (e.key === 'Enter') {
-      if (message !== '' && message !== ' ') {
-        const newMessage = { type: 'TALK', roomId, sender: nickname, message };
-        stompClient.send('/app/chat/message', {}, JSON.stringify(newMessage));
-        setMessage('');
+      if (!e.shiftKey) {
+        if (e.target.value.length > 0) {
+          e.preventDefault();
+          const newMessage = {
+            type: 'TALK',
+            roomId,
+            sender: nickname,
+            message,
+          };
+          stompClient.send('/app/chat/message', {}, JSON.stringify(newMessage));
+          setMessage('');
+        }
       }
     }
   };
@@ -63,10 +71,6 @@ const Chat = () => {
   const addMessage = (message) => {
     setContents((prev) => [...prev, message]);
   };
-
-  useEffect(() => {
-    console.log(contents);
-  }, [contents]);
 
   return (
     <Fragment>
@@ -119,7 +123,7 @@ const Chat = () => {
               <ChatDataRoomInput
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                onKeyUp={(e) => onHandleEnter(e)}
+                onKeyDown={(e) => onHandleEnter(e)}
               ></ChatDataRoomInput>
               <ChatDataRoomButtonBox>
                 <Button

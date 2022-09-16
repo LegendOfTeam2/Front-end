@@ -160,6 +160,16 @@ const MyPage = () => {
     navigate('/myinfomodify');
   };
 
+  const onHandleChat = () => {
+    console.log('test');
+    if(getCookie('authorization') === undefined) {
+      alert('로그인 후에 이용 가능합니다.');
+      navigate('/signin');
+    } else {
+      navigate('/chat');
+    }
+  }
+
   useEffect(() => {
     leftRef.current.style.borderTopColor = 'black';
     leftRef.current.style.color = 'black';
@@ -232,7 +242,7 @@ const MyPage = () => {
                             ft_weight: '700',
                           }}
                           _text={'메세지'}
-                          _onClick={() => navigate('/chat')}
+                          _onClick={onHandleChat}
                         />
                         <Button
                           _style={{
@@ -280,6 +290,7 @@ const MyPage = () => {
                           ft_weight: '700',
                         }}
                         _text={'메세지'}
+                        _onClick={onHandleChat}
                       />
                       <Button
                         _style={{

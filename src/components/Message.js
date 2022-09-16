@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Message = ({ sender, message, messageState }) => {
+  // const alterMessage = message.replaceAll(/(\n|\r\n)/g, '<br />');
   return (
     <MessageContainer justifyContent={messageState ? 'flex-end' : 'flex-start'}>
       {messageState ? (
@@ -36,6 +37,7 @@ export const MessageBoxSenderBox = styled.div`
 export const MessageBoxSenderText = styled.span`
   width: auto;
   height: auto;
+  white-space: pre-wrap;
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.base};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
