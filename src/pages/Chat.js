@@ -158,6 +158,7 @@ export const ChatContainer = styled.div`
   align-items: center;
   background-color: #ffffff;
   border-radius: 8px;
+  z-index: -1;
 `;
 export const ChatNaviContainer = styled.div`
   width: 100%;
