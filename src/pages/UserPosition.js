@@ -1,7 +1,7 @@
 // Element
 import Button from "../elements/Button";
 
-// styled
+// Assets
 import {
   BtmSmTextDiv,
   BtmSmTextSpan,
@@ -15,7 +15,6 @@ import {
   UserContainer,
   UserInBox,
 } from "../assets/styles/pages/UserPosition.styled";
-
 
 const UserPosition = () => {
   return (

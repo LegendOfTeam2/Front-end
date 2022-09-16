@@ -14,6 +14,8 @@ const GlobalStyle = createGlobalStyle`
     @media ${(props) => props.theme.device.desktopL} {
       font-size: 14px;
     }
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 `;
 

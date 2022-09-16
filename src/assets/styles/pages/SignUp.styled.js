@@ -14,11 +14,12 @@ export const SignUpBox = styled.div`
   width: 961px;
   height: 809px;
   border-radius: 30px;
-  box-shadow: 1px 1px 20px 5px grey;
+  border: 1px solid #28CA7C;
   display: flex;
   justify-content: center;
   position: relative;
   overflow: scroll;
+  background-color: #ffffff;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -40,6 +41,19 @@ export const SignUpIcon = styled.div`
 export const SignUpForm = styled.form`
   width: auto;
   height: auto;
+`;
+export const SignUpLogo = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+export const SignUpLogoImg = styled.img`
+  width: auto;
+  height: auto;
+  padding-top: 36px;
+  padding-bottom: 27px;
 `;
 export const SignUpBoxInputContainer = styled.div`
   width: 100%;
@@ -142,7 +156,7 @@ export const SignUpBoxInputTags = styled.input`
   line-height: ${(props) => props.theme.lineHeight.xs};
   outline: none;
   &::placeholder {
-    color: #d9d9d9;
+    color: #b4b4b4;
   }
 `;
 export const SignUpBoxTagBox = styled.div`
@@ -189,4 +203,5 @@ export const SignUpBoxImagePreviewBoxSkeleton = styled.div`
 export const SignUpButtonContainer = styled.div`
   width: 100%;
   height: auto;
+  padding-bottom: 50px;
 `;

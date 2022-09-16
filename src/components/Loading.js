@@ -1,21 +1,16 @@
+// React
 import { Fragment } from 'react';
-import styled from 'styled-components';
+
+// Assets
+import { LoadingImage, BackgroundCover } from '../assets/styles/components/Loading.styled';
 
 const Loading = () => {
   return (
     <Fragment>
+      <BackgroundCover />
       <LoadingImage src={require('../assets/images/loading.gif')} />
     </Fragment>
   );
 };
 
 export default Loading;
-
-export const LoadingImage = styled.img`
-  position: absolute;
-  width: auto;
-  height: auto;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;

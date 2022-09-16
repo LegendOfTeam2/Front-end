@@ -1,29 +1,28 @@
 import styled from "styled-components";
 
-
 export const MyContainerDiv = styled.div`
   width: 100%;
-  background-color: #eeeceb;
   display: flex;
   justify-content: center;
   position: absolute;
-  top: 176px;
+  top: 125.5px;
+  z-index: -1;
 `;
 
 export const MyContainer = styled.div`
-  width: ${(props) => props.theme.deviceSizes.tabletL};
+  width: 1024px;
   height: auto;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   .center {
-    /* center 모드일때 center 외 속성에게 사용 */
     opacity: 0.8;
     transition: all 300ms ease;
     transform: scale(0.99);
   }
 `;
 export const MyProfileContainer = styled.div`
-  width: ${(props) => props.theme.deviceSizes.tabletL};
+  width: 1024px;
   height: auto;
   display: flex;
   border-bottom: 1px solid rgba(231, 231, 231, 1);
@@ -42,7 +41,7 @@ export const MyRight = styled.div`
   display: flex;
   margin-bottom: 50px;
   padding-left: 46px;
-  padding-right: 38px;
+  padding-right: 27px;
 `;
 
 export const MyleftDiv = styled.div`
@@ -53,9 +52,12 @@ export const MyleftDiv = styled.div`
 `;
 
 export const MyleftDivImg = styled.img`
+width: 264px;
+height: 264px;
   display: flex;
   flex-direction: row-reverse;
-  border-radius: 50%;
+  border-radius: 50%
+
 `;
 
 export const MyRightTopDivCl = styled.div`
@@ -76,8 +78,8 @@ export const MyRightTopDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  gap: 35px;
   align-items: flex-end;
+  gap: 10px;
 `;
 
 export const MyRightTopIconDiv = styled.div`
@@ -90,8 +92,19 @@ export const MyRightTopButDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   gap: 20px;
-  margin-left: 92px;
+  margin-left: 0;
+  margin-bottom: 22px;
+`;
+
+export const MyRightTopButDivNotMember = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+`;
+export const MyRightTopDivSpanDiv = styled.div`
+  width: 200px;
 `;
 
 export const MyRightTopDivSpan = styled.span`
@@ -104,14 +117,15 @@ export const MyRightTopBtmDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   gap: 54px;
-  margin-bottom: 22px;
+  margin-right: 6 px;
 `;
 
 export const MyRightTopBtmDivSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.base};
-  font-weight: ${(props) => props.theme.fontWeight.Regular}; ;
+  font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
 `;
 
 export const MyTagBox = styled.div`
@@ -122,72 +136,22 @@ export const MyTagBox = styled.div`
   border-bottom: 2px solid rgba(231, 231, 231, 1);
 `;
 
-export const MyTagBoxText = styled.div`
-  margin-top: 22px;
-  margin-bottom: 22px;
-  width: 100%;
-  height: auto;
-  display: ${({ tagSlider }) => (tagSlider ? "none" : "block")}; ;
-`;
-
-export const MyTagBoxTextDivDiv = styled.div`
-  line-height: ${(props) => props.theme.lineHeight.base};
-  font-size: ${(props) => props.theme.fontSizes.base};
-  font-weight: ${(props) => props.theme.fontWeight.Medium};
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-`;
-
 export const MyTagBoxTextSlide = styled.div`
   width: 100%;
-  height: auto;
-  display: ${({ tagSlider }) => (tagSlider ? "block" : "none")}; ;
-`;
-
-export const MyTagBoxTextSlideIcon = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  position: relative;
-  display: ${({ tagSlider }) => (tagSlider ? "none" : "block")};
-  &:hover {
-    cursor: pointer;
-    color: rgba(40, 202, 124, 1);
-  }
-  .x-icon {
-    position: absolute;
-    right: 1%;
-    bottom: 3%;
-    
-  }
+  height: 68px;
 `;
 
 export const MyTagBoxTextSlideDiv = styled.div`
-  width: 100%;
+  width: auto;
   margin-top: 22px;
   margin-bottom: 22px;
-  display: ${({ tagSlider }) => (tagSlider ? "block" : "none")}; ;
 `;
 
-export const MyTagBoxTextSpan = styled.span`
-  width: 100%;
-  height: auto;
-  padding: 9px;
-  border: 1px solid #000000;
-  border-radius: 24px;
-  &:hover {
-    cursor: pointer;
-    background-color: #aaa4a4;
-  }
-`;
 export const MyTagBoxTextSpanSlide = styled.span`
   width: auto;
   height: auto;
   padding: 9px;
-  margin-right: 30px;
+  margin-right: 10px;
   border: 1px solid #000000;
   border-radius: 24px;
   line-height: ${(props) => props.theme.lineHeight.base};
@@ -208,7 +172,7 @@ export const MyRightBtmDiv = styled.div`
 export const MyRightBtmDivSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.sm};
   line-height: ${(props) => props.theme.lineHeight.xs};
-  font-weight: ${(props) => props.theme.fontWeight.Regular};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
   margin-top: 28px;
 `;
 
@@ -247,79 +211,6 @@ export const MyTextDiv = styled.div`
   padding-bottom: 43px;
 `;
 
-export const MyImgDivDiv = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  position: relative;
-`;
-
-export const ImgMyBtmRight = styled.div`
-  position: absolute;
-  bottom: 5%;
-  right: 7%;
-  display: block;
-  ${MyImgDivDiv}:hover & {
-    display: none;
-    cursor: pointer;
-  }
-`;
-
-export const MyImgTopLeft = styled.div`
-  position: absolute;
-  top: 8%;
-  left: 8%;
-  color: white;
-  display: none;
-  ${MyImgDivDiv}:hover & {
-    display: block;
-    cursor: pointer;
-  }
-`;
-
-export const MyImgTopRight = styled.div`
-  position: absolute;
-  top: 8%;
-  right: 9%;
-  display: none;
-  ${MyImgDivDiv}:hover & {
-    display: block;
-    cursor: pointer;
-  }
-`;
-
-export const MyImgBtmLeft = styled.div`
-  position: absolute;
-  bottom: 8%;
-  left: 8%;
-  color: white;
-  display: none;
-  ${MyImgDivDiv}:hover & {
-    display: block;
-    cursor: pointer;
-  }
-`;
-
-export const MyImgBtmRight = styled.div`
-  position: absolute;
-  bottom: 7%;
-  right: 9%;
-  display: none;
-  ${MyImgDivDiv}:hover & {
-    display: block;
-    cursor: pointer;
-  }
-`;
-
-export const Myimg = styled.img`
-  width: 167px;
-  height: 167px;
-  border-radius: 19px;
-  ${MyImgDivDiv}:hover & {
-    filter: brightness(50%);
-  }
-`;
-
 export const MyBtmTextDiv = styled.div`
   width: 100%;
   height: auto;
@@ -354,7 +245,8 @@ export const MyBtmImgDiv = styled.div`
   gap: 24px;
   padding-left: 24px;
   padding-right: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 220px;
+  
 `;
 
 export const MyBtmImgDivDiv = styled.div`

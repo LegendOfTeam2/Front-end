@@ -1,52 +1,38 @@
 // React
-import { Fragment, useRef, useEffect, useState } from "react";
+import { Fragment, useRef, useEffect, useState } from 'react';
+
 // Zustand
+import useMyPageStore from '../zustand/mypage';
+import useMemberStore from '../zustand/member';
+import useFollowStore from '../zustand/follow';
 
 // Packages
-import { AiFillLike, AiOutlineClose } from "react-icons/ai";
-import {
-  BsFillAlarmFill,
-  BsFillArchiveFill,
-  BsPlayCircle,
-} from "react-icons/bs";
-import { BiCollapse } from "react-icons/bi";
-import { BsMusicNoteList, BsMic } from "react-icons/bs";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import jwt_decode from 'jwt-decode';
+
 // Utils
-import Button from "../elements/Button";
-// Pages
+import { getCookie } from '../utils/cookie';
+
+// Elements
+import Button from '../elements/Button';
 
 // Components
-import Header from "../components/Header";
-// Elements
-
-// Shared
+import Header from '../components/Header';
+import Post from '../components/Post';
+import PostBig from '../components/PostBig';
 
 // Assests
 import {
-  ImgMyBtmBtmRight,
-  ImgMyBtmRight,
   MyBtmDataDiv,
-  MyBtmimg,
-  MyBtmImgBtmLeft,
-  MyBtmImgBtmRight,
   MyBtmImgDiv,
-  MyBtmImgDivDiv,
-  MyBtmImgTopBtmRight,
-  MyBtmImgTopLeft,
-  MyBtmImgTopTopRight,
   MyBtmTextDiv,
   MyBtmTextDivDiv,
   MyContainer,
   MyContainerDiv,
-  Myimg,
-  MyImgBtmLeft,
-  MyImgBtmRight,
-  MyImgDivDiv,
-  MyImgTopLeft,
-  MyImgTopRight,
   Myleft,
   MyleftDiv,
   MyleftDivImg,
@@ -60,69 +46,148 @@ import {
   MyRightTopBtmDiv,
   MyRightTopBtmDivSpan,
   MyRightTopButDiv,
+  MyRightTopButDivNotMember,
   MyRightTopDiv,
   MyRightTopDivCl,
   MyRightTopDivClDiv,
   MyRightTopDivSpan,
-  MyRightTopIconDiv,
+  MyRightTopDivSpanDiv,
   MyTagBox,
-  MyTagBoxText,
-  MyTagBoxTextDivDiv,
   MyTagBoxTextSlide,
   MyTagBoxTextSlideDiv,
-  MyTagBoxTextSlideIcon,
-  MyTagBoxTextSpan,
   MyTagBoxTextSpanSlide,
   MyTextDiv,
-} from "../assets/styles/pages/MyPage.styled";
+} from '../assets/styles/pages/MyPage.styled';
+import {
+  DisMakerMarke,
+  DisSingerMarker,
+  MakerMarke,
+  SingerMarker,
+} from '../assets/images/image';
+import { useNavigate, useParams } from 'react-router-dom';
+import useLikeStore from '../zustand/like';
+import usePostStore from '../zustand/post';
 
 const MyPage = () => {
+  // const [page, setPage] = useState(0);
+  const [isLeftRef, setLeftREf] = useState(false);
+  const [isMidRef, setMidref] = useState(false);
+  // const [isFollow, setIsFollow] = useState(false);
+
+  const getProfilPost = useMyPageStore((state) => state.getProfilPost);
+  const profilPost = useMyPageStore((state) => state.profilPost);
+  const profilPosteIsLoaded = useMyPageStore(
+    (state) => state.profilPosteIsLoaded
+  );
+  const getUploadPost = useMyPageStore((state) => state.getUploadPost);
+  const getLikePost = useMyPageStore((state) => state.getLikePost);
+  const likePost = useMyPageStore((state) => state.likePost);
+
+  const getFollowerList = usePostStore((state) => state.getFollowerList);
+  const pofilUploadPostIsLoaded = usePostStore(
+    (state) => state.pofilUploadPostIsLoaded
+  );
+  const artistIsFollow = usePostStore((state) => state.artistIsFollow);
+  const artistIsFollowIsLoaded = usePostStore(
+    (state) => state.artistIsFollowIsLoaded
+  );
+
+  const pofilUploadPost = useMyPageStore((state) => state.pofilUploadPost);
+
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
+  const follow = useFollowStore((state) => state.follow);
+
+  const { nickname } = useParams();
+  const navigate = useNavigate();
+
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
+
   const leftRef = useRef();
   const midRef = useRef();
   const rightRef = useRef();
+  const followButtonRef = useRef();
 
-  const [tagSlider, setTagSlider] = useState(false);
+  // const handleScroll = () => {
+  //   const scrollHeight = document.documentElement.scrollHeight;
+  //   const scrollTop = document.documentElement.scrollTop;
+  //   const clientHeight = document.documentElement.clientHeight;
+  //   if (scrollTop + clientHeight >= scrollHeight) {
+  //     setPage((page) => page + 1);
+  //   }
+  // };
 
-  const clickTag = () => {
-    setTagSlider(!tagSlider);
-  };
+  // useEffect(() => {
+
+  // if(){}
+  // window.addEventListener("scroll", handleScroll);
+  // return () => {
+  //   window.removeEventListener("scroll", handleScroll);
+  // };
+  // }, []);
+
+  useEffect(() => {
+    getUploadPost(nickname);
+    setLeftREf(true);
+    leftRef.current.style.borderTopColor = 'black';
+    midRef.current.style.borderTopColor = 'transparent';
+    rightRef.current.style.borderTopColor = 'transparent';
+    leftRef.current.style.color = 'black';
+    midRef.current.style.color = 'rgba(180, 180, 180, 1)';
+    rightRef.current.style.color = 'rgba(180, 180, 180, 1)';
+    getFollowerList().then((res) => {
+      if (res) {
+        getProfilPost(nickname);
+      }
+    });
+  }, [nickname]);
 
   const settings = {
-    className: "center",
+    className: 'center',
     centerMode: true,
-    infinite: true,
-    slidesToShow: 4,
-    centerPadding: "3px",
+    slidesToShow: profilPosteIsLoaded ? profilPost.hashtag.length : 0,
+    slidesToScroll: 1,
+    infinite: false,
+    centerPadding: '10px',
     arrows: false,
+    variableWidth: true,
   };
 
   const categoryHandle = (state) => {
     switch (state) {
-      case "work": {
-        leftRef.current.style.borderTopColor = "black";
-        midRef.current.style.borderTopColor = "transparent";
-        rightRef.current.style.borderTopColor = "transparent";
-        leftRef.current.style.color = "black";
-        midRef.current.style.color = "rgba(180, 180, 180, 1)";
-        rightRef.current.style.color = "rgba(180, 180, 180, 1)";
+      case 'work': {
+        leftRef.current.style.borderTopColor = 'black';
+        midRef.current.style.borderTopColor = 'transparent';
+        rightRef.current.style.borderTopColor = 'transparent';
+        leftRef.current.style.color = 'black';
+        midRef.current.style.color = 'rgba(180, 180, 180, 1)';
+        rightRef.current.style.color = 'rgba(180, 180, 180, 1)';
+        setLeftREf(true);
+        setMidref(false);
         break;
       }
-      case "like": {
-        leftRef.current.style.borderTopColor = "transparent";
-        midRef.current.style.borderTopColor = "black";
-        rightRef.current.style.borderTopColor = "transparent";
-        leftRef.current.style.color = "rgba(180, 180, 180, 1)";
-        midRef.current.style.color = "black";
-        rightRef.current.style.color = "rgba(180, 180, 180, 1)";
+      case 'like': {
+        leftRef.current.style.borderTopColor = 'transparent';
+        midRef.current.style.borderTopColor = 'black';
+        rightRef.current.style.borderTopColor = 'transparent';
+        leftRef.current.style.color = 'rgba(180, 180, 180, 1)';
+        midRef.current.style.color = 'black';
+        rightRef.current.style.color = 'rgba(180, 180, 180, 1)';
+        setLeftREf(false);
+        setMidref(true);
+        getLikePost(nickname);
         break;
       }
-      case "save": {
-        leftRef.current.style.borderTopColor = "transparent";
-        midRef.current.style.borderTopColor = "transparent";
-        rightRef.current.style.borderTopColor = "black";
-        leftRef.current.style.color = "rgba(180, 180, 180, 1)";
-        midRef.current.style.color = "rgba(180, 180, 180, 1)";
-        rightRef.current.style.color = "black";
+      case 'save': {
+        leftRef.current.style.borderTopColor = 'transparent';
+        midRef.current.style.borderTopColor = 'transparent';
+        rightRef.current.style.borderTopColor = 'black';
+        leftRef.current.style.color = 'rgba(180, 180, 180, 1)';
+        midRef.current.style.color = 'rgba(180, 180, 180, 1)';
+        rightRef.current.style.color = 'black';
+        setLeftREf(false);
+        setMidref(false);
         break;
       }
       default:
@@ -130,21 +195,67 @@ const MyPage = () => {
     }
   };
 
+  const onHandleModify = () => {
+    navigate('/myinfomodify');
+  };
+
+  const onHandleChat = () => {
+    console.log('test');
+    if(getCookie('authorization') === undefined) {
+      alert('로그인 후에 이용 가능합니다.');
+      navigate('/signin');
+    } else {
+      navigate('/chat');
+    }
+  }
+
   useEffect(() => {
-    leftRef.current.style.borderTopColor = "black";
-    leftRef.current.style.color = "black";
+    leftRef.current.style.borderTopColor = 'black';
+    leftRef.current.style.color = 'black';
+    setLeftREf(true);
   }, []);
+  
+  const onHandleFollow = () => {
+    follow(nickname).then((res) => {
+      if (res) {
+        followButtonRef.current.innerText = '팔로잉';
+        followButtonRef.current.style.backgroundColor = '#CC0000';
+        toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
+      } else {
+        followButtonRef.current.innerText = '팔로우';
+        followButtonRef.current.style.backgroundColor = '#28CA7C';
+        toast.info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
+      }
+    });
+  };
 
   return (
     <Fragment>
       <Header />
+      <ToastContainer />
       <MyContainerDiv>
         <MyContainer>
           <MyProfileContainer>
             <Myleft>
               <MyleftDiv>
                 <MyleftDivImg
-                  src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAXC4jJpUonPTloaWOqn7U5jyshqEL0mPfqg&usqp=CAU'
+                  src={
+                    profilPost.imageUrl === null
+                      ? profileImgArr[random]
+                      : profilPost.imageUrl === ''
+                      ? profileImgArr[random]
+                      : profilPost.imageUrl
+                  }
                   alt='프로필 이미지'
                 />
               </MyleftDiv>
@@ -154,97 +265,190 @@ const MyPage = () => {
               <MyRightTopDivCl>
                 <MyRightTopDivClDiv>
                   <MyRightTopDiv>
-                    <div>
-                      <MyRightTopDivSpan>baekyeriiin</MyRightTopDivSpan>
-                    </div>
+                    <MyRightTopDivSpanDiv>
+                      <MyRightTopDivSpan>
+                        {profilPosteIsLoaded
+                          ? profilPost.nickname.slice(0, 9)
+                          : profilPost.nickname}
+                      </MyRightTopDivSpan>
+                    </MyRightTopDivSpanDiv>
+                    {profilPost.singerPostCnt > 10 ? (
+                      <img src={SingerMarker} backgrond='white' alt='이미지' />
+                    ) : (
+                      <img
+                        src={DisSingerMarker}
+                        backgrond='white'
+                        alt='이미지'
+                      />
+                    )}
+                    {profilPost.makerPostCnt > 10 ? (
+                      <img src={MakerMarke} backgrond='white' alt='이미지' />
+                    ) : (
+                      <img
+                        src={DisMakerMarke}
+                        backgrond='white'
+                        alt='로고이미지'
+                      />
+                    )}
 
-                    <MyRightTopIconDiv>
-                      <div>
-                        <BsMusicNoteList size={25} />
-                      </div>
-                      <div>
-                        <BsMic size={25} />
-                      </div>
-                    </MyRightTopIconDiv>
+                    <MyRightTopBtmDiv>
+                      <MyRightTopBtmDivSpan>
+                        곡 작업 {profilPost.allPostCnt}
+                      </MyRightTopBtmDivSpan>
+                      <MyRightTopBtmDivSpan>
+                        팔로워 {profilPost.follower}
+                      </MyRightTopBtmDivSpan>
+                      <MyRightTopBtmDivSpan>
+                        팔로우 {profilPost.following}
+                      </MyRightTopBtmDivSpan>
+                    </MyRightTopBtmDiv>
+                  </MyRightTopDiv>
+                  {getCookie('authorization') !== undefined ? (
+                    jwt_decode(getCookie('authorization')).sub !==
+                    profilPost.nickname ? (
+                      <MyRightTopButDiv>
+                        <Button
+                          _style={{
+                            width: '122px',
+                            height: '45px',
+                            bg_color: '#E7E7E7',
+                            bd_radius: '11px',
+                            color: '#121212',
+                            ft_size: '12',
+                            ft_weight: '700',
+                          }}
+                          _text={'메세지'}
+                          _onClick={onHandleChat}
+                        />
+                        {artistIsFollowIsLoaded ? (
+                          artistIsFollow.indexOf(nickname) !== -1 ? (
+                            <Button
+                              _style={{
+                                width: '122px',
+                                height: '45px',
+                                bg_color: '#cc0000',
+                                bd_radius: '11px',
+                                color: 'rgba(255, 255, 255, 1)',
+                                ft_size: '12',
+                                ft_weight: '700',
+                              }}
+                              _text={'팔로잉'}
+                              _onClick={onHandleFollow}
+                              _ref={followButtonRef}
+                            />
+                          ) : (
+                            <Button
+                              _style={{
+                                width: '122px',
+                                height: '45px',
+                                bg_color: '#28CA7C',
+                                bd_radius: '11px',
+                                color: 'rgba(255, 255, 255, 1)',
+                                ft_size: '12',
+                                ft_weight: '700',
+                              }}
+                              _text={'팔로우'}
+                              _onClick={onHandleFollow}
+                              _ref={followButtonRef}
+                            />
+                          )
+                        ) : (
+                          <Button
+                            _style={{
+                              width: '122px',
+                              height: '45px',
+                              bg_color: '#cecece',
+                              bd_radius: '11px',
+                              color: 'rgba(255, 255, 255, 1)',
+                              ft_size: '12',
+                              ft_weight: '700',
+                            }}
+                            _text={''}
+                            _ref={followButtonRef}
+                          />
+                        )}
+                      </MyRightTopButDiv>
+                    ) : (
+                      <MyRightTopButDiv>
+                        <MyRightTopButDivNotMember>
+                          <Button
+                            _style={{
+                              width: '261px',
+                              height: '45px',
+                              bg_color: '#28CA7C',
+                              bd_radius: '11px',
+                              color: 'rgba(255, 255, 255, 1)',
+                              ft_size: '12',
+                              ft_weight: '700',
+                            }}
+                            _text={'프로필 수정'}
+                            _onClick={onHandleModify}
+                          />
+                        </MyRightTopButDivNotMember>
+                      </MyRightTopButDiv>
+                    )
+                  ) : (
                     <MyRightTopButDiv>
                       <Button
                         _style={{
-                          width: "124px",
-                          height: "40px",
-                          bg_color: "rgba(0, 0, 0, 1)",
-                          bd_radius: "11px",
-                          color: "rgba(255, 255, 255, 1)",
-                          ft_size: "12",
-                          ft_weight: "700",
+                          width: '122px',
+                          height: '45px',
+                          bg_color: '#E7E7E7',
+                          bd_radius: '11px',
+                          color: '#121212',
+                          ft_size: '12',
+                          ft_weight: '700',
                         }}
-                        _text={"메세지 보내기"}
+                        _text={'메세지'}
+                        _onClick={onHandleChat}
                       />
                       <Button
                         _style={{
-                          width: "124px",
-                          height: "40px",
-                          bg_color: "rgba(0, 0, 0, 1)",
-                          bd_radius: "11px",
-                          color: "rgba(255, 255, 255, 1)",
-                          ft_size: "12",
-                          ft_weight: "700",
+                          width: '122px',
+                          height: '45px',
+                          bg_color: '#28CA7C',
+                          bd_radius: '11px',
+                          color: 'rgba(255, 255, 255, 1)',
+                          ft_size: '12',
+                          ft_weight: '700',
                         }}
-                        _text={"팔로우"}
+                        _text={'팔로우'}
                       />
                     </MyRightTopButDiv>
-                  </MyRightTopDiv>
-                  <MyRightTopBtmDiv>
-                    <MyRightTopBtmDivSpan>곡 작업 10</MyRightTopBtmDivSpan>
-                    <MyRightTopBtmDivSpan>팔로워 4,000</MyRightTopBtmDivSpan>
-                    <MyRightTopBtmDivSpan>팔로우 350</MyRightTopBtmDivSpan>
-                  </MyRightTopBtmDiv>
+                  )}
                 </MyRightTopDivClDiv>
                 <MyTagBox>
-                  <MyTagBoxText tagSlider={tagSlider}>
-                    <MyTagBoxTextDivDiv>
-                      <div>
-                        <MyTagBoxTextSpan> # 감성 래퍼</MyTagBoxTextSpan>
-                      </div>
-                      <div>
-                        <MyTagBoxTextSpan> # 랩 커버</MyTagBoxTextSpan>
-                      </div>
-                      <div>
-                        <MyTagBoxTextSpan> # 랩 커버</MyTagBoxTextSpan>
-                      </div>
-                      <div>
-                        <MyTagBoxTextSpan> # 랩 커버</MyTagBoxTextSpan>
-                      </div>
-                      <div>
-                        <MyTagBoxTextSpan onClick={clickTag}>
-                          {" "}
-                          더 보기
-                        </MyTagBoxTextSpan>
-                      </div>
-                    </MyTagBoxTextDivDiv>
-                  </MyTagBoxText>
-
-                  <MyTagBoxTextSlide tagSlider={tagSlider} onClick={clickTag}>
-                    <MyTagBoxTextSlideIcon>
-                      <AiOutlineClose className='x-icon' size={16} />
-                    </MyTagBoxTextSlideIcon>
+                  <MyTagBoxTextSlide>
                     <Slider {...settings}>
-                      {Array(12)
-                        .fill("")
-                        .map(() => (
-                          <MyTagBoxTextSlideDiv>
-                            <MyTagBoxTextSpanSlide>
-                              {" "}
-                              # 더 보기보기
-                            </MyTagBoxTextSpanSlide>
-                          </MyTagBoxTextSlideDiv>
-                        ))}
+                      {profilPosteIsLoaded ? (
+                        profilPost.hashtag === [] ? (
+                          <Fragment></Fragment>
+                        ) : (
+                          profilPost.hashtag.map((x, idx) => {
+                            return (
+                              <MyTagBoxTextSlideDiv key={idx}>
+                                <MyTagBoxTextSpanSlide>
+                                  {x}
+                                </MyTagBoxTextSpanSlide>
+                              </MyTagBoxTextSlideDiv>
+                            );
+                          })
+                        )
+                      ) : (
+                        <Fragment></Fragment>
+                      )}
                     </Slider>
                   </MyTagBoxTextSlide>
                 </MyTagBox>
                 <MyRightBtmDiv>
                   <MyRightBtmDivSpan>
-                    {" "}
-                    감성을 전하는 래퍼 백예린 -ˋˏ * ٩( ◡̉̈ )۶ * ˎˊ-{" "}
+                    {profilPost.introduce !== null ? (
+                      <Fragment>{profilPost.introduce}</Fragment>
+                    ) : (
+                      <Fragment>
+                        아직 자기 소개를 작성하지 않았습니다 -ˋˏ * ٩( ◡̉̈ )۶ * ˎˊ-
+                      </Fragment>
+                    )}
                   </MyRightBtmDivSpan>
                 </MyRightBtmDiv>
               </MyRightTopDivCl>
@@ -255,79 +459,75 @@ const MyPage = () => {
               <MyMidTextDivDivSpan>메인 게시물</MyMidTextDivDivSpan>
             </MyMidTextDivDiv>
             <MyTextDiv>
-              {Array(4)
-                .fill("")
-                .map(() => (
-                  <MyImgDivDiv>
-                    <Myimg
-                      src='https://i.pinimg.com/originals/51/31/a8/5131a8244ab74ea8523d59e1ba81606a.jpg'
-                      alt=''
-                    />
-                    <ImgMyBtmRight>
-                      <BsPlayCircle size={25} color='white' />
-                    </ImgMyBtmRight>
-                    <MyImgTopLeft>나는 백예린</MyImgTopLeft>
-                    <MyImgTopRight>
-                      <BsFillAlarmFill color='white' />
-                    </MyImgTopRight>
-                    <MyImgBtmLeft>
-                      <AiFillLike color='white' />
-                      372
-                    </MyImgBtmLeft>
-                    <MyImgBtmRight>
-                      <BsFillArchiveFill color='white' />
-                    </MyImgBtmRight>
-                  </MyImgDivDiv>
-                ))}
+              {pofilUploadPost.map((x) => (
+                <Post
+                  key={x.postId}
+                  imageUrl={x.imageUrl}
+                  likes={x.likeCount}
+                  nickname={x.nickname}
+                  title={x.title}
+                  collaborate={x.collaborate}
+                  mediaUrl={x.mediaUrl}
+                  postId={x.postId}
+                  position={x.position}
+                />
+              ))}
             </MyTextDiv>
           </MyMidTextDiv>
           <MyBtmTextDiv>
             <MyBtmTextDivDiv ref={leftRef}>
-              <MyBtmDataDiv onClick={() => categoryHandle("work")}>
+              <MyBtmDataDiv onClick={() => categoryHandle('work')}>
                 작업물
               </MyBtmDataDiv>
             </MyBtmTextDivDiv>
             <MyBtmTextDivDiv ref={midRef}>
-              <MyBtmDataDiv onClick={() => categoryHandle("like")}>
+              <MyBtmDataDiv onClick={() => categoryHandle('like')}>
                 좋아요
               </MyBtmDataDiv>
             </MyBtmTextDivDiv>
             <MyBtmTextDivDiv ref={rightRef}>
-              <MyBtmDataDiv onClick={() => categoryHandle("save")}>
-                저장
+              <MyBtmDataDiv onClick={() => categoryHandle('save')}>
+                보관함
               </MyBtmDataDiv>
             </MyBtmTextDivDiv>
           </MyBtmTextDiv>
 
           <MyBtmImgDiv>
-            {Array(12)
-              .fill("")
-              .map(() => (
-                <MyBtmImgDivDiv>
-                  <MyBtmimg
-                    src='https://post-phinf.pstatic.net/MjAyMDEyMDhfOTMg/MDAxNjA3NDI5MzkxMjEx.iPqD1FE-bQkTnkafG_NHKjwYzP77vAorHJQudD8U-Oog.fYcOIP249W2jhGGro6q_UKFiu6XWfUyxehMKYE7zGXcg.JPEG/YerinBaek_tellusboutyourself_Cover.jpg?type=w1200'
-                    alt=''
-                  />
-                  <ImgMyBtmBtmRight>
-                    <BsPlayCircle size={25} color='white' />
-                  </ImgMyBtmBtmRight>
-                  <MyBtmImgTopLeft>나는 백예린</MyBtmImgTopLeft>
-                  <MyBtmImgTopTopRight>
-                    <BsFillAlarmFill color='white' />
-                  </MyBtmImgTopTopRight>
+            {isLeftRef ? (
+              pofilUploadPost.map((x) => (
+                <PostBig
+                  key={x.postId}
+                  imageUrl={x.imageUrl}
+                  likeCount={x.likeCount}
+                  nickname={x.nickname}
+                  title={x.title}
+                  collaborate={x.collaborate}
+                  mediaUrl={x.mediaUrl}
+                  postId={x.postId}
+                  position={x.position}
+                />
+              ))
+            ) : (
+              <></>
+            )}
 
-                  <MyBtmImgTopBtmRight>
-                    <BiCollapse color='white' />
-                  </MyBtmImgTopBtmRight>
-                  <MyBtmImgBtmLeft>
-                    <AiFillLike color='white' />
-                    372
-                  </MyBtmImgBtmLeft>
-                  <MyBtmImgBtmRight>
-                    <BsFillArchiveFill color='white' />
-                  </MyBtmImgBtmRight>
-                </MyBtmImgDivDiv>
-              ))}
+            {isMidRef ? (
+              likePost.map((x) => (
+                <PostBig
+                  key={x.postId}
+                  imageUrl={x.imageUrl}
+                  likeCount={x.likeCount}
+                  nickname={x.nickname}
+                  title={x.title}
+                  collaborate={x.collaborate}
+                  mediaUrl={x.mediaUrl}
+                  postId={x.postId}
+                  position={x.position}
+                />
+              ))
+            ) : (
+              <></>
+            )}
           </MyBtmImgDiv>
         </MyContainer>
       </MyContainerDiv>

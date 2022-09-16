@@ -6,24 +6,26 @@ import useMemberStore from '../zustand/member';
 
 // Packages
 import { GrClose } from 'react-icons/gr';
-import { BiShow, BiHide } from 'react-icons/bi';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import shortid from 'shortid';
 import { debounce } from 'lodash';
 
 // Components
 import HashTagWithIcon from '../components/HashTagWithIcon';
 import UploadImage from '../components/UploadImage';
+import Welcome from '../components/modal/Welcome';
 
 // Element
 import Input from '../elements/Input';
 import Button from '../elements/Button';
 
-// Styles
+// Assets
 import {
   SignUpContainer,
   SignUpBox,
   SignUpIcon,
+  SignUpLogo,
+  SignUpLogoImg,
   SignUpForm,
   SignUpBoxInputContainer,
   SignUpBoxInputGroup,
@@ -42,6 +44,7 @@ import {
   SignUpBoxImagePreviewBoxSkeleton,
   SignUpButtonContainer,
 } from '../assets/styles/pages/SignUp.styled';
+import { HidePw, LargeLogo, ShowPw, Xbox20 } from '../assets/images/image';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -56,6 +59,8 @@ const SignUp = () => {
   const [tags, setTags] = useState([]);
   const [file, setFile] = useState('');
   const [fileSrc, setFileSrc] = useState('');
+  const [isOpen, setOpen] = useState(false);
+  const [nicknameModal, setNicknameModal] = useState('');
 
   const emailRef = useRef();
   const emailIconRef = useRef();
@@ -87,14 +92,12 @@ const SignUp = () => {
   const signUpMember = useMemberStore((state) => state.signUpMember);
 
   const navigate = useNavigate();
-  const { position } = useParams();
 
   const newMember = {
     email,
     password,
     nickname,
     hashtag: tags,
-    position,
     imgUrl: file,
   };
 
@@ -212,7 +215,7 @@ const SignUp = () => {
         emailDupCheck({ email }).then((res) => {
           if (res) {
             emailSpanRef.current.innerText = '사용가능한 이메일입니다';
-            emailSpanRef.current.style.color = '#0fe05f';
+            emailSpanRef.current.style.color = 'rgba(40, 202, 124, 1)';
             setEmailCheck(true);
           } else {
             emailSpanRef.current.innerText = '중복되는 이메일입니다';
@@ -230,7 +233,7 @@ const SignUp = () => {
       nicknameDupCheck({ nickname }).then((res) => {
         if (res) {
           nicknameSpanRef.current.innerText = '사용가능한 닉네임입니다';
-          nicknameSpanRef.current.style.color = '#0fe05f';
+          nicknameSpanRef.current.style.color = 'rgba(40, 202, 124, 1)';
           setNicknameCheck(true);
         } else {
           nicknameSpanRef.current.innerText = '중복되는 닉네임입니다';
@@ -251,7 +254,7 @@ const SignUp = () => {
         passwordCheckSpanRef.current.innerText = '입력한 비밀번호와 다릅니다';
       } else {
         passwordCheckSpanRef.current.innerText = '비밀번호가 일치합니다';
-        passwordCheckSpanRef.current.style.color = '#0fe05f';
+        passwordCheckSpanRef.current.style.color = 'rgba(40, 202, 124, 1)';
       }
     }
   }, [passwordCheck]);
@@ -303,31 +306,31 @@ const SignUp = () => {
 
   useEffect(() => {
     if (password.search(regExpEngLg) >= 0) {
-      passwordEngLgRef.current.style.color = '#3ECA28';
+      passwordEngLgRef.current.style.color = 'rgba(40, 202, 124, 1)';
     } else {
       passwordEngLgRef.current.style.color = '#cecece';
     }
 
     if (password.search(regExpEngSm) >= 0) {
-      passwordEngSmRef.current.style.color = '#3ECA28';
+      passwordEngSmRef.current.style.color = 'rgba(40, 202, 124, 1)';
     } else {
       passwordEngSmRef.current.style.color = '#cecece';
     }
 
     if (password.search(regExpSpecial) >= 0) {
-      passwordSpecailRef.current.style.color = '#3ECA28';
+      passwordSpecailRef.current.style.color = 'rgba(40, 202, 124, 1)';
     } else {
       passwordSpecailRef.current.style.color = '#cecece';
     }
 
     if (password.search(regExpNum) >= 0) {
-      passwordNumRef.current.style.color = '#3ECA28';
+      passwordNumRef.current.style.color = 'rgba(40, 202, 124, 1)';
     } else {
       passwordNumRef.current.style.color = '#cecece';
     }
 
     if (password.length >= 6 && password.length <= 20) {
-      passwordLengthRef.current.style.color = '#3ECA28';
+      passwordLengthRef.current.style.color = 'rgba(40, 202, 124, 1)';
     } else {
       passwordLengthRef.current.style.color = '#cecece';
     }
@@ -370,8 +373,10 @@ const SignUp = () => {
             } else {
               signUpMember(newMember).then((res) => {
                 console.log(res);
-                if(res.success) {
-                  navigate('/');
+                if (res.success) {
+                  setNicknameModal(nickname);
+                  setOpen(true);
+                  // navigate('/signin');
                 }
               });
             }
@@ -384,11 +389,15 @@ const SignUp = () => {
 
   return (
     <SignUpContainer>
+      <Welcome isOpen={isOpen} nickname={nicknameModal} />
       <SignUpBox>
         <SignUpIcon onClick={() => navigate('/')}>
-          <GrClose className='icon-cancel'></GrClose>
+          <GrClose className='icon-cancel' color='red'></GrClose>
         </SignUpIcon>
         <SignUpForm onSubmit={(e) => onSubmitHandle(e)}>
+          <SignUpLogo>
+            <SignUpLogoImg src={LargeLogo}></SignUpLogoImg>
+          </SignUpLogo>
           <SignUpBoxInputContainer>
             <SignUpBoxInputGroup>
               <SignUpBoxInputGroupTitle>이메일(필수)</SignUpBoxInputGroupTitle>
@@ -397,7 +406,7 @@ const SignUp = () => {
                   onClick={() => deleteText('email')}
                   ref={emailIconRef}
                 >
-                  <GrClose className='icon-cancel'></GrClose>
+                  <img src={Xbox20} alt='Xbox' className='icon-cancel' />
                 </SignUpDataInputGroupIcon>
                 <Input
                   _type={'text'}
@@ -433,18 +442,30 @@ const SignUp = () => {
                   onClick={() => deleteText('password')}
                   ref={passwordIconRef}
                 >
-                  <GrClose className='icon-password-cancel'></GrClose>
+                  <img
+                    src={Xbox20}
+                    alt='Xbox'
+                    className='icon-password-cancel'
+                  />
                 </SignUpDataInputGroupIcon>
                 {passwordView ? (
-                  <BiShow
-                    className='icon-hidden'
-                    onClick={() => viewPassword('password')}
-                  />
+                  <>
+                    <img
+                      src={ShowPw}
+                      alt='패스워드 보기'
+                      className='icon-hidden'
+                      onClick={() => viewPassword('password')}
+                    />
+                  </>
                 ) : (
-                  <BiHide
-                    className='icon-hidden'
-                    onClick={() => viewPassword('password')}
-                  ></BiHide>
+                  <>
+                    <img
+                      src={HidePw}
+                      alt='패스워드 감추기'
+                      className='icon-hidden'
+                      onClick={() => viewPassword('password')}
+                    />
+                  </>
                 )}
                 <Input
                   _type={'password'}
@@ -489,18 +510,30 @@ const SignUp = () => {
                   onClick={() => deleteText('passwordCheck')}
                   ref={passwordCheckIconRef}
                 >
-                  <GrClose className='icon-password-cancel'></GrClose>
+                  <img
+                    src={Xbox20}
+                    alt='Xbox'
+                    className='icon-password-cancel'
+                  />
                 </SignUpDataInputGroupIcon>
                 {passwordCheckView ? (
-                  <BiShow
-                    className='icon-hidden'
-                    onClick={() => viewPassword('passwordCheck')}
-                  />
+                  <>
+                    <img
+                      src={ShowPw}
+                      alt='패스워드 보기'
+                      className='icon-hidden'
+                      onClick={() => viewPassword('passwordCheck')}
+                    />
+                  </>
                 ) : (
-                  <BiHide
-                    className='icon-hidden'
-                    onClick={() => viewPassword('passwordCheck')}
-                  ></BiHide>
+                  <>
+                    <img
+                      src={HidePw}
+                      alt='패스워드 감추기'
+                      className='icon-hidden'
+                      onClick={() => viewPassword('passwordCheck')}
+                    />
+                  </>
                 )}
                 <Input
                   _type={'password'}
@@ -534,7 +567,7 @@ const SignUp = () => {
                   onClick={() => deleteText('nickname')}
                   ref={nicknameIconRef}
                 >
-                  <GrClose className='icon-cancel'></GrClose>
+                  <img src={Xbox20} alt='Xbox' className='icon-cancel' />
                 </SignUpDataInputGroupIcon>
                 <Input
                   _type={'text'}
@@ -570,6 +603,7 @@ const SignUp = () => {
               <SignUpBoxInputTags
                 onKeyDown={addTag}
                 placeholder='Tab, Enter로 구분하여 입력해 주세요.'
+                maxLength={100}
               />
               {tags.length === 0 ? (
                 <Fragment></Fragment>
@@ -593,6 +627,7 @@ const SignUp = () => {
               width={'50%'}
               setFile={setFile}
               setFileSrc={setFileSrc}
+              text={'이미지 삽입하기'}
             />
             <SignUpBoxImagePreviewBox>
               {fileSrc === '' ? (
@@ -619,6 +654,7 @@ const SignUp = () => {
                 bg_color: 'black',
                 ft_weight: '800',
                 line_height: '28',
+                bg_color: '#28CA7C',
               }}
             />
           </SignUpButtonContainer>

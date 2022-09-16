@@ -5,23 +5,15 @@ import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-import { AiFillLike } from "react-icons/ai";
-import {
-  BsFillAlarmFill,
-  BsFillArchiveFill,
-  BsFillPlayCircleFill,
-} from "react-icons/bs";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+// Components
+import PostSlider from "./PostSlider";
 // Assests
 import {
-  ImgBtmLeft,
-  ImgBtmRight,
-  ImgMainBtmRight,
-  ImgTopLeft,
-  ImgTopRight,
+  ArowLeft,
+  ArowRight,
   ProfileArrowDiv,
   ProfileContainer,
   ProfileContainerDiv,
@@ -29,14 +21,17 @@ import {
   ProfileTextDiv,
   ProfileTextMake,
   ProfileTextNew,
-  ProfileTextSinger,
   ProfileTextSingMakeDiv,
-  Profileimg,
-  ProfileImgDivDiv,
 } from "../assets/styles/components/ProfileSlider.styled";
+import { useNavigate } from "react-router-dom";
 
-const ProfileSlider = () => {
+const ProfileSlider = ({ postList, name, position,ctg }) => {
   const sliderRef = useRef();
+  const navigate = useNavigate();
+
+  const goToPosition = () => {
+    navigate(`/morepage/${position}/${ctg}`);
+  };
 
   const settings = {
     className: "center",
@@ -46,6 +41,9 @@ const ProfileSlider = () => {
     arrows: false,
     centerPadding: "-30px",
     ref: sliderRef,
+    slideToScroll: 1,
+    draggable: true,
+    initialSlide: 2,
   };
   return (
     <Fragment>
@@ -53,51 +51,44 @@ const ProfileSlider = () => {
         <ProfileContainer>
           <ProfileImgDiv>
             <ProfileTextDiv>
-              <ProfileTextNew>최신작품 </ProfileTextNew>
+              <ProfileTextNew>{name}</ProfileTextNew>
               <ProfileTextSingMakeDiv>
-                <MdOutlineArrowForwardIos size={30} />
-                <ProfileTextSinger>메이커</ProfileTextSinger>
-                <ProfileTextMake>싱어</ProfileTextMake>
+                <ProfileTextMake onClick={goToPosition}>더보기</ProfileTextMake>
               </ProfileTextSingMakeDiv>
-              <ProfileArrowDiv>
-                <MdOutlineArrowBackIosNew
-                  className='icon-prev'
-                  size={30}
-                  onClick={() => sliderRef.current.slickPrev()}
-                />
-                <MdOutlineArrowForwardIos
-                  className='icon-next'
-                  size={30}
-                  onClick={() => sliderRef.current.slickNext()}
-                />
-              </ProfileArrowDiv>
             </ProfileTextDiv>
+            <ArowLeft>
+              <MdOutlineArrowBackIosNew
+                className='icon-prev'
+                color='rgba(180, 180, 180, 1)'
+                size={30}
+                onClick={() => sliderRef.current.slickPrev()}
+              />
+            </ArowLeft>
             <Slider {...settings}>
-              {Array(6)
-                .fill("")
-                .map(() => (
-                  <ProfileImgDivDiv>
-                    <Profileimg
-                      src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTjg6vTEXL8y0oEnq67IOyZm2cIghFI3KTlg&usqp=CAU'
-                      alt=''
-                    />
-                    <ImgMainBtmRight>
-                      <BsFillPlayCircleFill size={25} />
-                    </ImgMainBtmRight>
-                    <ImgTopLeft>나는 페페</ImgTopLeft>
-                    <ImgTopRight>
-                      <BsFillAlarmFill color='white' />
-                    </ImgTopRight>
-                    <ImgBtmLeft>
-                      <AiFillLike color='white' />
-                      372
-                    </ImgBtmLeft>
-                    <ImgBtmRight>
-                      <BsFillArchiveFill color='white' />
-                    </ImgBtmRight>
-                  </ProfileImgDivDiv>
-                ))}
+              {postList.map((x) => (
+                <PostSlider
+                  width='167'
+                  height='167'
+                  key={x.postId}
+                  imageUrl={x.imageUrl.imageUrl}
+                  likes={x.likes}
+                  nickname={x.nickname}
+                  title={x.title}
+                  collaborate={x.collaborate}
+                  mediaUrl={x.mediaUrl.mediaUrl}
+                  postId={x.postId}
+                  position={x.position}
+                />
+              ))}
             </Slider>
+            <ArowRight>
+              <MdOutlineArrowForwardIos
+                className='icon-next'
+                color='rgba(180, 180, 180, 1)'
+                size={30}
+                onClick={() => sliderRef.current.slickNext()}
+              />
+            </ArowRight>
           </ProfileImgDiv>
         </ProfileContainer>
       </ProfileContainerDiv>

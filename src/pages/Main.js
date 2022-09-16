@@ -1,40 +1,35 @@
 // React
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 // Zustand
-
+import usePostStore from '../zustand/post';
+import useLikeStore from '../zustand/like';
+import usePlayerStore from '../zustand/player';
 // Packages
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 // Utils
-import Button from "../elements/Button";
+import Button from '../elements/Button';
+import { getCookie } from '../utils/cookie';
 // Pages
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
-} from "react-icons/md";
+} from 'react-icons/md';
 // Components
-import Header from "../components/Header";
-import PlayerMain from "../components/audioplayer/PlayerMain";
-// Elements
-
-// Shared
-
+import Header from '../components/Header';
+import ProfileSlider from '../components/ProfileSlider';
+import HotArtist from '../components/HotArtist';
+import Post from '../components/Post';
 // Assests
 import {
-  BtmProfileArrowDiv,
-  BtmProfileDivDiv,
-  BtmProfileDivDivDiv,
+  MainProfileSliderGroup,
   BtmProfileImgDiv,
   BtmProfileTextDiv,
-  BtmProfileTextMake,
   BtmProfileTextNew,
-  BtmProfileTextSinger,
-  BtmProfileTextSingMakeDiv,
-  BtmTextDivDivDiv,
-  BtmTextDivDivSmDiv,
-  BtmTextDivSmSpan,
-  BtmTextDivSpan,
+  MainArowLeft,
+  MainArowRight,
   MainContainer,
   MainContainerDiv,
   MainImgDiv,
@@ -42,153 +37,514 @@ import {
   MainImgDivDiv,
   MainImgDivDivDiv,
   MainImgDivImg,
-  MainTagBox,
-  MainTagBoxText,
-  MainTagBoxTextSpan,
-  Profileimg,
-} from "../assets/styles/pages/Main.styled";
-
-
-import ProfileSlider from "../components/ProfileSlider"
-
-
-
-
+  DisMainPostImgDivImgDiv,
+  DisMainPostImgDivDiv,
+  DisMainPostImgDivNew,
+  DisMainPostImgDivMakeDiv,
+  DisMainPostImgDivMake,
+  DisMainPostImgDiv,
+  MainHotArtistWrap,
+} from '../assets/styles/pages/Main.styled';
 
 const Main = () => {
   const sliderRef = useRef();
 
   const settings = {
-    className: "center",
+    className: 'center',
     centerMode: true,
     infinite: true,
     autoplay: true,
     autoplaySpeed: 4000,
     slidesToShow: 1,
     arrows: false,
-    centerPadding: "85px",
+    centerPadding: '80px',
   };
   const Btmsettings = {
-    className: "center",
+    className: 'center',
+    initialSlide: 2,
     centerMode: true,
     infinite: true,
     slidesToShow: 4,
     arrows: false,
-    centerPadding: "-30px",
+    centerPadding: '-30px',
+    draggable: true,
     ref: sliderRef,
   };
+
+  const getBestSong = usePostStore((state) => state.getBestSong);
+  const getRecentMaker = usePostStore((state) => state.getRecentMaker);
+  const getRecentSinger = usePostStore((state) => state.getRecentSinger);
+  const getBestMaker = usePostStore((state) => state.getBestMaker);
+  const getBestSinger = usePostStore((state) => state.getBestSinger);
+  const getPowerArtist = usePostStore((state) => state.getPowerArtist);
+
+  const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
+  const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
+  const getFollowerList = usePostStore((state) => state.getFollowerList);
+
+  const bestSongIsLoaded = usePostStore((state) => state.bestSongIsLoaded);
+  const bestSong = usePostStore((state) => state.bestSong);
+
+  const recentMakerIsLoaded = usePostStore(
+    (state) => state.recentMakerIsLoaded
+  );
+  const recentMaker = usePostStore((state) => state.recentMaker);
+
+  const recentSingerIsLoaded = usePostStore(
+    (state) => state.recentSingerIsLoaded
+  );
+  const recentSinger = usePostStore((state) => state.recentSinger);
+
+  const bestMakerIsLoaded = usePostStore((state) => state.bestMakerIsLoaded);
+  const bestMaker = usePostStore((state) => state.bestMaker);
+
+  const bestSingerIsLoaded = usePostStore((state) => state.bestSingerIsLoaded);
+  const bestSinger = usePostStore((state) => state.bestSinger);
+
+  const PowerArtistLoaded = usePostStore((state) => state.PowerArtistLoaded);
+  const PowerArtist = usePostStore((state) => state.PowerArtist);
+
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
+  const artistIsFollow = usePostStore((state) => state.artistIsFollow);
+
+  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
+  const addPlayList = usePlayerStore((state) => state.addPlayList);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (getCookie('authorization') === undefined) {
+      getRecentSinger();
+      getRecentMaker();
+      getBestMaker();
+      getBestSinger();
+      getPowerArtist();
+      getBestSong();
+    } else {
+      getSingerLikePost().then((res) => {
+        getBestSong();
+        if (res) {
+          getRecentSinger();
+          getBestSinger();
+        }
+      });
+      getMakerLikePost().then((res) => {
+        if (res) {
+          getRecentMaker();
+          getBestMaker();
+        }
+      });
+      getFollowerList().then((res) => {
+        if (res) {
+          getPowerArtist();
+        }
+      });
+    }
+  }, []);
+
+  const play = () => {
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    addPlayList({
+      postId: bestSong[0].postId,
+      title: bestSong[0].title,
+      nickname: bestSong[0].nickname,
+      mediaUrl: bestSong[0].mediaUrl.mediaUrl,
+      imageUrl: bestSong[0].imageUrl.imageUrl,
+      position: bestSong[0].position,
+    });
+  };
+
+  const goToSinger = (category) => {
+    navigate(`/morepage/singer/${category}`);
+  };
+
+  const goToMaker = (category) => {
+    navigate(`/morepage/maker/${category}`);
+  };
+
   return (
     <Fragment>
       <Header />
       <MainContainerDiv>
         <MainContainer>
-          <MainImgDiv>
-            <Slider {...settings}>
-              {Array(4)
-                .fill("")
-                .map(() => (
-                  <MainImgDivDiv>
-                    <MainImgDivImg
-                      img={
-                        "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbpS97M%2FbtqSdupzCez%2FuqPigp7AcjhIZnlzCYdvd0%2Fimg.jpg"
-                      }
-                    >
-
-                    </MainImgDivImg>
-                    <MainImgDivDivDiv>Bast Song</MainImgDivDivDiv>
+          {bestSongIsLoaded ? (
+            <MainImgDiv>
+              <Slider {...settings}>
+                {bestSong.map((x) => (
+                  <MainImgDivDiv key={x.postId}>
+                    <MainImgDivImg img={x.imageUrl.imageUrl}></MainImgDivImg>
+                    <MainImgDivDivDiv>Best Song</MainImgDivDivDiv>
                     <MainImgDivBtnDiv>
                       <Button
                         _style={{
-                          width: "140px",
-                          height: "36px",
-                          bg_color: "rgba(255, 255, 255, 1)",
-                          bd_radius: "43px",
-                          color: "rgba(0, 0, 0, 1)",
-                          ft_weight: "700",
-                          ft_size: "12",
-                          bd_px: "1.5px",
-                          bd_color: "transparent",
+                          width: '140px',
+                          height: '36px',
+                          bg_color: 'rgba(255, 255, 255, 1)',
+                          bd_radius: '43px',
+                          color: 'rgba(0, 0, 0, 1)',
+                          ft_weight: '700',
+                          ft_size: '12',
+                          bd_px: '1.5px',
+                          bd_color: 'transparent',
                         }}
-                        _text={"감상하기"}
+                        _text={'감상하기'}
+                        _onClick={play}
                       />
                     </MainImgDivBtnDiv>
                   </MainImgDivDiv>
                 ))}
-            </Slider>
-          </MainImgDiv>
-          <ProfileSlider />
-          <ProfileSlider />
-          <BtmProfileImgDiv>
-            <BtmProfileTextDiv>
-              <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
-              <BtmProfileTextSingMakeDiv>
-                <MdOutlineArrowForwardIos size={30} />
-                <BtmProfileTextSinger>팔로워 급상승</BtmProfileTextSinger>
-                <BtmProfileTextMake>좋아요 급상승</BtmProfileTextMake>
-              </BtmProfileTextSingMakeDiv>
-              <BtmProfileArrowDiv>
-                <MdOutlineArrowBackIosNew
-                  className='icon-prev'
-                  size={30}
-                  onClick={() => sliderRef.current.slickPrev()}
-                />
-                <MdOutlineArrowForwardIos
-                  className='icon-next'
-                  size={30}
-                  onClick={() => sliderRef.current.slickNext()}
-                />
-              </BtmProfileArrowDiv>
-            </BtmProfileTextDiv>
+              </Slider>
+            </MainImgDiv>
+          ) : (
+            <MainImgDiv></MainImgDiv>
+          )}
+          <MainProfileSliderGroup>
+            {recentSingerIsLoaded ? (
+              recentSinger.length < 5 ? (
+                <DisMainPostImgDivImgDiv>
+                  <DisMainPostImgDivDiv>
+                    <DisMainPostImgDivNew>싱어 최신작품</DisMainPostImgDivNew>
+                    <DisMainPostImgDivMakeDiv>
+                      <DisMainPostImgDivMake onClick={() => goToSinger('new')}>
+                        더보기
+                      </DisMainPostImgDivMake>
+                    </DisMainPostImgDivMakeDiv>
+                  </DisMainPostImgDivDiv>
+                  <DisMainPostImgDiv>
+                    {recentSinger.map((x, idx) => {
+                      if ([...singerIsLike].indexOf(x.postId) !== -1) {
+                        return (
+                          <Post
+                            key={idx}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={true}
+                          />
+                        );
+                      } else {
+                        return (
+                          <Post
+                            key={idx}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={false}
+                          />
+                        );
+                      }
+                    })}
+                  </DisMainPostImgDiv>
+                </DisMainPostImgDivImgDiv>
+              ) : (
+                <>
+                  <ProfileSlider
+                    name={'싱어 최신작품'}
+                    position={'singer'}
+                    postList={recentSinger}
+                    GrandTitle='싱어 최신작품'
+                    ctg='new'
+                  />
+                </>
+              )
+            ) : (
+              <> </>
+            )}
 
-            <Slider {...Btmsettings}>
-              {Array(6)
-                .fill("")
-                .map(() => (
-                  <MainImgDivDiv>
-                    <BtmProfileDivDiv>
-                      <BtmProfileDivDivDiv>
-                        <Profileimg
-                          src='https://blog.kakaocdn.net/dn/bRSp9b/btqDbkIMBLv/uFGktm4owJCRMMsXkQBgKk/img.jpg'
-                          alt=''
+            {bestSingerIsLoaded ? (
+              bestSinger.length < 5 ? (
+                <DisMainPostImgDivImgDiv>
+                  <DisMainPostImgDivDiv>
+                    <DisMainPostImgDivNew>싱어 인기작품</DisMainPostImgDivNew>
+                    <DisMainPostImgDivMakeDiv>
+                      <DisMainPostImgDivMake
+                        onClick={() => goToSinger('popular')}
+                      >
+                        더보기
+                      </DisMainPostImgDivMake>
+                    </DisMainPostImgDivMakeDiv>
+                  </DisMainPostImgDivDiv>
+                  <DisMainPostImgDiv>
+                    {bestSinger.map((x, idx) => {
+                      if ([...singerIsLike].indexOf(x.postId) !== -1) {
+                        return (
+                          <Post
+                            key={idx}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={true}
+                          />
+                        );
+                      } else {
+                        return (
+                          <Post
+                            key={idx}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={false}
+                          />
+                        );
+                      }
+                    })}
+                  </DisMainPostImgDiv>
+                </DisMainPostImgDivImgDiv>
+              ) : (
+                <>
+                  <ProfileSlider
+                    name={'싱어 인기작품'}
+                    position={'singer'}
+                    postList={bestSinger}
+                    GrandTitle='싱어 인기작품'
+                    ctg='popular'
+                  />
+                </>
+              )
+            ) : (
+              <></>
+            )}
+
+            {recentMakerIsLoaded ? (
+              recentMaker.length < 5 ? (
+                <DisMainPostImgDivImgDiv>
+                  <DisMainPostImgDivDiv>
+                    <DisMainPostImgDivNew>메이커 최신작품</DisMainPostImgDivNew>
+                    <DisMainPostImgDivMakeDiv>
+                      <DisMainPostImgDivMake onClick={() => goToMaker('new')}>
+                        더보기
+                      </DisMainPostImgDivMake>
+                    </DisMainPostImgDivMakeDiv>
+                  </DisMainPostImgDivDiv>
+                  <DisMainPostImgDiv>
+                    {recentMaker.map((x, idx) => {
+                      if ([...makerIsLike].indexOf(x.postId) !== -1) {
+                        return (
+                          <Post
+                            key={idx}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={true}
+                          />
+                        );
+                      } else {
+                        return (
+                          <Post
+                            key={idx}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={false}
+                          />
+                        );
+                      }
+                    })}
+                  </DisMainPostImgDiv>
+                </DisMainPostImgDivImgDiv>
+              ) : (
+                <>
+                  <ProfileSlider
+                    name={'메이커 최신작품'}
+                    position={'maker'}
+                    postList={recentMaker}
+                    GrandTitle='메이커 최신작품'
+                    ctg='new'
+                  />
+                </>
+              )
+            ) : (
+              <></>
+            )}
+
+            {bestMakerIsLoaded ? (
+              bestMaker.length < 5 ? (
+                <DisMainPostImgDivImgDiv>
+                  <DisMainPostImgDivDiv>
+                    <DisMainPostImgDivNew>메이커 인기작품</DisMainPostImgDivNew>
+                    <DisMainPostImgDivMakeDiv>
+                      <DisMainPostImgDivMake
+                        onClick={() => goToMaker('popular')}
+                      >
+                        더보기
+                      </DisMainPostImgDivMake>
+                    </DisMainPostImgDivMakeDiv>
+                  </DisMainPostImgDivDiv>
+                  <DisMainPostImgDiv>
+                    {bestMaker.map((x, idx) => {
+                      if ([...makerIsLike].indexOf(x.postId) !== -1) {
+                        return (
+                          <Post
+                            key={idx}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={true}
+                          />
+                        );
+                      } else {
+                        return (
+                          <Post
+                            key={idx}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likes={x.likes}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={false}
+                          />
+                        );
+                      }
+                    })}
+                  </DisMainPostImgDiv>
+                </DisMainPostImgDivImgDiv>
+              ) : (
+                <>
+                  <ProfileSlider
+                    name={'메이커 인기작품'}
+                    position={'maker'}
+                    postList={bestMaker}
+                    GrandTitle='메이커 인기작품'
+                    ctg='popular'
+                  />
+                </>
+              )
+            ) : (
+              <></>
+            )}
+          </MainProfileSliderGroup>
+          {PowerArtistLoaded ? (
+            PowerArtist.length < 5 ? (
+              <BtmProfileImgDiv>
+                <BtmProfileTextDiv>
+                  <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
+                </BtmProfileTextDiv>
+                <MainHotArtistWrap>
+                  {PowerArtist.map((x) => {
+                    if (artistIsFollow.indexOf(x.nickname) < 0) {
+                      return (
+                        <HotArtist
+                          nickname={x.nickname}
+                          imageUrl={x.imageUrl}
+                          follower={x.follower
+                            .toString()
+                            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                          isFollow={false}
                         />
-                      </BtmProfileDivDivDiv>
-                      <BtmTextDivDivDiv>
-                        <BtmTextDivSpan>youngi_2</BtmTextDivSpan>
-                      </BtmTextDivDivDiv>
-                      <BtmTextDivDivSmDiv>
-                        <BtmTextDivSmSpan>4,000팔로워</BtmTextDivSmSpan>
-                      </BtmTextDivDivSmDiv>
-                    </BtmProfileDivDiv>
-                  </MainImgDivDiv>
-                ))}
-            </Slider>
-          </BtmProfileImgDiv>
-          <BtmProfileImgDiv>
-            <BtmProfileTextNew>인기 해쉬태그 </BtmProfileTextNew>
-            <MainTagBox>
-              <MainTagBoxText>
-                <MainTagBoxTextSpan> # 태그</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 감성 커버</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 드라이브</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 힙합</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 재즈</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 락</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 태그</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 감성 커버</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 드라이브</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 힙합</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 재즈</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 락</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 태그</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 감성 커버</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 드라이브</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 힙합</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 재즈</MainTagBoxTextSpan>
-                <MainTagBoxTextSpan> # 락</MainTagBoxTextSpan>
-              </MainTagBoxText>
-            </MainTagBox>
-          </BtmProfileImgDiv>
-          <PlayerMain />
+                      );
+                    } else {
+                      return (
+                        <HotArtist
+                          nickname={x.nickname}
+                          imageUrl={x.imageUrl}
+                          follower={x.follower
+                            .toString()
+                            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                          isFollow={true}
+                        />
+                      );
+                    }
+                  })}
+                </MainHotArtistWrap>
+              </BtmProfileImgDiv>
+            ) : (
+              <BtmProfileImgDiv>
+                <BtmProfileTextDiv>
+                  <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
+                </BtmProfileTextDiv>
+                <MainArowLeft>
+                  <MdOutlineArrowBackIosNew
+                    className='icon-prev'
+                    color='rgba(180, 180, 180, 1)'
+                    size={30}
+                    onClick={() => sliderRef.current.slickPrev()}
+                  />
+                </MainArowLeft>
+                <Slider {...Btmsettings}>
+                  {PowerArtist.map((x, idx) => {
+                    if (artistIsFollow.indexOf(x.nickname) < 0) {
+                      return (
+                        <HotArtist
+                          key={idx}
+                          nickname={x.nickname}
+                          follower={x.follower
+                            .toString()
+                            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                          imageUrl={x.imageUrl}
+                          isFollow={false}
+                        />
+                      );
+                    } else {
+                      return (
+                        <HotArtist
+                          key={idx}
+                          nickname={x.nickname}
+                          follower={x.follower
+                            .toString()
+                            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                          imageUrl={x.imageUrl}
+                          isFollow={true}
+                        />
+                      );
+                    }
+                  })}
+                </Slider>
+                <MainArowRight>
+                  <MdOutlineArrowForwardIos
+                    className='icon-next'
+                    color='rgba(180, 180, 180, 1)'
+                    size={30}
+                    onClick={() => sliderRef.current.slickNext()}
+                  />
+                </MainArowRight>
+              </BtmProfileImgDiv>
+            )
+          ) : (
+            <></>
+          )}
         </MainContainer>
       </MainContainerDiv>
     </Fragment>

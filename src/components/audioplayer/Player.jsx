@@ -1,18 +1,17 @@
-import { useEffect, useRef, useState } from "react";
-
+// React
+import { useEffect, useRef, memo, useState } from "react";
+// Assests
 import {
   ProgressBarCover,
   Range,
   SliderContainer,
   Thumb,
-} from "./PlayerStyled";
-
+} from "../../assets/styles/components/Player.Styled";
 
 function Player({ percentage = 0, onChange }) {
   const [position, setPosition] = useState(0);
   const [marginLeft, setMarginLeft] = useState(0);
   const [progressBarWidth, setProgressBarWidth] = useState(0);
-  
 
   const rangeRef = useRef();
   const thumbRef = useRef();
@@ -55,4 +54,4 @@ function Player({ percentage = 0, onChange }) {
   );
 }
 
-export default Player;
+export default memo(Player);
