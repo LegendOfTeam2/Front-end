@@ -42,7 +42,7 @@ import {
 
 const Chat = () => {
   const SERVER_URL = process.env.REACT_APP_REST_API_IP;
-  const sockJS = new SockJS(`http://${SERVER_URL}/ws/chat`);
+  const sockJS = new SockJS(`https://${SERVER_URL}/ws/chat`);
   const stompClient = over(sockJS);
 
   const nickname = jwt_decode(getCookie('authorization')).sub;
