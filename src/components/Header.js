@@ -74,6 +74,7 @@ const Header = () => {
 
   const onClickSearch = useCallback(() => {
     setSearchKeyword(keyword);
+    window.sessionStorage.setItem('keyword', keyword);
     navigate(`/search`);
   }, [keyword]);
 
@@ -81,6 +82,7 @@ const Header = () => {
     (e) => {
       if (e.key === 'Enter') {
         if (e.target.value.length > 0) {
+          window.sessionStorage.setItem('keyword', keyword);
           setSearchKeyword(keyword);
           navigate(`/search`);
         }

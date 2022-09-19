@@ -1,5 +1,5 @@
 // React
-import { Fragment, useEffect, useState, useRef } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 // Zustand
 import useSearchStore from '../zustand/search';
@@ -22,6 +22,7 @@ import {
   SearchNaviTitle,
   SearchNaviGroup,
   SearchNavi,
+  SearchNaviSelect,
   SearchNaviVertical,
   SearchInfo,
   SearchInfoBox,
@@ -42,11 +43,6 @@ import {
 import { ErrorLogo } from '../assets/images/image';
 
 const Search = () => {
-  const [category, setCategory] = useState('Singer');
-  const singerNaviRef = useRef();
-  const makerNaviRef = useRef();
-  const navigate = useNavigate();
-
   const keyword = useSearchStore((state) => state.keyword);
   const searchKeyword = useSearchStore((state) => state.searchKeyword);
   const singerSearchIsLoaded = useSearchStore(
@@ -58,18 +54,18 @@ const Search = () => {
   const singerSearchList = useSearchStore((state) => state.singerSearchList);
   const makerSearchList = useSearchStore((state) => state.makerSearchList);
 
+  const [category, setCategory] = useState('Singer');
+
+  const navigate = useNavigate();
+
   const onHandleSearchCategory = (category) => {
     switch (category) {
       case 'Singer': {
         setCategory('Singer');
-        singerNaviRef.current.style.color = 'rgba(40, 202, 124, 1)';
-        makerNaviRef.current.style.color = '#b4b4b4';
         break;
       }
       case 'Maker': {
         setCategory('Maker');
-        makerNaviRef.current.style.color = 'rgba(40, 202, 124, 1)';
-        singerNaviRef.current.style.color = '#b4b4b4';
         break;
       }
       default: {
@@ -80,6 +76,10 @@ const Search = () => {
 
   useEffect(() => {
     if (keyword !== '') {
+      searchKeyword(keyword, 'Singer');
+      searchKeyword(keyword, 'Maker');
+    } else {
+      const keyword = window.sessionStorage.getItem('keyword');
       searchKeyword(keyword, 'Singer');
       searchKeyword(keyword, 'Maker');
     }
@@ -96,22 +96,35 @@ const Search = () => {
           </SearchNaviIconBox>
           <SearchNaviTitle>검색 결과</SearchNaviTitle>
           <SearchNaviGroup>
-            <SearchNavi
-              className='search'
-              style={{ color: 'rgba(40, 202, 124, 1)' }}
-              onClick={() => onHandleSearchCategory('Singer')}
-              ref={singerNaviRef}
-            >
-              싱어({singerSearchIsLoaded ? singerSearchList.length : 0})
-            </SearchNavi>
-            <SearchNaviVertical>|</SearchNaviVertical>
-            <SearchNavi
-              className='maker'
-              onClick={() => onHandleSearchCategory('Maker')}
-              ref={makerNaviRef}
-            >
-              메이커({makerSearchIsLoaded ? makerSearchList.length : 0})
-            </SearchNavi>
+            {category === 'Singer' ? (
+              <Fragment>
+                <SearchNaviSelect
+                  onClick={() => onHandleSearchCategory('Singer')}
+                >
+                  싱어({singerSearchIsLoaded ? singerSearchList.length : 0})
+                </SearchNaviSelect>
+                <SearchNaviVertical>|</SearchNaviVertical>
+                <SearchNavi
+                  onClick={() => onHandleSearchCategory('Maker')}
+                >
+                  메이커({makerSearchIsLoaded ? makerSearchList.length : 0})
+                </SearchNavi>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <SearchNavi
+                  onClick={() => onHandleSearchCategory('Singer')}
+                >
+                  싱어({singerSearchIsLoaded ? singerSearchList.length : 0})
+                </SearchNavi>
+                <SearchNaviVertical>|</SearchNaviVertical>
+                <SearchNaviSelect
+                  onClick={() => onHandleSearchCategory('Maker')}
+                >
+                  메이커({makerSearchIsLoaded ? makerSearchList.length : 0})
+                </SearchNaviSelect>
+              </Fragment>
+            )}
           </SearchNaviGroup>
         </SearchNaviContainer>
         <SearchInfo>
@@ -119,7 +132,7 @@ const Search = () => {
             {category === 'Singer' ? (
               singerSearchList.length !== 0 ? (
                 <Fragment>
-                  <SearchInfoNickname>{keyword}</SearchInfoNickname>
+                  <SearchInfoNickname>{keyword ? keyword : window.sessionStorage.getItem('keyword')}</SearchInfoNickname>
                   <SearchInfoText>에 대한 검색 결과</SearchInfoText>
                 </Fragment>
               ) : (
@@ -127,7 +140,7 @@ const Search = () => {
               )
             ) : makerSearchList.length !== 0 ? (
               <Fragment>
-                <SearchInfoNickname>{keyword}</SearchInfoNickname>
+                <SearchInfoNickname>{keyword ? keyword : window.sessionStorage.getItem('keyword')}</SearchInfoNickname>
                 <SearchInfoText>에 대한 검색 결과</SearchInfoText>
               </Fragment>
             ) : (

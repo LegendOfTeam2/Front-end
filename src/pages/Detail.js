@@ -1,5 +1,5 @@
 // React
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 // Zustand
 import usePlayerStore from '../zustand/player';
@@ -82,25 +82,27 @@ import {
 } from '../assets/styles/pages/Detail.styled';
 
 const Detail = () => {
-  const [lyrics, setLyrics] = useState(false);
-  const [introduction, setIntroduction] = useState(false);
-  const [isLike, setIsLike] = useState(false);
-  const Params = useParams();
-
   const getDetail = usePostStore((state) => state.getDetail);
   const detailListLoaded = usePostStore((state) => state.detailListLoaded);
   const detailList = usePostStore((state) => state.detailList);
   const deleteDetail = usePostStore((state) => state.deleteDetail);
-  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
-  const random = useMemberStore((state) => state.random);
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
+
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);  
+
   const addLike = useLikeStore((state) => state.addLike);
 
-  const likeCountRef = useRef();
+  const [lyrics, setLyrics] = useState(false);
+  const [introduction, setIntroduction] = useState(false);
+  const [isLike, setIsLike] = useState(false);
+  const [counter, setCounter] = useState(0);
 
+  const Params = useParams();
   const navigate = useNavigate();
 
   const deletePost = {
@@ -137,8 +139,7 @@ const Detail = () => {
             hideProgressBar: true,
           });
           setIsLike(true);
-          likeCountRef.current.innerText =
-            Number(likeCountRef.current.innerText) + 1;
+          setCounter((prev) => prev + 1);
         } else {
           toast.info('게시글에 좋아요를 취소했습니다.', {
             position: toast.POSITION.BOTTOM_RIGHT,
@@ -147,15 +148,18 @@ const Detail = () => {
             hideProgressBar: true,
           });
           setIsLike(false);
-          likeCountRef.current.innerText =
-            Number(likeCountRef.current.innerText) - 1;
+          setCounter((prev) => prev - 1);
         }
       });
     }
   };
 
   useEffect(() => {
-    getDetail(Params);
+    getDetail(Params).then((res) => {
+      if(res.success) {
+        setCounter(res.data.likes);
+      }
+    });
   }, []);
 
   const clip = () => {
@@ -344,8 +348,8 @@ const Detail = () => {
                         />
                       </DetailClickHover>
                     )}
-                    <DetailProfileBtmFirSpan ref={likeCountRef}>
-                      {detailList.likes}
+                    <DetailProfileBtmFirSpan>
+                      {counter}
                     </DetailProfileBtmFirSpan>
                   </DetailProfileBtmFirDiv>
                   {detailList.collaborate ? (

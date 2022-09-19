@@ -72,6 +72,16 @@ export const SearchNavi = styled.div`
     cursor: pointer;
   }
 `;
+export const SearchNaviSelect = styled.div`
+  color: #28ca7c;
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-size: ${(props) => props.theme.fontSizes.base};
+  line-height: ${(props) => props.theme.lineHeight.base};
+  padding: 0 27px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 export const SearchNaviVertical = styled.div``;
 export const SearchInfo = styled.div`
   width: 100%;

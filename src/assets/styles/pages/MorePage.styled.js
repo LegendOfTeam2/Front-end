@@ -67,6 +67,15 @@ export const MoreBtmDataDiv = styled.span`
   margin-top: 21px;
 `;
 
+export const MoreBtmDataDivSelect = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.base};
+  line-height: ${(props) => props.theme.lineHeight.base};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  margin-top: 21px;
+  border-top: rgba(40, 202, 124, 1);
+  color: rgba(40, 202, 124, 1);
+`;
+
 export const MoreBtmImgDiv = styled.div`
   width: 100%;
   display: flex;

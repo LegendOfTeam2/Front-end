@@ -1,5 +1,5 @@
 // React
-import { useState, useRef, memo } from 'react';
+import { useRef, memo } from 'react';
 
 // Zustand
 import useUploadStore from '../zustand/upload';
@@ -16,7 +16,6 @@ import {
 } from '../assets/styles/components/UploadImage.styled';
 
 const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
-  const uploadBoxRef = useRef();
   const uploadInputRef = useRef();
 
   const uploadImage = useUploadStore((state) => state.uploadImage);
@@ -82,7 +81,6 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
       onClick={uploadHandle}
       onDrop={(e) => onDropHandle(e)}
       onDragOver={(e) => onDragOverHandle(e)}
-      ref={uploadBoxRef}
     >
       <UploadImageIcon>
         <GrAdd className='icon'></GrAdd>

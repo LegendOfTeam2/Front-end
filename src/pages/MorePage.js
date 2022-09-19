@@ -1,7 +1,8 @@
-import { Fragment, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Fragment, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   MoreBtmDataDiv,
+  MoreBtmDataDivSelect,
   MoreBtmImgDiv,
   MoreBtmTextDiv,
   MoreBtmTextDivDiv,
@@ -9,26 +10,17 @@ import {
   MoreContainerDiv,
   MoreTopDiv,
   MoreTopSpan,
-} from "../assets/styles/pages/MorePage.styled";
-import Header from "../components/Header";
-import PostBig from "../components/PostBig";
-import useLikeStore from "../zustand/like";
-import usePostStore from "../zustand/post";
+} from '../assets/styles/pages/MorePage.styled';
+import Header from '../components/Header';
+import PostBig from '../components/PostBig';
+import useLikeStore from '../zustand/like';
+import usePostStore from '../zustand/post';
 
 const MorePage = () => {
-  const { position, ctg } = useParams();
-  const leftRef = useRef();
-  const rightRef = useRef();
-
-  const [recent, setRecent] = useState(false);
-  const [best, setBest] = useState(false);
-  const [category, setCategory] = useState(ctg);
-
   const getRecentMaker = usePostStore((state) => state.getRecentMaker);
   const getRecentSinger = usePostStore((state) => state.getRecentSinger);
   const getBestMaker = usePostStore((state) => state.getBestMaker);
   const getBestSinger = usePostStore((state) => state.getBestSinger);
-
   const recentSingerIsLoaded = usePostStore(
     (state) => state.recentSingerIsLoaded
   );
@@ -46,42 +38,27 @@ const MorePage = () => {
   const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
   const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
 
+  const { position, ctg } = useParams();
+
+  const [category, setCategory] = useState(ctg);
+
   const categoryHandle = (state) => {
     switch (state) {
-      case "new": {
-        leftRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
-        rightRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
-        leftRef.current.style.color = "rgba(40, 202, 124, 1)";
-        rightRef.current.style.color = "rgba(180, 180, 180, 1)";
-        setCategory("new");
+      case 'new': {
+        setCategory('new');
         break;
       }
-      case "popular": {
-        leftRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
-        rightRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
-        leftRef.current.style.color = "rgba(180, 180, 180, 1)";
-        rightRef.current.style.color = "rgba(40, 202, 124, 1)";
-        setCategory("popular");
+      case 'popular': {
+        setCategory('popular');
         break;
       }
       default:
         break;
     }
   };
-  useEffect(() => {
-    if (category === "new") {
-      leftRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
-      leftRef.current.style.color = "rgba(40, 202, 124, 1)";
-      rightRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
-    } else {
-      rightRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
-      rightRef.current.style.color = "rgba(40, 202, 124, 1)";
-      leftRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
-    }
-  }, []);
 
   useEffect(() => {
-    if (position === "singer") {
+    if (position === 'singer') {
       getSingerLikePost().then((res) => {
         if (res) {
           getRecentSinger();
@@ -104,7 +81,7 @@ const MorePage = () => {
       <MoreContainerDiv>
         <MoreContainer>
           <MoreTopDiv>
-            {position === "singer" ? (
+            {position === 'singer' ? (
               <MoreTopSpan>싱어</MoreTopSpan>
             ) : (
               <MoreTopSpan>메이커</MoreTopSpan>
@@ -112,20 +89,37 @@ const MorePage = () => {
           </MoreTopDiv>
 
           <MoreBtmTextDiv>
-            <MoreBtmTextDivDiv ref={leftRef}>
-              <MoreBtmDataDiv onClick={() => categoryHandle("new")}>
-                최신
-              </MoreBtmDataDiv>
-            </MoreBtmTextDivDiv>
-            <MoreBtmTextDivDiv ref={rightRef}>
-              <MoreBtmDataDiv onClick={() => categoryHandle("popular")}>
-                인기
-              </MoreBtmDataDiv>
-            </MoreBtmTextDivDiv>
+            {category === 'new' ? (
+              <Fragment>
+                <MoreBtmTextDivDiv onClick={() => categoryHandle('new')}>
+                  <MoreBtmDataDivSelect>
+                    최신
+                  </MoreBtmDataDivSelect>
+                </MoreBtmTextDivDiv>
+                <MoreBtmTextDivDiv onClick={() => categoryHandle('popular')}>
+                  <MoreBtmDataDiv>
+                    인기
+                  </MoreBtmDataDiv>
+                </MoreBtmTextDivDiv>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <MoreBtmTextDivDiv onClick={() => categoryHandle('new')}>
+                  <MoreBtmDataDiv>
+                    최신
+                  </MoreBtmDataDiv>
+                </MoreBtmTextDivDiv>
+                <MoreBtmTextDivDiv onClick={() => categoryHandle('popular')}>
+                  <MoreBtmDataDivSelect>
+                    인기
+                  </MoreBtmDataDivSelect>
+                </MoreBtmTextDivDiv>
+              </Fragment>
+            )}
           </MoreBtmTextDiv>
           <MoreBtmImgDiv>
-            {position === "singer" ? (
-              category === "new" ? (
+            {position === 'singer' ? (
+              category === 'new' ? (
                 recentSingerIsLoaded ? (
                   recentSinger.map((x) => (
                     <PostBig
@@ -160,7 +154,7 @@ const MorePage = () => {
               ) : (
                 <Fragment></Fragment>
               )
-            ) : category === "new" ? (
+            ) : category === 'new' ? (
               recentMakerIsLoaded ? (
                 recentMaker.map((x) => (
                   <PostBig
