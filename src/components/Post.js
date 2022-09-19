@@ -19,12 +19,14 @@ import {
   DisMyImgTopRight,
   ImgMyBtmRight,
   ImgNotSlideSpan,
+  ImgNotTopSlideSpan,
   Myimg,
   MyImgBtmLeft,
   MyImgBtmLeftDiv,
   MyImgBtmLeftspan,
   MyImgBtmRight,
   MyImgDivDiv,
+  MyImgTopBotmLeft,
   MyImgTopLeft,
   MyImgTopRight,
 } from '../assets/styles/components/Post.styled';
@@ -33,6 +35,9 @@ import {
   DisLike,
   OnPlay,
   Like24,
+  DisCollaboration,
+  WhiteCollaborate,
+  WhiteCollaborate24,
 } from '../assets/images/image';
 
 const Post = ({
@@ -117,14 +122,31 @@ const Post = ({
       />
       <ToastContainer />
       <ImgMyBtmRight>
+        <ImgNotTopSlideSpan>{title}</ImgNotTopSlideSpan>
         <ImgNotSlideSpan>{nickname.slice(0, 9)}</ImgNotSlideSpan>
       </ImgMyBtmRight>
       <MyImgTopLeft onClick={goToDetail}>{title}</MyImgTopLeft>
+      <MyImgTopBotmLeft>{nickname.slice(0, 9)}</MyImgTopBotmLeft>
       <DisMyImgTopRight>
+<<<<<<< HEAD
         {collaborate ? <img src={Collaborate} alt='콜라보' /> : <Fragment></Fragment>}
       </DisMyImgTopRight>
       <MyImgTopRight>
         {collaborate ? <img src={Collaborate} alt='콜라보' /> : <Fragment></Fragment>}
+=======
+        {collaborate ? (
+          <img src={DisCollaboration} alt='콜라보' />
+        ) : (
+          <img src={WhiteCollaborate24} alt='콜라보' />
+        )}
+      </DisMyImgTopRight>
+      <MyImgTopRight>
+        {collaborate ? (
+          <img src={DisCollaboration} alt='콜라보' />
+        ) : (
+          <img src={WhiteCollaborate24} alt='콜라보' />
+        )}
+>>>>>>> 5ef328c4d16d85b6a8285af70a747f49afae05c9
       </MyImgTopRight>
       <MyImgBtmLeft>
         <MyImgBtmLeftDiv>

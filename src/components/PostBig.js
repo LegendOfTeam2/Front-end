@@ -18,21 +18,25 @@ import { getCookie } from '../utils/cookie';
 import {
   BigImgMyBtmRight,
   BigImgNotSlideSpan,
+  BigImgNotSlideTitleSpan,
   BigMyimg,
   BigMyImgBtmLeft,
   BigMyImgBtmLeftDiv,
   BigMyImgBtmLeftspan,
   BigMyImgBtmRight,
   BigMyImgDivDiv,
+  BigMyImgTopBtmLeft,
   BigMyImgTopLeft,
   BigMyImgTopRight,
   DisBigMyImgTopRight,
 } from '../assets/styles/components/PsotBig.styled';
 import {
   Collaboration44,
+  DisCollaboration40,
   DisLike40,
   Like40,
   OnPlay60,
+  WhiteCollaborate,
 } from '../assets/images/image';
 
 const PostBig = ({
@@ -116,14 +120,16 @@ const PostBig = ({
       />
       <ToastContainer />
       <BigImgMyBtmRight>
+      <BigImgNotSlideTitleSpan>{title}</BigImgNotSlideTitleSpan>
         <BigImgNotSlideSpan>{nickname.slice(0, 9)}</BigImgNotSlideSpan>
       </BigImgMyBtmRight>
       <BigMyImgTopLeft onClick={goToDetail}>{title}</BigMyImgTopLeft>
+      <BigMyImgTopBtmLeft onClick={goToDetail}>{nickname.slice(0, 9)}</BigMyImgTopBtmLeft>
       <DisBigMyImgTopRight>
-        {collaborate ? <img src={Collaboration44} alt='콜라보' /> : <></>}
+        {collaborate ? <img src={DisCollaboration40} alt='콜라보' /> : <img src={WhiteCollaborate} alt='콜라보' />}
       </DisBigMyImgTopRight>
       <BigMyImgTopRight>
-        {collaborate ? <img src={Collaboration44} alt='콜라보' /> : <></>}
+        {collaborate ? <img src={DisCollaboration40} alt='콜라보' /> : <img src={WhiteCollaborate} alt='콜라보' />}
       </BigMyImgTopRight>
       <BigMyImgBtmLeft>
         <BigMyImgBtmLeftDiv>

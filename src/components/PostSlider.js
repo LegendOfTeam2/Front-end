@@ -2,23 +2,26 @@
 import { useState, memo, Fragment } from "react";
 
 // Zustand
-import usePlayerStore from "../zustand/player";
-import useLikeStore from "../zustand/like";
+import usePlayerStore from '../zustand/player';
+import useLikeStore from '../zustand/like';
 
 // Packages
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Utils
-import { getCookie } from "../utils/cookie";
+import { getCookie } from '../utils/cookie';
 
 import {
   DisLike,
   OnPlay,
   Like24,
   Collaborate,
-} from "../assets/images/image";
+  DisCollaboration,
+  WhiteCollaborate,
+  WhiteCollaborate24,
+} from '../assets/images/image';
 import {
   ImgBtmLeft,
   ImgBtmRight,
@@ -31,8 +34,11 @@ import {
   ImgBtmLeftDiv,
   ImgBtmLeftDivSapn,
   DisImgTopRight,
-} from "../assets/styles/components/PostSlide.styled";
-import useMemberStore from "../zustand/member";
+  ImgMainSpanNickname,
+  ImgMainSpanTitle,
+  ImgTopBtmLeft,
+} from '../assets/styles/components/PostSlide.styled';
+import useMemberStore from '../zustand/member';
 const PostSlider = ({
   postId,
   position,
@@ -73,8 +79,8 @@ const PostSlider = ({
   };
 
   const LikeClick = () => {
-    if (getCookie("authorization") === undefined) {
-      alert("로그인 후 이용해 주세요.");
+    if (getCookie('authorization') === undefined) {
+      alert('로그인 후 이용해 주세요.');
       navigate('/signin');
     } else {
       addLike({ postId, position }).then((res) => {
@@ -109,22 +115,34 @@ const PostSlider = ({
         src={
           imageUrl === null
             ? profileImgArr[random]
-            : imageUrl === ""
+            : imageUrl === ''
             ? profileImgArr[random]
             : imageUrl
         }
         alt=''
       />
       <ImgMainBtmRight>
-        <ImgMainSpan>{nickname.slice(0, 9)}</ImgMainSpan>
+        <ImgMainSpan>
+          <ImgMainSpanTitle>{title.slice(0, 9)}</ImgMainSpanTitle>
+          <ImgMainSpanNickname>{nickname.slice(0, 9)}</ImgMainSpanNickname>
+        </ImgMainSpan>
       </ImgMainBtmRight>
       <ImgTopLeft onClick={goToDetail}>{title}</ImgTopLeft>
+      <ImgTopBtmLeft onClick={goToDetail}>{nickname.slice(0, 9)}</ImgTopBtmLeft>
 
       <DisImgTopRight>
-        {collaborate ? <img src={Collaborate} alt='콜라보' /> : <Fragment></Fragment>}
+        {collaborate ? (
+          <img src={DisCollaboration} alt='콜라보' />
+        ) : (
+          <img src={WhiteCollaborate24} alt='콜라보' />
+        )}
       </DisImgTopRight>
       <ImgTopRight>
-        {collaborate ? <img src={Collaborate} alt='콜라보' /> : <></>}
+        {collaborate ? (
+          <img src={DisCollaboration} alt='콜라보' />
+        ) : (
+          <img src={WhiteCollaborate24} alt='콜라보' />
+        )}
       </ImgTopRight>
       <ImgBtmLeft>
         <ImgBtmLeftDiv>
