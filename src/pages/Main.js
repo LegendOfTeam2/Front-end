@@ -44,7 +44,14 @@ import {
   DisMainPostImgDivMake,
   DisMainPostImgDiv,
   MainHotArtistWrap,
+  MainImgDivDivBtmDiv,
+  MainImgDivBtmImgDiv,
+  MainImgDivBtmImg,
+  MainImgDivBtmSpanDiv,
+  MainImgDivTopSpan,
+  MainImgDivBtmSpan,
 } from '../assets/styles/pages/Main.styled';
+import { LeftArrow, MainBanner, RightArrow } from '../assets/images/image';
 
 const Main = () => {
   const sliderRef = useRef();
@@ -57,7 +64,6 @@ const Main = () => {
     autoplaySpeed: 4000,
     slidesToShow: 1,
     arrows: false,
-    centerPadding: '80px',
   };
   const Btmsettings = {
     className: 'center',
@@ -174,31 +180,24 @@ const Main = () => {
         <MainContainer>
           {bestSongIsLoaded ? (
             <MainImgDiv>
-              <Slider {...settings}>
+              {/* <Slider {...settings}> */}
                 {bestSong.map((x) => (
                   <MainImgDivDiv key={x.postId}>
                     <MainImgDivImg img={x.imageUrl.imageUrl}></MainImgDivImg>
-                    <MainImgDivDivDiv>Best Song</MainImgDivDivDiv>
+                    <MainImgDivDivDiv>베스트 송</MainImgDivDivDiv>
+                    <MainImgDivDivBtmDiv>리드미에서 가장 많이 재생된 아티스트 추천!</MainImgDivDivBtmDiv>
+                    <MainImgDivBtmImg src={x.profileImage}></MainImgDivBtmImg>
+                    <MainImgDivBtmSpanDiv><MainImgDivTopSpan>{x.title}</MainImgDivTopSpan><MainImgDivBtmSpan>{x.nickname}</MainImgDivBtmSpan></MainImgDivBtmSpanDiv>
                     <MainImgDivBtnDiv>
-                      <Button
-                        _style={{
-                          width: '140px',
-                          height: '36px',
-                          bg_color: 'rgba(255, 255, 255, 1)',
-                          bd_radius: '43px',
-                          color: 'rgba(0, 0, 0, 1)',
-                          ft_weight: '700',
-                          ft_size: '12',
-                          bd_px: '1.5px',
-                          bd_color: 'transparent',
-                        }}
-                        _text={'감상하기'}
-                        _onClick={play}
-                      />
+                    <img
+                    src={MainBanner}
+                    alt='루프있을때'
+                    onClick={play}
+                  />
                     </MainImgDivBtnDiv>
                   </MainImgDivDiv>
                 ))}
-              </Slider>
+              {/* </Slider> */}
             </MainImgDiv>
           ) : (
             <MainImgDiv></MainImgDiv>
@@ -496,12 +495,11 @@ const Main = () => {
                   <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
                 </BtmProfileTextDiv>
                 <MainArowLeft>
-                  <MdOutlineArrowBackIosNew
-                    className='icon-prev'
-                    color='rgba(180, 180, 180, 1)'
-                    size={30}
-                    onClick={() => sliderRef.current.slickPrev()}
-                  />
+                <img
+                src={LeftArrow}
+                alt='오른쪽화살표'
+                onClick={() => sliderRef.current.slickPrev()}
+              />
                 </MainArowLeft>
                 <Slider {...Btmsettings}>
                   {PowerArtist.map((x, idx) => {
@@ -533,12 +531,11 @@ const Main = () => {
                   })}
                 </Slider>
                 <MainArowRight>
-                  <MdOutlineArrowForwardIos
-                    className='icon-next'
-                    color='rgba(180, 180, 180, 1)'
-                    size={30}
-                    onClick={() => sliderRef.current.slickNext()}
-                  />
+                <img
+                src={RightArrow}
+                alt='오른쪽화살표'
+                onClick={() => sliderRef.current.slickNext()}
+              />
                 </MainArowRight>
               </BtmProfileImgDiv>
             )

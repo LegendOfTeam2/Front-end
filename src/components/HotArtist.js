@@ -35,6 +35,7 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
+
   const followButtonRef = useRef();
   const followerCntRef = useRef();
 

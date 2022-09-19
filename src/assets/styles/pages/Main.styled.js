@@ -7,19 +7,16 @@ export const MainContainerDiv = styled.div`
   position: absolute;
   margin: 0;
   padding: 0;
-  top: 93.5px;
+  top: 74.5px;
   z-index: -1;
 `;
 
 export const MainContainer = styled.div`
-  width: 1024px;
+  width: 1920px;
   height: auto;
   margin-top: 40px;
   display: flex;
   flex-direction: column;
-  .center {
-    
-  }
 `;
 
 export const MainImgDiv = styled.div`
@@ -34,21 +31,69 @@ export const MainImgDivDiv = styled.div`
 `;
 export const MainImgDivDivDiv = styled.div`
   position: absolute;
-  top: 8%;
-  left: 4%;
-  font-size: ${(props) => props.theme.fontSizes.xxxl};
+  top: 10%;
+  left: 23.5%;
+  color: rgba(255, 255, 255, 1);
+  font-size: ${(props) => props.theme.fontSizes.titleSize};
   line-height: ${(props) => props.theme.lineHeight.xxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
 `;
+
+export const MainImgDivBtmImg = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 10%;
+  left: 24%;
+`;
+
+export const MainImgDivDivBtmDiv = styled.div`
+  position: absolute;
+  top: 20%;
+  left: 23.5%;
+  color: rgba(255, 255, 255, 1);
+  font-size: ${(props) => props.theme.fontSizes.xxxl};
+  line-height: ${(props) => props.theme.lineHeight.xxxl};
+  font-weight: ${(props) => props.theme.fontWeight.Medium}; ;
+`;
+
+export const MainImgDivBtmSpanDiv = styled.div`
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 12%;
+  left: 30.5%;
+`;
+
+
+export const MainImgDivTopSpan = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.xxxl};
+  line-height: ${(props) => props.theme.lineHeight.xxxl};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  color: rgba(255, 255, 255, 1);
+`;
+
+export const MainImgDivBtmSpan = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.base};
+  line-height: ${(props) => props.theme.lineHeight.sm};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  color: rgba(255, 255, 255, 1);
+`;
+
 export const MainImgDivBtnDiv = styled.div`
   position: absolute;
   bottom: 8%;
-  right: 8%;
+  right: 25%;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export const MainImgDivImg = styled.div`
-  width: 856px;
-  height: 261px;
-  border-radius: 24px;
+  width: 100%;
+  height: 472px;
   opacity: 0.5;
   background-size: cover;
   background-image: url(${(props) => props.img});
@@ -61,15 +106,15 @@ export const BtmProfileImgDiv = styled.div`
   margin-top: 45px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 22%;
+  margin-bottom: 250px;
   position: relative;
   
 `;
 export const MainArowLeft = styled.div`
   display: flex;
   position: absolute;
-  left: -45px;
-  top: 132px;
+  left: -95px;
+  top: 110px;
   &:hover {
     cursor: pointer;
   }
@@ -77,8 +122,8 @@ export const MainArowLeft = styled.div`
 export const MainArowRight = styled.div`
   display: flex;
   position: absolute;
-  right: -45px;
-  bottom: 70px;
+  right: -95px;
+  bottom: 55px;
   &:hover {
     cursor: pointer;
   }
@@ -157,10 +202,12 @@ export const BtmProfileArrowDiv = styled.div`
 
 
 export const MainProfileSliderGroup = styled.div`
-  width: auto;
+  width: 1024px;
   height: auto;
   display: flex;
   flex-direction: column;
+  margin-left: auto;
+    margin-right: auto;
 `;
 
 export const DisMainPostImgDiv = styled.div`

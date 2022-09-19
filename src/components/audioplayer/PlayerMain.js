@@ -1,9 +1,9 @@
 // React
-import { useState, useRef, useEffect, useCallback, memo } from "react";
+import { useState, useRef, useEffect, useCallback, memo } from 'react';
 // Zustand
-import usePlayerStore from "../../zustand/player";
+import usePlayerStore from '../../zustand/player';
 // Components
-import Player from "./Player";
+import Player from './Player';
 // Assests
 import {
   DisRepeated,
@@ -18,9 +18,13 @@ import {
   MutedAll,
   Hide,
   Show,
-} from "../../assets/images/image";
+  PlayListIcon,
+  DisPlayListIcon,
+} from '../../assets/images/image';
 import {
   AllBtnContainer,
+  AllUpVolumeolumeDiv,
+  AllVolumeolumeDiv,
   BtnContainer,
   ControlPanelDiv,
   IconImgHover,
@@ -41,7 +45,7 @@ import {
   VolumeolumeDiv,
   VolumeolumeDivbar,
   VolumeolumeDivDiv,
-} from "../../assets/styles/components/Player.Styled";
+} from '../../assets/styles/components/Player.Styled';
 
 function PlayerMain() {
   const playList = usePlayerStore((state) => state.playList);
@@ -83,14 +87,13 @@ function PlayerMain() {
     }
   }, [currentSong.postId, playList, playing, setPlaying]);
 
-  useEffect(()=>{
-      if(viewState){
-        if(currentSong.postId === playList[0].postId){
-          audioRef.current.currentTime = 0;
-        }
+  useEffect(() => {
+    if (viewState) {
+      if (currentSong.postId === playList[0].postId) {
+        audioRef.current.currentTime = 0;
       }
-  },[currentSong])
-
+    }
+  }, [currentSong]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -247,7 +250,7 @@ function PlayerMain() {
   };
 
   function secondsToHms(seconds) {
-    if (!seconds) return "00분 00초";
+    if (!seconds) return '00 : 00';
 
     let duration = seconds;
     let hours = duration / 3600;
@@ -266,11 +269,11 @@ function PlayerMain() {
     }
 
     if (parseInt(hours, 10) > 0) {
-      return `${parseInt(hours, 10)}시 ${min}분 ${sec}초`;
+      return `${parseInt(hours, 10)} : ${min} : ${sec}`;
     } else if (min === 0) {
-      return `00분 ${sec}초`;
+      return `00 : ${sec}`;
     } else {
-      return `${min}분 ${sec}초`;
+      return `${min} : ${sec}`;
     }
   }
 
@@ -288,7 +291,7 @@ function PlayerMain() {
   };
 
   return (
-    <MainAudioPlay yIndex={viewState ? "0" : "100%"}>
+    <MainAudioPlay yIndex={viewState ? '0' : '85%'}>
       <div>
         <PlayContainerOut>
           <PlayContainerOutDiv>
@@ -297,37 +300,30 @@ function PlayerMain() {
             ) : (
               <PlayContainerOutImg src={Show} alt='올리기' onClick={RaiseIt} />
             )}
-            <PlayContainerOutLongBar> </PlayContainerOutLongBar>
           </PlayContainerOutDiv>
         </PlayContainerOut>
         <PlayContainer>
-          <Player percentage={percentage} onChange={onChange} />
-          <audio
-            ref={audioRef}
-            onTimeUpdate={getCurrDuration}
-            onLoadedData={(e) => {
-              setDuration(e.currentTarget.duration.toFixed(2));
-            }}
-            src={currentSong?.mediaUrl}
-          ></audio>
-
           <ControlPanelDiv>
-            <TimerDiv>
-              <Timer>{secondsToHms(currentTime)}</Timer>
-
-              <Timer>{secondsToHms(duration)}</Timer>
-            </TimerDiv>
-
+            <AllUpVolumeolumeDiv disPlay={viewState ? 'flex':'none' }>
+              <IconImgHover>
+                {isLoop ? (
+                  <img src={PlayListIcon} alt='플레이리스트' />
+                ) : (
+                  <img src={DisPlayListIcon} alt='플레이리스트 닫기' />
+                )}
+              </IconImgHover>
+            </AllUpVolumeolumeDiv>
             <AllBtnContainer>
+              <MidDiv>
+                <div>
+                  <ImgCover src={currentSong?.imageUrl} alt='' />
+                </div>
+                <IntroduceDiv>
+                  <TitleSapn>{currentSong?.title}</TitleSapn>
+                  <SingerSpan>{currentSong?.nickname}</SingerSpan>
+                </IntroduceDiv>
+              </MidDiv>
               <BtnContainer>
-                <IconImgHover onClick={ClickLoop}>
-                  {isLoop ? (
-                    <img src={LoopPlay} alt='루프있을때' />
-                  ) : (
-                    <img src={DisRepeated} alt='루프없을때' />
-                  )}
-                </IconImgHover>
-
                 <IconImgHover onClick={RandomPlay}>
                   {isRandom ? (
                     <img src={RandomIcon} alt='랜덤' />
@@ -348,37 +344,52 @@ function PlayerMain() {
                 <IconImgHover>
                   <img src={NextPlay} alt='다음곡' onClick={skipNext} />
                 </IconImgHover>
-              </BtnContainer>
-              <MidDiv>
-                <div>
-                  <ImgCover src={currentSong?.imageUrl} alt='' />
-                </div>
-                <IntroduceDiv>
-                  <TitleSapn>{currentSong?.title}</TitleSapn>
-                  <SingerSpan>{currentSong?.nickname}</SingerSpan>
-                </IntroduceDiv>
-              </MidDiv>
-              <VolumeolumeDiv>
-                <VolumeolumeDivDiv onClick={ClickMuted}>
-                  {ismuted ? (
-                    <img src={MutedAll} alt='음소거' />
+                <IconImgHover onClick={ClickLoop}>
+                  {isLoop ? (
+                    <img src={LoopPlay} alt='루프있을때' />
                   ) : (
-                    <img src={Volume} alt='불륨조절' />
+                    <img src={DisRepeated} alt='루프없을때' />
                   )}
-                </VolumeolumeDivDiv>
-                <VolumeolumeDivbar>
-                  <VolumeInput
-                    type='range'
-                    min='0'
-                    max='1'
-                    color='gray'
-                    step='0.01'
-                    value={volume}
-                    onChange={rangeVolume}
-                  />
-                </VolumeolumeDivbar>
+                </IconImgHover>
+              </BtnContainer>
+
+              <VolumeolumeDiv>
+                <AllVolumeolumeDiv>
+                  <VolumeolumeDivDiv onClick={ClickMuted}>
+                    {ismuted ? (
+                      <img src={MutedAll} alt='음소거' />
+                    ) : (
+                      <img src={Volume} alt='불륨조절' />
+                    )}
+                  </VolumeolumeDivDiv>
+                  <VolumeolumeDivbar>
+                    <VolumeInput
+                      type='range'
+                      min='0'
+                      max='1'
+                      color='gray'
+                      step='0.01'
+                      value={volume}
+                      onChange={rangeVolume}
+                    />
+                  </VolumeolumeDivbar>
+                </AllVolumeolumeDiv>
               </VolumeolumeDiv>
             </AllBtnContainer>
+            <Player percentage={percentage} onChange={onChange} />
+            <audio
+              ref={audioRef}
+              onTimeUpdate={getCurrDuration}
+              onLoadedData={(e) => {
+                setDuration(e.currentTarget.duration.toFixed(2));
+              }}
+              src={currentSong?.mediaUrl}
+            ></audio>
+            <TimerDiv>
+              <Timer>{secondsToHms(currentTime)}</Timer>
+
+              <Timer>{secondsToHms(duration)}</Timer>
+            </TimerDiv>
           </ControlPanelDiv>
         </PlayContainer>
       </div>
