@@ -1,8 +1,10 @@
 // React
-import { useState, Fragment, useCallback, useEffect, useRef } from 'react';
+import { useState, Fragment, useCallback, useEffect } from 'react';
+
 // Zustand
 import useMyPageStore from '../zustand/mypage';
 import useMemberStore from '../zustand/member';
+
 // Packages
 import { useNavigate } from 'react-router-dom';
 import { GrClose } from 'react-icons/gr';
@@ -10,14 +12,18 @@ import shortid from 'shortid';
 import jwt_decode from 'jwt-decode';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 // Components
 import UploadImage from '../components/UploadImage';
 import HashTagWithIcon from '../components/HashTagWithIcon';
 import Header from '../components/Header';
+
 // Elements
 import Input from '../elements/Input';
+
 // Utils
 import { getCookie, removeCookie } from '../utils/cookie';
+
 // Assets
 import {
   ModifyContainer,
@@ -43,18 +49,16 @@ import {
 const MyInfoModify = () => {
   const nicknameDupCheck = useMemberStore((state) => state.nicknameDupCheck);
   const putProfile = useMyPageStore((state) => state.putProfile);
-  const getProfilPost = useMyPageStore((state) => state.getProfilPost);
+  const getProfileInfo = useMyPageStore((state) => state.getProfileInfo);
   const signOutMember = useMemberStore((state) => state.signOutMember);
 
   const [nickname, setNickname] = useState('');
   const [nicknameCheck, setNicknameCheck] = useState('');
+  const [view, setView] = useState({ nickname: false, intro: false });
   const [tags, setTags] = useState([]);
   const [intro, setIntro] = useState('');
   const [image, setImage] = useState('');
   const [imageSrc, setImageSrc] = useState('');
-
-  const nicknameIconRef = useRef();
-  const introIconRef = useRef();
 
   const navigate = useNavigate();
 
@@ -67,7 +71,7 @@ const MyInfoModify = () => {
 
   useEffect(() => {
     const nickname = jwt_decode(getCookie('authorization')).sub;
-    getProfilPost(nickname).then((res) => {
+    getProfileInfo(nickname).then((res) => {
       setNickname(res.nickname);
       setTags(res.hashtag);
       if (res.introduce !== null) setIntro(res.introduce);
@@ -112,10 +116,24 @@ const MyInfoModify = () => {
   );
 
   useEffect(() => {
-    if (nickname !== '') nicknameIconRef.current.style.display = 'block';
-    else nicknameIconRef.current.style.display = 'none';
-    if (intro !== '') introIconRef.current.style.display = 'block';
-    else introIconRef.current.style.display = 'none';
+    if (nickname !== '') {
+      setView((prev) => {
+        return { ...prev, nickname: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, nickname: false };
+      });
+    }
+    if (intro !== '') {
+      setView((prev) => {
+        return { ...prev, intro: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, intro: false };
+      });
+    }
   }, [nickname, intro]);
 
   useEffect(() => {
@@ -237,12 +255,15 @@ const MyInfoModify = () => {
                 <ModifyInputText>닉네임</ModifyInputText>
               </ModifyInputTitle>
               <ModifyInputDataBox>
-                <ModifyInputIconBox
-                  onClick={() => deleteText('nickname')}
-                  ref={nicknameIconRef}
-                >
-                  <GrClose className='icon'></GrClose>
-                </ModifyInputIconBox>
+                {view.nickname ? (
+                  <ModifyInputIconBox
+                    onClick={() => deleteText('nickname')}
+                  >
+                    <GrClose className='icon'></GrClose>
+                  </ModifyInputIconBox>
+                ) : (
+                  <Fragment></Fragment>
+                )}
                 <Input
                   _type={'text'}
                   _value={nickname}
@@ -294,12 +315,15 @@ const MyInfoModify = () => {
                 <ModifyInputText>소개</ModifyInputText>
               </ModifyInputTitle>
               <ModifyInputDataBox>
-                <ModifyInputIconBox
-                  onClick={() => deleteText('intro')}
-                  ref={introIconRef}
-                >
-                  <GrClose className='icon'></GrClose>
-                </ModifyInputIconBox>
+                {view.intro ? (
+                  <ModifyInputIconBox
+                    onClick={() => deleteText('intro')}
+                  >
+                    <GrClose className='icon'></GrClose>
+                  </ModifyInputIconBox>
+                ) : (
+                  <Fragment></Fragment>
+                )}
                 <Input
                   _type={'text'}
                   _value={intro}

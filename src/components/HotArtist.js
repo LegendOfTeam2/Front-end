@@ -1,5 +1,5 @@
 // React
-import { useRef } from 'react';
+import { useState } from 'react';
 
 // Zustand
 import useFollowStore from '../zustand/follow';
@@ -35,9 +35,8 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
-
-  const followButtonRef = useRef();
-  const followerCntRef = useRef();
+  const [counter, setCounter] = useState(follower);
+  const [followCheck, setFollowCheck] = useState(isFollow);
 
   const navigate = useNavigate();
 
@@ -53,27 +52,23 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
       } else {
         follow(nickname).then((res) => {
           if (res) {
-            followButtonRef.current.innerText = '팔로잉';
-            followButtonRef.current.style.backgroundColor = '#CC0000';
+            setFollowCheck(true);
             toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {
               position: toast.POSITION.BOTTOM_RIGHT,
               autoClose: 1500,
               draggablePercent: 60,
               hideProgressBar: true,
             });
-            followerCntRef.current.innerText =
-              Number(followerCntRef.current.innerText) + 1;
+            setCounter((prev) => parseInt(prev) + 1);
           } else {
-            followButtonRef.current.innerText = '팔로우';
-            followButtonRef.current.style.backgroundColor = '#28CA7C';
+            setFollowCheck(false);
             toast.info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`, {
               position: toast.POSITION.BOTTOM_RIGHT,
               autoClose: 1500,
               draggablePercent: 60,
               hideProgressBar: true,
             });
-            followerCntRef.current.innerText =
-              Number(followerCntRef.current.innerText) - 1;
+            setCounter((prev) => parseInt(prev) - 1);
           }
         });
       }
@@ -108,11 +103,11 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
           <BtmTextDivSpan>{nickname.slice(0, 9)}</BtmTextDivSpan>
         </BtmTextDivDivDiv>
         <BtmTextDivDivSmDiv>
-          <BtmTextDivSmSpan ref={followerCntRef}>{follower}</BtmTextDivSmSpan>
+          <BtmTextDivSmSpan>{counter}</BtmTextDivSmSpan>
           <BtmTextDivSmSpan> 팔로워</BtmTextDivSmSpan>
         </BtmTextDivDivSmDiv>
         <BtmBunDiv>
-          {isFollow ? (
+          {followCheck ? (
             <Button
               _onClick={onHandleFollow}
               _style={{
@@ -127,7 +122,6 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
                 bd_color: 'transparent',
               }}
               _text={'팔로잉'}
-              _ref={followButtonRef}
             />
           ) : (
             <Button
@@ -144,7 +138,6 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
                 bd_color: 'transparent',
               }}
               _text={'팔로우'}
-              _ref={followButtonRef}
             />
           )}
         </BtmBunDiv>

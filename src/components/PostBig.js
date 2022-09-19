@@ -1,5 +1,5 @@
 // React
-import { useState, useRef, memo } from 'react';
+import { useState, memo } from 'react';
 
 // Zustand
 import usePlayerStore from '../zustand/player';

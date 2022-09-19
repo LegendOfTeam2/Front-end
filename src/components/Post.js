@@ -1,9 +1,18 @@
 // React
-import { Fragment } from 'react';
+import { useState, memo, Fragment } from 'react';
+
+// Zustand
+import usePlayerStore from '../zustand/player';
+import useMemberStore from '../zustand/member';
+import useLikeStore from '../zustand/like';
 
 // Packages
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+
+// Utils
+import { getCookie } from '../utils/cookie';
 
 // Assets
 import {
@@ -30,12 +39,7 @@ import {
   WhiteCollaborate,
   WhiteCollaborate24,
 } from '../assets/images/image';
-import { useState, useRef, memo } from 'react';
-import usePlayerStore from '../zustand/player';
-import useLikeStore from '../zustand/like';
-import { getCookie } from '../utils/cookie';
-import { useNavigate } from 'react-router-dom';
-import useMemberStore from '../zustand/member';
+
 const Post = ({
   postId,
   position,
@@ -47,18 +51,19 @@ const Post = ({
   likes,
   likeState,
 }) => {
-  const [isLike, setIsLike] = useState(likeState);
-
-  const likeCountRef = useRef();
-  const navigate = useNavigate();
-
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
-  const addLike = useLikeStore((state) => state.addLike);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
+
+  const addLike = useLikeStore((state) => state.addLike);
+
+  const [isLike, setIsLike] = useState(likeState);
+
+  const navigate = useNavigate();
 
   const Play = () => {
     viewStateChange(true);
@@ -123,6 +128,12 @@ const Post = ({
       <MyImgTopLeft onClick={goToDetail}>{title}</MyImgTopLeft>
       <MyImgTopBotmLeft>{nickname.slice(0, 9)}</MyImgTopBotmLeft>
       <DisMyImgTopRight>
+<<<<<<< HEAD
+        {collaborate ? <img src={Collaborate} alt='콜라보' /> : <Fragment></Fragment>}
+      </DisMyImgTopRight>
+      <MyImgTopRight>
+        {collaborate ? <img src={Collaborate} alt='콜라보' /> : <Fragment></Fragment>}
+=======
         {collaborate ? (
           <img src={DisCollaboration} alt='콜라보' />
         ) : (
@@ -135,6 +146,7 @@ const Post = ({
         ) : (
           <img src={WhiteCollaborate24} alt='콜라보' />
         )}
+>>>>>>> 5ef328c4d16d85b6a8285af70a747f49afae05c9
       </MyImgTopRight>
       <MyImgBtmLeft>
         <MyImgBtmLeftDiv>
