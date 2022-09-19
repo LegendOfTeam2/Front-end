@@ -47,6 +47,15 @@ import SingerMarker from './SingerMarker.svg';
 import MakerMarke from './MakerMarke.svg';
 import SingerWhite from './SingerWhite.svg';
 import MakerWhite from './MakerWhite.svg';
+import DisPlayListIcon from './DisPlayListIcon.svg';
+import PlayListIcon from './PlayListIcon.svg';
+import MainBanner from './MainBanner.svg';
+import RightArrow from'./RightArrow.png';
+import LeftArrow from'./LeftArrow.png';
+import DisCollaboration from './DisCollaboration.svg';
+import DisCollaboration40 from './DisCollaboration40.svg';
+import WhiteCollaborate from './WhiteCollaborate.svg';
+import WhiteCollaborate24 from './WhiteCollaborate24.svg';
 
 
 export {
@@ -98,5 +107,14 @@ export {
   SingerMarker,
   MakerMarke,
   MakerWhite,
-  SingerWhite
+  SingerWhite,
+  DisPlayListIcon,
+  PlayListIcon,
+  MainBanner,
+  RightArrow,
+  LeftArrow,
+  DisCollaboration,
+  DisCollaboration40,
+  WhiteCollaborate,
+  WhiteCollaborate24
 };

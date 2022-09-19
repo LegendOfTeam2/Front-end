@@ -90,8 +90,8 @@ margin-top: 4px;
 export const ArowLeft = styled.div`
 display: flex;
 position: absolute;
-left: 40px;
-top: 150px;
+left: -10px;
+top: 140px;
  &:hover{
   cursor: pointer;
  }
@@ -99,8 +99,8 @@ top: 150px;
 export const ArowRight = styled.div`
 display: flex;
 position: absolute;
-right: 40px;
-bottom: 76px;
+right: -10px;
+bottom: 49px;
 &:hover{
   cursor: pointer;
  }

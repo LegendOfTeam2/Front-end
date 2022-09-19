@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const SliderContainer = styled.div`
-  --progress-bar-height: 10px;
+  --progress-bar-height: 6px;
   position: relative;
   width: 100%;
-  --thumb-width: 20px;
-  --thumb-height: 20px;
+  --thumb-width: 14px;
+  --thumb-height: 14px;
+  margin-top: 3px;
   ::before {
     content: '';
     background-color: white;
@@ -38,9 +39,8 @@ export const ProgressBarCover = styled.div`
 export const Thumb = styled.div`
   width: var(--thumb-width);
   height: var(--thumb-height);
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.753);
   z-index: 3;
-  background: rgb(255, 255, 255);
+  background: #28ca72;
   position: absolute;
   border-radius: 50%;
   top: 50%;
@@ -80,61 +80,42 @@ export const PlayContainerOut = styled.div`
 `;
 
 export const PlayContainerOutDiv = styled.div`
-  width: 74px;
-  height: 74px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: rgba(40, 202, 124, 1);
-  top: -30px;
-  border-top-left-radius: 50%;
-  border-top-right-radius: 50%;
+  top: -20px;
+  border-radius: 50%;
   position: absolute;
-  z-index: -2;
+  z-index: 2;
   :hover {
     cursor: pointer;
   }
 `;
 
-export const PlayContainerOutLongBar = styled.div`
-  width: 800px;
-  height: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(40, 202, 124, 1);
-  top: 18px;
-  border-radius: 20px 20px 0px 0px;
-  position: absolute;
-  z-index: -4;
-`;
-
-export const PlayContainerOutImg = styled.img`
-  position: absolute;
-  z-index: -2;
-  top: -2px;
-`;
+export const PlayContainerOutImg = styled.img``;
 
 export const PlayContainer = styled.div`
-  width: 800px;
-  height: 152px;
+  width: 1024px;
+  height: 180px;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.2);
-  background-color: #f9f9f9;
-  border-radius: 0px 0px 20px 20px;
+  background-color: #1b1e2f;
+  border-radius: 10px;
   margin-bottom: 20px;
-
-  padding: 12px 22px;
+  border: 1px solid #28ca72;
+  padding: 24px 30px;
 `;
 
 export const ControlPanelDiv = styled.div`
-  padding: 10px 0;
   display: flex;
   flex-direction: column;
 `;
 export const Timer = styled.div`
-  font-size: 10px;
-  font-weight: 200;
-  color: black;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(40, 202, 114, 1);
 `;
 export const AllBtnContainer = styled.div`
   width: auto;
@@ -158,6 +139,8 @@ export const TimerDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 6px;
+  padding: 0px 4px;
 `;
 export const VolumeInput = styled.input`
   margin: auto;
@@ -226,31 +209,34 @@ export const MidDiv = styled.div`
   display: flex;
   gap: 19px;
   flex-direction: row;
-  margin-left: 40px;
 `;
 
 export const ImgCover = styled.img`
-  width: 80px;
-  height: 80px;
+  width: 85px;
+  height: 85px;
 `;
 
 export const IntroduceDiv = styled.div`
-  width: 230px;
-  height: auto;
+  width: 165px;
+  height: 88px;
+  vertical-align: middle;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `;
 
 export const TitleSapn = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: #ffffff;
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.base};
   font-weight: ${(props) => props.theme.fontWeight.Medium}; ;
 `;
 
 export const SingerSpan = styled.span`
+  color: #ffffff;
   font-size: ${(props) => props.theme.fontSizes.sm};
   line-height: ${(props) => props.theme.lineHeight.xs};
   font-weight: ${(props) => props.theme.fontWeight.Regular}; ;
@@ -267,7 +253,29 @@ export const VolumeolumeDiv = styled.div`
   width: 100%;
   height: auto;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+export const AllVolumeolumeDiv = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
   flex-direction: row;
+  justify-content: flex-end;
+  :hover {
+    cursor: pointer;
+  }
+`;
+export const AllUpVolumeolumeDiv = styled.div`
+  width: 970px;
+  height: auto;
+  position: absolute;
+  top: 10px;
+  display: ${(props) => props.disPlay};
   justify-content: flex-end;
   :hover {
     cursor: pointer;

@@ -9,7 +9,7 @@ const fontSizes = {
   xxl: calcRem(22),
   xxxl: calcRem(24),
   xxxxl: calcRem(28),
-  titleSize: calcRem(50),
+  titleSize: calcRem(30),
 };
 
 const lineHeight = {
