@@ -60,7 +60,7 @@ const ProfileSlider = ({ postList, name, position, ctg }) => {
             <ArowLeft>
               <img
                 src={LeftArrow}
-                alt='오른쪽화살표'
+                alt='왼쪽 화살표'
                 onClick={() => sliderRef.current.slickPrev()}
               />
             </ArowLeft>
@@ -84,7 +84,7 @@ const ProfileSlider = ({ postList, name, position, ctg }) => {
             <ArowRight>
               <img
                 src={RightArrow}
-                alt='오른쪽화살표'
+                alt='오른쪽 화살표'
                 onClick={() => sliderRef.current.slickNext()}
               />
             </ArowRight>

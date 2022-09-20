@@ -50,13 +50,13 @@ import MakerWhite from './MakerWhite.svg';
 import DisPlayListIcon from './DisPlayListIcon.svg';
 import PlayListIcon from './PlayListIcon.svg';
 import MainBanner from './MainBanner.svg';
-import RightArrow from'./RightArrow.png';
-import LeftArrow from'./LeftArrow.png';
+import RightArrow from './RightArrow.png';
+import LeftArrow from './LeftArrow.png';
 import DisCollaboration from './DisCollaboration.svg';
 import DisCollaboration40 from './DisCollaboration40.svg';
 import WhiteCollaborate from './WhiteCollaborate.svg';
 import WhiteCollaborate24 from './WhiteCollaborate24.svg';
-
+import AboutSong from './AboutSong.svg';
 
 export {
   albumCover_1,
@@ -116,5 +116,6 @@ export {
   DisCollaboration,
   DisCollaboration40,
   WhiteCollaborate,
-  WhiteCollaborate24
+  WhiteCollaborate24,
+  AboutSong,
 };

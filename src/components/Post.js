@@ -128,12 +128,6 @@ const Post = ({
       <MyImgTopLeft onClick={goToDetail}>{title}</MyImgTopLeft>
       <MyImgTopBotmLeft>{nickname.slice(0, 9)}</MyImgTopBotmLeft>
       <DisMyImgTopRight>
-<<<<<<< HEAD
-        {collaborate ? <img src={Collaborate} alt='콜라보' /> : <Fragment></Fragment>}
-      </DisMyImgTopRight>
-      <MyImgTopRight>
-        {collaborate ? <img src={Collaborate} alt='콜라보' /> : <Fragment></Fragment>}
-=======
         {collaborate ? (
           <img src={DisCollaboration} alt='콜라보' />
         ) : (
@@ -146,7 +140,6 @@ const Post = ({
         ) : (
           <img src={WhiteCollaborate24} alt='콜라보' />
         )}
->>>>>>> 5ef328c4d16d85b6a8285af70a747f49afae05c9
       </MyImgTopRight>
       <MyImgBtmLeft>
         <MyImgBtmLeftDiv>

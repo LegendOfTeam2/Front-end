@@ -1,12 +1,19 @@
 // Zustand
 import create from 'zustand';
+import { getPlayListApi, postPlayListApi } from '../utils/apis/Playbar';
 
 const usePlayerStore = create((set) => ({
   viewState: false,
   playing: false,
   isAutoplay: false,
+
+  playListMemberIsLoaded: false,
+  playListMember: [],
+  currentSongMember:{},
+
   playList: [],
   currentSong: {},
+
   viewStateChange: (state) => {
     set({ viewState: state });
   },
@@ -18,6 +25,7 @@ const usePlayerStore = create((set) => ({
     });
     set({currentSong: payload});
   },
+
   setCurrentSong : (payload) => {
     set({currentSong: payload});
   },
@@ -28,9 +36,31 @@ const usePlayerStore = create((set) => ({
 
   setIsAutoplay : (payload) => {
     set({isAutoplay: payload});
-  }
+  },
 
+  postPlayList: async (payload) => {
+    const resData = await postPlayListApi(payload)
+      .then((res) => res)
+      .catch((err) => console.log(err));
+    if(resData?.data.success) {
+      set({currentSongMember: payload}); 
+    }
+  },
 
+  getPlayList: async (payload) => {
+    const resData = await getPlayListApi(payload)
+      .then((res) => res)
+      .catch((err) => console.log(err));
+
+      if (resData?.data.success) {
+        set({ playListMemberIsLoaded: resData.data.success });
+        set({ playListMember: resData.data.data });
+      }
+  },
+
+  setCurrentSongMember: (payload) => {
+    set({currentSongMember: payload});
+  },
 }));
 
 export default usePlayerStore;

@@ -247,7 +247,6 @@ const MyPage = () => {
     });
   };
 
-  console.log(uploadPost);
 
   return (
     <Fragment>
@@ -510,7 +509,6 @@ const MyPage = () => {
             {category === 'upload' ? (
               uploadPostIsLoaded ? (
                 uploadPost.map((x) => {
-                  console.log(x);
                   return (
                     <PostBig
                       key={x.postId}
