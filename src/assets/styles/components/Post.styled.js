@@ -1,25 +1,23 @@
 import styled from 'styled-components';
 
 export const MyImgDivDiv = styled.div`
-  width: 164.5px;
-  height: 164.5px;
+  width: 220px;
+  height: 220px;
   display: flex;
   position: relative;
 
 `;
 
 export const PostimgDivDiv = styled.div`
-  width: 164.5px;
-  height: 164.5px;
+  width: 220px;
+  height: 220px;
   display: flex;
   position: relative;
 `;
 
 export const Myimg = styled.img`
-  width: 164.5px;
-  height: 164.5px;
-  border-radius: 19px;
-
+  width: 220px;
+  height: 220px;
   ${MyImgDivDiv}:hover & {
     filter: brightness(20%);
   }

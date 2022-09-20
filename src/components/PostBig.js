@@ -29,7 +29,7 @@ import {
   BigMyImgTopLeft,
   BigMyImgTopRight,
   DisBigMyImgTopRight,
-} from '../assets/styles/components/PsotBig.styled';
+} from '../assets/styles/components/PostBig.styled';
 import {
   Collaboration44,
   DisCollaboration40,

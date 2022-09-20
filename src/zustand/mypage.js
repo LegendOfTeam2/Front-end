@@ -16,7 +16,7 @@ const useMyPageStore = create((set) => ({
   uploadPost: [],
   likePostIsLoaded: false,
   likePost: [],
-
+  mainPost: [],
   getProfileInfo: async (payload) => {
     const resData = await getProfileInfoApi(payload)
       .then((res) => res)
@@ -29,27 +29,27 @@ const useMyPageStore = create((set) => ({
     }
   },
   getUploadPost: async (payload) => {
-    const resData = await getUploadPostApi(payload.nickname, payload.page)
+    const resData = await getUploadPostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
-      set((state) => {
-        const newPost = [...state.uploadPost, ...resData.data.data];
-        console.log(newPost);
-        return { uploadPost: newPost };
-      });
+      set({ uploadPost: [...resData.data.data] });
       set({ uploadPostIsLoaded: resData.data.success });
+      set((state) => {
+        const sortedPostArr = [...resData.data.data].sort(
+          (a, b) => b.likeCount - a.likeCount
+        );
+        return { mainPost: sortedPostArr };
+      });
+      return resData.data;
     }
   },
   getLikePost: async (payload) => {
-    const resData = await getLikePostApi(payload.nickname, payload.page)
+    const resData = await getLikePostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
-      set((state) => {
-        const newPost = [...state.uploadPost, ...resData.data.data];
-        return { likePost: newPost };
-      });
+      set({ likePost: resData.data.data });
       set({ likePostIsLoaded: resData.data.success });
     }
   },

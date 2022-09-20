@@ -1,21 +1,18 @@
 import styled from 'styled-components';
 
 export const BigMyImgDivDiv = styled.div`
-  width: 309px;
-  height: 309px;
+  width: 280px;
+  height: 280px;
   display: flex;
   position: relative;
 `;
-
 export const BigMyimg = styled.img`
-  width: 309px;
-  height: 309px;
-  border-radius: 19px;
+  width: 280px;
+  height: 280px;
   ${BigMyImgDivDiv}:hover & {
     filter: brightness(20%);
   }
 `;
-
 export const BigImgMyBtmRight = styled.div`
   position: absolute;
   width: 100%;
@@ -30,7 +27,7 @@ export const BigImgMyBtmRight = styled.div`
 `;
 export const BigMyImgTopLeft = styled.div`
   position: absolute;
-  width: 200px;
+  width: 180px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -46,10 +43,9 @@ export const BigMyImgTopLeft = styled.div`
     cursor: pointer;
   }
 `;
-
 export const BigMyImgTopBtmLeft = styled.div`
   position: absolute;
-  width: 200px;
+  width: 180px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -65,7 +61,6 @@ export const BigMyImgTopBtmLeft = styled.div`
     cursor: pointer;
   }
 `;
-
 export const BigMyImgTopRight = styled.div`
   position: absolute;
   top: 8%;
@@ -76,7 +71,6 @@ export const BigMyImgTopRight = styled.div`
     cursor: pointer;
   }
 `;
-
 export const BigMyImgBtmLeft = styled.div`
   position: absolute;
   bottom: 8%;
@@ -93,7 +87,6 @@ export const BigMyImgBtmLeftDiv = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
 export const BigMyImgBtmLeftspan = styled.span`
   line-height: ${(props) => props.theme.lineHeight.xxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
@@ -102,7 +95,6 @@ export const BigMyImgBtmLeftspan = styled.span`
   margin-left: 1px;
   margin-top: 6px;
 `;
-
 export const BigMyImgBtmRight = styled.div`
   position: absolute;
   bottom: 5%;
@@ -120,10 +112,9 @@ export const BigImgNotSlideSpan = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   font-size: ${(props) => props.theme.fontSizes.xl};
 `;
-
 export const BigImgNotSlideTitleSpan = styled.span`
   color: #ffffff;
-  width: 200px;
+  width: 180px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -132,7 +123,6 @@ export const BigImgNotSlideTitleSpan = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.xxl};
 `;
-
 export const DisBigMyImgTopRight = styled.div`
   position: absolute;
   top: 8%;
