@@ -144,7 +144,7 @@ const Main = () => {
         }
       });
       getFollowerList().then((res) => {
-        if (res) {
+        if (res.success) {
           getPowerArtist();
         }
       });

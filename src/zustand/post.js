@@ -59,7 +59,7 @@ const usePostStore = create((set) => ({
         })
         return {artistIsFollow: followerIdList};
       });
-      return resData.data.success;
+      return resData.data;
     }
   },
   getBestSong: async (payload) => {
