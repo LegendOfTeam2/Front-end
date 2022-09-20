@@ -35,7 +35,6 @@ const useMyPageStore = create((set) => ({
     if (resData?.data.success) {
       set((state) => {
         const newPost = [...state.uploadPost, ...resData.data.data];
-        console.log(newPost);
         return { uploadPost: newPost };
       });
       set({ uploadPostIsLoaded: resData.data.success });

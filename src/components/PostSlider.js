@@ -1,5 +1,5 @@
 // React
-import { useState, memo, Fragment } from "react";
+import { useState, memo } from 'react';
 
 // Zustand
 import usePlayerStore from '../zustand/player';
@@ -57,6 +57,7 @@ const PostSlider = ({
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+  const postPlayList = usePlayerStore((state) => state.postPlayList);
   const addLike = useLikeStore((state) => state.addLike);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
@@ -68,6 +69,21 @@ const PostSlider = ({
     setPlaying(true);
     setIsAutoplay(true);
     addPlayList({
+      postId,
+      title,
+      nickname,
+      mediaUrl,
+      imageUrl,
+      position,
+      collaborate,
+    });
+  };
+
+  const PlayMember = () => {
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    postPlayList({
       postId,
       title,
       nickname,
@@ -155,9 +171,15 @@ const PostSlider = ({
           <ImgBtmLeftDivSapn>좋아요</ImgBtmLeftDivSapn>
         </ImgBtmLeftDiv>
       </ImgBtmLeft>
-      <ImgBtmRight>
-        <img src={OnPlay} alt='플레이 버튼' onClick={Play} />
-      </ImgBtmRight>
+      {getCookie('authorization') !== undefined ? (
+        <ImgBtmRight>
+          <img src={OnPlay} alt='플레이 버튼' onClick={PlayMember} />
+        </ImgBtmRight>
+      ) : (
+        <ImgBtmRight>
+          <img src={OnPlay} alt='플레이 버튼' onClick={Play} />
+        </ImgBtmRight>
+      )}
     </ProfileImgDivDiv>
   );
 };
