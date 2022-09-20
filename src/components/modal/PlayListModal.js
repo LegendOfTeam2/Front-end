@@ -15,7 +15,7 @@ import {
   WriteModalLogo,
   WriteModalLogoImg,
 } from '../../assets/styles/components/modal/WriteModal.styled';
-import { Exclamation } from '../../assets/images/image';
+import { AboutSong, DisCollaboration, DisLike, Exclamation, Like24, WhiteCollaborate24 } from '../../assets/images/image';
 import styled from 'styled-components';
 
 const customStyles = {
@@ -45,6 +45,7 @@ const PlayListModal = ({ isOpen, onCancel }) => {
   };
   return (
     // <ReactModal isOpen={isOpen} style={customStyles}>
+    <PlayListAllContainer>
     <PlayListContainer>
       <PlayListDiv>
         <PlayListTopDiv>
@@ -78,26 +79,43 @@ const PlayListModal = ({ isOpen, onCancel }) => {
               ></BtmMapImg>
             </BtmMapImgDiv>
             <BtmMapImgSpan>나는 이영지</BtmMapImgSpan>
+            <BtmMapArtistDiv>
+              <BtmMapArtistSpan>아티스트명</BtmMapArtistSpan>
+              <BtmMapArtistSpan> 00 : 00 </BtmMapArtistSpan>
+            </BtmMapArtistDiv>
+            <BtmMapIconDiv>
+            <img src={AboutSong} alt='곡정보' />
+            <img src={DisLike} alt='곡정보' />
+            <img src={WhiteCollaborate24} alt='곡정보' />
+            </BtmMapIconDiv>
           </BtmMapDiv>
-          <div></div>
-          <div></div>
         </BtmAllDiv>
       </PlayListDiv>
     </PlayListContainer>
+    </PlayListAllContainer>
     // </ReactModal>
   );
 };
 
 export default PlayListModal;
 
+export const PlayListAllContainer = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const PlayListContainer = styled.div`
   width: 1024px;
   height: auto;
-  background: rgba(27, 30, 47, 0.8);
+  background-color: rgba(27, 30, 47, 0.8);
   border: 1px solid #28ca72;
   box-shadow: 0px 1px 31px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
   border-radius: 10px;
+  
 `;
 
 export const PlayListDiv = styled.div`
@@ -158,6 +176,7 @@ export const MidDivDivSpan = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   font-size: ${(props) => props.theme.fontSizes.sm};
   color: #ffffff;
+  
 `;
 
 export const MidMidDivDiv = styled.div`
@@ -183,6 +202,7 @@ export const BtmAllDiv = styled.div`
   display: flex;
   flex-direction: column;
   padding: 12.5px 0;
+  border-bottom: 0.3px solid rgba(255, 255, 255, 1);
 `;
 
 export const BtmMapDiv = styled.div`
@@ -205,7 +225,44 @@ export const BtmMapImg = styled.img`
 `;
 
 export const BtmMapImgSpan = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
   line-height: ${(props) => props.theme.lineHeight.xs};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   font-size: ${(props) => props.theme.fontSizes.xs};
+  width: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
+export const BtmMapArtistDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 208px;
+  margin-left: 123px;
+`;
+
+export const BtmMapArtistSpan = styled.span`
+  color: #ffffff;
+  line-height: ${(props) => props.theme.lineHeight.xs};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  font-size: ${(props) => props.theme.fontSizes.xs};
+  width: 50px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
+export const BtmMapIconDiv = styled.div`
+width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 46px;
+  margin-left: 85px;
 `;

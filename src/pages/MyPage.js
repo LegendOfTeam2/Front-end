@@ -205,6 +205,10 @@ const MyPage = () => {
     }
   };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f09aeef3cfda79374bfb8802fd9d246226f05ef4
   return (
     <Fragment>
       <Header />
@@ -479,8 +483,13 @@ const MyPage = () => {
 
             {category === 'upload' ? (
               uploadPostIsLoaded ? (
+<<<<<<< HEAD
                 <MyBtmImgDiv>
                   {uploadPost.map((x) => (
+=======
+                uploadPost.map((x) => {
+                  return (
+>>>>>>> f09aeef3cfda79374bfb8802fd9d246226f05ef4
                     <PostBig
                       key={x.postId}
                       imageUrl={x.imageUrl}

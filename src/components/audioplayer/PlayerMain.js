@@ -1,7 +1,9 @@
 // React
-import { useState, useRef, useEffect, useCallback, memo } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 // Zustand
 import usePlayerStore from '../../zustand/player';
+// Utils
+import { getCookie } from '../../utils/cookie';
 // Components
 import Player from './Player';
 // Assests
@@ -51,20 +53,30 @@ function PlayerMain() {
   const playList = usePlayerStore((state) => state.playList);
   const currentSong = usePlayerStore((state) => state.currentSong);
   const setCurrentSong = usePlayerStore((state) => state.setCurrentSong);
+
   const viewState = usePlayerStore((state) => state.viewState);
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const playing = usePlayerStore((state) => state.playing);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
   const isAutoplay = usePlayerStore((state) => state.isAutoplay);
+
+  const getPlayList = usePlayerStore((state) => state.getPlayList);
+  const playListMember = usePlayerStore((state) => state.playListMember);
+  const currentSongMember = usePlayerStore((state) => state.currentSongMember);
+  const setCurrentSongMember = usePlayerStore(
+    (state) => state.setCurrentSongMember
+  );
+  const playListMemberIsLoaded = usePlayerStore(
+    (state) => state.playListMemberIsLoaded
+  );
+
   const [percentage, setPercentage] = useState(0);
-  // const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(0.5);
   const [ismuted, setIsMuted] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
-  // const [isAutoplay, setIsAutoplay] = useState(false);
   const [isRandom, setIsRandom] = useState(false);
 
   const audioRef = useRef();
@@ -76,24 +88,110 @@ function PlayerMain() {
   };
 
   useEffect(() => {
-    if (playList.length > 0) {
-      if (currentSong.postId === playList[0].postId) {
-        const audio = audioRef.current;
-        if (playing) {
-          setPlaying(true);
-          audio.play();
+    getPlayList();
+  }, []);
+
+  useEffect(() => {
+    const playListMax = playList.length - 1;
+    const playListMaxMember = playListMember.length - 1;
+    if (getCookie('authorization') !== undefined) {
+      if (playListMemberIsLoaded) {
+        const audioEnd = audioRef.current.ended;
+        if (playListMember.length > 0) {
+          if (
+            currentSongMember.postId ===
+            playListMember[playListMaxMember].postId
+          ) {
+            if (isRandom === false && isLoop === false && audioEnd) {
+              setPlaying(false);
+            }
+          }
+        }
+      }
+    } else {
+      const audioEnd = audioRef.current.ended;
+      if (playList.length > 0) {
+        if (currentSong.postId === playList[playListMax].postId) {
+          if (isRandom === false && isLoop === false && audioEnd) {
+            setPlaying(false);
+          }
         }
       }
     }
-  }, [currentSong.postId, playList, playing, setPlaying]);
+  }, [
+    percentage,
+    isRandom,
+    playing,
+    playList,
+    isLoop,
+    currentSong.postId,
+    setPlaying,
+    playListMember,
+    currentSongMember.postId,
+    playListMemberIsLoaded,
+  ]);
 
   useEffect(() => {
-    if (viewState) {
-      if (currentSong.postId === playList[0].postId) {
-        audioRef.current.currentTime = 0;
+    if (getCookie('authorization') !== undefined) {
+      if (playListMemberIsLoaded) {
+        if (playListMember.length > 0) {
+          if (currentSongMember.postId === playListMember[0].postId) {
+            const audio = audioRef.current;
+            if (playing) {
+              setPlaying(true);
+              audio.play();
+            }
+          }
+        }
+      }
+    } else {
+      if (playList.length > 0) {
+        if (currentSong.postId === playList[0].postId) {
+          const audio = audioRef.current;
+          if (playing) {
+            setPlaying(true);
+            audio.play();
+          }
+        }
       }
     }
-  }, [currentSong]);
+  }, [
+    currentSong.postId,
+    playList,
+    playListMember,
+    playing,
+    setPlaying,
+    currentSongMember.postId,
+    playListMemberIsLoaded,
+  ]);
+
+  useEffect(() => {
+    if (getCookie('authorization') !== undefined) {
+      if (viewState) {
+        if (playListMemberIsLoaded) {
+          if (playListMember.length > 0) {
+            if (currentSongMember.postId === playListMember[0].postId) {
+              console.log('렌더링!');
+              audioRef.current.currentTime = 0;
+            }
+          }
+        }
+      }
+    } else {
+      if (viewState) {
+        if (currentSong.postId === playList[0].postId) {
+          audioRef.current.currentTime = 0;
+        }
+      }
+    }
+  }, [
+    currentSong,
+    currentSongMember.postId,
+    playList,
+    playListMember,
+    playListMemberIsLoaded,
+    viewState,
+  ]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -108,16 +206,31 @@ function PlayerMain() {
     }
   }, [viewState, playing, setPlaying, setIsAutoplay]);
   useEffect(() => {
-    const audioEnd = audioRef.current.ended;
-    const index = playList.indexOf(playList[0]); // 0
-    if (audioEnd) {
-      if (isRandom) {
-        callback(index);
-      } else {
-        skipNext();
+    const index = playList.indexOf(playList[0]);
+    if (getCookie('authorization') !== undefined) {
+      if (playListMemberIsLoaded) {
+        const audioEnd = audioRef.current.ended;
+        const indexMember = playListMember.indexOf(playListMember[0]);
+
+        if (audioEnd) {
+          if (isRandom) {
+            callbackMember(indexMember);
+          } else {
+            skipNext();
+          }
+        }
+      }
+    } else {
+      const audioEnd = audioRef.current.ended;
+      if (audioEnd) {
+        if (isRandom) {
+          callback(index);
+        } else {
+          skipNext();
+        }
       }
     }
-  }, [percentage, isRandom, playing]);
+  }, [percentage, isRandom, playing, playListMemberIsLoaded, playListMember]);
 
   const callback = useCallback(
     (index) => {
@@ -137,24 +250,72 @@ function PlayerMain() {
     [isRandom]
   );
 
+  const callbackMember = useCallback(
+    (indexMember) => {
+      if (playListMemberIsLoaded) {
+        const random = Math.floor(Math.random() * playListMember.length);
+        if (random !== indexMember) {
+          setCurrentSongMember(playListMember[random]);
+          audioRef.current.currentTime = 0;
+          setIsAutoplay(true);
+        } else {
+          const filterRandom = playListMember.filter((x) => x.id !== random);
+          const Retryrandom = Math.floor(Math.random() * filterRandom.length);
+          setCurrentSongMember(filterRandom[Retryrandom]);
+          audioRef.current.currentTime = 0;
+          setIsAutoplay(true);
+        }
+      }
+    },
+    [isRandom]
+  );
+
   useEffect(() => {
-    const audio = audioRef.current;
-    audio.loop = isLoop;
+    if (getCookie('authorization') !== undefined) {
+      if (playListMemberIsLoaded) {
+        const audio = audioRef.current;
+        audio.loop = isLoop;
+      }
+    } else {
+      const audio = audioRef.current;
+      audio.loop = isLoop;
+    }
   }, [isLoop]);
 
   useEffect(() => {
-    const audio = audioRef.current;
-    audio.muted = ismuted;
+    if (getCookie('authorization') !== undefined) {
+      if (playListMemberIsLoaded) {
+        const audio = audioRef.current;
+        audio.muted = ismuted;
+      }
+    } else {
+      const audio = audioRef.current;
+      audio.muted = ismuted;
+    }
   }, [ismuted]);
 
   useEffect(() => {
-    const audio = audioRef.current;
-    audio.autoplay = isAutoplay;
+    if (getCookie('authorization') !== undefined) {
+      if (playListMemberIsLoaded) {
+        const audio = audioRef.current;
+        audio.autoplay = isAutoplay;
+      }
+    } else {
+      const audio = audioRef.current;
+      audio.autoplay = isAutoplay;
+    }
   }, [isAutoplay]);
 
   useEffect(() => {
-    const audio = audioRef.current;
-    audio.volume = parseFloat(volume);
+    if (getCookie('authorization') !== undefined) {
+      if (playListMemberIsLoaded) {
+        const audio = audioRef.current;
+        audio.volume = parseFloat(volume);
+      }
+    } else {
+      const audio = audioRef.current;
+      audio.volume = parseFloat(volume);
+    }
   }, [volume]);
 
   const RandomPlay = () => {
@@ -165,32 +326,72 @@ function PlayerMain() {
   const skipBack = () => {
     const index = playList.findIndex((x) => x.title === currentSong.title);
 
-    if (index === 0) {
-      setCurrentSong(playList[playList.length - 1]);
+    if (getCookie('authorization') !== undefined) {
+      if (playListMemberIsLoaded) {
+        const indexMember = playListMember.findIndex(
+          (x) => x.title === currentSongMember.title
+        );
+
+        if (indexMember === 0) {
+          setCurrentSongMember(playListMember[playListMember.length - 1]);
+        } else {
+          setCurrentSongMember(playListMember[indexMember - 1]);
+        }
+        if (playing === true) {
+          setIsAutoplay(true);
+        } else {
+          setIsAutoplay(false);
+        }
+        audioRef.current.currentTime = 0;
+      }
     } else {
-      setCurrentSong(playList[index - 1]);
+      if (index === 0) {
+        setCurrentSong(playList[playList.length - 1]);
+      } else {
+        setCurrentSong(playList[index - 1]);
+      }
+      if (playing === true) {
+        setIsAutoplay(true);
+      } else {
+        setIsAutoplay(false);
+      }
+      audioRef.current.currentTime = 0;
     }
-    if (playing === true) {
-      setIsAutoplay(true);
-    } else {
-      setIsAutoplay(false);
-    }
-    audioRef.current.currentTime = 0;
   };
 
   const skipNext = () => {
     const index = playList.findIndex((x) => x.title === currentSong.title);
-    if (index === playList.length - 1) {
-      setCurrentSong(playList[0]);
+
+    if (getCookie('authorization') !== undefined) {
+      if (playListMemberIsLoaded) {
+        const indexMember = playListMember.findIndex(
+          (x) => x.title === currentSongMember.title
+        );
+        if (indexMember === playListMember.length - 1) {
+          setCurrentSongMember(playListMember[0]);
+        } else {
+          setCurrentSongMember(playListMember[indexMember + 1]);
+        }
+        if (playing === true) {
+          setIsAutoplay(true);
+        } else {
+          setIsAutoplay(false);
+        }
+        audioRef.current.currentTime = 0;
+      }
     } else {
-      setCurrentSong(playList[index + 1]);
+      if (index === playList.length - 1) {
+        setCurrentSong(playList[0]);
+      } else {
+        setCurrentSong(playList[index + 1]);
+      }
+      if (playing === true) {
+        setIsAutoplay(true);
+      } else {
+        setIsAutoplay(false);
+      }
+      audioRef.current.currentTime = 0;
     }
-    if (playing === true) {
-      setIsAutoplay(true);
-    } else {
-      setIsAutoplay(false);
-    }
-    audioRef.current.currentTime = 0;
   };
 
   const ClickLoop = () => {
@@ -304,7 +505,7 @@ function PlayerMain() {
         </PlayContainerOut>
         <PlayContainer>
           <ControlPanelDiv>
-            <AllUpVolumeolumeDiv disPlay={viewState ? 'flex':'none' }>
+            <AllUpVolumeolumeDiv disPlay={viewState ? 'flex' : 'none'}>
               <IconImgHover>
                 {isLoop ? (
                   <img src={PlayListIcon} alt='플레이리스트' />
@@ -314,15 +515,31 @@ function PlayerMain() {
               </IconImgHover>
             </AllUpVolumeolumeDiv>
             <AllBtnContainer>
-              <MidDiv>
-                <div>
-                  <ImgCover src={currentSong?.imageUrl} alt='' />
-                </div>
-                <IntroduceDiv>
-                  <TitleSapn>{currentSong?.title}</TitleSapn>
-                  <SingerSpan>{currentSong?.nickname}</SingerSpan>
-                </IntroduceDiv>
-              </MidDiv>
+              {getCookie('authorization') !== undefined ? (
+                playListMemberIsLoaded ? (
+                  <MidDiv>
+                    <div>
+                      <ImgCover src={currentSongMember?.imageUrl} alt='' />
+                    </div>
+                    <IntroduceDiv>
+                      <TitleSapn>{currentSongMember?.title}</TitleSapn>
+                      <SingerSpan>{currentSongMember?.nickname}</SingerSpan>
+                    </IntroduceDiv>
+                  </MidDiv>
+                ) : (
+                  <></>
+                )
+              ) : (
+                <MidDiv>
+                  <div>
+                    <ImgCover src={currentSong?.imageUrl} alt='' />
+                  </div>
+                  <IntroduceDiv>
+                    <TitleSapn>{currentSong?.title}</TitleSapn>
+                    <SingerSpan>{currentSong?.nickname}</SingerSpan>
+                  </IntroduceDiv>
+                </MidDiv>
+              )}
               <BtnContainer>
                 <IconImgHover onClick={RandomPlay}>
                   {isRandom ? (
@@ -352,7 +569,6 @@ function PlayerMain() {
                   )}
                 </IconImgHover>
               </BtnContainer>
-
               <VolumeolumeDiv>
                 <AllVolumeolumeDiv>
                   <VolumeolumeDivDiv onClick={ClickMuted}>
@@ -377,14 +593,30 @@ function PlayerMain() {
               </VolumeolumeDiv>
             </AllBtnContainer>
             <Player percentage={percentage} onChange={onChange} />
-            <audio
-              ref={audioRef}
-              onTimeUpdate={getCurrDuration}
-              onLoadedData={(e) => {
-                setDuration(e.currentTarget.duration.toFixed(2));
-              }}
-              src={currentSong?.mediaUrl}
-            ></audio>
+            {getCookie('authorization') !== undefined ? (
+              playListMemberIsLoaded ? (
+                <audio
+                  ref={audioRef}
+                  onTimeUpdate={getCurrDuration}
+                  onLoadedData={(e) => {
+                    setDuration(e.currentTarget.duration.toFixed(2));
+                  }}
+                  src={currentSongMember?.mediaUrl}
+                ></audio>
+              ) : (
+                <></>
+              )
+            ) : (
+              <audio
+                ref={audioRef}
+                onTimeUpdate={getCurrDuration}
+                onLoadedData={(e) => {
+                  setDuration(e.currentTarget.duration.toFixed(2));
+                }}
+                src={currentSong?.mediaUrl}
+              ></audio>
+            )}
+
             <TimerDiv>
               <Timer>{secondsToHms(currentTime)}</Timer>
 
