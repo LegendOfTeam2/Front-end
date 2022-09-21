@@ -13,7 +13,6 @@ import styled from 'styled-components';
 
 const PlayList = ({ isOpen, playListMember }) => {
 
-  console.log(playListMember);
 
   return (
       <PlayListAllContainer ListyIndex={isOpen ? 'flex' : 'none' }  >
