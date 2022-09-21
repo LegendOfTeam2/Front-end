@@ -41,6 +41,7 @@ import albumCover_3 from './albumcover/albumCover_3.jpg';
 import GooglePhoto from './GooglePhoto.png';
 import KakaoTalkPhoto from './KakaoTalkPhoto.png';
 import ShowPw from './ShowPw.svg';
+import ShowPw38 from './ShowPw38.svg';
 import HidePw from './HidePw.svg';
 import Xbox20 from './Xbox20.svg';
 import SingerMarker from './SingerMarker.svg';
@@ -118,4 +119,5 @@ export {
   WhiteCollaborate,
   WhiteCollaborate24,
   AboutSong,
+  ShowPw38
 };

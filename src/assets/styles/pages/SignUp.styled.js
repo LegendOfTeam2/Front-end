@@ -1,5 +1,14 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
+export const BackgroudColor = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1b1e2f;
+  z-index: -2;
+`;
 export const SignUpContainer = styled.div`
   position: absolute;
   top: 50%;
@@ -14,7 +23,7 @@ export const SignUpBox = styled.div`
   width: 961px;
   height: 809px;
   border-radius: 30px;
-  border: 1px solid #28CA7C;
+  border: 1px solid #28ca7c;
   display: flex;
   justify-content: center;
   position: relative;
@@ -25,6 +34,7 @@ export const SignUpBox = styled.div`
   }
 `;
 export const SignUpIcon = styled.div`
+  opacity: 0.3;
   position: absolute;
   top: 26px;
   right: 26px;
@@ -172,6 +182,7 @@ export const SignUpBoxImageContainer = styled.div`
   width: 100%;
   height: auto;
   display: flex;
+  justify-content: space-between;
   margin-bottom: 32px;
 `;
 export const SignUpBoxImagePreviewBox = styled.div`

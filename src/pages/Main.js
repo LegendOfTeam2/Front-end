@@ -56,15 +56,6 @@ import { LeftArrow, MainBanner, RightArrow } from '../assets/images/image';
 const Main = () => {
   const sliderRef = useRef();
 
-  const settings = {
-    className: 'center',
-    centerMode: true,
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    slidesToShow: 1,
-    arrows: false,
-  };
   const Btmsettings = {
     className: 'center',
     initialSlide: 2,
@@ -72,7 +63,7 @@ const Main = () => {
     infinite: true,
     slidesToShow: 4,
     arrows: false,
-    centerPadding: '-30px',
+    centerPadding: '-28px',
     draggable: true,
     ref: sliderRef,
   };

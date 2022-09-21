@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 
+export const BackgroudColor = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1b1e2f;
+  z-index: -2;
+`;
 export const UpContainer = styled.div`
   width: 100%;
   height: auto;
@@ -27,6 +36,7 @@ export const UpInBox = styled.div`
 `;
 export const UpInIcon = styled.div`
   position: absolute;
+  opacity: 0.3;
   top: 26px;
   right: 26px;
   width: auto;

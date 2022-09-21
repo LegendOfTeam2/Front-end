@@ -172,7 +172,6 @@ function PlayerMain() {
         if (playListMemberIsLoaded) {
           if (playListMember.length > 0) {
             if (currentSongMember.postId === playListMember[0].postId) {
-              console.log('렌더링!');
               audioRef.current.currentTime = 0;
             }
           }

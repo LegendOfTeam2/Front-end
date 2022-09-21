@@ -43,6 +43,7 @@ import {
   SignUpBoxImagePreviewBoxImg,
   SignUpBoxImagePreviewBoxSkeleton,
   SignUpButtonContainer,
+  BackgroudColor,
 } from '../assets/styles/pages/SignUp.styled';
 import { HidePw, LargeLogo, ShowPw, Xbox20 } from '../assets/images/image';
 
@@ -376,7 +377,6 @@ const SignUp = () => {
                 if (res.success) {
                   setNicknameModal(nickname);
                   setOpen(true);
-                  // navigate('/signin');
                 }
               });
             }
@@ -388,279 +388,285 @@ const SignUp = () => {
   );
 
   return (
-    <SignUpContainer>
-      <Welcome isOpen={isOpen} nickname={nicknameModal} />
-      <SignUpBox>
-        <SignUpIcon onClick={() => navigate('/')}>
-          <GrClose className='icon-cancel' color='red'></GrClose>
-        </SignUpIcon>
-        <SignUpForm onSubmit={(e) => onSubmitHandle(e)}>
-          <SignUpLogo>
-            <SignUpLogoImg src={LargeLogo}></SignUpLogoImg>
-          </SignUpLogo>
-          <SignUpBoxInputContainer>
-            <SignUpBoxInputGroup>
-              <SignUpBoxInputGroupTitle>이메일(필수)</SignUpBoxInputGroupTitle>
-              <SignUpboxInputGroupData>
-                <SignUpDataInputGroupIcon
-                  onClick={() => deleteText('email')}
-                  ref={emailIconRef}
-                >
-                  <img src={Xbox20} alt='Xbox' className='icon-cancel' />
-                </SignUpDataInputGroupIcon>
-                <Input
-                  _type={'text'}
-                  _placeholder={'아이디를 입력해 주세요.'}
-                  _value={email}
-                  _onChange={(event) => setEmail(event.target.value)}
-                  _ref={emailRef}
-                  _style={{
-                    width: '100%',
-                    height: 'auto',
-                    ft_size: '14',
-                    pd_top: '20px',
-                    pd_bottom: '20px',
-                    pd_left: '19px',
-                    pd_right: '40px',
-                    bd_radius: '10px',
-                    bd_px: '1px',
-                    bd_color: '#d9d9d9',
-                    line_height: '20',
-                  }}
-                />
-              </SignUpboxInputGroupData>
-              <SignUpBoxInputGroupAlert
-                ref={emailSpanRef}
-              ></SignUpBoxInputGroupAlert>
-            </SignUpBoxInputGroup>
-            <SignUpBoxInputGroup>
-              <SignUpBoxInputGroupTitle>
-                비밀번호(필수)
-              </SignUpBoxInputGroupTitle>
-              <SignUpboxInputGroupData>
-                <SignUpDataInputGroupIcon
-                  onClick={() => deleteText('password')}
-                  ref={passwordIconRef}
-                >
-                  <img
-                    src={Xbox20}
-                    alt='Xbox'
-                    className='icon-password-cancel'
+    <Fragment>
+      <BackgroudColor />
+      <SignUpContainer>
+        <Welcome isOpen={isOpen} nickname={nicknameModal} />
+        <SignUpBox>
+          <SignUpIcon onClick={() => navigate('/')}>
+            <GrClose className='icon-cancel' color='red'></GrClose>
+          </SignUpIcon>
+          <SignUpForm onSubmit={(e) => onSubmitHandle(e)}>
+            <SignUpLogo>
+              <SignUpLogoImg src={LargeLogo}></SignUpLogoImg>
+            </SignUpLogo>
+            <SignUpBoxInputContainer>
+              <SignUpBoxInputGroup>
+                <SignUpBoxInputGroupTitle>
+                  이메일(필수)
+                </SignUpBoxInputGroupTitle>
+                <SignUpboxInputGroupData>
+                  <SignUpDataInputGroupIcon
+                    onClick={() => deleteText('email')}
+                    ref={emailIconRef}
+                  >
+                    <img src={Xbox20} alt='Xbox' className='icon-cancel' />
+                  </SignUpDataInputGroupIcon>
+                  <Input
+                    _type={'text'}
+                    _placeholder={'아이디를 입력해 주세요.'}
+                    _value={email}
+                    _onChange={(event) => setEmail(event.target.value)}
+                    _ref={emailRef}
+                    _style={{
+                      width: '100%',
+                      height: 'auto',
+                      ft_size: '14',
+                      pd_top: '20px',
+                      pd_bottom: '20px',
+                      pd_left: '19px',
+                      pd_right: '40px',
+                      bd_radius: '10px',
+                      bd_px: '1px',
+                      bd_color: '#d9d9d9',
+                      line_height: '20',
+                    }}
                   />
-                </SignUpDataInputGroupIcon>
-                {passwordView ? (
-                  <>
+                </SignUpboxInputGroupData>
+                <SignUpBoxInputGroupAlert
+                  ref={emailSpanRef}
+                ></SignUpBoxInputGroupAlert>
+              </SignUpBoxInputGroup>
+              <SignUpBoxInputGroup>
+                <SignUpBoxInputGroupTitle>
+                  비밀번호(필수)
+                </SignUpBoxInputGroupTitle>
+                <SignUpboxInputGroupData>
+                  <SignUpDataInputGroupIcon
+                    onClick={() => deleteText('password')}
+                    ref={passwordIconRef}
+                  >
                     <img
-                      src={ShowPw}
-                      alt='패스워드 보기'
-                      className='icon-hidden'
-                      onClick={() => viewPassword('password')}
+                      src={Xbox20}
+                      alt='Xbox'
+                      className='icon-password-cancel'
                     />
-                  </>
-                ) : (
-                  <>
-                    <img
-                      src={HidePw}
-                      alt='패스워드 감추기'
-                      className='icon-hidden'
-                      onClick={() => viewPassword('password')}
-                    />
-                  </>
-                )}
-                <Input
-                  _type={'password'}
-                  _placeholder={'비밀번호를 입력해주세요.'}
-                  _value={password}
-                  _onChange={(event) => setPassword(event.target.value)}
-                  _ref={passwordRef}
-                  _style={{
-                    width: '100%',
-                    height: 'auto',
-                    ft_size: '14',
-                    pd_top: '20px',
-                    pd_bottom: '20px',
-                    pd_left: '19px',
-                    pd_right: '70px',
-                    bd_radius: '10px',
-                    bd_px: '1px',
-                    bd_color: '#d9d9d9',
-                    line_height: '20',
-                  }}
-                />
-              </SignUpboxInputGroupData>
-              <SignUpBoxPasswordValidGroup>
-                <SignUpBoxPasswordValidText ref={passwordEngLgRef}>
-                  영문 대문자
-                </SignUpBoxPasswordValidText>
-                <SignUpBoxPasswordValidText ref={passwordEngSmRef}>
-                  영문 소문자
-                </SignUpBoxPasswordValidText>
-                <SignUpBoxPasswordValidText ref={passwordNumRef}>
-                  숫자
-                </SignUpBoxPasswordValidText>
-                <SignUpBoxPasswordValidText ref={passwordSpecailRef}>
-                  특수문자
-                </SignUpBoxPasswordValidText>
-                <SignUpBoxPasswordValidText ref={passwordLengthRef}>
-                  6-20글자
-                </SignUpBoxPasswordValidText>
-              </SignUpBoxPasswordValidGroup>
-              <SignUpboxInputGroupData>
-                <SignUpDataInputGroupIcon
-                  onClick={() => deleteText('passwordCheck')}
-                  ref={passwordCheckIconRef}
-                >
-                  <img
-                    src={Xbox20}
-                    alt='Xbox'
-                    className='icon-password-cancel'
-                  />
-                </SignUpDataInputGroupIcon>
-                {passwordCheckView ? (
-                  <>
-                    <img
-                      src={ShowPw}
-                      alt='패스워드 보기'
-                      className='icon-hidden'
-                      onClick={() => viewPassword('passwordCheck')}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <img
-                      src={HidePw}
-                      alt='패스워드 감추기'
-                      className='icon-hidden'
-                      onClick={() => viewPassword('passwordCheck')}
-                    />
-                  </>
-                )}
-                <Input
-                  _type={'password'}
-                  _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
-                  _value={passwordCheck}
-                  _onChange={(event) => setPasswordCheck(event.target.value)}
-                  _ref={passwordCheckRef}
-                  _style={{
-                    width: '100%',
-                    height: 'auto',
-                    ft_size: '14',
-                    pd_top: '20px',
-                    pd_bottom: '20px',
-                    pd_left: '19px',
-                    pd_right: '70px',
-                    bd_radius: '10px',
-                    bd_px: '1px',
-                    bd_color: '#d9d9d9',
-                    line_height: '20',
-                  }}
-                />
-              </SignUpboxInputGroupData>
-              <SignUpBoxInputGroupAlert
-                ref={passwordCheckSpanRef}
-              ></SignUpBoxInputGroupAlert>
-            </SignUpBoxInputGroup>
-            <SignUpBoxInputGroup>
-              <SignUpBoxInputGroupTitle>닉네임(필수)</SignUpBoxInputGroupTitle>
-              <SignUpboxInputGroupData>
-                <SignUpDataInputGroupIcon
-                  onClick={() => deleteText('nickname')}
-                  ref={nicknameIconRef}
-                >
-                  <img src={Xbox20} alt='Xbox' className='icon-cancel' />
-                </SignUpDataInputGroupIcon>
-                <Input
-                  _type={'text'}
-                  _placeholder={'닉네임을 입력해 주세요. (15자리 이내)'}
-                  _value={nickname}
-                  _onChange={(event) => setNickname(event.target.value)}
-                  _maxLength={'15'}
-                  _ref={nicknameRef}
-                  _style={{
-                    width: '100%',
-                    height: 'auto',
-                    ft_size: '14',
-                    pd_top: '20px',
-                    pd_bottom: '20px',
-                    pd_left: '19px',
-                    pd_right: '40px',
-                    bd_radius: '10px',
-                    bd_px: '1px',
-                    bd_color: '#d9d9d9',
-                    line_height: '20',
-                  }}
-                />
-              </SignUpboxInputGroupData>
-              <SignUpBoxInputGroupAlert
-                ref={nicknameSpanRef}
-              ></SignUpBoxInputGroupAlert>
-            </SignUpBoxInputGroup>
-            <SignUpBoxInputGroup>
-              <SignUpBoxInputGroupTitle>해시태그</SignUpBoxInputGroupTitle>
-              <SignUpBoxInputTagsAlert>
-                아티스트님의 음악 스타일을 나타내세요!
-              </SignUpBoxInputTagsAlert>
-              <SignUpBoxInputTags
-                onKeyDown={addTag}
-                placeholder='Tab, Enter로 구분하여 입력해 주세요.'
-                maxLength={100}
-              />
-              {tags.length === 0 ? (
-                <Fragment></Fragment>
-              ) : (
-                <SignUpBoxTagBox>
-                  {tags.map((tag) => {
-                    return (
-                      <HashTagWithIcon
-                        key={shortid.generate()}
-                        tag={tag}
-                        removeTag={removeTag}
+                  </SignUpDataInputGroupIcon>
+                  {passwordView ? (
+                    <>
+                      <img
+                        src={ShowPw}
+                        alt='패스워드 보기'
+                        className='icon-hidden'
+                        onClick={() => viewPassword('password')}
                       />
-                    );
-                  })}
-                </SignUpBoxTagBox>
-              )}
-            </SignUpBoxInputGroup>
-          </SignUpBoxInputContainer>
-          <SignUpBoxImageContainer>
-            <UploadImage
-              width={'50%'}
-              setFile={setFile}
-              setFileSrc={setFileSrc}
-              text={'이미지 삽입하기'}
-            />
-            <SignUpBoxImagePreviewBox>
-              {fileSrc === '' ? (
-                <SignUpBoxImagePreviewBoxSkeleton />
-              ) : (
-                <SignUpBoxImagePreviewBoxImg
-                  src={fileSrc}
-                  alt={'preview-img'}
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src={HidePw}
+                        alt='패스워드 감추기'
+                        className='icon-hidden'
+                        onClick={() => viewPassword('password')}
+                      />
+                    </>
+                  )}
+                  <Input
+                    _type={'password'}
+                    _placeholder={'비밀번호를 입력해주세요.'}
+                    _value={password}
+                    _onChange={(event) => setPassword(event.target.value)}
+                    _ref={passwordRef}
+                    _style={{
+                      width: '100%',
+                      height: 'auto',
+                      ft_size: '14',
+                      pd_top: '20px',
+                      pd_bottom: '20px',
+                      pd_left: '19px',
+                      pd_right: '70px',
+                      bd_radius: '10px',
+                      bd_px: '1px',
+                      bd_color: '#d9d9d9',
+                      line_height: '20',
+                    }}
+                  />
+                </SignUpboxInputGroupData>
+                <SignUpBoxPasswordValidGroup>
+                  <SignUpBoxPasswordValidText ref={passwordEngLgRef}>
+                    영문 대문자
+                  </SignUpBoxPasswordValidText>
+                  <SignUpBoxPasswordValidText ref={passwordEngSmRef}>
+                    영문 소문자
+                  </SignUpBoxPasswordValidText>
+                  <SignUpBoxPasswordValidText ref={passwordNumRef}>
+                    숫자
+                  </SignUpBoxPasswordValidText>
+                  <SignUpBoxPasswordValidText ref={passwordSpecailRef}>
+                    특수문자
+                  </SignUpBoxPasswordValidText>
+                  <SignUpBoxPasswordValidText ref={passwordLengthRef}>
+                    6-20글자
+                  </SignUpBoxPasswordValidText>
+                </SignUpBoxPasswordValidGroup>
+                <SignUpboxInputGroupData>
+                  <SignUpDataInputGroupIcon
+                    onClick={() => deleteText('passwordCheck')}
+                    ref={passwordCheckIconRef}
+                  >
+                    <img
+                      src={Xbox20}
+                      alt='Xbox'
+                      className='icon-password-cancel'
+                    />
+                  </SignUpDataInputGroupIcon>
+                  {passwordCheckView ? (
+                    <>
+                      <img
+                        src={ShowPw}
+                        alt='패스워드 보기'
+                        className='icon-hidden'
+                        onClick={() => viewPassword('passwordCheck')}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src={HidePw}
+                        alt='패스워드 감추기'
+                        className='icon-hidden'
+                        onClick={() => viewPassword('passwordCheck')}
+                      />
+                    </>
+                  )}
+                  <Input
+                    _type={'password'}
+                    _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
+                    _value={passwordCheck}
+                    _onChange={(event) => setPasswordCheck(event.target.value)}
+                    _ref={passwordCheckRef}
+                    _style={{
+                      width: '100%',
+                      height: 'auto',
+                      ft_size: '14',
+                      pd_top: '20px',
+                      pd_bottom: '20px',
+                      pd_left: '19px',
+                      pd_right: '70px',
+                      bd_radius: '10px',
+                      bd_px: '1px',
+                      bd_color: '#d9d9d9',
+                      line_height: '20',
+                    }}
+                  />
+                </SignUpboxInputGroupData>
+                <SignUpBoxInputGroupAlert
+                  ref={passwordCheckSpanRef}
+                ></SignUpBoxInputGroupAlert>
+              </SignUpBoxInputGroup>
+              <SignUpBoxInputGroup>
+                <SignUpBoxInputGroupTitle>
+                  닉네임(필수)
+                </SignUpBoxInputGroupTitle>
+                <SignUpboxInputGroupData>
+                  <SignUpDataInputGroupIcon
+                    onClick={() => deleteText('nickname')}
+                    ref={nicknameIconRef}
+                  >
+                    <img src={Xbox20} alt='Xbox' className='icon-cancel' />
+                  </SignUpDataInputGroupIcon>
+                  <Input
+                    _type={'text'}
+                    _placeholder={'닉네임을 입력해 주세요. (15자리 이내)'}
+                    _value={nickname}
+                    _onChange={(event) => setNickname(event.target.value)}
+                    _maxLength={'15'}
+                    _ref={nicknameRef}
+                    _style={{
+                      width: '100%',
+                      height: 'auto',
+                      ft_size: '14',
+                      pd_top: '20px',
+                      pd_bottom: '20px',
+                      pd_left: '19px',
+                      pd_right: '40px',
+                      bd_radius: '10px',
+                      bd_px: '1px',
+                      bd_color: '#d9d9d9',
+                      line_height: '20',
+                    }}
+                  />
+                </SignUpboxInputGroupData>
+                <SignUpBoxInputGroupAlert
+                  ref={nicknameSpanRef}
+                ></SignUpBoxInputGroupAlert>
+              </SignUpBoxInputGroup>
+              <SignUpBoxInputGroup>
+                <SignUpBoxInputGroupTitle>해시태그</SignUpBoxInputGroupTitle>
+                <SignUpBoxInputTagsAlert>
+                  아티스트님의 음악 스타일을 나타내세요!
+                </SignUpBoxInputTagsAlert>
+                <SignUpBoxInputTags
+                  onKeyDown={addTag}
+                  placeholder='Tab, Enter로 구분하여 입력해 주세요.'
+                  maxLength={100}
                 />
-              )}
-            </SignUpBoxImagePreviewBox>
-          </SignUpBoxImageContainer>
-          <SignUpButtonContainer>
-            <Button
-              _type={'submit'}
-              _text={'가입완료하고 리드미에 데뷔하기!'}
-              _style={{
-                ft_size: '20',
-                width: '100%',
-                height: 'auto',
-                bd_radius: '10px',
-                pd_top: '15px',
-                pd_bottom: '16px',
-                bg_color: 'black',
-                ft_weight: '800',
-                line_height: '28',
-                bg_color: '#28CA7C',
-              }}
-            />
-          </SignUpButtonContainer>
-        </SignUpForm>
-      </SignUpBox>
-    </SignUpContainer>
+                {tags.length === 0 ? (
+                  <Fragment></Fragment>
+                ) : (
+                  <SignUpBoxTagBox>
+                    {tags.map((tag) => {
+                      return (
+                        <HashTagWithIcon
+                          key={shortid.generate()}
+                          tag={tag}
+                          removeTag={removeTag}
+                        />
+                      );
+                    })}
+                  </SignUpBoxTagBox>
+                )}
+              </SignUpBoxInputGroup>
+            </SignUpBoxInputContainer>
+            <SignUpBoxImageContainer>
+              <UploadImage
+                width={'45%'}
+                setFile={setFile}
+                setFileSrc={setFileSrc}
+                text={'이미지 삽입하기'}
+              />
+              <SignUpBoxImagePreviewBox>
+                {fileSrc === '' ? (
+                  <SignUpBoxImagePreviewBoxSkeleton />
+                ) : (
+                  <SignUpBoxImagePreviewBoxImg
+                    src={fileSrc}
+                    alt={'preview-img'}
+                  />
+                )}
+              </SignUpBoxImagePreviewBox>
+            </SignUpBoxImageContainer>
+            <SignUpButtonContainer>
+              <Button
+                _type={'submit'}
+                _text={'가입완료하고 리드미에 데뷔하기!'}
+                _style={{
+                  ft_size: '20',
+                  width: '100%',
+                  height: 'auto',
+                  bd_radius: '10px',
+                  pd_top: '15px',
+                  pd_bottom: '16px',
+                  ft_weight: '800',
+                  line_height: '28',
+                  bg_color: '#28CA7C',
+                }}
+              />
+            </SignUpButtonContainer>
+          </SignUpForm>
+        </SignUpBox>
+      </SignUpContainer>
+    </Fragment>
   );
 };
 

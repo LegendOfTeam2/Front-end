@@ -1,5 +1,5 @@
 // React
-import { Fragment, useRef, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 // Zustand
 import useMyPageStore from '../zustand/mypage';
@@ -112,8 +112,6 @@ const MyPage = () => {
 
   const { nickname } = useParams();
   const navigate = useNavigate();
-
-  const followButtonRef = useRef();
 
   const settings = {
     className: 'center',
@@ -294,7 +292,6 @@ const MyPage = () => {
                               }}
                               _text={'팔로잉'}
                               _onClick={onHandleFollow}
-                              _ref={followButtonRef}
                             />
                           ) : (
                             <Button
@@ -309,7 +306,6 @@ const MyPage = () => {
                               }}
                               _text={'팔로우'}
                               _onClick={onHandleFollow}
-                              _ref={followButtonRef}
                             />
                           )
                         ) : (
