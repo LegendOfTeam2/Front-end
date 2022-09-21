@@ -172,22 +172,27 @@ const Main = () => {
           {bestSongIsLoaded ? (
             <MainImgDiv>
               {/* <Slider {...settings}> */}
-                {bestSong.map((x) => (
-                  <MainImgDivDiv key={x.postId}>
-                    <MainImgDivImg img={x.imageUrl.imageUrl}></MainImgDivImg>
-                    <MainImgDivDivDiv>베스트 송</MainImgDivDivDiv>
-                    <MainImgDivDivBtmDiv>리드미에서 가장 많이 재생된 아티스트 추천!</MainImgDivDivBtmDiv>
-                    <MainImgDivBtmImg src={x.profileImage}></MainImgDivBtmImg>
-                    <MainImgDivBtmSpanDiv><MainImgDivTopSpan>{x.title}</MainImgDivTopSpan><MainImgDivBtmSpan>{x.nickname}</MainImgDivBtmSpan></MainImgDivBtmSpanDiv>
-                    <MainImgDivBtnDiv>
+              {bestSong.map((x) => (
+                <MainImgDivDiv key={x.postId}>
+                  <MainImgDivImg img={x.imageUrl.imageUrl}></MainImgDivImg>
+                  <MainImgDivDivDiv>베스트 송</MainImgDivDivDiv>
+                  <MainImgDivDivBtmDiv>
+                    리드미에서 가장 많이 재생된 아티스트 추천!
+                  </MainImgDivDivBtmDiv>
+                  <MainImgDivBtmImg src={x.profileImage}></MainImgDivBtmImg>
+                  <MainImgDivBtmSpanDiv>
+                    <MainImgDivTopSpan>{x.title}</MainImgDivTopSpan>
+                    <MainImgDivBtmSpan>{x.nickname}</MainImgDivBtmSpan>
+                  </MainImgDivBtmSpanDiv>
+                  <MainImgDivBtnDiv>
                     <img
-                    src={MainBanner}
-                    alt='루프있을때'
-                    onClick={play}
-                  />
-                    </MainImgDivBtnDiv>
-                  </MainImgDivDiv>
-                ))}
+                      src={MainBanner}
+                      alt='배너 플레이 버튼'
+                      onClick={play}
+                    />
+                  </MainImgDivBtnDiv>
+                </MainImgDivDiv>
+              ))}
               {/* </Slider> */}
             </MainImgDiv>
           ) : (
@@ -486,11 +491,11 @@ const Main = () => {
                   <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
                 </BtmProfileTextDiv>
                 <MainArowLeft>
-                <img
-                src={LeftArrow}
-                alt='오른쪽화살표'
-                onClick={() => sliderRef.current.slickPrev()}
-              />
+                  <img
+                    src={LeftArrow}
+                    alt='오른쪽화살표'
+                    onClick={() => sliderRef.current.slickPrev()}
+                  />
                 </MainArowLeft>
                 <Slider {...Btmsettings}>
                   {PowerArtist.map((x, idx) => {
@@ -522,11 +527,11 @@ const Main = () => {
                   })}
                 </Slider>
                 <MainArowRight>
-                <img
-                src={RightArrow}
-                alt='오른쪽화살표'
-                onClick={() => sliderRef.current.slickNext()}
-              />
+                  <img
+                    src={RightArrow}
+                    alt='오른쪽화살표'
+                    onClick={() => sliderRef.current.slickNext()}
+                  />
                 </MainArowRight>
               </BtmProfileImgDiv>
             )

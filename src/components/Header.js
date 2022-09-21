@@ -123,7 +123,7 @@ const Header = () => {
                     bd_radius: '44px',
                     pd_left: '50px',
                   }}
-                  _placeholder={'Search'}
+                  _placeholder={'검색어를 입력해 주세요...'}
                 />
               </SearchDiv>
             </LeftDiv>

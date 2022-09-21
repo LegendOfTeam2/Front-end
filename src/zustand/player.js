@@ -9,7 +9,7 @@ const usePlayerStore = create((set) => ({
 
   playListMemberIsLoaded: false,
   playListMember: [],
-  currentSongMember:{},
+  currentSongMember: {},
 
   playList: [],
   currentSong: {},
@@ -18,32 +18,34 @@ const usePlayerStore = create((set) => ({
     set({ viewState: state });
   },
 
-  addPlayList : (payload) => {
-    set(state => {
-      const newPlayList = state.playList.filter((play) => play.postId !==  payload.postId);
-      return {playList: [...newPlayList, payload].reverse()};
+  addPlayList: (payload) => {
+    set((state) => {
+      const newPlayList = state.playList.filter(
+        (play) => play.postId !== payload.postId
+      );
+      return { playList: [...newPlayList, payload].reverse() };
     });
-    set({currentSong: payload});
+    set({ currentSong: payload });
   },
 
-  setCurrentSong : (payload) => {
-    set({currentSong: payload});
+  setCurrentSong: (payload) => {
+    set({ currentSong: payload });
   },
 
-  setPlaying : (payload) => {
-    set({playing: payload});
+  setPlaying: (payload) => {
+    set({ playing: payload });
   },
 
-  setIsAutoplay : (payload) => {
-    set({isAutoplay: payload});
+  setIsAutoplay: (payload) => {
+    set({ isAutoplay: payload });
   },
 
   postPlayList: async (payload) => {
     const resData = await postPlayListApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-    if(resData?.data.success) {
-      set({currentSongMember: payload}); 
+    if (resData?.data.success) {
+      set({ currentSongMember: payload });
     }
   },
 
@@ -52,14 +54,18 @@ const usePlayerStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
 
-      if (resData?.data.success) {
-        set({ playListMemberIsLoaded: resData.data.success });
-        set({ playListMember: resData.data.data });
-      }
+    if (resData?.data.success) {
+      set({ playListMemberIsLoaded: resData.data.success });
+      set({
+        playListMember: resData.data.data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        ),
+      });
+    }
   },
 
   setCurrentSongMember: (payload) => {
-    set({currentSongMember: payload});
+    set({ currentSongMember: payload });
   },
 }));
 

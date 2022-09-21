@@ -312,13 +312,3 @@ export const MainAudioPlay = styled.div`
   transition: transform 0.3s ease-in;
 `;
 
-export const MainAudioPlayDiv = styled.div`
-  width: 100%;
-  justify-content: center;
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  transform: translateY(${(props) => props.yIndex});
-  transition: transform 0.3s ease-in;
-`;
