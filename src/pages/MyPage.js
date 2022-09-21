@@ -131,8 +131,8 @@ const MyPage = () => {
       if (res.success) {
         const tempFollowerArr = res.data.map((element) => {
           return element.nickname;
-        })
-        if(tempFollowerArr.indexOf(nickname) !== -1) setIsFollow(true);
+        });
+        if (tempFollowerArr.indexOf(nickname) !== -1) setIsFollow(true);
         getProfileInfo(nickname);
       }
     });
@@ -175,7 +175,7 @@ const MyPage = () => {
   };
 
   const onHandleFollow = () => {
-    if(getCookie('authorization') !== undefined) {
+    if (getCookie('authorization') !== undefined) {
       follow(nickname).then((res) => {
         if (res) {
           setIsFollow(true);
@@ -205,10 +205,6 @@ const MyPage = () => {
     }
   };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f09aeef3cfda79374bfb8802fd9d246226f05ef4
   return (
     <Fragment>
       <Header />
@@ -483,13 +479,8 @@ const MyPage = () => {
 
             {category === 'upload' ? (
               uploadPostIsLoaded ? (
-<<<<<<< HEAD
                 <MyBtmImgDiv>
                   {uploadPost.map((x) => (
-=======
-                uploadPost.map((x) => {
-                  return (
->>>>>>> f09aeef3cfda79374bfb8802fd9d246226f05ef4
                     <PostBig
                       key={x.postId}
                       imageUrl={x.imageUrl}

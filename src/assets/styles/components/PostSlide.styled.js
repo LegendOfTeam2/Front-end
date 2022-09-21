@@ -10,7 +10,6 @@ export const ProfileImgDivDiv = styled.div`
 export const Profileimg = styled.img`
   width: 167px;
   height: 167px;
-  border-radius: 19px;
   ${ProfileImgDivDiv}:hover & {
     filter: brightness(20%);
   }

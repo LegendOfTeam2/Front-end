@@ -4,7 +4,7 @@ export const HeaderContainerDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: #F9F9F9;
+  background-color: #1B1E2F;
   position: fixed;
   border-bottom: 2px solid #28ca7c;
   z-index: 10;

@@ -48,6 +48,7 @@ import {
   VolumeolumeDivbar,
   VolumeolumeDivDiv,
 } from '../../assets/styles/components/Player.Styled';
+import PlayList from '../PlayList';
 
 function PlayerMain() {
   const playList = usePlayerStore((state) => state.playList);
@@ -78,6 +79,7 @@ function PlayerMain() {
   const [ismuted, setIsMuted] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
   const [isRandom, setIsRandom] = useState(false);
+  const [isOpen, setOpen] = useState(false);
 
   const audioRef = useRef();
 
@@ -89,7 +91,7 @@ function PlayerMain() {
 
   useEffect(() => {
     getPlayList();
-  }, []);
+  }, [currentSongMember, getPlayList]);
 
   useEffect(() => {
     const playListMax = playList.length - 1;
@@ -164,7 +166,6 @@ function PlayerMain() {
     currentSongMember.postId,
     playListMemberIsLoaded,
   ]);
-
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
       if (viewState) {
@@ -179,8 +180,10 @@ function PlayerMain() {
       }
     } else {
       if (viewState) {
-        if (currentSong.postId === playList[0].postId) {
-          audioRef.current.currentTime = 0;
+        if (playList.length > 0) {
+          if (currentSong.postId === playList[0].postId) {
+            audioRef.current.currentTime = 0;
+          }
         }
       }
     }
@@ -491,141 +494,175 @@ function PlayerMain() {
     setPlaying(false);
   };
 
+  const PlayListHandlers = () => {
+    setOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    if (viewState === false) {
+      setOpen(false);
+    }
+  }, [viewState]);
+
   return (
-    <MainAudioPlay yIndex={viewState ? '0' : '85%'}>
-      <div>
-        <PlayContainerOut>
-          <PlayContainerOutDiv>
-            {viewState ? (
-              <PlayContainerOutImg src={Hide} alt='접기' onClick={Folding} />
-            ) : (
-              <PlayContainerOutImg src={Show} alt='올리기' onClick={RaiseIt} />
-            )}
-          </PlayContainerOutDiv>
-        </PlayContainerOut>
-        <PlayContainer>
-          <ControlPanelDiv>
-            <AllUpVolumeolumeDiv disPlay={viewState ? 'flex' : 'none'}>
-              <IconImgHover>
-                {isLoop ? (
-                  <img src={PlayListIcon} alt='플레이리스트' />
+    <>
+      {getCookie('authorization') !== undefined ? (
+        <PlayList isOpen={isOpen} playListMember={playListMember} />
+      ) : (
+        <></>
+      )}
+
+      <MainAudioPlay yIndex={viewState ? '0' : '85%'}>
+        <div>
+          <PlayContainerOut>
+            <PlayContainerOutDiv>
+              {viewState ? (
+                <PlayContainerOutImg src={Hide} alt='접기' onClick={Folding} />
+              ) : (
+                <PlayContainerOutImg
+                  src={Show}
+                  alt='올리기'
+                  onClick={RaiseIt}
+                />
+              )}
+            </PlayContainerOutDiv>
+          </PlayContainerOut>
+          <PlayContainer>
+            <ControlPanelDiv>
+              <AllUpVolumeolumeDiv disPlay={viewState ? 'flex' : 'none'}>
+                <IconImgHover>
+                  {getCookie('authorization') !== undefined ? (
+                    isOpen ? (
+                      <img
+                        src={PlayListIcon}
+                        alt='플레이리스트'
+                        onClick={PlayListHandlers}
+                      />
+                    ) : (
+                      <img
+                        src={DisPlayListIcon}
+                        alt='플레이리스트 닫기'
+                        onClick={PlayListHandlers}
+                      />
+                    )
+                  ) : (
+                    <></>
+                  )}
+                </IconImgHover>
+              </AllUpVolumeolumeDiv>
+              <AllBtnContainer>
+                {getCookie('authorization') !== undefined ? (
+                  playListMemberIsLoaded ? (
+                    <MidDiv>
+                      <div>
+                        <ImgCover src={currentSongMember?.imageUrl} alt='' />
+                      </div>
+                      <IntroduceDiv>
+                        <TitleSapn>{currentSongMember?.title}</TitleSapn>
+                        <SingerSpan>{currentSongMember?.nickname}</SingerSpan>
+                      </IntroduceDiv>
+                    </MidDiv>
+                  ) : (
+                    <></>
+                  )
                 ) : (
-                  <img src={DisPlayListIcon} alt='플레이리스트 닫기' />
-                )}
-              </IconImgHover>
-            </AllUpVolumeolumeDiv>
-            <AllBtnContainer>
-              {getCookie('authorization') !== undefined ? (
-                playListMemberIsLoaded ? (
                   <MidDiv>
                     <div>
-                      <ImgCover src={currentSongMember?.imageUrl} alt='' />
+                      <ImgCover src={currentSong?.imageUrl} alt='' />
                     </div>
                     <IntroduceDiv>
-                      <TitleSapn>{currentSongMember?.title}</TitleSapn>
-                      <SingerSpan>{currentSongMember?.nickname}</SingerSpan>
+                      <TitleSapn>{currentSong?.title}</TitleSapn>
+                      <SingerSpan>{currentSong?.nickname}</SingerSpan>
                     </IntroduceDiv>
                   </MidDiv>
+                )}
+                <BtnContainer>
+                  <IconImgHover onClick={RandomPlay}>
+                    {isRandom ? (
+                      <img src={RandomIcon} alt='랜덤' />
+                    ) : (
+                      <img src={DisRandomIcon} alt='램덤아닐때' />
+                    )}
+                  </IconImgHover>
+                  <IconImgHover>
+                    <img src={BackPlay} alt='그전곡' onClick={skipBack} />
+                  </IconImgHover>
+                  <IconImgHover onClick={play}>
+                    {playing ? (
+                      <img src={StopPlay} alt='정지' />
+                    ) : (
+                      <img src={OnPlay} alt='재생' />
+                    )}
+                  </IconImgHover>
+                  <IconImgHover>
+                    <img src={NextPlay} alt='다음곡' onClick={skipNext} />
+                  </IconImgHover>
+                  <IconImgHover onClick={ClickLoop}>
+                    {isLoop ? (
+                      <img src={LoopPlay} alt='루프있을때' />
+                    ) : (
+                      <img src={DisRepeated} alt='루프없을때' />
+                    )}
+                  </IconImgHover>
+                </BtnContainer>
+                <VolumeolumeDiv>
+                  <AllVolumeolumeDiv>
+                    <VolumeolumeDivDiv onClick={ClickMuted}>
+                      {ismuted ? (
+                        <img src={MutedAll} alt='음소거' />
+                      ) : (
+                        <img src={Volume} alt='불륨조절' />
+                      )}
+                    </VolumeolumeDivDiv>
+                    <VolumeolumeDivbar>
+                      <VolumeInput
+                        type='range'
+                        min='0'
+                        max='1'
+                        color='gray'
+                        step='0.01'
+                        value={volume}
+                        onChange={rangeVolume}
+                      />
+                    </VolumeolumeDivbar>
+                  </AllVolumeolumeDiv>
+                </VolumeolumeDiv>
+              </AllBtnContainer>
+              <Player percentage={percentage} onChange={onChange} />
+              {getCookie('authorization') !== undefined ? (
+                playListMemberIsLoaded ? (
+                  <audio
+                    ref={audioRef}
+                    onTimeUpdate={getCurrDuration}
+                    onLoadedData={(e) => {
+                      setDuration(e.currentTarget.duration.toFixed(2));
+                    }}
+                    src={currentSongMember?.mediaUrl}
+                  ></audio>
                 ) : (
                   <></>
                 )
               ) : (
-                <MidDiv>
-                  <div>
-                    <ImgCover src={currentSong?.imageUrl} alt='' />
-                  </div>
-                  <IntroduceDiv>
-                    <TitleSapn>{currentSong?.title}</TitleSapn>
-                    <SingerSpan>{currentSong?.nickname}</SingerSpan>
-                  </IntroduceDiv>
-                </MidDiv>
-              )}
-              <BtnContainer>
-                <IconImgHover onClick={RandomPlay}>
-                  {isRandom ? (
-                    <img src={RandomIcon} alt='랜덤' />
-                  ) : (
-                    <img src={DisRandomIcon} alt='램덤아닐때' />
-                  )}
-                </IconImgHover>
-                <IconImgHover>
-                  <img src={BackPlay} alt='그전곡' onClick={skipBack} />
-                </IconImgHover>
-                <IconImgHover onClick={play}>
-                  {playing ? (
-                    <img src={StopPlay} alt='정지' />
-                  ) : (
-                    <img src={OnPlay} alt='재생' />
-                  )}
-                </IconImgHover>
-                <IconImgHover>
-                  <img src={NextPlay} alt='다음곡' onClick={skipNext} />
-                </IconImgHover>
-                <IconImgHover onClick={ClickLoop}>
-                  {isLoop ? (
-                    <img src={LoopPlay} alt='루프있을때' />
-                  ) : (
-                    <img src={DisRepeated} alt='루프없을때' />
-                  )}
-                </IconImgHover>
-              </BtnContainer>
-              <VolumeolumeDiv>
-                <AllVolumeolumeDiv>
-                  <VolumeolumeDivDiv onClick={ClickMuted}>
-                    {ismuted ? (
-                      <img src={MutedAll} alt='음소거' />
-                    ) : (
-                      <img src={Volume} alt='불륨조절' />
-                    )}
-                  </VolumeolumeDivDiv>
-                  <VolumeolumeDivbar>
-                    <VolumeInput
-                      type='range'
-                      min='0'
-                      max='1'
-                      color='gray'
-                      step='0.01'
-                      value={volume}
-                      onChange={rangeVolume}
-                    />
-                  </VolumeolumeDivbar>
-                </AllVolumeolumeDiv>
-              </VolumeolumeDiv>
-            </AllBtnContainer>
-            <Player percentage={percentage} onChange={onChange} />
-            {getCookie('authorization') !== undefined ? (
-              playListMemberIsLoaded ? (
                 <audio
                   ref={audioRef}
                   onTimeUpdate={getCurrDuration}
                   onLoadedData={(e) => {
                     setDuration(e.currentTarget.duration.toFixed(2));
                   }}
-                  src={currentSongMember?.mediaUrl}
+                  src={currentSong?.mediaUrl}
                 ></audio>
-              ) : (
-                <></>
-              )
-            ) : (
-              <audio
-                ref={audioRef}
-                onTimeUpdate={getCurrDuration}
-                onLoadedData={(e) => {
-                  setDuration(e.currentTarget.duration.toFixed(2));
-                }}
-                src={currentSong?.mediaUrl}
-              ></audio>
-            )}
+              )}
 
-            <TimerDiv>
-              <Timer>{secondsToHms(currentTime)}</Timer>
+              <TimerDiv>
+                <Timer>{secondsToHms(currentTime)}</Timer>
 
-              <Timer>{secondsToHms(duration)}</Timer>
-            </TimerDiv>
-          </ControlPanelDiv>
-        </PlayContainer>
-      </div>
-    </MainAudioPlay>
+                <Timer>{secondsToHms(duration)}</Timer>
+              </TimerDiv>
+            </ControlPanelDiv>
+          </PlayContainer>
+        </div>
+      </MainAudioPlay>
+    </>
   );
 }
 
