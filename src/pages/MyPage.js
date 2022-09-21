@@ -1,5 +1,5 @@
 // React
-import { Fragment, useRef, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 // Zustand
 import useMyPageStore from '../zustand/mypage';
@@ -113,8 +113,6 @@ const MyPage = () => {
   const { nickname } = useParams();
   const navigate = useNavigate();
 
-  const followButtonRef = useRef();
-
   const settings = {
     className: 'center',
     centerMode: true,
@@ -205,10 +203,6 @@ const MyPage = () => {
     }
   };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> f09aeef3cfda79374bfb8802fd9d246226f05ef4
   return (
     <Fragment>
       <Header />
@@ -298,7 +292,6 @@ const MyPage = () => {
                               }}
                               _text={'팔로잉'}
                               _onClick={onHandleFollow}
-                              _ref={followButtonRef}
                             />
                           ) : (
                             <Button
@@ -313,7 +306,6 @@ const MyPage = () => {
                               }}
                               _text={'팔로우'}
                               _onClick={onHandleFollow}
-                              _ref={followButtonRef}
                             />
                           )
                         ) : (
@@ -483,13 +475,8 @@ const MyPage = () => {
 
             {category === 'upload' ? (
               uploadPostIsLoaded ? (
-<<<<<<< HEAD
                 <MyBtmImgDiv>
                   {uploadPost.map((x) => (
-=======
-                uploadPost.map((x) => {
-                  return (
->>>>>>> f09aeef3cfda79374bfb8802fd9d246226f05ef4
                     <PostBig
                       key={x.postId}
                       imageUrl={x.imageUrl}

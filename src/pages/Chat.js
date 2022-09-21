@@ -38,7 +38,7 @@ import {
   ChatDataRoomInputContainer,
   ChatDataRoomInput,
   ChatDataRoomButtonBox
-} from '../assets/styles/pages/Chat.styled'
+} from '../assets/styles/pages/Chat.styled';
 
 const Chat = () => {
   const SERVER_URL = process.env.REACT_APP_REST_API_IP;

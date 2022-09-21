@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+export const BackgroudColor = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1b1e2f;
+`;
 export const SignInContainer = styled.div`
   position: absolute;
   top: 50%;
@@ -266,7 +274,7 @@ export const SignInBoxSocialBoxSocialGroup = styled.div`
   justify-content: center;
   align-items: center;
   .icon-kakao {
-    background-color: #FEE500;
+    background-color: #fee500;
     border-radius: 50%;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
     &:hover {
@@ -329,9 +337,8 @@ export const SignInBoxIcon = styled.div`
   }
   @media ${(props) => props.theme.device.desktopL} {
     .icon-cancel {
-    width: 20px;
-    height: 20px;
-  }
+      width: 20px;
+      height: 20px;
+    }
   }
 `;
-

@@ -1,19 +1,16 @@
 import styled from "styled-components";
 
 export const HotArtistImgDivDiv = styled.div`
-  width: 167px;
+  width: 229px;
   display: 167px;
   position: relative;
   margin-top: 24px;
-  
 `;
 
 export const BtmProfileDivDiv = styled.div`
   width: 167px;
   height: 170px;
-  border: 1px solid #cccccc;
-  border-radius: 8px;
-  background-color: #F9F9F9;
+  border: 1px solid #28CA27;
   display: flex;
   flex-direction: column;
 `;
@@ -51,7 +48,7 @@ export const BtmTextDivDivSmDiv = styled.div`
   width: auto;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 `;
 
 export const BtmTextDivSmSpan = styled.span`
@@ -66,4 +63,6 @@ export const BtmBunDiv = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 4px;
+  display: flex;
+  gap: 10px;
 `;
