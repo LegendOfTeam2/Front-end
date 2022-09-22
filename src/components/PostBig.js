@@ -54,6 +54,7 @@ const PostBig = ({
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+  const postPlayList = usePlayerStore((state) => state.postPlayList);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
   const addLike = useLikeStore((state) => state.addLike);
@@ -67,6 +68,19 @@ const PostBig = ({
     setPlaying(true);
     setIsAutoplay(true);
     addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
+  };
+  const PlayMember = () => {
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    postPlayList({
+      postId,
+      title,
+      nickname,
+      mediaUrl,
+      imageUrl,
+      position,
+    });
   };
 
   const goToDetail = () => {
@@ -120,16 +134,26 @@ const PostBig = ({
       />
       <ToastContainer />
       <BigImgMyBtmRight>
-      <BigImgNotSlideTitleSpan>{title}</BigImgNotSlideTitleSpan>
+        <BigImgNotSlideTitleSpan>{title}</BigImgNotSlideTitleSpan>
         <BigImgNotSlideSpan>{nickname.slice(0, 9)}</BigImgNotSlideSpan>
       </BigImgMyBtmRight>
       <BigMyImgTopLeft onClick={goToDetail}>{title}</BigMyImgTopLeft>
-      <BigMyImgTopBtmLeft onClick={goToDetail}>{nickname.slice(0, 9)}</BigMyImgTopBtmLeft>
+      <BigMyImgTopBtmLeft onClick={goToDetail}>
+        {nickname.slice(0, 9)}
+      </BigMyImgTopBtmLeft>
       <DisBigMyImgTopRight>
-        {collaborate ? <img src={DisCollaboration40} alt='콜라보' /> : <img src={WhiteCollaborate} alt='콜라보' />}
+        {collaborate ? (
+          <img src={DisCollaboration40} alt='콜라보' />
+        ) : (
+          <img src={WhiteCollaborate} alt='콜라보' />
+        )}
       </DisBigMyImgTopRight>
       <BigMyImgTopRight>
-        {collaborate ? <img src={DisCollaboration40} alt='콜라보' /> : <img src={WhiteCollaborate} alt='콜라보' />}
+        {collaborate ? (
+          <img src={DisCollaboration40} alt='콜라보' />
+        ) : (
+          <img src={WhiteCollaborate} alt='콜라보' />
+        )}
       </BigMyImgTopRight>
       <BigMyImgBtmLeft>
         <BigMyImgBtmLeftDiv>
@@ -141,9 +165,15 @@ const PostBig = ({
           <BigMyImgBtmLeftspan>좋아요</BigMyImgBtmLeftspan>
         </BigMyImgBtmLeftDiv>
       </BigMyImgBtmLeft>
-      <BigMyImgBtmRight onClick={Play}>
-        <img src={OnPlay60} alt='플레이 버튼' />
-      </BigMyImgBtmRight>
+      {getCookie('authorization') !== undefined ? (
+        <BigMyImgBtmRight onClick={PlayMember}>
+          <img src={OnPlay60} alt='플레이 버튼' />
+        </BigMyImgBtmRight>
+      ) : (
+        <BigMyImgBtmRight onClick={Play}>
+          <img src={OnPlay60} alt='플레이 버튼' />
+        </BigMyImgBtmRight>
+      )}
     </BigMyImgDivDiv>
   );
 };

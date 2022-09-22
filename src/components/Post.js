@@ -55,6 +55,7 @@ const Post = ({
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+  const postPlayList = usePlayerStore((state) => state.postPlayList);
 
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
@@ -70,6 +71,19 @@ const Post = ({
     setPlaying(true);
     setIsAutoplay(true);
     addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
+  };
+  const PlayMember = () => {
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    postPlayList({
+      postId,
+      title,
+      nickname,
+      mediaUrl,
+      imageUrl,
+      position,
+    });
   };
 
   const LikeClick = () => {
@@ -122,7 +136,7 @@ const Post = ({
       />
       <ToastContainer />
       <ImgMyBtmRight>
-        <ImgNotTopSlideSpan>{title}</ImgNotTopSlideSpan>
+        <ImgNotTopSlideSpan>{title.slice(0, 9)}</ImgNotTopSlideSpan>
         <ImgNotSlideSpan>{nickname.slice(0, 9)}</ImgNotSlideSpan>
       </ImgMyBtmRight>
       <MyImgTopLeft onClick={goToDetail}>{title}</MyImgTopLeft>
@@ -152,7 +166,11 @@ const Post = ({
         </MyImgBtmLeftDiv>
       </MyImgBtmLeft>
       <MyImgBtmRight>
-        <img src={OnPlay} alt='플레이 버튼' onClick={Play} />
+        {getCookie('authorization') !== undefined ? (
+          <img src={OnPlay} alt='플레이 버튼' onClick={PlayMember} />
+        ) : (
+          <img src={OnPlay} alt='플레이 버튼' onClick={Play} />
+        )}
       </MyImgBtmRight>
     </MyImgDivDiv>
   );

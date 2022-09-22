@@ -43,6 +43,14 @@ export const MainImgDivBtmImg = styled.img`
   width: 80px;
   height: 80px;
   border-radius: 50%;
+`;
+
+export const MainImgDivBtmImgDiv = styled.div`
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  border-radius: 50%;
   position: absolute;
   bottom: 10%;
   left: 24%;
@@ -61,11 +69,10 @@ export const MainImgDivDivBtmDiv = styled.div`
 export const MainImgDivBtmSpanDiv = styled.div`
   width: auto;
   height: auto;
+  justify-content: center;
   display: flex;
   flex-direction: column;
-  position: absolute;
-  bottom: 12%;
-  left: 30.5%;
+  margin-left: 10px;
 `;
 
 

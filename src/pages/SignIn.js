@@ -57,6 +57,7 @@ import {
   SignInBackground,
   SignInBackgroundSm,
 } from '../assets/images/image';
+import usePlayerStore from '../zustand/player';
 
 const SignIn = () => {
   const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -64,6 +65,14 @@ const SignIn = () => {
   const KAKAO_REDIRECT_URI = 'https://rhythme.shop/kakao/callback';
   const GOOGLE_REDIRECT_URI = 'https://rhythme.shop/google/callback';
 
+  const getPlayList = usePlayerStore((state) => state.getPlayList);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const isAutoplay = usePlayerStore((state) => state.isAutoplay);
+  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
+  const setCurrentSongMember = usePlayerStore(
+    (state) => state.setCurrentSongMember
+  );
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [view, setView] = useState({ email: false, password: false });
@@ -126,6 +135,19 @@ const SignIn = () => {
       } else {
         signInMember({ email, password }).then((res) => {
           if (res) {
+            getPlayList().then((res) => {
+              if (res.success) {
+                
+                if (res.data.length > 0) {
+                  const firstSong = [...res.data].sort(
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                  )[0];
+                  setCurrentSongMember(firstSong);
+                  setPlaying(true)
+                  viewStateChange(true)
+                }
+              }
+            });
             navigate('/');
           } else {
             alert(
