@@ -17,10 +17,11 @@ export const WriteBox = styled.div`
   justify-content: center;
   position: relative;
   border-radius: 30px;
-  border: 1px solid rgba(40, 202, 124, 1) ;
+  border: 1px solid rgba(40, 202, 124, 1);
   background-color: #ffffff;
 `;
 export const WriteIconContainer = styled.div`
+  opacity: 0.3;
   position: absolute;
   top: 26px;
   right: 26px;
@@ -403,6 +404,13 @@ export const WriteHashTagBox = styled.span`
 export const WriteButtonContainer = styled.div`
   position: absolute;
   right: 14px;
+  bottom: 17px;
+  width: auto;
+  height: auto;
+`;
+export const WriteButtonDeleteContainer = styled.div`
+  position: absolute;
+  left: 48px;
   bottom: 17px;
   width: auto;
   height: auto;

@@ -65,7 +65,7 @@ function App() {
         <Route path='/google/callback' element={<Google />} />
         <Route path='/write' element={is_login ? <Write /> : <Main />} />
         <Route
-          path='/ModifyWrite/:position/:postid'
+          path='/ModifyWrite/:position/:postId'
           element={is_login ? <WriteModify /> : <Main />}
         />
         <Route
@@ -73,7 +73,7 @@ function App() {
           element={is_login ? <MyInfoModify /> : <Main />}
         />
         <Route path='/search' element={<Search />} />
-        <Route path='/detail/:position/:postid' element={<Detail />} />
+        <Route path='/detail/:position/:postId' element={<Detail />} />
         <Route path='/morepage/:position/:ctg' element={<MorePage />} />
         <Route
           path='/withdrawal'

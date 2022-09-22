@@ -103,7 +103,9 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
           <BtmTextDivSpan>{nickname.slice(0, 9)}</BtmTextDivSpan>
         </BtmTextDivDivDiv>
         <BtmTextDivDivSmDiv>
-          <BtmTextDivSmSpan style={{color: '#28CA27'}}>{counter}</BtmTextDivSmSpan>
+          <BtmTextDivSmSpan style={{ color: '#28CA7C' }}>
+            {counter}
+          </BtmTextDivSmSpan>
           <BtmTextDivSmSpan> 팔로워</BtmTextDivSmSpan>
         </BtmTextDivDivSmDiv>
         <BtmBunDiv>
@@ -113,7 +115,7 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
               _style={{
                 width: '66px',
                 height: '31px',
-                bg_color: '#28CA27',
+                bg_color: '#28CA7C',
                 bd_radius: '8px',
                 color: '#FFFFFF',
                 ft_weight: '700',
@@ -131,30 +133,30 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
                 height: '33px',
                 bg_color: '#FFFFFF',
                 bd_radius: '8px',
-                color: '#28CA27',
+                color: '#28CA7C',
                 ft_weight: '700',
                 ft_size: '16',
                 bd_px: '1px',
-                bd_color: '#28CA27',
+                bd_color: '#28CA7C',
               }}
               _text={'팔로우'}
             />
           )}
           <Button
-              _onClick={onHandleFollow}
-              _style={{
-                width: '66px',
-                height: '31px',
-                bg_color: '#ffffff',
-                bd_radius: '8px',
-                color: '#28CA27',
-                ft_weight: '700',
-                ft_size: '16',
-                bd_px: '1px',
-                bd_color: '#28CA27',
-              }}
-              _text={'메시지'}
-            />
+            _onClick={onHandleFollow}
+            _style={{
+              width: '66px',
+              height: '31px',
+              bg_color: '#ffffff',
+              bd_radius: '8px',
+              color: '#28CA7C',
+              ft_weight: '700',
+              ft_size: '16',
+              bd_px: '1px',
+              bd_color: '#28CA7C',
+            }}
+            _text={'메시지'}
+          />
         </BtmBunDiv>
       </BtmProfileDivDiv>
     </HotArtistImgDivDiv>

@@ -13,11 +13,9 @@ const usePlayerStore = create((set) => ({
 
   playList: [],
   currentSong: {},
-
   viewStateChange: (state) => {
     set({ viewState: state });
   },
-
   addPlayList: (payload) => {
     set((state) => {
       const newPlayList = state.playList.filter(
@@ -27,19 +25,15 @@ const usePlayerStore = create((set) => ({
     });
     set({ currentSong: payload });
   },
-
   setCurrentSong: (payload) => {
     set({ currentSong: payload });
   },
-
   setPlaying: (payload) => {
     set({ playing: payload });
   },
-
   setIsAutoplay: (payload) => {
     set({ isAutoplay: payload });
   },
-
   postPlayList: async (payload) => {
     const resData = await postPlayListApi(payload)
       .then((res) => res)
@@ -48,7 +42,6 @@ const usePlayerStore = create((set) => ({
       set({ currentSongMember: payload });
     }
   },
-
   getPlayList: async (payload) => {
     const resData = await getPlayListApi(payload)
       .then((res) => res)
@@ -63,9 +56,11 @@ const usePlayerStore = create((set) => ({
       });
     }
   },
-
   setCurrentSongMember: (payload) => {
     set({ currentSongMember: payload });
+  },
+  clearPlayListMember: () => {
+    set({ playListMember: [] });
   },
 }));
 

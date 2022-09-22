@@ -10,7 +10,7 @@ export const HotArtistImgDivDiv = styled.div`
 export const BtmProfileDivDiv = styled.div`
   width: 167px;
   height: 170px;
-  border: 1px solid #28CA27;
+  border: 1px solid #28CA7C;
   display: flex;
   flex-direction: column;
 `;

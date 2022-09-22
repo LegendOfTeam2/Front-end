@@ -90,7 +90,7 @@ export const PositionAllDiv = styled.div`
 export const DetailProfileContainer = styled.div`
   width: 100%;
   height: 115px;
-  border: 1px solid #28ca27;
+  border: 1px solid #28CA7C;
   margin-top: 41px;
   position: relative;
 `;
@@ -109,7 +109,7 @@ export const DetailProfileBox = styled.div`
 
 export const DetailProfileBtnVertical = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  color: #28ca27;
+  color: #28CA7C;
 `;
 
 export const DetailProfileBtnGroup = styled.div`
@@ -118,7 +118,7 @@ export const DetailProfileBtnGroup = styled.div`
   align-items: center;
   width: auto;
   height: auto;
-  right: 50px;
+  right: 25px;
   top: 50%;
   gap: 25px;
   transform: translateY(-50%);
@@ -144,7 +144,7 @@ export const PositionMarkerSpan = styled.div`
 export const PositionMidDiv = styled.div`
   width: 904px;
   height: 381px;
-  border: 1px solid #28ca27;
+  border: 1px solid #28CA7C;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -271,14 +271,14 @@ export const DetailProfileBtmSecSpan = styled.span`
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   color: rgba(40, 202, 124, 1);
-  margin-top: 4px;
+  padding-bottom: 3px;
 `;
 
 export const DetailIntroContainer = styled.div`
   margin-top: 45px;
   width: auto;
   height: auto;
-  border: 1px solid #28ca27;
+  border: 1px solid #28CA7C;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -289,12 +289,12 @@ export const DetailTopLyrics = styled.div`
   font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.xxxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  color: #28ca27;
+  color: #28CA7C;
   padding: 16px 74px;
 `;
 
 export const DetailHorizonLine = styled.div`
-  border-top: 1px solid #28ca27;
+  border-top: 1px solid #28CA7C;
   width: 98%;
 `;
 
@@ -308,6 +308,7 @@ export const DetailBtmLyricsDivDiv = styled.div`
   height: ${(props) => (props.lyrics ? 'auto' : '200px')};
   overflow: hidden;
   padding: 36px 74px;
+  text-align: center;
 `;
 
 export const DetailBtmLyricsDivSpan = styled.span`
@@ -317,12 +318,13 @@ export const DetailBtmLyricsDivSpan = styled.span`
   white-space: pre-wrap;
   word-break: break-all;
   overflow: auto;
+  text-align: center;
 `;
 export const DetailLyricsContainer = styled.div`
   margin-top: 45px;
   width: auto;
   height: auto;
-  border: 1px solid #28ca27;
+  border: 1px solid #28CA7C;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -363,6 +365,7 @@ export const DetailBtmMoreDivDiv = styled.div`
   height: ${(props) => (props.introduction ? 'auto' : '200px')};
   overflow: hidden;
   padding: 36px 74px;
+  text-align: center;
 `;
 
 export const DetailBtmMoreDivSpan = styled.span`

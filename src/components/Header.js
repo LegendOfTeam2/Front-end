@@ -31,12 +31,16 @@ import {
   SearchIconDiv,
 } from '../assets/styles/components/Header.styled';
 import { HeaderlargeLogo, Search } from '../assets/images/image';
+import usePostStore from '../zustand/post';
 
 const Header = () => {
   const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
 
   const setSearchKeyword = useSearchStore((state) => state.setSearchKeyword);
+
+  const clearArtistIsFollow = usePostStore((state) => state.clearArtistIsFollow);
+
   const signOutMember = useMemberStore((state) => state.signOutMember);
   const getMyImage = useMemberStore((state) => state.getMyImage);
   const myProfileImg = useMemberStore((state) => state.myProfileImg);
@@ -69,7 +73,7 @@ const Header = () => {
     removeCookie('authorization');
     window.sessionStorage.setItem('refresh-token', '');
     alert('로그아웃 되었습니다.');
-    navigate('/');
+    window.location = '/';
   };
 
   const onClickSearch = useCallback(() => {
