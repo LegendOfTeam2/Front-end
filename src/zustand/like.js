@@ -28,11 +28,10 @@ const useLikeStore = create((set) => ({
           const likeList = resData.data.data.map((post) => {
             return post.singerId;
           });
-
           return { singerIsLike: likeList };
         }
       });
-      return resData.data.success;
+      return resData.data;
     }
   },
 
@@ -49,7 +48,7 @@ const useLikeStore = create((set) => ({
           return { makerIsLike: likeList };
         }
       });
-      return resData.data.success;
+      return resData.data;
     }
   },
 }));

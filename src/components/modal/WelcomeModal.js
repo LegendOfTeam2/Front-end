@@ -19,12 +19,12 @@ import {
   WlContainer,
   WlDiv,
   WlInBox,
-} from "../../assets/styles/components/modal/Welcome.styled";
+} from "../../assets/styles/components/modal/WelcomeModal.styled";
 import { WelcomeMsg } from "../../assets/images/image";
 import { useNavigate } from "react-router-dom";
 
 
-const Welcome = ({ isOpen, onCancel,nickname }) => {
+const WelcomeModal = ({ isOpen, onCancel,nickname }) => {
   const navigate = useNavigate()
   
   const handleClickCancel = () => {
@@ -89,4 +89,4 @@ const Welcome = ({ isOpen, onCancel,nickname }) => {
   );
 };
 
-export default Welcome;
+export default WelcomeModal;

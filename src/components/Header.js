@@ -31,6 +31,7 @@ import {
   SearchIconDiv,
 } from '../assets/styles/components/Header.styled';
 import { HeaderlargeLogo, Search } from '../assets/images/image';
+import usePostStore from '../zustand/post';
 import usePlayerStore from '../zustand/player';
 
 const Header = () => {
@@ -38,6 +39,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const setSearchKeyword = useSearchStore((state) => state.setSearchKeyword);
+
   const signOutMember = useMemberStore((state) => state.signOutMember);
   const getMyImage = useMemberStore((state) => state.getMyImage);
   const myProfileImg = useMemberStore((state) => state.myProfileImg);
@@ -74,7 +76,7 @@ const Header = () => {
     clearPlayListMember()
     setPlaying(false)
     alert('로그아웃 되었습니다.');
-    navigate('/');
+    window.location = '/';
   };
 
   const onClickSearch = useCallback(() => {

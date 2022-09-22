@@ -60,7 +60,7 @@ const MorePage = () => {
   useEffect(() => {
     if (position === 'singer') {
       getSingerLikePost().then((res) => {
-        if (res) {
+        if (res.success) {
           getRecentSinger();
           getBestSinger();
         }

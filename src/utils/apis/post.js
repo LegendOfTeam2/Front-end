@@ -34,7 +34,7 @@ export const getPowerArtistApi = (payload) => {
 };
 export const getDetailApi = (payload) => {
   return api_basic.get(
-    `/api/post/${payload.postid}?position=${payload.position}`
+    `/api/post/${payload.postId}?position=${payload.position}`
   );
 };
 export const putModifyWriteApi = (payload) => {

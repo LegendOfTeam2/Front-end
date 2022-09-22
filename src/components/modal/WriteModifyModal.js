@@ -59,23 +59,6 @@ const WriteModifyModal = ({ isOpen, onCancel }) => {
         <WriteModalBtnGroup>
           <Button
             _type={'button'}
-            _text={'삭제가기'}
-            _style={{
-              width: '109px',
-              line_height: '20',
-              font: '14',
-              pd_top: '20px',
-              pd_bottom: '20px',
-              bg_color: 'black',
-              color: 'white',
-              height: 'auto',
-              bd_radius: '10px',
-              ft_weight: '800',
-            }}
-            _onClick={() => navigate(-1)}
-          />
-          <Button
-            _type={'button'}
             _text={'취소하기'}
             _style={{
               width: '109px',
@@ -92,6 +75,23 @@ const WriteModifyModal = ({ isOpen, onCancel }) => {
               ft_weight: '800',
             }}
             _onClick={handleClickCancel}
+          />
+          <Button
+            _type={'button'}
+            _text={'삭제하기'}
+            _style={{
+              width: '109px',
+              line_height: '20',
+              font: '14',
+              pd_top: '20px',
+              pd_bottom: '20px',                         
+              bg_color: '#de1b4a',
+              color: 'white',
+              height: 'auto',
+              bd_radius: '10px',
+              ft_weight: '800',
+            }}
+            _onClick={() => navigate(-1)}
           />
         </WriteModalBtnGroup>
       </WriteModalContainer>

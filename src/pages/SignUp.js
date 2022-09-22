@@ -13,7 +13,7 @@ import { debounce } from 'lodash';
 // Components
 import HashTagWithIcon from '../components/HashTagWithIcon';
 import UploadImage from '../components/UploadImage';
-import Welcome from '../components/modal/Welcome';
+import WelcomeModal from '../components/modal/WelcomeModal';
 
 // Element
 import Input from '../elements/Input';
@@ -391,7 +391,7 @@ const SignUp = () => {
     <Fragment>
       <BackgroudColor />
       <SignUpContainer>
-        <Welcome isOpen={isOpen} nickname={nicknameModal} />
+        <WelcomeModal isOpen={isOpen} nickname={nicknameModal} />
         <SignUpBox>
           <SignUpIcon onClick={() => navigate('/')}>
             <GrClose className='icon-cancel' color='red'></GrClose>
