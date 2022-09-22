@@ -101,9 +101,13 @@ const Main = () => {
   const PowerArtistLoaded = usePostStore((state) => state.PowerArtistLoaded);
   const PowerArtist = usePostStore((state) => state.PowerArtist);
 
+  const artistIsFollowIsLoaded = usePostStore(
+    (state) => state.artistIsFollowIsLoaded
+  );
+  const artistIsFollow = usePostStore((state) => state.artistIsFollow);
+
   const singerIsLike = useLikeStore((state) => state.singerIsLike);
   const makerIsLike = useLikeStore((state) => state.makerIsLike);
-  const artistIsFollow = usePostStore((state) => state.artistIsFollow);
 
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
@@ -124,13 +128,13 @@ const Main = () => {
     } else {
       getSingerLikePost().then((res) => {
         getBestSong();
-        if (res) {
+        if (res.success) {
           getRecentSinger();
           getBestSinger();
         }
       });
       getMakerLikePost().then((res) => {
-        if (res) {
+        if (res.success) {
           getRecentMaker();
           getBestMaker();
         }
@@ -526,28 +530,26 @@ const Main = () => {
                   />
                 </MainArowLeft>
                 <Slider {...Btmsettings}>
-                  {PowerArtist.map((x, idx) => {
+                  {PowerArtist.map((x) => {
                     if (artistIsFollow.indexOf(x.nickname) < 0) {
                       return (
                         <HotArtist
-                          key={idx}
                           nickname={x.nickname}
+                          imageUrl={x.imageUrl}
                           follower={x.follower
                             .toString()
                             .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
-                          imageUrl={x.imageUrl}
                           isFollow={false}
                         />
                       );
                     } else {
                       return (
                         <HotArtist
-                          key={idx}
                           nickname={x.nickname}
+                          imageUrl={x.imageUrl}
                           follower={x.follower
                             .toString()
                             .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
-                          imageUrl={x.imageUrl}
                           isFollow={true}
                         />
                       );
@@ -564,7 +566,7 @@ const Main = () => {
               </BtmProfileImgDiv>
             )
           ) : (
-            <></>
+            <Fragment />
           )}
         </MainContainer>
       </MainContainerDiv>

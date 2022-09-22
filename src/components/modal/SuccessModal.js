@@ -15,7 +15,7 @@ import {
   WriteModalLogo,
   WriteModalLogoImg
 } from '../../assets/styles/components/modal/WriteModal.styled';
-import { Exclamation } from '../../assets/images/image';
+import { Success } from '../../assets/images/image';
 
 const customStyles = {
   overlay: {
@@ -37,61 +37,34 @@ const customStyles = {
   },
 };
 
-const WriteModal = ({ isOpen, onCancel }) => {
+const SuccessModal = ({ isOpen }) => {
   const navigate = useNavigate();
-  const handleClickCancel = () => {
-    onCancel();
-  };
   return (
     <ReactModal isOpen={isOpen} style={customStyles}>
       <WriteModalContainer>
-        <WriteModalIcon onClick={handleClickCancel}>
-          <GrClose className='icon'></GrClose>
-        </WriteModalIcon>
         <WriteModalLogo>
-          <WriteModalLogoImg src={Exclamation} />
+          <WriteModalLogoImg src={Success} />
         </WriteModalLogo>
         <WriteModalQuestionText>
-          지금까지 입력하신 모든 정보가 삭제됩니다.
-          <br />
-          정말 삭제하시겠습니까?
+          완료되었습니다!
         </WriteModalQuestionText>
         <WriteModalBtnGroup>
           <Button
             _type={'button'}
-            _text={'취소하기'}
+            _text={'확인 했습니다.'}
             _style={{
-              width: '109px',
+              width: '480px',
               line_height: '20',
-              font: '14',
+              font: '16',
               pd_top: '20px',
               pd_bottom: '20px',
-              bg_color: 'white',
-              color: '#b4b4b4',
-              height: 'auto',
-              bd_radius: '10px',
-              bd_px: '#b4b4b4',
-              bd_color: '#b4b4b4',
-              ft_weight: '800',
-            }}
-            _onClick={handleClickCancel}
-          />
-          <Button
-            _type={'button'}
-            _text={'삭제하기'}
-            _style={{
-              width: '109px',
-              line_height: '20',
-              font: '14',
-              pd_top: '20px',
-              pd_bottom: '20px',
-              bg_color: '#de1b4a',
-              color: 'white',
+              bg_color: '#28ca72',
+              color: '#ffffff',
               height: 'auto',
               bd_radius: '10px',
               ft_weight: '800',
             }}
-            _onClick={() => navigate(-1)}
+            _onClick={() => navigate('/')}
           />
         </WriteModalBtnGroup>
       </WriteModalContainer>
@@ -99,4 +72,4 @@ const WriteModal = ({ isOpen, onCancel }) => {
   );
 };
 
-export default WriteModal;
+export default SuccessModal;

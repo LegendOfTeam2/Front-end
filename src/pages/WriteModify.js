@@ -1,8 +1,10 @@
 // React
 import { useState, useRef, Fragment, useCallback, useEffect } from 'react';
+
 // Zustand
 import useUploadStore from '../zustand/upload';
 import usePostStore from '../zustand/post';
+
 // Packages
 import { GrClose, GrAdd } from 'react-icons/gr';
 import { ImHeadphones } from 'react-icons/im';
@@ -13,13 +15,20 @@ import shortid from 'shortid';
 import jwt_decode from 'jwt-decode';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCookie } from '../utils/cookie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Components
 import UploadImage from '../components/UploadImage';
 import HashTagWithIcon from '../components/HashTagWithIcon';
 import WriteModifyModal from '../components/modal/WriteModifyModal';
+import WriteDeleteModal from '../components/modal/WriteDeleteModal';
+import SuccessModal from '../components/modal/SuccessModal';
+
 // Elements
 import Input from '../elements/Input';
 import Button from '../elements/Button';
+
 // Essets
 import {
   WriteContainer,
@@ -60,12 +69,15 @@ import {
   WriteHashTag,
   WriteHashTagBox,
   WriteButtonContainer,
+  WriteButtonDeleteContainer,
 } from '../assets/styles/pages/Write.styled';
+import PlayList from '../components/PlayList';
 
 const WriteModify = () => {
   const uploadAudio = useUploadStore((state) => state.uploadAudio);
   const getDetail = usePostStore((state) => state.getDetail);
   const putModifyWrite = usePostStore((state) => state.putModifyWrite);
+  const deleteDetail = usePostStore((state) => state.deleteDetail);
 
   const [title, setTitle] = useState('');
   const [lyrics, setLyrics] = useState('');
@@ -76,7 +88,9 @@ const WriteModify = () => {
   const [tags, setTags] = useState([]);
   const [collaborate, setCollaborate] = useState(false);
   const [position, setPosition] = useState('');
-  const [isOpen, setOpen] = useState(false);
+  const [cancelIsOpen, setCancelIsOpen] = useState(false);
+  const [deleteIsOpen, setDeleteIsOpen] = useState(false);
+  const [successIsOpen, setSuccessIsOpen] = useState(false);
 
   const collaboBoxRef = useRef();
   const collaboTextRef = useRef();
@@ -92,11 +106,11 @@ const WriteModify = () => {
   const audioNameRef = useRef();
   const audioSizeRef = useRef();
 
-  const Params = useParams();
+  const params = useParams();
   const navigate = useNavigate();
 
   const modifyPost = {
-    postId: Params.postid,
+    postId: params.postId,
     position,
     title,
     content: intro,
@@ -108,13 +122,36 @@ const WriteModify = () => {
     collaborate,
   };
 
-  const onHandleModal = () => {
-    setOpen(true);
+  const deletePost = {
+    postId: params.postId,
+    position,
+  };
+
+  const onHandleCancelModal = () => {
+    setCancelIsOpen(true);
+  };
+
+  const onHandleDeleteModal = () => {
+    setDeleteIsOpen(true);
+  };
+
+  const onHandleSuccessModal = () => {
+    setSuccessIsOpen(true);
   };
 
   const onCancel = useCallback(() => {
-    setOpen(false);
-  }, [isOpen]);
+    setDeleteIsOpen(false);
+    setCancelIsOpen(false);
+  }, [cancelIsOpen]);
+
+  const onDeleteDetail = () => {
+    deleteDetail(deletePost).then((res) => {
+      if (res) {
+        onCancel();
+        onHandleSuccessModal();
+      }
+    });
+  };
 
   useEffect(() => {
     if (title !== '') titleIconRef.current.style.display = 'block';
@@ -126,10 +163,9 @@ const WriteModify = () => {
   }, [title, lyrics, intro]);
 
   useEffect(() => {
-    getDetail(Params).then((res) => {
+    getDetail(params).then((res) => {
       if (res.success) {
         const data = res.data;
-        console.log(data);
         setTitle(data.title);
         setLyrics(data.lyrics);
         setIntro(data.content);
@@ -139,8 +175,6 @@ const WriteModify = () => {
         setCollaborate(data.collaborate);
         setPosition(data.position);
         setTags(data.tags);
-
-        console.log(data.mediaUrl);
 
         audioNameRef.current.innerText = data.mediaUrl.split('-').slice(-1);
         audioBoxRef.current.style.display = 'block';
@@ -219,7 +253,12 @@ const WriteModify = () => {
       if (res.success) {
         setAudio(res.data[0]);
       } else {
-        alert('오디오 업로드에 실패했습니다.');
+        toast.warning('오디오 업로드에 실패했습니다.', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
         setAudio('');
       }
     });
@@ -236,7 +275,12 @@ const WriteModify = () => {
       if (res.success) {
         setAudio(res.data[0]);
       } else {
-        alert('오디오 업로드에 실패했습니다.');
+        toast.warning('오디오 업로드에 실패했습니다.', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
         setAudio('');
       }
     });
@@ -255,7 +299,6 @@ const WriteModify = () => {
     setAudio('');
   }, [audio]);
 
-  // Hashtag
   const addTag = useCallback(
     (event) => {
       if (event.key === 'Enter') {
@@ -265,7 +308,12 @@ const WriteModify = () => {
             setTags([...tags, event.target.value]);
             event.target.value = '';
           } else {
-            alert('중복되는 태그입니다.');
+            toast.warning('중복되는 태그입니다.', {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
           }
         }
       }
@@ -277,7 +325,12 @@ const WriteModify = () => {
             setTags([...tags, event.target.value]);
             event.target.value = '';
           } else {
-            alert('중복되는 태그입니다.');
+            toast.warning('중복되는 태그입니다.', {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
           }
         }
       }
@@ -293,18 +346,27 @@ const WriteModify = () => {
     [tags]
   );
 
-  // Position
   const onHandlePostionAlert = (newPosition) => {
     switch (newPosition) {
       case 'Singer': {
         if (position !== newPosition) {
-          alert('포지션 변경은 불가능합니다');
+          toast.warning('포지션 변경은 불가능합니다.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1500,
+            draggablePercent: 60,
+            hideProgressBar: true,
+          });
         }
         break;
       }
       case 'Maker': {
         if (position !== newPosition) {
-          alert('포지션 변경은 불가능합니다');
+          toast.warning('포지션 변경은 불가능합니다.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 1500,
+            draggablePercent: 60,
+            hideProgressBar: true,
+          });
         }
         break;
       }
@@ -314,7 +376,6 @@ const WriteModify = () => {
     }
   };
 
-  // Collabo
   const changeCollaborateStatus = () => {
     if (collaborate) {
       collaboBoxRef.current.style.borderColor = '#b4b4b4';
@@ -332,12 +393,16 @@ const WriteModify = () => {
   const modifyPostHandle = (e) => {
     e.preventDefault();
     if (audio === '') {
-      alert('오디오를 삽입해주세요.');
+      toast.warning('오디오를 삽입해주세요.', {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 1500,
+        draggablePercent: 60,
+        hideProgressBar: true,
+      });
     } else {
       putModifyWrite(modifyPost).then((res) => {
-        if(res.success) {
-          alert('게시글 수정이 완료되었습니다.');
-          navigate(-1);
+        if (res.success) {
+          onHandleSuccessModal();
         }
       });
     }
@@ -345,10 +410,13 @@ const WriteModify = () => {
 
   return (
     <Fragment>
-      <WriteModifyModal isOpen={isOpen} onCancel={onCancel} />
+      <ToastContainer />
+      <WriteModifyModal isOpen={cancelIsOpen} onCancel={onCancel} />
+      <WriteDeleteModal isOpen={deleteIsOpen} onCancel={onCancel} onDeleteDetail={onDeleteDetail} />
+      <SuccessModal isOpen={successIsOpen} />
       <WriteContainer>
         <WriteBox>
-          <WriteIconContainer onClick={onHandleModal}>
+          <WriteIconContainer onClick={onHandleCancelModal}>
             <GrClose color='#cecece'></GrClose>
           </WriteIconContainer>
           <WriteCollaboContainer
@@ -539,14 +607,34 @@ const WriteModify = () => {
                 bd_radius: '5px',
                 width: '124px',
                 height: '44px',
-                bg_color: 'black',
+                bg_color: '#28ca7c',
                 ft_weight: '800',
                 ft_size: '12',
                 line_height: '18',
               }}
               _form={'write'}
-            ></Button>
+            />
           </WriteButtonContainer>
+          <WriteButtonDeleteContainer>
+            <Button
+              _type={'button'}
+              _text={'게시글 삭제하기'}
+              _style={{
+                bd_radius: '5px',
+                width: '159px',
+                height: '44px',
+                bg_color: '#ffffff',
+                bd_px: '1px',
+                bd_color: '#b4b4b4',
+                ft_weight: '800',
+                ft_size: '12',
+                line_height: '18',
+                color: '#b4b4b4',
+              }}
+              _form={'write'}
+              _onClick={onHandleDeleteModal}
+            />
+          </WriteButtonDeleteContainer>
         </WriteBox>
       </WriteContainer>
     </Fragment>

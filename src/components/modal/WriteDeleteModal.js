@@ -13,7 +13,7 @@ import {
   WriteModalQuestionText,
   WriteModalBtnGroup,
   WriteModalLogo,
-  WriteModalLogoImg
+  WriteModalLogoImg,
 } from '../../assets/styles/components/modal/WriteModal.styled';
 import { Exclamation } from '../../assets/images/image';
 
@@ -37,8 +37,7 @@ const customStyles = {
   },
 };
 
-const WriteModal = ({ isOpen, onCancel }) => {
-  const navigate = useNavigate();
+const WriteDeleteModal = ({ isOpen, onCancel, onDeleteDetail }) => {
   const handleClickCancel = () => {
     onCancel();
   };
@@ -52,9 +51,9 @@ const WriteModal = ({ isOpen, onCancel }) => {
           <WriteModalLogoImg src={Exclamation} />
         </WriteModalLogo>
         <WriteModalQuestionText>
-          지금까지 입력하신 모든 정보가 삭제됩니다.
+          게시된 모든 내용이 삭제됩니다.
           <br />
-          정말 삭제하시겠습니까?
+          삭제하시겠습니까?
         </WriteModalQuestionText>
         <WriteModalBtnGroup>
           <Button
@@ -91,7 +90,7 @@ const WriteModal = ({ isOpen, onCancel }) => {
               bd_radius: '10px',
               ft_weight: '800',
             }}
-            _onClick={() => navigate(-1)}
+            _onClick={onDeleteDetail}
           />
         </WriteModalBtnGroup>
       </WriteModalContainer>
@@ -99,4 +98,4 @@ const WriteModal = ({ isOpen, onCancel }) => {
   );
 };
 
-export default WriteModal;
+export default WriteDeleteModal;
