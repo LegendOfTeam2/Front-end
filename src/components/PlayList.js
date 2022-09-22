@@ -21,24 +21,25 @@ import { useRef } from 'react';
 
 const PlayList = () => {
   const playListState = usePlayerStore((state) => state.playListState);
-  const playListStateChange = usePlayerStore((state) => state.playListStateChange);
+  const playListStateChange = usePlayerStore(
+    (state) => state.playListStateChange
+  );
   const playListMember = usePlayerStore((state) => state.playListMember);
-  const getPlayList = usePlayerStore((state) => state.getPlayList);
-  
 
   const [isOpen, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalList, setModalList] = useState();
+  const [duration, setDuration] = useState(0);
 
-  const audioRef = useRef()
+  const audioRef = useRef();
 
   const XboxClick = () => {
-    playListStateChange(false)
-  }
+    playListStateChange(false);
+  };
 
   const PlayListCloseModalOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const onCancel = useCallback(() => {
     setOpen(false);
@@ -49,21 +50,57 @@ const PlayList = () => {
   }, [isOpen]);
 
   const ListModalOpen = (postId) => {
-    const filterList = playListMember.filter((x)=> x.postId === postId)
+    const filterList = playListMember.filter((x) => x.postId === postId);
     setModalList({
-      postId : filterList[0].postId,
-      title : filterList[0].title,
+      postId: filterList[0].postId,
+      title: filterList[0].title,
       nickname: filterList[0].nickname,
       imageUrl: filterList[0].imageUrl,
-      lyrics: filterList[0].lyrics
-  })
-    setModalOpen(true)
+      lyrics: filterList[0].lyrics,
+    });
+    setModalOpen(true);
+  };
+
+  function secondsToHms(seconds) {
+    if (!seconds) return '00 : 00';
+
+    let duration = seconds;
+    let hours = duration / 3600;
+    duration = duration % 3600;
+
+    let min = parseInt(duration / 60);
+    duration = duration % 60;
+
+    let sec = parseInt(duration);
+
+    if (sec < 10) {
+      sec = `0${sec}`;
+    }
+    if (min < 10) {
+      min = `0${min}`;
+    }
+
+    if (parseInt(hours, 10) > 0) {
+      return `${parseInt(hours, 10)} : ${min} : ${sec}`;
+    } else if (min === 0) {
+      return `00 : ${sec}`;
+    } else {
+      return `${min} : ${sec}`;
+    }
   }
-  console.log(audioRef.current);
+  console.log(audioRef.current.duration);
   return (
     <PlayListAllContainer ListyIndex={playListState ? 'flex' : 'none'}>
-      <PlayListCloseModal isOpen={isOpen} onCancel={onCancel} playListMemberLength={playListMember.length} />
-      <PlayListModal modalOpen={modalOpen} playListCancel={playListCancel} ModalList={modalList}/>
+      <PlayListCloseModal
+        isOpen={isOpen}
+        onCancel={onCancel}
+        playListMemberLength={playListMember.length}
+      />
+      <PlayListModal
+        modalOpen={modalOpen}
+        playListCancel={playListCancel}
+        ModalList={modalList}
+      />
       <PlayListContainer>
         <XboxDiv onClick={XboxClick}>
           <img src={Xbox20} alt='Xbox' />
@@ -76,7 +113,9 @@ const PlayList = () => {
                 곡({playListMember.length})
               </PlayListTopRightSpan>
             </PlayListTopDiv>
-            <PlayListTopRihtRightSpan onClick={PlayListCloseModalOpen}>전체 삭제</PlayListTopRihtRightSpan>
+            <PlayListTopRihtRightSpan onClick={PlayListCloseModalOpen}>
+              전체 삭제
+            </PlayListTopRihtRightSpan>
           </PlayListMidALlDiv>
           <PlayListMidDiv>
             <PlayListMidDivDiv>
@@ -104,11 +143,22 @@ const PlayList = () => {
                 <BtmMapImgSpan>{x.title}</BtmMapImgSpan>
                 <BtmMapArtistDiv>
                   <BtmMapArtistSpan>{x.nickname}</BtmMapArtistSpan>
-                  <BtmMapArtistSpan> 00 : 00 </BtmMapArtistSpan>
-                  {/* <audio src={x.mediaUrl} ref={audioRef}></audio> */}
+                  <audio
+                  ref={audioRef}
+                    src={x.mediaUrl}
+                    onLoadedData={(e) => {
+                      setDuration(e.currentTarget.duration.toFixed(2));
+                    }}
+                  ></audio>
+                  <BtmMapArtistSpan>{secondsToHms(duration)}</BtmMapArtistSpan>
                 </BtmMapArtistDiv>
                 <BtmMapIconDiv>
-                  <img src={AboutSong} alt='작품정보' className='leftIcon' onClick={()=>ListModalOpen(x.postId)} />
+                  <img
+                    src={AboutSong}
+                    alt='작품정보'
+                    className='leftIcon'
+                    onClick={() => ListModalOpen(x.postId)}
+                  />
                   <img src={LikeWhite} alt='좋아요' className='midIcon' />
                   <img
                     src={ListCollaborateWhite}
@@ -205,7 +255,6 @@ export const PlayListTopRihtRightSpan = styled.span`
   :hover {
     cursor: pointer;
   }
-
 `;
 
 export const PlayListTopRightSpan = styled.span`
