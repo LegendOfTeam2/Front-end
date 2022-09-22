@@ -7,8 +7,12 @@ import {
   SliderContainer,
   Thumb,
 } from "../../assets/styles/components/Player.Styled";
+import usePlayerStore from "../../zustand/player";
 
 function Player({ percentage = 0, onChange }) {
+  const playListMember = usePlayerStore((state) => state.playListMember);
+  const playList = usePlayerStore((state) => state.playList);
+
   const [position, setPosition] = useState(0);
   const [marginLeft, setMarginLeft] = useState(0);
   const [progressBarWidth, setProgressBarWidth] = useState(0);
@@ -27,7 +31,21 @@ function Player({ percentage = 0, onChange }) {
     setPosition(percentage);
     setMarginLeft(centerThumb);
     setProgressBarWidth(centerProgressBar);
+   
   }, [percentage]);
+
+  useEffect(()=>{
+    if (playListMember.length === 0) {
+      setPosition(0)
+      setMarginLeft(0)
+      setProgressBarWidth(0)
+    }
+    if (playList.length === 0) {
+      setPosition(0)
+      setMarginLeft(0)
+      setProgressBarWidth(0)
+    }
+  },[playListMember,playList])
 
   return (
     <SliderContainer>

@@ -57,6 +57,10 @@ function PlayerMain() {
 
   const viewState = usePlayerStore((state) => state.viewState);
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
+  const playListState = usePlayerStore((state) => state.playListState);
+  const playListStateChange = usePlayerStore(
+    (state) => state.playListStateChange
+  );
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const playing = usePlayerStore((state) => state.playing);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
@@ -79,7 +83,6 @@ function PlayerMain() {
   const [ismuted, setIsMuted] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
   const [isRandom, setIsRandom] = useState(false);
-  const [isOpen, setOpen] = useState(false);
 
   const audioRef = useRef();
 
@@ -90,8 +93,9 @@ function PlayerMain() {
   };
 
   useEffect(() => {
-    getPlayList();
+    getPlayList()
   }, [currentSongMember, getPlayList]);
+
 
   useEffect(() => {
     const playListMax = playList.length - 1;
@@ -320,6 +324,12 @@ function PlayerMain() {
     }
   }, [volume]);
 
+  useEffect(() => {
+    if (viewState === false) {
+      playListStateChange(false);
+    }
+  }, [viewState]);
+
   const RandomPlay = () => {
     setIsRandom(!isRandom);
     setIsLoop(false);
@@ -494,22 +504,12 @@ function PlayerMain() {
   };
 
   const PlayListHandlers = () => {
-    setOpen(!isOpen);
+    playListStateChange(!playListState);
   };
-
-  useEffect(() => {
-    if (viewState === false) {
-      setOpen(false);
-    }
-  }, [viewState]);
 
   return (
     <>
-      {getCookie('authorization') !== undefined ? (
-        <PlayList isOpen={isOpen} playListMember={playListMember} />
-      ) : (
-        <></>
-      )}
+      {getCookie('authorization') !== undefined ? <PlayList /> : <></>}
 
       <MainAudioPlay yIndex={viewState ? '0' : '85%'}>
         <div>
@@ -531,7 +531,7 @@ function PlayerMain() {
               <AllUpVolumeolumeDiv disPlay={viewState ? 'flex' : 'none'}>
                 <IconImgHover>
                   {getCookie('authorization') !== undefined ? (
-                    isOpen ? (
+                    playListState ? (
                       <img
                         src={PlayListIcon}
                         alt='플레이리스트'
@@ -552,19 +552,34 @@ function PlayerMain() {
               <AllBtnContainer>
                 {getCookie('authorization') !== undefined ? (
                   playListMemberIsLoaded ? (
-                    <MidDiv>
-                      <div>
-                        <ImgCover src={currentSongMember?.imageUrl} alt='' />
-                      </div>
-                      <IntroduceDiv>
-                        <TitleSapn>{currentSongMember?.title}</TitleSapn>
-                        <SingerSpan>{currentSongMember?.nickname}</SingerSpan>
-                      </IntroduceDiv>
-                    </MidDiv>
+                    playListMember.length > 0 ? (
+                      <MidDiv>
+                        <div>
+                          <ImgCover src={currentSongMember?.imageUrl} alt='' />
+                        </div>
+                        <IntroduceDiv>
+                          <TitleSapn>{currentSongMember?.title}</TitleSapn>
+                          <SingerSpan>{currentSongMember?.nickname}</SingerSpan>
+                        </IntroduceDiv>
+                      </MidDiv>
+                    ) : (
+                      <MidDiv>
+                        <div>
+                          <ImgCover
+                            src='https://www.cuonet.com/data/file/job/thumb-1925922832_WlgGOts6_dac17e6b0bf647414bfd8736fe074d1e0c26e018_700x525.jpg'
+                            alt='재생목록이 비어 있을때'
+                          />
+                        </div>
+                        <IntroduceDiv>
+                          <TitleSapn>재생 목록이 비어 있어요~</TitleSapn>
+                          <SingerSpan>환영 합니다!</SingerSpan>
+                        </IntroduceDiv>
+                      </MidDiv>
+                    )
                   ) : (
                     <></>
                   )
-                ) : (
+                ) : playList.length > 0 ? (
                   <MidDiv>
                     <div>
                       <ImgCover src={currentSong?.imageUrl} alt='' />
@@ -572,6 +587,19 @@ function PlayerMain() {
                     <IntroduceDiv>
                       <TitleSapn>{currentSong?.title}</TitleSapn>
                       <SingerSpan>{currentSong?.nickname}</SingerSpan>
+                    </IntroduceDiv>
+                  </MidDiv>
+                ) : (
+                  <MidDiv>
+                    <div>
+                      <ImgCover
+                        src='https://www.cuonet.com/data/file/job/thumb-1925922832_WlgGOts6_dac17e6b0bf647414bfd8736fe074d1e0c26e018_700x525.jpg'
+                        alt='재생목록이 비어 있을때'
+                      />
+                    </div>
+                    <IntroduceDiv>
+                      <TitleSapn>재생목록이 비어 있어요~</TitleSapn>
+                      <SingerSpan>환영 합니다!</SingerSpan>
                     </IntroduceDiv>
                   </MidDiv>
                 )}
@@ -584,7 +612,17 @@ function PlayerMain() {
                     )}
                   </IconImgHover>
                   <IconImgHover>
-                    <img src={BackPlay} alt='그전곡' onClick={skipBack} />
+                    {getCookie('authorization') !== undefined ? (
+                      playListMember.length > 0 ? (
+                        <img src={BackPlay} alt='그전곡' onClick={skipBack} />
+                      ) : (
+                        <></>
+                      )
+                    ) : playList.length > 0 ? (
+                      <img src={BackPlay} alt='그전곡' onClick={skipBack} />
+                    ) : (
+                      <></>
+                    )}
                   </IconImgHover>
                   <IconImgHover onClick={play}>
                     {playing ? (
@@ -594,7 +632,17 @@ function PlayerMain() {
                     )}
                   </IconImgHover>
                   <IconImgHover>
-                    <img src={NextPlay} alt='다음곡' onClick={skipNext} />
+                    {getCookie('authorization') !== undefined ? (
+                      playListMember.length > 0 ? (
+                        <img src={NextPlay} alt='다음곡' onClick={skipBack} />
+                      ) : (
+                        <></>
+                      )
+                    ) : playList.length > 0 ? (
+                      <img src={NextPlay} alt='다음곡' onClick={skipBack} />
+                    ) : (
+                      <></>
+                    )}
                   </IconImgHover>
                   <IconImgHover onClick={ClickLoop}>
                     {isLoop ? (
@@ -630,18 +678,29 @@ function PlayerMain() {
               <Player percentage={percentage} onChange={onChange} />
               {getCookie('authorization') !== undefined ? (
                 playListMemberIsLoaded ? (
-                  <audio
-                    ref={audioRef}
-                    onTimeUpdate={getCurrDuration}
-                    onLoadedData={(e) => {
-                      setDuration(e.currentTarget.duration.toFixed(2));
-                    }}
-                    src={currentSongMember?.mediaUrl}
-                  ></audio>
+                  playListMember.length > 0 ? (
+                    <audio
+                      ref={audioRef}
+                      onTimeUpdate={getCurrDuration}
+                      onLoadedData={(e) => {
+                        setDuration(e.currentTarget.duration.toFixed(2));
+                      }}
+                      src={currentSongMember?.mediaUrl}
+                    ></audio>
+                  ) : (
+                    <audio
+                      ref={audioRef}
+                      onTimeUpdate={getCurrDuration}
+                      onLoadedData={(e) => {
+                        setDuration(e.currentTarget.duration.toFixed(2));
+                      }}
+                      src=''
+                    ></audio>
+                  )
                 ) : (
                   <></>
                 )
-              ) : (
+              ) : playList.length > 0 ? (
                 <audio
                   ref={audioRef}
                   onTimeUpdate={getCurrDuration}
@@ -649,6 +708,15 @@ function PlayerMain() {
                     setDuration(e.currentTarget.duration.toFixed(2));
                   }}
                   src={currentSong?.mediaUrl}
+                ></audio>
+              ) : (
+                <audio
+                  ref={audioRef}
+                  onTimeUpdate={getCurrDuration}
+                  onLoadedData={(e) => {
+                    setDuration(e.currentTarget.duration.toFixed(2));
+                  }}
+                  src=''
                 ></audio>
               )}
 

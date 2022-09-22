@@ -31,7 +31,7 @@ const Detail = lazy(() => import("../pages/Detail"));
 const Withdrawal = lazy(() => import("../pages/Withdrawal"));
 const MorePage = lazy(() => import("../pages/MorePage"));
 const Chat = lazy(() => import("../pages/Chat"));
-const PlayListModal = lazy(() => import("../components/PlayList"));
+const PlayListModal = lazy(() => import("../components/modal/PlayListModal"));
 
 
 
@@ -80,6 +80,9 @@ function App() {
           element={is_login ? <Withdrawal /> : <Main />}
         />
         <Route path='/chat' element={<Chat />} />
+        <Route path='/test' element={<PlayListModal />} />
+
+        
         <Route path='*' element={<Main />} />
       </Routes>
       {location === "" ||

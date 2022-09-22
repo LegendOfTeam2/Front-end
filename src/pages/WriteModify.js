@@ -331,7 +331,6 @@ const WriteModify = () => {
 
   const modifyPostHandle = (e) => {
     e.preventDefault();
-    console.log(modifyPost);
     if (audio === '') {
       alert('오디오를 삽입해주세요.');
     } else {
