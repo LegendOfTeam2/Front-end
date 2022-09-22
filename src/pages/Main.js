@@ -109,6 +109,7 @@ const Main = () => {
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+  const postPlayList = usePlayerStore((state) => state.postPlayList);
 
   const navigate = useNavigate();
 
@@ -156,6 +157,20 @@ const Main = () => {
     });
   };
 
+  const PlayMember = () => {
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    postPlayList({
+      postId: bestSong[0].postId,
+      title: bestSong[0].title,
+      nickname: bestSong[0].nickname,
+      mediaUrl: bestSong[0].mediaUrl.mediaUrl,
+      imageUrl: bestSong[0].imageUrl.imageUrl,
+      position: bestSong[0].position,
+    });
+  };
+
   const goToSinger = (category) => {
     navigate(`/morepage/singer/${category}`);
   };
@@ -179,17 +194,30 @@ const Main = () => {
                   <MainImgDivDivBtmDiv>
                     리드미에서 가장 많이 재생된 아티스트 추천!
                   </MainImgDivDivBtmDiv>
-                  <MainImgDivBtmImg src={x.profileImage}></MainImgDivBtmImg>
-                  <MainImgDivBtmSpanDiv>
-                    <MainImgDivTopSpan>{x.title}</MainImgDivTopSpan>
-                    <MainImgDivBtmSpan>{x.nickname}</MainImgDivBtmSpan>
-                  </MainImgDivBtmSpanDiv>
-                  <MainImgDivBtnDiv>
-                    <img
-                      src={MainBanner}
-                      alt='배너 플레이 버튼'
-                      onClick={play}
+                  <MainImgDivBtmImgDiv>
+                    <MainImgDivBtmImg
+                      src={x.profileImage}
+                      alt='프로필 이미지'
                     />
+                    <MainImgDivBtmSpanDiv>
+                      <MainImgDivTopSpan>{x.title}</MainImgDivTopSpan>
+                      <MainImgDivBtmSpan>{x.nickname}</MainImgDivBtmSpan>
+                    </MainImgDivBtmSpanDiv>
+                  </MainImgDivBtmImgDiv>
+                  <MainImgDivBtnDiv>
+                    {getCookie('authorization') !== undefined ? (
+                      <img
+                        src={MainBanner}
+                        alt='배너 플레이 버튼'
+                        onClick={PlayMember}
+                      />
+                    ) : (
+                      <img
+                        src={MainBanner}
+                        alt='배너 플레이 버튼'
+                        onClick={play}
+                      />
+                    )}
                   </MainImgDivBtnDiv>
                 </MainImgDivDiv>
               ))}

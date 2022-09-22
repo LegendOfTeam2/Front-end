@@ -31,6 +31,7 @@ import {
   SearchIconDiv,
 } from '../assets/styles/components/Header.styled';
 import { HeaderlargeLogo, Search } from '../assets/images/image';
+import usePlayerStore from '../zustand/player';
 
 const Header = () => {
   const [keyword, setKeyword] = useState('');
@@ -45,6 +46,8 @@ const Header = () => {
   );
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
+  const clearPlayListMember = usePlayerStore((state) => state.clearPlayListMember);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
@@ -68,6 +71,8 @@ const Header = () => {
     });
     removeCookie('authorization');
     window.sessionStorage.setItem('refresh-token', '');
+    clearPlayListMember()
+    setPlaying(false)
     alert('로그아웃 되었습니다.');
     navigate('/');
   };

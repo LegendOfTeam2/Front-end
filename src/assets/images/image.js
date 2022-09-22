@@ -58,6 +58,9 @@ import DisCollaboration40 from './DisCollaboration40.svg';
 import WhiteCollaborate from './WhiteCollaborate.svg';
 import WhiteCollaborate24 from './WhiteCollaborate24.svg';
 import AboutSong from './AboutSong.svg';
+import ListCollaborateWhite from './ListCollaborateWhite.svg';
+import LikeWhite from './LikeWhite.svg';
+
 
 export {
   albumCover_1,
@@ -119,5 +122,7 @@ export {
   WhiteCollaborate,
   WhiteCollaborate24,
   AboutSong,
-  ShowPw38
+  ShowPw38,
+  ListCollaborateWhite,
+  LikeWhite
 };

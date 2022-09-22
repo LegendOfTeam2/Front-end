@@ -6,6 +6,10 @@ export const postPlayListApi = (payload) => {
   );
 };
 
-export const getPlayListApi = (payload) => {
+export const getPlayListApi = () => {
   return api_auth.get(`/auth/playlist`);
+};
+
+export const deletePlayListApi = () => {
+  return api_auth.delete(`/auth/playlist`);
 };
