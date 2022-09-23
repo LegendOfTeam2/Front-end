@@ -84,6 +84,9 @@ const MyPage = () => {
     (state) => state.profileInfoIsLoaded
   );
 
+  const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
+  const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
+
   const getUploadPost = useMyPageStore((state) => state.getUploadPost);
   const uploadPost = useMyPageStore((state) => state.uploadPost);
   const uploadPostIsLoaded = useMyPageStore(
@@ -102,6 +105,9 @@ const MyPage = () => {
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
+  const singerIsLikeIsLoaded = useLikeStore(
+    (state) => state.singerIsLikeIsLoaded
+  );
   const singerIsLike = useLikeStore((state) => state.singerIsLike);
   const makerIsLike = useLikeStore((state) => state.makerIsLike);
 
@@ -138,7 +144,19 @@ const MyPage = () => {
 
   useEffect(() => {
     if (category === 'upload') {
-      getUploadPost(nickname);
+      if (getCookie('authorization') !== undefined) {
+        getSingerLikePost().then((res) => {
+          if (res.success) {
+            getMakerLikePost().then((res) => {
+              if (res.success) {
+                getUploadPost(nickname);
+              }
+            });
+          }
+        });
+      } else {
+        getUploadPost(nickname);
+      }
     } else {
       getLikePost(nickname);
     }
@@ -419,7 +437,54 @@ const MyPage = () => {
               <MyMidTextDivDivSpan>메인 작업물</MyMidTextDivDivSpan>
             </MyMidTextDivDiv>
             <MyTextDiv>
-              {uploadPostIsLoaded ? (
+              {getCookie('authorization') !== undefined ? (
+                singerIsLikeIsLoaded ? (
+                  uploadPostIsLoaded ? (
+                    mainPost.map((x, idx) => {
+                      if (idx < 4) {
+                        if (
+                          [...singerIsLike, ...makerIsLike].indexOf(x.postId) >
+                          -1
+                        ) {
+                          return (
+                            <Post
+                              key={x.postId}
+                              imageUrl={x.imageUrl}
+                              likes={x.likeCount}
+                              nickname={x.nickname}
+                              title={x.title}
+                              collaborate={x.collaborate}
+                              mediaUrl={x.mediaUrl}
+                              postId={x.postId}
+                              position={x.position}
+                              likeState={true}
+                            />
+                          );
+                        } else {
+                          return (
+                            <Post
+                              key={x.postId}
+                              imageUrl={x.imageUrl}
+                              likes={x.likeCount}
+                              nickname={x.nickname}
+                              title={x.title}
+                              collaborate={x.collaborate}
+                              mediaUrl={x.mediaUrl}
+                              postId={x.postId}
+                              position={x.position}
+                              likeState={false}
+                            />
+                          );
+                        }
+                      }
+                    })
+                  ) : (
+                    <Fragment></Fragment>
+                  )
+                ) : (
+                  <Fragment />
+                )
+              ) : uploadPostIsLoaded ? (
                 mainPost.map((x, idx) => {
                   if (idx < 4) {
                     return (
@@ -433,6 +498,7 @@ const MyPage = () => {
                         mediaUrl={x.mediaUrl}
                         postId={x.postId}
                         position={x.position}
+                        likeState={false}
                       />
                     );
                   }

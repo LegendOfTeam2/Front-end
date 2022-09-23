@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import usePostStore from '../zustand/post';
 import useLikeStore from '../zustand/like';
 import usePlayerStore from '../zustand/player';
+import useMemberStore from '../zustand/member';
 // Packages
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -483,11 +484,123 @@ const Main = () => {
               <></>
             )}
           </MainProfileSliderGroup>
-          {PowerArtistLoaded ? (
+          {getCookie('authorization') !== undefined ? (
+            artistIsFollowIsLoaded ? (
+              PowerArtist.length < 5 ? (
+                <BtmProfileImgDiv>
+                  <BtmProfileTextDiv>
+                    <BtmProfileTextNew>요즘 핫한 아티스트</BtmProfileTextNew>
+                  </BtmProfileTextDiv>
+                  <MainHotArtistWrap>
+                    {PowerArtistLoaded ? (
+                      PowerArtist.map((x) => {
+                        if (artistIsFollow.indexOf(x.nickname) < 0) {
+                          return (
+                            <HotArtist
+                              nickname={x.nickname}
+                              imageUrl={x.imageUrl}
+                              follower={x.follower
+                                .toString()
+                                .replace(
+                                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                  ','
+                                )}
+                              isFollow={false}
+                            />
+                          );
+                        } else {
+                          return (
+                            <HotArtist
+                              nickname={x.nickname}
+                              imageUrl={x.imageUrl}
+                              follower={x.follower
+                                .toString()
+                                .replace(
+                                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                  ','
+                                )}
+                              isFollow={true}
+                            />
+                          );
+                        }
+                      })
+                    ) : (
+                      <Fragment />
+                    )}
+                  </MainHotArtistWrap>
+                </BtmProfileImgDiv>
+              ) : (
+                <BtmProfileImgDiv>
+                  <BtmProfileTextDiv>
+                    <BtmProfileTextNew>요즘 핫한 아티스트</BtmProfileTextNew>
+                  </BtmProfileTextDiv>
+                  <MainArowLeft>
+                    <img
+                      src={LeftArrow}
+                      alt='오른쪽화살표'
+                      onClick={() => sliderRef.current.slickPrev()}
+                    />
+                  </MainArowLeft>
+                  <Slider {...Btmsettings}>
+                    {PowerArtistLoaded ? (
+                      PowerArtist.map((x) => {
+                        if (artistIsFollow.indexOf(x.nickname) < 0) {
+                          return (
+                            <HotArtist
+                              key={x.postId}
+                              nickname={x.nickname}
+                              imageUrl={x.imageUrl}
+                              follower={x.follower
+                                .toString()
+                                .replace(
+                                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                  ','
+                                )}
+                              isFollow={false}
+                              artistIsFollow={artistIsFollow}
+                              artistIsFollowIsLoaded={artistIsFollowIsLoaded}
+                            />
+                          );
+                        } else {
+                          return (
+                            <HotArtist
+                              key={x.postId}
+                              nickname={x.nickname}
+                              imageUrl={x.imageUrl}
+                              follower={x.follower
+                                .toString()
+                                .replace(
+                                  /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                  ','
+                                )}
+                              isFollow={true}
+                              artistIsFollow={artistIsFollow}
+                              artistIsFollowIsLoaded={artistIsFollowIsLoaded}
+                            />
+                          );
+                        }
+                      })
+                    ) : (
+                      <Fragment />
+                    )}
+                  </Slider>
+                  <MainArowRight>
+                    <img
+                      src={RightArrow}
+                      alt='오른쪽화살표'
+                      onClick={() => sliderRef.current.slickNext()}
+                    />
+                  </MainArowRight>
+                </BtmProfileImgDiv>
+              )
+            ) : (
+              <Fragment />
+            )
+          ) : PowerArtistLoaded ? (
             PowerArtist.length < 5 ? (
               <BtmProfileImgDiv>
                 <BtmProfileTextDiv>
-                  <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
+                  <BtmProfileTextNew>요즘 핫한 아티스트</BtmProfileTextNew>
                 </BtmProfileTextDiv>
                 <MainHotArtistWrap>
                   {PowerArtist.map((x) => {
@@ -510,7 +623,7 @@ const Main = () => {
                           follower={x.follower
                             .toString()
                             .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
-                          isFollow={true}
+                          isFollow={false}
                         />
                       );
                     }
@@ -520,7 +633,7 @@ const Main = () => {
             ) : (
               <BtmProfileImgDiv>
                 <BtmProfileTextDiv>
-                  <BtmProfileTextNew>요즘 핫한 아티스트 </BtmProfileTextNew>
+                  <BtmProfileTextNew>요즘 핫한 아티스트</BtmProfileTextNew>
                 </BtmProfileTextDiv>
                 <MainArowLeft>
                   <img
@@ -534,6 +647,7 @@ const Main = () => {
                     if (artistIsFollow.indexOf(x.nickname) < 0) {
                       return (
                         <HotArtist
+                          key={x.postId}
                           nickname={x.nickname}
                           imageUrl={x.imageUrl}
                           follower={x.follower
@@ -545,12 +659,13 @@ const Main = () => {
                     } else {
                       return (
                         <HotArtist
+                          key={x.postId}
                           nickname={x.nickname}
                           imageUrl={x.imageUrl}
                           follower={x.follower
                             .toString()
                             .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
-                          isFollow={true}
+                          isFollow={false}
                         />
                       );
                     }
