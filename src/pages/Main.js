@@ -614,7 +614,6 @@ const Main = () => {
             ) : (
               <></>
             )}
-
             {bestMakerIsLoaded ? (
               bestMaker.length < 5 ? (
                 <DisMainPostImgDivImgDiv>
