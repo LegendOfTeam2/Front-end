@@ -39,7 +39,6 @@ const customStyles = {
 };
 
 const WithdrawalConfirmModal = ({ isOpen, onCancel, onChange }) => {
-  const navigate = useNavigate();
 
   const handelClickChange = () => {
     onChange();

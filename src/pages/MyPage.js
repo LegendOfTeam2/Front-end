@@ -102,9 +102,6 @@ const MyPage = () => {
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
-  const singerIsLike = useLikeStore((state) => state.singerIsLike);
-  const makerIsLike = useLikeStore((state) => state.makerIsLike);
-
   const follow = useFollowStore((state) => state.follow);
 
   const [category, setCategory] = useState('upload');

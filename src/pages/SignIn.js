@@ -67,7 +67,6 @@ const SignIn = () => {
 
   const getPlayList = usePlayerStore((state) => state.getPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
-  const isAutoplay = usePlayerStore((state) => state.isAutoplay);
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const setCurrentSongMember = usePlayerStore(
     (state) => state.setCurrentSongMember

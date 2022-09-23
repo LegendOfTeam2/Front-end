@@ -53,14 +53,6 @@ const Withdrawal = () => {
     setOpenConfirm(false);
   }, [isOpenConfirm]);
 
-  const onHandleNoticeModal = () => {
-    setOpenNotice(true);
-  };
-
-  const onCancelNoticeModal = useCallback(() => {
-    setOpenNotice(false);
-  }, [isOpenNotice]);
-
   const onChangeModal = () => {
     setOpenConfirm(false);
     setOpenNotice(true);

@@ -22,7 +22,6 @@ import usePlayerStore from '../../zustand/player';
 
 const PlayListCloseModal = ({ isOpen, onCancel, playListMemberLength }) => {
   const deletePlayList = usePlayerStore((state) => state.deletePlayList);
-
   const customStyles = {
     overlay: {
       position: 'fixed',
@@ -46,7 +45,7 @@ const PlayListCloseModal = ({ isOpen, onCancel, playListMemberLength }) => {
   const handleClickCancel = () => {
     onCancel();
   };
-  const PlayListDelete = () => {
+  const playListDelete = () => {
     deletePlayList()
     onCancel();
   };
@@ -80,7 +79,7 @@ const PlayListCloseModal = ({ isOpen, onCancel, playListMemberLength }) => {
               bd_radius: '10px',
               ft_weight: '800',
             }}
-            _onClick={PlayListDelete}
+            _onClick={playListDelete}
           />
           <Button
             _type={'button'}

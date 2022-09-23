@@ -177,7 +177,6 @@ const Write = () => {
   const onDropHandle = (e) => {
     e.preventDefault();
 
-    console.log(e.dataTransfer.files[0]);
     addPreview(e.dataTransfer.files[0]);
 
     const formData = new FormData();

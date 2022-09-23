@@ -8,7 +8,7 @@ export const MoreContainerDiv = styled.div`
   z-index: -1;
   margin: 0;
   padding: 0;
-  top: 90.5px;
+  top: 125.5px;
   z-index: -1;
 `;
 
