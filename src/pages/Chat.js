@@ -28,6 +28,9 @@ import {
   ChatNaviTitleText,
   ChatDataContainer,
   ChatDataMemberContainer,
+  ChatDataMemberTitleBox,
+  ChatDataMemberTitleText,
+  ChatDataMemberRoomBox,
   ChatDataRoomContainer,
   ChatDataRoomProfileContainer,
   ChatDataRoomProfileBox,
@@ -37,12 +40,12 @@ import {
   ChatDataRoomMessageContainer,
   ChatDataRoomInputContainer,
   ChatDataRoomInput,
-  ChatDataRoomButtonBox
+  ChatDataRoomButtonBox,
 } from '../assets/styles/pages/Chat.styled';
 
 const Chat = () => {
-  const SERVER_URL = process.env.REACT_APP_REST_API_IP;
-  const sockJS = new SockJS(`https://${SERVER_URL}/ws/chat`);
+  const SERVER_URL = process.env.REACT_APP_REST_API_IP_TEST;
+  const sockJS = new SockJS(`http://${SERVER_URL}/ws/chat`);
   const stompClient = over(sockJS);
 
   const nickname = jwt_decode(getCookie('authorization')).sub;
@@ -55,7 +58,7 @@ const Chat = () => {
 
   useEffect(() => {
     stompClient.connect({}, () => {
-      stompClient.subscribe(`/topic/chat/room/${roomId}`, (data) => {
+      stompClient.subscribe(`/sub/chat/room/${roomId}`, (data) => {
         const newMessage = JSON.parse(data.body);
         addMessage(newMessage);
       });
@@ -65,7 +68,7 @@ const Chat = () => {
   const onHandleClick = () => {
     if (message !== '' && message !== ' ') {
       const newMessage = { type: 'TALK', roomId, sender: nickname, message };
-      stompClient.send('/app/chat/message', {}, JSON.stringify(newMessage));
+      stompClient.send('/pub/chat/message', {}, JSON.stringify(newMessage));
       setMessage('');
     }
   };
@@ -106,15 +109,20 @@ const Chat = () => {
         </ChatNaviContainer>
         <ChatDataContainer>
           <ChatDataMemberContainer>
-            <ChatMember />
-            <ChatMember />
-            <ChatMember />
-            <ChatMember />
-            <ChatMember />
-            <ChatMember />
-            <ChatMember />
-            <ChatMember />
-            <ChatMember />
+            <ChatDataMemberTitleBox>
+              <ChatDataMemberTitleText>메시지 목록</ChatDataMemberTitleText>
+            </ChatDataMemberTitleBox>
+            <ChatDataMemberRoomBox>
+              <ChatMember />
+              <ChatMember />
+              <ChatMember />
+              <ChatMember />
+              <ChatMember />
+              <ChatMember />
+              <ChatMember />
+              <ChatMember />
+              <ChatMember />
+            </ChatDataMemberRoomBox>
           </ChatDataMemberContainer>
           <ChatDataRoomContainer>
             <ChatDataRoomProfileContainer>

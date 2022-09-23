@@ -15,7 +15,7 @@ export const BackgroundCover = styled.div`
   z-index: -1;
 `;
 export const SearchBox = styled.div`
-  width: 1024px;
+  width: 976px;
   height: auto;
   margin-top: 246px;
   z-index: -1;
@@ -34,10 +34,10 @@ export const SearchNaviIconBox = styled.div`
   top: 50%;
   left: 37px;
   transform: translateY(-50%);
+  color: #cecece;
   .icon {
-    width: 35px;
-    height: 35px;
-    color: rgba(40, 202, 124, 1);
+    width: 36px;
+    height: 36px;
   }
   &:hover {
     cursor: pointer;
@@ -113,9 +113,8 @@ export const SearchDataContainer = styled.div`
   margin-top: 138px;
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 32px;
   justify-content: flex-start;
-  padding-left: 25px;
 `;
 export const SearchNoDataContainer = styled.div`
   width: 100%;

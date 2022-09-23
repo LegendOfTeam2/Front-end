@@ -31,7 +31,6 @@ import {
   DisBigMyImgTopRight,
 } from '../assets/styles/components/PostBig.styled';
 import {
-  Collaboration44,
   DisCollaboration40,
   DisLike40,
   Like40,

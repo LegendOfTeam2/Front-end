@@ -136,7 +136,6 @@ const SignIn = () => {
           if (res) {
             getPlayList().then((res) => {
               if (res.success) {
-                
                 if (res.data.length > 0) {
                   const firstSong = [...res.data].sort(
                     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)

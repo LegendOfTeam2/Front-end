@@ -10,7 +10,7 @@ const useFollowStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
     if(resData?.data.success) {
-      return resData.data.data;
+      return resData.data;
     }
   },
 }));
