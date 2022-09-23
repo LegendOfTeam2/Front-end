@@ -3,11 +3,15 @@ import { Fragment, useEffect, useState } from 'react';
 
 // Zustand
 import useSearchStore from '../zustand/search';
+import useLikeStore from '../zustand/like';
 
 // Packages
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
-import PostBig from '../components/PostBig';
+import Post from '../components/Post';
 import { useNavigate } from 'react-router-dom';
+
+// Utils
+import { getCookie } from '../utils/cookie';
 
 // Components
 import Header from '../components/Header';
@@ -54,6 +58,15 @@ const Search = () => {
   const singerSearchList = useSearchStore((state) => state.singerSearchList);
   const makerSearchList = useSearchStore((state) => state.makerSearchList);
 
+  const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
+  const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
+
+  const singerIsLikeIsLoaded = useLikeStore(
+    (state) => state.singerIsLikeIsLoaded
+  );
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
+
   const [category, setCategory] = useState('Singer');
 
   const navigate = useNavigate();
@@ -76,12 +89,38 @@ const Search = () => {
 
   useEffect(() => {
     if (keyword !== '') {
-      searchKeyword(keyword, 'Singer');
-      searchKeyword(keyword, 'Maker');
+      if (getCookie('authorization') !== undefined) {
+        getSingerLikePost().then((res) => {
+          if (res.success) {
+            getMakerLikePost().then((res) => {
+              if (res.success) {
+                searchKeyword(keyword, 'Singer');
+                searchKeyword(keyword, 'Maker');
+              }
+            });
+          }
+        });
+      } else {
+        searchKeyword(keyword, 'Singer');
+        searchKeyword(keyword, 'Maker');
+      }
     } else {
       const keyword = window.sessionStorage.getItem('keyword');
-      searchKeyword(keyword, 'Singer');
-      searchKeyword(keyword, 'Maker');
+      if (getCookie('authorization') !== undefined) {
+        getSingerLikePost().then((res) => {
+          if (res.success) {
+            getMakerLikePost().then((res) => {
+              if (res.success) {
+                searchKeyword(keyword, 'Singer');
+                searchKeyword(keyword, 'Maker');
+              }
+            });
+          }
+        });
+      } else {
+        searchKeyword(keyword, 'Singer');
+        searchKeyword(keyword, 'Maker');
+      }
     }
   }, [keyword]);
 
@@ -104,17 +143,13 @@ const Search = () => {
                   싱어({singerSearchIsLoaded ? singerSearchList.length : 0})
                 </SearchNaviSelect>
                 <SearchNaviVertical>|</SearchNaviVertical>
-                <SearchNavi
-                  onClick={() => onHandleSearchCategory('Maker')}
-                >
+                <SearchNavi onClick={() => onHandleSearchCategory('Maker')}>
                   메이커({makerSearchIsLoaded ? makerSearchList.length : 0})
                 </SearchNavi>
               </Fragment>
             ) : (
               <Fragment>
-                <SearchNavi
-                  onClick={() => onHandleSearchCategory('Singer')}
-                >
+                <SearchNavi onClick={() => onHandleSearchCategory('Singer')}>
                   싱어({singerSearchIsLoaded ? singerSearchList.length : 0})
                 </SearchNavi>
                 <SearchNaviVertical>|</SearchNaviVertical>
@@ -132,7 +167,11 @@ const Search = () => {
             {category === 'Singer' ? (
               singerSearchList.length !== 0 ? (
                 <Fragment>
-                  <SearchInfoNickname>{keyword ? keyword : window.sessionStorage.getItem('keyword')}</SearchInfoNickname>
+                  <SearchInfoNickname>
+                    {keyword
+                      ? keyword
+                      : window.sessionStorage.getItem('keyword')}
+                  </SearchInfoNickname>
                   <SearchInfoText>에 대한 검색 결과</SearchInfoText>
                 </Fragment>
               ) : (
@@ -140,7 +179,9 @@ const Search = () => {
               )
             ) : makerSearchList.length !== 0 ? (
               <Fragment>
-                <SearchInfoNickname>{keyword ? keyword : window.sessionStorage.getItem('keyword')}</SearchInfoNickname>
+                <SearchInfoNickname>
+                  {keyword ? keyword : window.sessionStorage.getItem('keyword')}
+                </SearchInfoNickname>
                 <SearchInfoText>에 대한 검색 결과</SearchInfoText>
               </Fragment>
             ) : (
@@ -149,12 +190,90 @@ const Search = () => {
           </SearchInfoBox>
         </SearchInfo>
         {category === 'Singer' ? (
-          singerSearchIsLoaded ? (
+          getCookie('authorization') !== undefined ? (
+            singerIsLikeIsLoaded ? (
+              singerSearchIsLoaded ? (
+                singerSearchList.length !== 0 ? (
+                  <SearchDataContainer>
+                    {singerSearchList.map((singer) => {
+                      if (
+                        [...singerIsLike, ...makerIsLike].indexOf(
+                          singer.postId
+                        ) > -1
+                      ) {
+                        return (
+                          <Post
+                            key={singer.postId}
+                            postId={singer.postId}
+                            likeCount={singer.makerlikeCnt}
+                            imageUrl={singer.imageUrl}
+                            mediaUrl={singer.mediaUrl}
+                            nickname={singer.nickname}
+                            collaborate={singer.collaborate}
+                            title={singer.title}
+                            position={'Singer'}
+                            likeState={true}
+                          />
+                        );
+                      } else {
+                        return (
+                          <Post
+                            key={singer.postId}
+                            postId={singer.postId}
+                            likeCount={singer.makerlikeCnt}
+                            imageUrl={singer.imageUrl}
+                            mediaUrl={singer.mediaUrl}
+                            nickname={singer.nickname}
+                            collaborate={singer.collaborate}
+                            title={singer.title}
+                            position={'Singer'}
+                            likeState={false}
+                          />
+                        );
+                      }
+                    })}
+                  </SearchDataContainer>
+                ) : (
+                  <SearchNoDataContainer>
+                    <SearchNoDataInfo>
+                      <SeatchNoDataInfoBox>
+                        <SearchNoDataInfoNickname>
+                          {keyword}
+                        </SearchNoDataInfoNickname>
+                        <SearchNoDataInfoText>
+                          에 대한 검색 결과가 없습니다...
+                        </SearchNoDataInfoText>
+                      </SeatchNoDataInfoBox>
+                    </SearchNoDataInfo>
+                    <SearchNoDataNotice>
+                      <SearchNoDataNoticeBox>
+                        <SearchNoDataNoticeText>
+                          단어의 철자가 정확한지 확인해 보세요.
+                          <br />
+                          한글을 영어로 혹은 영어를 한글로 입력했는지 확인해
+                          보세요.
+                          <br />
+                          리드미의 아티스트인지 확인해 보세요.
+                        </SearchNoDataNoticeText>
+                      </SearchNoDataNoticeBox>
+                    </SearchNoDataNotice>
+                    <SearchNoDataLogo>
+                      <SearchNoDataLogoImg src={ErrorLogo} />
+                    </SearchNoDataLogo>
+                  </SearchNoDataContainer>
+                )
+              ) : (
+                <Fragment />
+              )
+            ) : (
+              <Fragment />
+            )
+          ) : singerSearchIsLoaded ? (
             singerSearchList.length !== 0 ? (
               <SearchDataContainer>
                 {singerSearchList.map((singer) => {
                   return (
-                    <PostBig
+                    <Post
                       key={singer.postId}
                       postId={singer.postId}
                       likeCount={singer.makerlikeCnt}
@@ -164,7 +283,8 @@ const Search = () => {
                       collaborate={singer.collaborate}
                       title={singer.title}
                       position={'Singer'}
-                    ></PostBig>
+                      likeState={false}
+                    ></Post>
                   );
                 })}
               </SearchDataContainer>
@@ -197,14 +317,91 @@ const Search = () => {
               </SearchNoDataContainer>
             )
           ) : (
-            <Fragment></Fragment>
+            <Fragment />
+          )
+        ) : getCookie('authorization') !== undefined ? (
+          singerIsLikeIsLoaded ? (
+            makerSearchIsLoaded ? (
+              makerSearchList.length !== 0 ? (
+                <SearchDataContainer>
+                  {makerSearchList.map((maker) => {
+                    if (
+                      [...singerIsLike, ...makerIsLike].indexOf(maker.postId) >
+                      -1
+                    ) {
+                      return (
+                        <Post
+                          key={maker.postId}
+                          postId={maker.postId}
+                          likeCount={maker.makerlikeCnt}
+                          imageUrl={maker.imageUrl}
+                          mediaUrl={maker.mediaUrl}
+                          nickname={maker.nickname}
+                          collaborate={maker.collaborate}
+                          title={maker.title}
+                          position={'Maker'}
+                          likeState={true}
+                        />
+                      );
+                    } else {
+                      return (
+                        <Post
+                          key={maker.postId}
+                          postId={maker.postId}
+                          likeCount={maker.makerlikeCnt}
+                          imageUrl={maker.imageUrl}
+                          mediaUrl={maker.mediaUrl}
+                          nickname={maker.nickname}
+                          collaborate={maker.collaborate}
+                          title={maker.title}
+                          position={'Maker'}
+                          likeState={false}
+                        />
+                      );
+                    }
+                  })}
+                </SearchDataContainer>
+              ) : (
+                <SearchNoDataContainer>
+                  <SearchNoDataInfo>
+                    <SeatchNoDataInfoBox>
+                      <SearchNoDataInfoNickname>
+                        {keyword}
+                      </SearchNoDataInfoNickname>
+                      <SearchNoDataInfoText>
+                        에 대한 검색 결과가 없습니다...
+                      </SearchNoDataInfoText>
+                    </SeatchNoDataInfoBox>
+                  </SearchNoDataInfo>
+                  <SearchNoDataNotice>
+                    <SearchNoDataNoticeBox>
+                      <SearchNoDataNoticeText>
+                        단어의 철자가 정확한지 확인해 보세요.
+                        <br />
+                        한글을 영어로 혹은 영어를 한글로 입력했는지 확인해
+                        보세요.
+                        <br />
+                        리드미의 아티스트인지 확인해 보세요.
+                      </SearchNoDataNoticeText>
+                    </SearchNoDataNoticeBox>
+                  </SearchNoDataNotice>
+                  <SearchNoDataLogo>
+                    <SearchNoDataLogoImg src={ErrorLogo} />
+                  </SearchNoDataLogo>
+                </SearchNoDataContainer>
+              )
+            ) : (
+              <Fragment />
+            )
+          ) : (
+            <Fragment />
           )
         ) : makerSearchIsLoaded ? (
           makerSearchList.length !== 0 ? (
             <SearchDataContainer>
               {makerSearchList.map((maker) => {
                 return (
-                  <PostBig
+                  <Post
                     key={maker.postId}
                     postId={maker.postId}
                     likeCount={maker.makerlikeCnt}
@@ -214,7 +411,7 @@ const Search = () => {
                     collaborate={maker.collaborate}
                     title={maker.title}
                     position={'Maker'}
-                  ></PostBig>
+                  ></Post>
                 );
               })}
             </SearchDataContainer>
@@ -245,7 +442,7 @@ const Search = () => {
             </SearchNoDataContainer>
           )
         ) : (
-          <Fragment></Fragment>
+          <Fragment />
         )}
       </SearchBox>
     </SearchContainer>

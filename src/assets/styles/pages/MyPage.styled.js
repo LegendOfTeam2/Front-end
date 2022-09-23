@@ -5,7 +5,7 @@ export const MyContainerDiv = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;
-  top: 111.5px;
+  top: 151.5px;
   z-index: -1;
 `;
 export const MyContainer = styled.div`
