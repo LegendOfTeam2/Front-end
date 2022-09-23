@@ -30,7 +30,14 @@ import {
 import useMemberStore from '../zustand/member';
 import { useNavigate } from 'react-router-dom';
 
-const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
+const HotArtist = ({
+  nickname,
+  follower,
+  imageUrl,
+  isFollow,
+  artistIsFollow,
+  artistIsFollowIsLoaded,
+}) => {
   const follow = useFollowStore((state) => state.follow);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
