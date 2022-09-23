@@ -193,22 +193,24 @@ const MyPage = () => {
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
       follow(nickname).then((res) => {
-        if (res) {
-          setIsFollow(true);
-          toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 1500,
-            draggablePercent: 60,
-            hideProgressBar: true,
-          });
-        } else {
-          setIsFollow(false);
-          toast.info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`, {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 1500,
-            draggablePercent: 60,
-            hideProgressBar: true,
-          });
+        if(res.success) {
+          if (res.data) {
+            setIsFollow(true);
+            toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
+          } else {
+            setIsFollow(false);
+            toast.info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`, {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
+          }
         }
       });
     } else {
@@ -540,7 +542,49 @@ const MyPage = () => {
             </MyBtmTextDiv>
 
             {category === 'upload' ? (
-              uploadPostIsLoaded ? (
+              getCookie('authorization') !== undefined ? (
+                uploadPostIsLoaded ? (
+                  <MyBtmImgDiv>
+                    {uploadPost.map((x) => {
+                      if (
+                        [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
+                      ) {
+                        return (
+                          <PostBig
+                            key={x.postId}
+                            imageUrl={x.imageUrl}
+                            likeCount={x.likeCount}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={true}
+                          />
+                        );
+                      } else {
+                        return (
+                          <PostBig
+                            key={x.postId}
+                            imageUrl={x.imageUrl}
+                            likeCount={x.likeCount}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={false}
+                          />
+                        );
+                      }
+                    })}
+                  </MyBtmImgDiv>
+                ) : (
+                  <Fragment />
+                )
+              ) : uploadPostIsLoaded ? (
                 <MyBtmImgDiv>
                   {uploadPost.map((x) => (
                     <PostBig
@@ -557,7 +601,49 @@ const MyPage = () => {
                   ))}
                 </MyBtmImgDiv>
               ) : (
-                <></>
+                <Fragment />
+              )
+            ) : getCookie('authorization') !== undefined ? (
+              likePostIsLoaded ? (
+                <MyBtmImgDiv>
+                  {likePost.map((x) => {
+                    if (
+                      [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
+                    ) {
+                      return (
+                        <PostBig
+                          key={x.postId}
+                          imageUrl={x.imageUrl}
+                          likeCount={x.likeCount}
+                          nickname={x.nickname}
+                          title={x.title}
+                          collaborate={x.collaborate}
+                          mediaUrl={x.mediaUrl}
+                          postId={x.postId}
+                          position={x.position}
+                          likeState={true}
+                        />
+                      );
+                    } else {
+                      return (
+                        <PostBig
+                          key={x.postId}
+                          imageUrl={x.imageUrl}
+                          likeCount={x.likeCount}
+                          nickname={x.nickname}
+                          title={x.title}
+                          collaborate={x.collaborate}
+                          mediaUrl={x.mediaUrl}
+                          postId={x.postId}
+                          position={x.position}
+                          likeState={false}
+                        />
+                      );
+                    }
+                  })}
+                </MyBtmImgDiv>
+              ) : (
+                <Fragment></Fragment>
               )
             ) : likePostIsLoaded ? (
               <MyBtmImgDiv>

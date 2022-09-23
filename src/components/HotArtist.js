@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 // Zustand
 import useFollowStore from '../zustand/follow';
+import useChatStore from '../zustand/chat';
 
 // Packages
 import jwt_decode from 'jwt-decode';
@@ -30,15 +31,11 @@ import {
 import useMemberStore from '../zustand/member';
 import { useNavigate } from 'react-router-dom';
 
-const HotArtist = ({
-  nickname,
-  follower,
-  imageUrl,
-  isFollow,
-  artistIsFollow,
-  artistIsFollowIsLoaded,
-}) => {
+const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   const follow = useFollowStore((state) => state.follow);
+
+  const makeRoom = useChatStore((state) => state.makeRoom);
+
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
@@ -58,24 +55,26 @@ const HotArtist = ({
         });
       } else {
         follow(nickname).then((res) => {
-          if (res) {
-            setFollowCheck(true);
-            toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
-            setCounter((prev) => parseInt(prev) + 1);
-          } else {
-            setFollowCheck(false);
-            toast.info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`, {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
-            setCounter((prev) => parseInt(prev) - 1);
+          if(res.success) {
+            if (res.data) {
+              setFollowCheck(true);
+              toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {
+                position: toast.POSITION.BOTTOM_RIGHT,
+                autoClose: 1500,
+                draggablePercent: 60,
+                hideProgressBar: true,
+              });
+              setCounter((prev) => parseInt(prev) + 1);
+            } else {
+              setFollowCheck(false);
+              toast.info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`, {
+                position: toast.POSITION.BOTTOM_RIGHT,
+                autoClose: 1500,
+                draggablePercent: 60,
+                hideProgressBar: true,
+              });
+              setCounter((prev) => parseInt(prev) - 1);
+            }
           }
         });
       }
@@ -87,6 +86,15 @@ const HotArtist = ({
 
   const ProfilPage = () => {
     navigate(`/mypage/${nickname}`);
+  };
+
+  const onHandleChatRoom = () => {
+    if (getCookie('authorization') !== undefined) {
+      makeRoom({ nickname, profileUrl: 'test', userId: 1 });
+    } else {
+      alert('로그인 후에 이용 가능합니다.');
+      navigate('/signin');
+    }
   };
 
   return (
@@ -150,7 +158,7 @@ const HotArtist = ({
             />
           )}
           <Button
-            _onClick={onHandleFollow}
+            _onClick={onHandleChatRoom}
             _style={{
               width: '66px',
               height: '31px',

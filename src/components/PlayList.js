@@ -40,7 +40,6 @@ const PlayList = () => {
   const [modalList, setModalList] = useState();
 
   const xboxClick = () => {
-    console.log('랜더');
     playListStateChange(false);
   };
 
@@ -69,8 +68,6 @@ const PlayList = () => {
     });
     setModalOpen(true);
   };
-
-  console.log(playListMember);
 
   return (
     <PlayListAllContainer ListyIndex={playListState ? 'flex' : 'none'}>
