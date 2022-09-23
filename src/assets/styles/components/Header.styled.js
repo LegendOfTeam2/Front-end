@@ -19,6 +19,31 @@ export const HeaderContainer = styled.div`
   margin-bottom: 24px;
 `;
 
+export const HeaderTopDiv = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 839px;
+  padding-bottom: 15px;
+  border-bottom: 0.3px solid #28CA72;
+`;
+
+export const HeaderTopLeftSpan = styled.span`
+  line-height: ${(props) => props.theme.lineHeight.xxs};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-size: ${(props) => props.theme.fontSizes.lg};
+  color: rgba(255, 255, 255, 1);
+`;
+export const HeaderTopRightSpan = styled.span`
+  line-height: ${(props) => props.theme.lineHeight.xxs};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-size: ${(props) => props.theme.fontSizes.lg};
+  color: rgba(40, 202, 114, 1);
+
+`;
+
+
 export const HeaderDiv = styled.div`
   width: 100%;
   height: auto;
@@ -27,6 +52,7 @@ export const HeaderDiv = styled.div`
   gap: 46px;
   align-items: center;
   border-radius: 10px;
+  margin-top: 18px;
 `;
 
 export const LogoDiv = styled.div`

@@ -26,6 +26,7 @@ export const MainProfileimg = styled.img`
   width: 63px;
   height: 63px;
   border-radius: 50%;
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.2));
   &:hover {
     cursor: pointer;
   }

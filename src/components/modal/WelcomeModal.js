@@ -9,7 +9,7 @@ import ReactModal from "react-modal";
 // Element
 import Button from "../../elements/Button";
 // Utils
-import { getCookie } from "../../utils/cookie";
+
 // styled
 import {
   TextDiv,

@@ -5,7 +5,6 @@ export const MyImgDivDiv = styled.div`
   height: 220px;
   display: flex;
   position: relative;
-
 `;
 
 export const PostimgDivDiv = styled.div`

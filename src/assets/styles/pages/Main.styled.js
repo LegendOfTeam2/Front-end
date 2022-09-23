@@ -7,7 +7,7 @@ export const MainContainerDiv = styled.div`
   position: absolute;
   margin: 0;
   padding: 0;
-  top: 72.5px;
+  top: 96.5px;
   z-index: -1;
 `;
 
@@ -17,11 +17,12 @@ export const MainContainer = styled.div`
   margin-top: 40px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 260px;
 `;
 
 export const MainImgDiv = styled.div`
   width: 100%;
-  margin-bottom: 26px;
+  margin-bottom: 80px;
   box-shadow: inset (-$offset) 0 $blur-radius (-$spread-radius);
 `;
 export const MainImgDivDiv = styled.div`
@@ -113,7 +114,7 @@ export const BtmProfileImgDiv = styled.div`
   margin-top: 45px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 250px;
+  margin-bottom: 80px;
   position: relative;
   
 `;
@@ -260,7 +261,7 @@ export const DisMainPostImgDivImgDiv = styled.div`
   height: auto;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 3px;
+  margin-bottom: 80px;
 `;
 export const MainHotArtistWrap = styled.div`
   display: flex;

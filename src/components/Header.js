@@ -22,6 +22,9 @@ import {
   HeaderContainer,
   HeaderContainerDiv,
   HeaderDiv,
+  HeaderTopDiv,
+  HeaderTopLeftSpan,
+  HeaderTopRightSpan,
   LeftDiv,
   LogoDiv,
   ProfileDiv,
@@ -31,7 +34,6 @@ import {
   SearchIconDiv,
 } from '../assets/styles/components/Header.styled';
 import { HeaderlargeLogo, Search } from '../assets/images/image';
-import usePostStore from '../zustand/post';
 import usePlayerStore from '../zustand/player';
 
 const Header = () => {
@@ -48,7 +50,9 @@ const Header = () => {
   );
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
-  const clearPlayListMember = usePlayerStore((state) => state.clearPlayListMember);
+  const clearPlayListMember = usePlayerStore(
+    (state) => state.clearPlayListMember
+  );
   const setPlaying = usePlayerStore((state) => state.setPlaying);
 
   useEffect(() => {
@@ -73,8 +77,8 @@ const Header = () => {
     });
     removeCookie('authorization');
     window.sessionStorage.setItem('refresh-token', '');
-    clearPlayListMember()
-    setPlaying(false)
+    clearPlayListMember();
+    setPlaying(false);
     alert('로그아웃 되었습니다.');
     window.location = '/';
   };
@@ -108,6 +112,10 @@ const Header = () => {
     <Fragment>
       <HeaderContainerDiv>
         <HeaderContainer>
+          <HeaderTopDiv>
+            <HeaderTopLeftSpan>About RyhthMe</HeaderTopLeftSpan>
+            <HeaderTopRightSpan>로그인</HeaderTopRightSpan>
+          </HeaderTopDiv>
           <HeaderDiv>
             <LeftDiv>
               <LogoDiv onClick={() => navigate('/')}>
@@ -129,6 +137,8 @@ const Header = () => {
                     bd_color: 'rgba(40, 202, 124, 1)',
                     bd_radius: '44px',
                     pd_left: '50px',
+                    bg_color: '#1B1E2F',
+                    color: 'rgba(255, 255, 255, 1)',
                   }}
                   _placeholder={'검색어를 입력해 주세요...'}
                 />

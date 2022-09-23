@@ -93,9 +93,23 @@ function PlayerMain() {
   };
 
   useEffect(() => {
-    getPlayList()
-  }, [currentSongMember, getPlayList]);
+    getPlayList().then((res) => {
+      if (res.success) {
+        if (res.data.length > 0) {
+          const firstSong = [...res.data].sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          )[0];
+          setCurrentSongMember(firstSong);
+          setPlaying(true);
+          viewStateChange(true);
+        }
+      }
+    });
+  }, []);
 
+  useEffect(() => {
+    getPlayList();
+  }, [currentSongMember, getPlayList]);
 
   useEffect(() => {
     const playListMax = playList.length - 1;
@@ -142,10 +156,8 @@ function PlayerMain() {
       if (playListMemberIsLoaded) {
         if (playListMember.length > 0) {
           if (currentSongMember.postId === playListMember[0].postId) {
-            const audio = audioRef.current;
             if (playing) {
               setPlaying(true);
-              audio.play();
             }
           }
         }
@@ -153,10 +165,9 @@ function PlayerMain() {
     } else {
       if (playList.length > 0) {
         if (currentSong.postId === playList[0].postId) {
-          const audio = audioRef.current;
           if (playing) {
             setPlaying(true);
-            audio.play();
+            // audio.play();
           }
         }
       }
@@ -247,8 +258,8 @@ function PlayerMain() {
         setIsAutoplay(true);
       } else {
         const filterRandom = playList.filter((x) => x.id !== random);
-        const Retryrandom = Math.floor(Math.random() * filterRandom.length);
-        setCurrentSong(filterRandom[Retryrandom]);
+        const retryRandom = Math.floor(Math.random() * filterRandom.length);
+        setCurrentSong(filterRandom[retryRandom]);
         audioRef.current.currentTime = 0;
         setIsAutoplay(true);
       }
@@ -266,8 +277,8 @@ function PlayerMain() {
           setIsAutoplay(true);
         } else {
           const filterRandom = playListMember.filter((x) => x.id !== random);
-          const Retryrandom = Math.floor(Math.random() * filterRandom.length);
-          setCurrentSongMember(filterRandom[Retryrandom]);
+          const retryRandom = Math.floor(Math.random() * filterRandom.length);
+          setCurrentSongMember(filterRandom[retryRandom]);
           audioRef.current.currentTime = 0;
           setIsAutoplay(true);
         }
