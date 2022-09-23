@@ -114,7 +114,15 @@ const Header = () => {
         <HeaderContainer>
           <HeaderTopDiv>
             <HeaderTopLeftSpan>About RyhthMe</HeaderTopLeftSpan>
-            <HeaderTopRightSpan>로그인</HeaderTopRightSpan>
+            {getCookie('authorization') !== undefined ? (
+              <HeaderTopRightSpan onClick={onHandleSingOut}>
+                로그아웃
+              </HeaderTopRightSpan>
+            ) : (
+              <HeaderTopRightSpan onClick={() => navigate('/signin')}>
+                로그인
+              </HeaderTopRightSpan>
+            )}
           </HeaderTopDiv>
           <HeaderDiv>
             <LeftDiv>
@@ -167,47 +175,30 @@ const Header = () => {
               <BtmDiv>
                 <Button
                   _style={{
-                    width: '122px',
-                    height: '45px',
+                    width: '90px',
+                    height: '42px',
                     bg_color: '#28CA7C',
                     bd_radius: '11px',
-                    color: 'rgba(255, 255, 255, 1)',
+                    color: ' #1B1E2F',
                     ft_size: '12',
                   }}
                   _text={'업로드'}
                   _onClick={uploadHandle}
                 />
-                {getCookie('authorization') !== undefined ? (
-                  <Button
-                    _style={{
-                      width: '122px',
-                      height: '45 px',
-                      bg_color: '#F9F9F9',
-                      bd_radius: '11px',
-                      color: 'rgba(0, 0, 0, 1)',
-                      ft_size: '12',
-                      bd_px: '1px',
-                      bd_color: 'black',
-                    }}
-                    _text={'로그아웃'}
-                    _onClick={onHandleSingOut}
-                  />
-                ) : (
-                  <Button
-                    _style={{
-                      width: '122px',
-                      height: '45px',
-                      bg_color: '#F9F9F9',
-                      bd_radius: '11px',
-                      color: 'rgba(0, 0, 0, 1)',
-                      ft_size: '12',
-                      bd_px: '1px',
-                      bd_color: 'black',
-                    }}
-                    _text={'로그인'}
-                    _onClick={() => navigate('/signin')}
-                  />
-                )}
+                <Button
+                  _style={{
+                    width: '90px',
+                    height: '42 px',
+                    bd_px:'1px',
+                    bd_color:'#28CA7C',
+                    bg_color: '#1B1E2F',
+                    bd_radius: '11px',
+                    color: '#28CA7C',
+                    ft_size: '12',
+                  }}
+                  
+                  _text={'메세지'}
+                />
               </BtmDiv>
             </RightDiv>
           </HeaderDiv>

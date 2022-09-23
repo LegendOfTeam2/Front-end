@@ -26,6 +26,7 @@ import {
   XboxDiv,
 } from '../assets/styles/components/PlayList.styled';
 import { Xbox20 } from '../assets/images/image';
+import useLikeStore from '../zustand/like';
 
 const PlayList = () => {
   const playListState = usePlayerStore((state) => state.playListState);
@@ -34,13 +35,17 @@ const PlayList = () => {
     (state) => state.playListStateChange
   );
   const playListMember = usePlayerStore((state) => state.playListMember);
+  const singerIsLikeIsLoaded = useLikeStore(
+    (state) => state.singerIsLikeIsLoaded
+  );
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
 
   const [isOpen, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalList, setModalList] = useState();
 
   const xboxClick = () => {
-    console.log('랜더');
     playListStateChange(false);
   };
 
@@ -58,19 +63,34 @@ const PlayList = () => {
 
   const listModalOpen = (postId) => {
     const filterList = playListMember.filter((x) => x.postId === postId);
-    setModalList({
-      postId: filterList[0].postId,
-      title: filterList[0].title,
-      nickname: filterList[0].nickname,
-      imageUrl: filterList[0].imageUrl,
-      lyrics: filterList[0].lyrics,
-      memberImageUrl: filterList[0].memberImageUrl,
-      position: filterList[0].position,
-    });
+    if (singerIsLikeIsLoaded) {
+      if ([...singerIsLike, ...makerIsLike].indexOf(postId) > -1){
+        setModalList({
+          postId: filterList[0].postId,
+          title: filterList[0].title,
+          nickname: filterList[0].nickname,
+          imageUrl: filterList[0].imageUrl,
+          lyrics: filterList[0].lyrics,
+          memberImageUrl: filterList[0].memberImageUrl,
+          position: filterList[0].position,
+          likeState: true
+        });  
+      }else{
+        setModalList({
+          postId: filterList[0].postId,
+          title: filterList[0].title,
+          nickname: filterList[0].nickname,
+          imageUrl: filterList[0].imageUrl,
+          lyrics: filterList[0].lyrics,
+          memberImageUrl: filterList[0].memberImageUrl,
+          position: filterList[0].position,
+          likeState: false
+        });  
+      }
+    }
+    
     setModalOpen(true);
   };
-
-  console.log(playListMember);
 
   return (
     <PlayListAllContainer ListyIndex={playListState ? 'flex' : 'none'}>
@@ -79,11 +99,12 @@ const PlayList = () => {
         onCancel={onCancel}
         playListMemberLength={playListMember.length}
       />
-      <PlayListModal
-        modalOpen={modalOpen}
-        playListCancel={playListCancel}
-        ModalList={modalList}
-      />
+        <PlayListModal
+          modalOpen={modalOpen}
+          playListCancel={playListCancel}
+          ModalList={modalList}
+        />
+
       <PlayListContainer>
         <XboxDiv onClick={xboxClick}>
           <img src={Xbox20} alt='Xbox' />
@@ -118,15 +139,31 @@ const PlayList = () => {
             </MidRightDivDiv>
           </PlayListMidDiv>
           <BtmAllDiv>
-            {playListMember.map((x) => {
-              return (
-                <PlayListSong
-                  key={x.postId}
-                  data={x}
-                  listModalOpen={listModalOpen}
-                />
-              );
-            })}
+            {singerIsLikeIsLoaded ? (
+              playListMember.map((x, idx) => {
+                if ([...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1) {
+                  return (
+                    <PlayListSong
+                      key={idx}
+                      data={x}
+                      listModalOpen={listModalOpen}
+                      likeState={true}
+                    />
+                  );
+                } else {
+                  return (
+                    <PlayListSong
+                      key={idx}
+                      data={x}
+                      listModalOpen={listModalOpen}
+                      likeState={false}
+                    />
+                  );
+                }
+              })
+            ) : (
+              <></>
+            )}
           </BtmAllDiv>
         </PlayListDiv>
       </PlayListContainer>

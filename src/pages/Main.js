@@ -107,6 +107,9 @@ const Main = () => {
   );
   const artistIsFollow = usePostStore((state) => state.artistIsFollow);
 
+  const singerIsLikeIsLoaded = useLikeStore(
+    (state) => state.singerIsLikeIsLoaded
+  );
   const singerIsLike = useLikeStore((state) => state.singerIsLike);
   const makerIsLike = useLikeStore((state) => state.makerIsLike);
 
@@ -427,7 +430,81 @@ const Main = () => {
             ) : (
               <Fragment />
             )}
-            {recentSingerIsLoaded ? (
+            {getCookie('authorization') !== undefined ? (
+              singerIsLikeIsLoaded ? (
+                recentSingerIsLoaded ? (
+                  recentSinger.length < 5 ? (
+                    <DisMainPostImgDivImgDiv>
+                      <DisMainPostImgDivDiv>
+                        <DisMainPostImgDivNew>
+                          싱어 최신작품
+                        </DisMainPostImgDivNew>
+                        <DisMainPostImgDivMakeDiv>
+                          <DisMainPostImgDivMake
+                            onClick={() => goToSinger('new')}
+                          >
+                            더보기
+                          </DisMainPostImgDivMake>
+                        </DisMainPostImgDivMakeDiv>
+                      </DisMainPostImgDivDiv>
+                      <DisMainPostImgDiv>
+                        {recentSinger.map((x, idx) => {
+                          if (
+                            [...singerIsLike, ...makerIsLike].indexOf(
+                              x.postId
+                            ) > -1
+                          ) {
+                            return (
+                              <Post
+                                key={idx}
+                                imageUrl={x.imageUrl.imageUrl}
+                                likes={x.likes}
+                                nickname={x.nickname}
+                                title={x.title}
+                                collaborate={x.collaborate}
+                                mediaUrl={x.mediaUrl.mediaUrl}
+                                postId={x.postId}
+                                position={x.position}
+                                likeState={true}
+                              />
+                            );
+                          } else {
+                            return (
+                              <Post
+                                key={idx}
+                                imageUrl={x.imageUrl.imageUrl}
+                                likes={x.likes}
+                                nickname={x.nickname}
+                                title={x.title}
+                                collaborate={x.collaborate}
+                                mediaUrl={x.mediaUrl.mediaUrl}
+                                postId={x.postId}
+                                position={x.position}
+                                likeState={false}
+                              />
+                            );
+                          }
+                        })}
+                      </DisMainPostImgDiv>
+                    </DisMainPostImgDivImgDiv>
+                  ) : (
+                    <>
+                      <ProfileSlider
+                        name={'싱어 최신작품'}
+                        position={'singer'}
+                        postList={recentSinger}
+                        GrandTitle='싱어 최신작품'
+                        ctg='new'
+                      />
+                    </>
+                  )
+                ) : (
+                  <> </>
+                )
+              ) : (
+                <></>
+              )
+            ) : recentSingerIsLoaded ? (
               recentSinger.length < 5 ? (
                 <DisMainPostImgDivImgDiv>
                   <DisMainPostImgDivDiv>
@@ -489,7 +566,81 @@ const Main = () => {
               <> </>
             )}
 
-            {bestSingerIsLoaded ? (
+            {getCookie('authorization') !== undefined ? (
+              singerIsLikeIsLoaded ? (
+                bestSingerIsLoaded ? (
+                  bestSinger.length < 5 ? (
+                    <DisMainPostImgDivImgDiv>
+                      <DisMainPostImgDivDiv>
+                        <DisMainPostImgDivNew>
+                          싱어 인기작품
+                        </DisMainPostImgDivNew>
+                        <DisMainPostImgDivMakeDiv>
+                          <DisMainPostImgDivMake
+                            onClick={() => goToSinger('popular')}
+                          >
+                            더보기
+                          </DisMainPostImgDivMake>
+                        </DisMainPostImgDivMakeDiv>
+                      </DisMainPostImgDivDiv>
+                      <DisMainPostImgDiv>
+                        {bestSinger.map((x, idx) => {
+                          if (
+                            [...singerIsLike, ...makerIsLike].indexOf(
+                              x.postId
+                            ) > -1
+                          ) {
+                            return (
+                              <Post
+                                key={idx}
+                                imageUrl={x.imageUrl.imageUrl}
+                                likes={x.likes}
+                                nickname={x.nickname}
+                                title={x.title}
+                                collaborate={x.collaborate}
+                                mediaUrl={x.mediaUrl.mediaUrl}
+                                postId={x.postId}
+                                position={x.position}
+                                likeState={true}
+                              />
+                            );
+                          } else {
+                            return (
+                              <Post
+                                key={idx}
+                                imageUrl={x.imageUrl.imageUrl}
+                                likes={x.likes}
+                                nickname={x.nickname}
+                                title={x.title}
+                                collaborate={x.collaborate}
+                                mediaUrl={x.mediaUrl.mediaUrl}
+                                postId={x.postId}
+                                position={x.position}
+                                likeState={false}
+                              />
+                            );
+                          }
+                        })}
+                      </DisMainPostImgDiv>
+                    </DisMainPostImgDivImgDiv>
+                  ) : (
+                    <>
+                      <ProfileSlider
+                        name={'싱어 인기작품'}
+                        position={'singer'}
+                        postList={bestSinger}
+                        GrandTitle='싱어 인기작품'
+                        ctg='popular'
+                      />
+                    </>
+                  )
+                ) : (
+                  <></>
+                )
+              ) : (
+                <></>
+              )
+            ) : bestSingerIsLoaded ? (
               bestSinger.length < 5 ? (
                 <DisMainPostImgDivImgDiv>
                   <DisMainPostImgDivDiv>
@@ -553,7 +704,81 @@ const Main = () => {
               <></>
             )}
 
-            {recentMakerIsLoaded ? (
+            {getCookie('authorization') !== undefined ? (
+              singerIsLikeIsLoaded ? (
+                recentMakerIsLoaded ? (
+                  recentMaker.length < 5 ? (
+                    <DisMainPostImgDivImgDiv>
+                      <DisMainPostImgDivDiv>
+                        <DisMainPostImgDivNew>
+                          메이커 최신작품
+                        </DisMainPostImgDivNew>
+                        <DisMainPostImgDivMakeDiv>
+                          <DisMainPostImgDivMake
+                            onClick={() => goToMaker('new')}
+                          >
+                            더보기
+                          </DisMainPostImgDivMake>
+                        </DisMainPostImgDivMakeDiv>
+                      </DisMainPostImgDivDiv>
+                      <DisMainPostImgDiv>
+                        {recentMaker.map((x, idx) => {
+                          if (
+                            [...singerIsLike, ...makerIsLike].indexOf(
+                              x.postId
+                            ) > -1
+                          ) {
+                            return (
+                              <Post
+                                key={idx}
+                                imageUrl={x.imageUrl.imageUrl}
+                                likes={x.likes}
+                                nickname={x.nickname}
+                                title={x.title}
+                                collaborate={x.collaborate}
+                                mediaUrl={x.mediaUrl.mediaUrl}
+                                postId={x.postId}
+                                position={x.position}
+                                likeState={true}
+                              />
+                            );
+                          } else {
+                            return (
+                              <Post
+                                key={idx}
+                                imageUrl={x.imageUrl.imageUrl}
+                                likes={x.likes}
+                                nickname={x.nickname}
+                                title={x.title}
+                                collaborate={x.collaborate}
+                                mediaUrl={x.mediaUrl.mediaUrl}
+                                postId={x.postId}
+                                position={x.position}
+                                likeState={false}
+                              />
+                            );
+                          }
+                        })}
+                      </DisMainPostImgDiv>
+                    </DisMainPostImgDivImgDiv>
+                  ) : (
+                    <>
+                      <ProfileSlider
+                        name={'메이커 최신작품'}
+                        position={'maker'}
+                        postList={recentMaker}
+                        GrandTitle='메이커 최신작품'
+                        ctg='new'
+                      />
+                    </>
+                  )
+                ) : (
+                  <></>
+                )
+              ) : (
+                <></>
+              )
+            ) : recentMakerIsLoaded ? (
               recentMaker.length < 5 ? (
                 <DisMainPostImgDivImgDiv>
                   <DisMainPostImgDivDiv>
@@ -615,7 +840,81 @@ const Main = () => {
               <></>
             )}
 
-            {bestMakerIsLoaded ? (
+            {getCookie('authorization') !== undefined ? (
+              singerIsLikeIsLoaded ? (
+                bestMakerIsLoaded ? (
+                  bestMaker.length < 5 ? (
+                    <DisMainPostImgDivImgDiv>
+                      <DisMainPostImgDivDiv>
+                        <DisMainPostImgDivNew>
+                          메이커 인기작품
+                        </DisMainPostImgDivNew>
+                        <DisMainPostImgDivMakeDiv>
+                          <DisMainPostImgDivMake
+                            onClick={() => goToMaker('popular')}
+                          >
+                            더보기
+                          </DisMainPostImgDivMake>
+                        </DisMainPostImgDivMakeDiv>
+                      </DisMainPostImgDivDiv>
+                      <DisMainPostImgDiv>
+                        {bestMaker.map((x, idx) => {
+                          if (
+                            [...singerIsLike, ...makerIsLike].indexOf(
+                              x.postId
+                            ) > -1
+                          ) {
+                            return (
+                              <Post
+                                key={idx}
+                                imageUrl={x.imageUrl.imageUrl}
+                                likes={x.likes}
+                                nickname={x.nickname}
+                                title={x.title}
+                                collaborate={x.collaborate}
+                                mediaUrl={x.mediaUrl.mediaUrl}
+                                postId={x.postId}
+                                position={x.position}
+                                likeState={true}
+                              />
+                            );
+                          } else {
+                            return (
+                              <Post
+                                key={idx}
+                                imageUrl={x.imageUrl.imageUrl}
+                                likes={x.likes}
+                                nickname={x.nickname}
+                                title={x.title}
+                                collaborate={x.collaborate}
+                                mediaUrl={x.mediaUrl.mediaUrl}
+                                postId={x.postId}
+                                position={x.position}
+                                likeState={false}
+                              />
+                            );
+                          }
+                        })}
+                      </DisMainPostImgDiv>
+                    </DisMainPostImgDivImgDiv>
+                  ) : (
+                    <>
+                      <ProfileSlider
+                        name={'메이커 인기작품'}
+                        position={'maker'}
+                        postList={bestMaker}
+                        GrandTitle='메이커 인기작품'
+                        ctg='popular'
+                      />
+                    </>
+                  )
+                ) : (
+                  <></>
+                )
+              ) : (
+                <></>
+              )
+            ) : bestMakerIsLoaded ? (
               bestMaker.length < 5 ? (
                 <DisMainPostImgDivImgDiv>
                   <DisMainPostImgDivDiv>

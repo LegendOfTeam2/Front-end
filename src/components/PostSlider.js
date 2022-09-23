@@ -61,7 +61,7 @@ const PostSlider = ({
   const addLike = useLikeStore((state) => state.addLike);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
-
+ 
   const navigate = useNavigate();
 
   const Play = () => {
