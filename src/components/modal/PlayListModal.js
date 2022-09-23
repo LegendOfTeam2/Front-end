@@ -34,11 +34,19 @@ import {
   ListModalTopDiv,
   XboxDiv,
 } from '../../assets/styles/components/modal/PlayListModal.styled';
-import { DisLike38, Share38, Xbox20 } from '../../assets/images/image';
+import { DisLike38, Like38, Share38, Xbox20 } from '../../assets/images/image';
+import { getCookie } from '../../utils/cookie';
+import useLikeStore from '../../zustand/like';
+import { useEffect, useState } from 'react';
 
 const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
+  const [isLike, setIsLike] = useState(false);
+  const addLike = useLikeStore((state) => state.addLike);
   const playListStateChange = usePlayerStore(
     (state) => state.playListStateChange
+  );
+  const singerIsLikeIsLoaded = useLikeStore(
+    (state) => state.singerIsLikeIsLoaded
   );
 
   const navigate = useNavigate();
@@ -46,6 +54,12 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
   const playListClose = () => {
     playListCancel();
   };
+
+  useEffect(()=>{
+    if (ModalList !== undefined) {
+      setIsLike(ModalList.likeState)  
+    }
+  },[modalOpen])
 
   const customStyles = {
     overlay: {
@@ -67,6 +81,34 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
       backgroundColor: 'rgba(27, 30, 47, 0.8)',
       border: '1px solid #28ca72',
     },
+  };
+
+  const LikeClick = () => {
+    if (getCookie('authorization') === undefined) {
+      alert('로그인후 이용해주세요');
+    } else {
+      addLike({ postId: ModalList.postId, position: ModalList.position }).then(
+        (res) => {
+          if (res.success && res.data) {
+            toast.info('게시글에 좋아요를 눌렀습니다.', {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
+            setIsLike(true);
+          } else {
+            toast.info('게시글에 좋아요를 취소했습니다.', {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
+            setIsLike(false);
+          }
+        }
+      );
+    }
   };
 
   const clip = () => {
@@ -141,7 +183,16 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
           </ListModalProfileDiv>
           <ListModalBtnDiv>
             <ListModalBtnLeft>
-              <img src={DisLike38} alt='좋아요' />
+              {singerIsLikeIsLoaded ? (
+                isLike ? (
+                  <img src={Like38} alt='좋아요' onClick={LikeClick} />
+                ) : (
+                  <img src={DisLike38} alt='좋아요힌 상태' onClick={LikeClick} />
+                )
+              ) : (
+                <></>
+              )}
+
               <ListModalBtnSpan>좋아요</ListModalBtnSpan>
             </ListModalBtnLeft>
             <ListModalBtnRight onClick={clip}>

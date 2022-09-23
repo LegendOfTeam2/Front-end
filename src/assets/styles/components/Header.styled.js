@@ -23,8 +23,8 @@ export const HeaderTopDiv = styled.div`
   width: 100%;
   height: auto;
   display: flex;
-  flex-direction: row;
-  gap: 839px;
+  flex-direction: row;  
+  justify-content: space-between;
   padding-bottom: 15px;
   border-bottom: 0.3px solid #28CA72;
 `;
@@ -40,6 +40,9 @@ export const HeaderTopRightSpan = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.lg};
   color: rgba(40, 202, 114, 1);
+  &:hover {
+    cursor: pointer;
+  }
 
 `;
 
@@ -49,7 +52,7 @@ export const HeaderDiv = styled.div`
   height: auto;
   display: flex;
   flex-direction: row;
-  gap: 46px;
+  gap: 50px;
   align-items: center;
   border-radius: 10px;
   margin-top: 18px;
@@ -64,7 +67,7 @@ export const LogoDiv = styled.div`
 `;
 
 export const SearchDiv = styled.div`
-  width: 450px;
+  width: 551px;
   height: 34px;
   border-radius: 44px;
   display: flex;
@@ -95,7 +98,7 @@ export const LeftDiv = styled.div`
 export const RightDiv = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 47px;
+  gap: 37px;
   align-items: center;
 `;
 
@@ -116,5 +119,5 @@ export const ProfileImg = styled.img`
 export const BtmDiv = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 17px;
+  gap: 9px;
 `;

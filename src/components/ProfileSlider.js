@@ -1,5 +1,7 @@
 // React
 import { Fragment, useRef } from 'react';
+//zustand
+import useLikeStore from '../zustand/like';
 // Packages
 import {
   MdOutlineArrowBackIosNew,
@@ -25,8 +27,15 @@ import {
 } from '../assets/styles/components/ProfileSlider.styled';
 import { useNavigate } from 'react-router-dom';
 import { LeftArrow, RightArrow } from '../assets/images/image';
+import { getCookie } from '../utils/cookie';
 
 const ProfileSlider = ({ postList, name, position, ctg }) => {
+  const singerIsLikeIsLoaded = useLikeStore(
+    (state) => state.singerIsLikeIsLoaded
+  );
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
+
   const sliderRef = useRef();
   const navigate = useNavigate();
 
@@ -65,21 +74,72 @@ const ProfileSlider = ({ postList, name, position, ctg }) => {
               />
             </ArowLeft>
             <Slider {...settings}>
-              {postList.map((x) => (
-                <PostSlider
-                  width='167'
-                  height='167'
-                  key={x.postId}
-                  imageUrl={x.imageUrl.imageUrl}
-                  likes={x.likes}
-                  nickname={x.nickname}
-                  title={x.title}
-                  collaborate={x.collaborate}
-                  mediaUrl={x.mediaUrl.mediaUrl}
-                  postId={x.postId}
-                  position={x.position}
-                />
-              ))}
+              {getCookie('authorization') !== undefined ? (
+                singerIsLikeIsLoaded ? (
+                  postList.map((x, idx) => {
+                    if (
+                      [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
+                    ) {
+                      return (
+                        <PostSlider
+                          ket={idx}
+                          width='167'
+                          height='167'
+                          key={x.postId}
+                          imageUrl={x.imageUrl.imageUrl}
+                          likes={x.likes}
+                          nickname={x.nickname}
+                          title={x.title}
+                          collaborate={x.collaborate}
+                          mediaUrl={x.mediaUrl.mediaUrl}
+                          postId={x.postId}
+                          position={x.position}
+                          likeState={true}
+                        />
+                      );
+                    } else {
+                      return (
+                        <PostSlider
+                          ket={idx}
+                          width='167'
+                          height='167'
+                          key={x.postId}
+                          imageUrl={x.imageUrl.imageUrl}
+                          likes={x.likes}
+                          nickname={x.nickname}
+                          title={x.title}
+                          collaborate={x.collaborate}
+                          mediaUrl={x.mediaUrl.mediaUrl}
+                          postId={x.postId}
+                          position={x.position}
+                          likeState={false}
+                        />
+                      );
+                    }
+                  })
+                ) : (
+                  <></>
+                )
+              ) : (
+                postList.map((x, idx) => {
+                  return (
+                    <PostSlider
+                      ket={idx}
+                      width='167'
+                      height='167'
+                      key={x.postId}
+                      imageUrl={x.imageUrl.imageUrl}
+                      likes={x.likes}
+                      nickname={x.nickname}
+                      title={x.title}
+                      collaborate={x.collaborate}
+                      mediaUrl={x.mediaUrl.mediaUrl}
+                      postId={x.postId}
+                      position={x.position}
+                    />
+                  );
+                })
+              )}
             </Slider>
             <ArowRight>
               <img
