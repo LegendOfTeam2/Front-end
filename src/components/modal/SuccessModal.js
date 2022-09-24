@@ -37,7 +37,7 @@ const customStyles = {
   },
 };
 
-const SuccessModal = ({ isOpen }) => {
+const SuccessModal = ({ isOpen, location }) => {
   const navigate = useNavigate();
   return (
     <ReactModal isOpen={isOpen} style={customStyles}>
@@ -64,7 +64,7 @@ const SuccessModal = ({ isOpen }) => {
               bd_radius: '10px',
               ft_weight: '800',
             }}
-            _onClick={() => navigate('/')}
+            _onClick={() => navigate(location)}
           />
         </WriteModalBtnGroup>
       </WriteModalContainer>

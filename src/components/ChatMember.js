@@ -1,15 +1,24 @@
+// Zustand
+import useChatStore from '../zustand/chat';
+
 import styled from 'styled-components';
 
-const ChatMember = () => {
+const ChatMember = ({roomId, sender, receiver, lastMessage}) => {
+  const setSubRoomId = useChatStore((state) => state.setSubRoomId);
+
+  const onClickHandle = () => {
+    setSubRoomId(roomId);
+  };
+
   return (
-    <ChatMemberContainer>
+    <ChatMemberContainer onClick={onClickHandle}>
       <ChatMemberProfileContainer>
         <ChatMemberProfileImg></ChatMemberProfileImg>
       </ChatMemberProfileContainer>
       <ChatMemberTextContainer>
-        <ChatMemberTextNickname>닉네임</ChatMemberTextNickname>
+        <ChatMemberTextNickname>{receiver}</ChatMemberTextNickname>
         <ChatMemberTextMessage>
-          안녕하세요, 같이 작업 하고 싶어서 콜라보 보내드렸어요!
+          {lastMessage}
         </ChatMemberTextMessage>
       </ChatMemberTextContainer>
     </ChatMemberContainer>
@@ -23,6 +32,7 @@ export const ChatMemberContainer = styled.div`
   height: 108px;
   border-bottom: 1px solid #b4b4b4;
   position: relative;
+  cursor: pointer;
 `;
 export const ChatMemberProfileContainer = styled.div`
   width: auto;
