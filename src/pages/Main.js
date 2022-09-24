@@ -831,7 +831,6 @@ const Main = () => {
             ) : (
               <></>
             )}
-
             {getCookie('authorization') !== undefined ? (
               singerIsLikeIsLoaded ? (
                 bestMakerIsLoaded ? (

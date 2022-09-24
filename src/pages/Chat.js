@@ -1,6 +1,9 @@
 // React
 import { Fragment, useState, useEffect } from 'react';
 
+// Zustand
+import useChatStore from '../zustand/chat';
+
 // Packages
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
@@ -44,31 +47,36 @@ import {
 } from '../assets/styles/pages/Chat.styled';
 
 const Chat = () => {
-  const SERVER_URL = process.env.REACT_APP_REST_API_IP_TEST;
+  const SERVER_URL = process.env.REACT_APP_REST_API_IP;
   const sockJS = new SockJS(`http://${SERVER_URL}/ws/chat`);
   const stompClient = over(sockJS);
 
   const nickname = jwt_decode(getCookie('authorization')).sub;
 
+  const getRoomsIsLoaded = useChatStore((state) => state.getRoomsIsLoaded);
+  const getRooms = useChatStore((state) => state.getRooms);
+  const rooms = useChatStore((state) => state.rooms);
+
   const [message, setMessage] = useState('');
   const [contents, setContents] = useState([]);
-  const [roomId, setRoomId] = useState(1);
+  const roomId = useChatStore((state) => state.roomId);
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    getRooms();
     stompClient.connect({}, () => {
       stompClient.subscribe(`/sub/chat/room/${roomId}`, (data) => {
         const newMessage = JSON.parse(data.body);
         addMessage(newMessage);
       });
     });
-  }, []);
+  }, [roomId]);
 
   const onHandleClick = () => {
     if (message !== '' && message !== ' ') {
       const newMessage = { type: 'TALK', roomId, sender: nickname, message };
-      stompClient.send('/pub/chat/message', {}, JSON.stringify(newMessage));
+      stompClient.send(`/pub/chat/message`, {}, JSON.stringify(newMessage));
       setMessage('');
     }
   };
@@ -84,7 +92,7 @@ const Chat = () => {
             sender: nickname,
             message,
           };
-          stompClient.send('/app/chat/message', {}, JSON.stringify(newMessage));
+          stompClient.send(`/pub/chat/message`, {}, JSON.stringify(newMessage));
           setMessage('');
         }
       }
@@ -113,15 +121,21 @@ const Chat = () => {
               <ChatDataMemberTitleText>메시지 목록</ChatDataMemberTitleText>
             </ChatDataMemberTitleBox>
             <ChatDataMemberRoomBox>
-              <ChatMember />
-              <ChatMember />
-              <ChatMember />
-              <ChatMember />
-              <ChatMember />
-              <ChatMember />
-              <ChatMember />
-              <ChatMember />
-              <ChatMember />
+              {getRoomsIsLoaded ? (
+                rooms.map((room) => {
+                  return (
+                    <ChatMember
+                      key={room.roomId}
+                      roomId={room.roomId}
+                      sender={room.sender}
+                      receiver={room.receiver}
+                      lastMessage={room.lastMessage}
+                    />
+                  );
+                })
+              ) : (
+                <Fragment />
+              )}
             </ChatDataMemberRoomBox>
           </ChatDataMemberContainer>
           <ChatDataRoomContainer>

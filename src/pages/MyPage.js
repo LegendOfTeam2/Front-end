@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState } from 'react';
 import useMyPageStore from '../zustand/mypage';
 import useMemberStore from '../zustand/member';
 import useFollowStore from '../zustand/follow';
+import useChatStore from '../zustand/chat';
 
 // Packages
 import Slider from 'react-slick';
@@ -128,6 +129,8 @@ const MyPage = () => {
   const makerIsLike = useLikeStore((state) => state.makerIsLike);
 
   const follow = useFollowStore((state) => state.follow);
+  
+  const makeRoom = useChatStore((state) => state.makeRoom);
 
   const [category, setCategory] = useState('upload');
   const [isFollow, setIsFollow] = useState(false);
@@ -138,7 +141,7 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   const settings = {
-    slidesToShow: 1,  
+    slidesToShow: 1,
     slidesToScroll: 1,
     infinite: false,
     centerPadding: '10px',
@@ -198,11 +201,21 @@ const MyPage = () => {
   };
 
   const onHandleChat = () => {
-    if (getCookie('authorization') === undefined) {
-      alert('로그인 후에 이용 가능합니다.');
-      navigate('/signin');
+    if (getCookie('authorization') !== undefined) {
+      const sender = jwt_decode(getCookie('authorization')).sub;
+      makeRoom({ sender, receiver: nickname }).then((res) => {
+        if (res.success) {
+          navigate('/chat');
+        }
+      });
+      // getRooms();
     } else {
-      navigate('/chat');
+      toast.warning(`로그인 후에 이용 가능합니다.`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 1500,
+        draggablePercent: 60,
+        hideProgressBar: true,
+      });
     }
   };
 
@@ -378,9 +391,9 @@ const MyPage = () => {
                               _style={{
                                 width: '280px',
                                 height: '42px',
-                                bg_color: '#cc0000',
-                                bd_radius: '11px',
-                                color: 'rgba(255, 255, 255, 1)',
+                                bg_color: '#28CA7C',
+                                bd_radius: '10px',
+                                color: '#ffffff',
                                 ft_size: '15',
                                 ft_weight: '700',
                               }}
@@ -392,9 +405,11 @@ const MyPage = () => {
                               _style={{
                                 width: '280px',
                                 height: '42px',
-                                bg_color: '#28CA7C',
-                                bd_radius: '11px',
-                                color: 'rgba(255, 255, 255, 1)',
+                                bg_color: '#ffffff',
+                                bd_radius: '10px',
+                                bd_px: '1px',
+                                bd_color: '#28CA7C',
+                                color: '#28CA7C',
                                 ft_size: '15',
                                 ft_weight: '700',
                               }}
@@ -409,9 +424,10 @@ const MyPage = () => {
                           _style={{
                             width: '280px',
                             height: '42px',
-                            bg_color: '#E7E7E7',
-                            bd_radius: '11px',
+                            bg_color: '#ffffff',
+                            bd_radius: '10px',
                             color: '#121212',
+                            bd_px: '1px',
                             ft_size: '15',
                             ft_weight: '700',
                           }}
@@ -427,7 +443,7 @@ const MyPage = () => {
                               width: '261px',
                               height: '45px',
                               bg_color: '#28CA7C',
-                              bd_radius: '11px',
+                              bd_radius: '10px',
                               color: 'rgba(255, 255, 255, 1)',
                               ft_size: '12',
                               ft_weight: '700',
@@ -443,28 +459,31 @@ const MyPage = () => {
                       <Button
                         _style={{
                           width: '280px',
-                          height: '45px',
-                          bg_color: '#28CA7C',
-                          bd_radius: '11px',
-                          color: 'rgba(255, 255, 255, 1)',
+                          height: '42px',
+                          bg_color: '#ffffff',
+                          bd_radius: '10px',
+                          bd_px: '1px',
+                          bd_color: '#28CA7C',
+                          color: '#28CA7C',
                           ft_size: '15',
                           ft_weight: '700',
                         }}
-                        _onClick={onHandleFollow}
                         _text={'팔로우'}
+                        _onClick={onHandleFollow}
                       />
                       <Button
                         _style={{
                           width: '280px',
-                          height: '45px',
-                          bg_color: '#E7E7E7',
-                          bd_radius: '11px',
+                          height: '42px',
+                          bg_color: '#ffffff',
+                          bd_radius: '10px',
                           color: '#121212',
+                          bd_px: '1px',
                           ft_size: '15',
                           ft_weight: '700',
                         }}
-                        _onClick={onHandleChat}
                         _text={'메시지 보내기'}
+                        _onClick={onHandleChat}
                       />
                     </MyRightTopButDiv>
                   )}

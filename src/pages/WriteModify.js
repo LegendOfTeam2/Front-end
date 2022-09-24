@@ -90,6 +90,7 @@ const WriteModify = () => {
   const [cancelIsOpen, setCancelIsOpen] = useState(false);
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
   const [successIsOpen, setSuccessIsOpen] = useState(false);
+  const [location, setLocation] = useState(null);
 
   const collaboBoxRef = useRef();
   const collaboTextRef = useRef();
@@ -147,6 +148,7 @@ const WriteModify = () => {
     deleteDetail(deletePost).then((res) => {
       if (res) {
         onCancel();
+        setLocation('/');
         onHandleSuccessModal();
       }
     });
@@ -401,6 +403,7 @@ const WriteModify = () => {
     } else {
       putModifyWrite(modifyPost).then((res) => {
         if (res.success) {
+          setLocation(-1);
           onHandleSuccessModal();
         }
       });
@@ -411,12 +414,8 @@ const WriteModify = () => {
     <Fragment>
       <ToastContainer />
       <WriteModifyModal isOpen={cancelIsOpen} onCancel={onCancel} />
-      <WriteDeleteModal
-        isOpen={deleteIsOpen}
-        onCancel={onCancel}
-        onDeleteDetail={onDeleteDetail}
-      />
-      <SuccessModal isOpen={successIsOpen} />
+      <WriteDeleteModal isOpen={deleteIsOpen} onCancel={onCancel} onDeleteDetail={onDeleteDetail} />
+      <SuccessModal isOpen={successIsOpen} location={location} />
       <WriteContainer>
         <WriteBox>
           <WriteIconContainer onClick={onHandleCancelModal}>

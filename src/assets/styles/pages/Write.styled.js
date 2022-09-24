@@ -12,7 +12,8 @@ export const WriteContainer = styled.div`
 `;
 export const WriteBox = styled.div`
   width: 961px;
-  height: 809px;
+  height: auto;
+  min-height: 809px;
   display: flex;
   justify-content: center;
   position: relative;
