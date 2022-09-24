@@ -59,23 +59,30 @@ const Chat = () => {
 
   const [message, setMessage] = useState('');
   const [contents, setContents] = useState([]);
-  const roomId = useChatStore((state) => state.roomId);
+  const subRoomId = useChatStore((state) => state.subRoomId);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     getRooms();
     stompClient.connect({}, () => {
-      stompClient.subscribe(`/sub/chat/room/${roomId}`, (data) => {
+      stompClient.subscribe(`/sub/chat/room/${subRoomId}`, (data) => {
         const newMessage = JSON.parse(data.body);
         addMessage(newMessage);
       });
     });
-  }, [roomId]);
+  }, [subRoomId]);
 
   const onHandleClick = () => {
     if (message !== '' && message !== ' ') {
-      const newMessage = { type: 'TALK', roomId, sender: nickname, message };
+      const newMessage = {
+        type: 'TALK',
+        roomId: subRoomId,
+        sender: nickname,
+        message,
+        profileUrl: '',
+        createdAt: '',
+      };
       stompClient.send(`/pub/chat/message`, {}, JSON.stringify(newMessage));
       setMessage('');
     }
@@ -87,10 +94,12 @@ const Chat = () => {
         if (e.target.value.length > 0) {
           e.preventDefault();
           const newMessage = {
-            type: 'TALK',
-            roomId,
+            type: 'ENTER',
+            roomId: subRoomId,
             sender: nickname,
             message,
+            profileUrl: '',
+            createdAt: '',
           };
           stompClient.send(`/pub/chat/message`, {}, JSON.stringify(newMessage));
           setMessage('');
@@ -130,6 +139,7 @@ const Chat = () => {
                       sender={room.sender}
                       receiver={room.receiver}
                       lastMessage={room.lastMessage}
+                      profileUrl={room.profileUrl}
                     />
                   );
                 })

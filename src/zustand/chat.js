@@ -14,13 +14,15 @@ const useChatStore = create((set) => ({
 
     if (resData?.data.success) {
       return resData.data;
+    } else {
+      return resData.data;
     }
   },
   getRooms: async () => {
     const resData = await getRoomsApi()
       .then((res) => res)
       .catch((err) => console.log(err));
-      
+
     if (resData?.data.success) {
       set({ rooms: resData.data.data.messageDto });
       set({ getRoomsIsLoaded: true });

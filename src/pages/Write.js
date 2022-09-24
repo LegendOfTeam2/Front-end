@@ -78,6 +78,11 @@ const Write = () => {
   const [collaborate, setCollaborate] = useState(false);
   const [position, setPosition] = useState('');
   const [isOpen, setOpen] = useState(false);
+  const [view, setView] = useState({
+    title: false,
+    lyrics: false,
+    intro: false,
+  });
 
   const navigate = useNavigate();
   const uploadAudio = useUploadStore((state) => state.uploadAudio);
@@ -118,12 +123,33 @@ const Write = () => {
   }, [isOpen]);
 
   useEffect(() => {
-    if (title !== '') titleIconRef.current.style.display = 'block';
-    else titleIconRef.current.style.display = 'none';
-    if (lyrics !== '') lyricsIconRef.current.style.display = 'block';
-    else lyricsIconRef.current.style.display = 'none';
-    if (intro !== '') introIconRef.current.style.display = 'block';
-    else introIconRef.current.style.display = 'none';
+    if (title !== '') {
+      setView((prev) => {
+        return { ...prev, title: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, title: false };
+      });
+    }
+    if (lyrics !== '') {
+      setView((prev) => {
+        return { ...prev, lyrics: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, lyrics: false };
+      });
+    }
+    if (intro !== '') {
+      setView((prev) => {
+        return { ...prev, intro: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, intro: false };
+      });
+    }
   }, [title, lyrics, intro]);
 
   const deleteText = useCallback(
@@ -360,12 +386,16 @@ const Write = () => {
           </WriteMakerContainer>
           <WriteForm id='write' onSubmit={(e) => addPostHandle(e)}>
             <WriteInputContainer>
-              <WriteInputIcon
-                onClick={() => deleteText('title')}
-                ref={titleIconRef}
-              >
-                <GrClose className='icon'></GrClose>
-              </WriteInputIcon>
+              {view.title ? (
+                <WriteInputIcon
+                  onClick={() => deleteText('title')}
+                  ref={titleIconRef}
+                >
+                  <GrClose className='icon'></GrClose>
+                </WriteInputIcon>
+              ) : (
+                <Fragment />
+              )}
               <Input
                 _type={'text'}
                 _value={title}
@@ -402,12 +432,16 @@ const Write = () => {
                 ></UploadImage>
               </WriteImageBox>
               <WriteTextBox>
-                <WriteTextIconBox
-                  onClick={() => deleteText('lyrics')}
-                  ref={lyricsIconRef}
-                >
-                  <GrClose></GrClose>
-                </WriteTextIconBox>
+                {view.lyrics ? (
+                  <WriteTextIconBox
+                    onClick={() => deleteText('lyrics')}
+                    ref={lyricsIconRef}
+                  >
+                    <GrClose />
+                  </WriteTextIconBox>
+                ) : (
+                  <Fragment />
+                )}
                 <WriteTextArea
                   placeholder='가사 첨부...'
                   value={lyrics}
@@ -416,12 +450,16 @@ const Write = () => {
                 ></WriteTextArea>
               </WriteTextBox>
               <WriteTextBox>
-                <WriteTextIconBox
-                  onClick={() => deleteText('intro')}
-                  ref={introIconRef}
-                >
-                  <GrClose></GrClose>
-                </WriteTextIconBox>
+                {view.intro ? (
+                  <WriteTextIconBox
+                    onClick={() => deleteText('intro')}
+                    ref={introIconRef}
+                  >
+                    <GrClose />
+                  </WriteTextIconBox>
+                ) : (
+                  <Fragment />
+                )}
                 <WriteTextArea
                   placeholder='작업물 설명...'
                   value={intro}

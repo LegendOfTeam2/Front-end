@@ -129,7 +129,7 @@ const MyPage = () => {
   const makerIsLike = useLikeStore((state) => state.makerIsLike);
 
   const follow = useFollowStore((state) => state.follow);
-  
+
   const makeRoom = useChatStore((state) => state.makeRoom);
 
   const [category, setCategory] = useState('upload');
@@ -204,11 +204,13 @@ const MyPage = () => {
     if (getCookie('authorization') !== undefined) {
       const sender = jwt_decode(getCookie('authorization')).sub;
       makeRoom({ sender, receiver: nickname }).then((res) => {
-        if (res.success) {
+        console.log(res);
+        if (res?.success) {
+          navigate('/chat');
+        } else {
           navigate('/chat');
         }
       });
-      // getRooms();
     } else {
       toast.warning(`로그인 후에 이용 가능합니다.`, {
         position: toast.POSITION.BOTTOM_RIGHT,
@@ -283,7 +285,13 @@ const MyPage = () => {
         setMakerMarker(MakerMarker10);
       }
     }
-  }, [getProfileInfo, nickname, profileInfo.makerPostCnt, profileInfo.singerPostCnt, profileInfoIsLoaded]);
+  }, [
+    getProfileInfo,
+    nickname,
+    profileInfo.makerPostCnt,
+    profileInfo.singerPostCnt,
+    profileInfoIsLoaded,
+  ]);
 
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
@@ -317,7 +325,6 @@ const MyPage = () => {
       });
     }
   };
-  console.log(isSingerMarker);
   return (
     <Fragment>
       <Header />

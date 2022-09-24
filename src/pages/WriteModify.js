@@ -91,6 +91,11 @@ const WriteModify = () => {
   const [deleteIsOpen, setDeleteIsOpen] = useState(false);
   const [successIsOpen, setSuccessIsOpen] = useState(false);
   const [location, setLocation] = useState(null);
+  const [view, setView] = useState({
+    title: false,
+    lyrics: false,
+    intro: false,
+  });
 
   const collaboBoxRef = useRef();
   const collaboTextRef = useRef();
@@ -155,12 +160,33 @@ const WriteModify = () => {
   };
 
   useEffect(() => {
-    if (title !== '') titleIconRef.current.style.display = 'block';
-    else titleIconRef.current.style.display = 'none';
-    if (lyrics !== '') lyricsIconRef.current.style.display = 'block';
-    else lyricsIconRef.current.style.display = 'none';
-    if (intro !== '') introIconRef.current.style.display = 'block';
-    else introIconRef.current.style.display = 'none';
+    if (title !== '') {
+      setView((prev) => {
+        return { ...prev, title: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, title: false };
+      });
+    }
+    if (lyrics !== '') {
+      setView((prev) => {
+        return { ...prev, lyrics: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, lyrics: false };
+      });
+    }
+    if (intro !== '') {
+      setView((prev) => {
+        return { ...prev, intro: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, intro: false };
+      });
+    }
   }, [title, lyrics, intro]);
 
   useEffect(() => {
@@ -414,12 +440,16 @@ const WriteModify = () => {
     <Fragment>
       <ToastContainer />
       <WriteModifyModal isOpen={cancelIsOpen} onCancel={onCancel} />
-      <WriteDeleteModal isOpen={deleteIsOpen} onCancel={onCancel} onDeleteDetail={onDeleteDetail} />
+      <WriteDeleteModal
+        isOpen={deleteIsOpen}
+        onCancel={onCancel}
+        onDeleteDetail={onDeleteDetail}
+      />
       <SuccessModal isOpen={successIsOpen} location={location} />
       <WriteContainer>
         <WriteBox>
           <WriteIconContainer onClick={onHandleCancelModal}>
-            <GrClose color='#cecece'></GrClose>
+            <GrClose color='#cecece' />
           </WriteIconContainer>
           <WriteCollaboContainer
             onClick={changeCollaborateStatus}
@@ -464,12 +494,16 @@ const WriteModify = () => {
           </WriteMakerContainer>
           <WriteForm id='write' onSubmit={(e) => modifyPostHandle(e)}>
             <WriteInputContainer>
-              <WriteInputIcon
-                onClick={() => deleteText('title')}
-                ref={titleIconRef}
-              >
-                <GrClose className='icon'></GrClose>
-              </WriteInputIcon>
+              {view.title ? (
+                <WriteInputIcon
+                  onClick={() => deleteText('title')}
+                  ref={titleIconRef}
+                >
+                  <GrClose className='icon' />
+                </WriteInputIcon>
+              ) : (
+                <Fragment />
+              )}
               <Input
                 _type={'text'}
                 _value={title}
@@ -495,7 +529,7 @@ const WriteModify = () => {
                 {imageSrc === '' ? (
                   <Fragment />
                 ) : (
-                  <WriteImagePreviewImg src={imageSrc}></WriteImagePreviewImg>
+                  <WriteImagePreviewImg src={imageSrc} />
                 )}
                 <UploadImage
                   width={'236px'}
@@ -506,12 +540,16 @@ const WriteModify = () => {
                 ></UploadImage>
               </WriteImageBox>
               <WriteTextBox>
-                <WriteTextIconBox
-                  onClick={() => deleteText('lyrics')}
-                  ref={lyricsIconRef}
-                >
-                  <GrClose></GrClose>
-                </WriteTextIconBox>
+                {view.lyrics ? (
+                  <WriteTextIconBox
+                    onClick={() => deleteText('lyrics')}
+                    ref={lyricsIconRef}
+                  >
+                    <GrClose></GrClose>
+                  </WriteTextIconBox>
+                ) : (
+                  <Fragment />
+                )}
                 <WriteTextArea
                   placeholder='가사 첨부...'
                   value={lyrics}
@@ -520,12 +558,16 @@ const WriteModify = () => {
                 ></WriteTextArea>
               </WriteTextBox>
               <WriteTextBox>
-                <WriteTextIconBox
-                  onClick={() => deleteText('intro')}
-                  ref={introIconRef}
-                >
-                  <GrClose></GrClose>
-                </WriteTextIconBox>
+                {view.intro ? (
+                  <WriteTextIconBox
+                    onClick={() => deleteText('intro')}
+                    ref={introIconRef}
+                  >
+                    <GrClose></GrClose>
+                  </WriteTextIconBox>
+                ) : (
+                  <Fragment />
+                )}
                 <WriteTextArea
                   placeholder='작업물 설명...'
                   value={intro}
@@ -544,7 +586,7 @@ const WriteModify = () => {
                 onDragOver={(e) => onDragOverHandle(e)}
               >
                 <WriteAudioIcon>
-                  <GrAdd className='icon'></GrAdd>
+                  <GrAdd className='icon' />
                 </WriteAudioIcon>
                 <WriteAudioText>오디오 삽입하기</WriteAudioText>
                 <WriteAudioInput
@@ -585,19 +627,19 @@ const WriteModify = () => {
                 maxLength={100}
               />
               {tags.length === 0 ? (
-                <Fragment></Fragment>
+                <Fragment />
               ) : (
-                  <WriteHashTagBox>
-                    {tags.map((tag) => {
-                      return (
-                        <HashTagWithIcon
-                          key={shortid.generate()}
-                          tag={tag}
-                          removeTag={removeTag}
-                        />
-                      );
-                    })}
-                  </WriteHashTagBox>
+                <WriteHashTagBox>
+                  {tags.map((tag) => {
+                    return (
+                      <HashTagWithIcon
+                        key={shortid.generate()}
+                        tag={tag}
+                        removeTag={removeTag}
+                      />
+                    );
+                  })}
+                </WriteHashTagBox>
               )}
             </WriteHashTagContainer>
           </WriteForm>
