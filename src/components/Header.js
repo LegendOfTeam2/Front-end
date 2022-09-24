@@ -196,7 +196,7 @@ const Header = () => {
                     color: '#28CA7C',
                     ft_size: '12',
                   }}
-                  
+                  _onClick={() => navigate('/chat')}
                   _text={'메세지'}
                 />
               </BtmDiv>

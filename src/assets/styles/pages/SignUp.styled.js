@@ -162,7 +162,7 @@ export const SignUpBoxInputTags = styled.input`
   font-size: ${(props) => props.theme.fontSizes.sm};
   padding: 20px 40px 20px 19px;
   border-radius: 10px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid #28ca7c;
   line-height: ${(props) => props.theme.lineHeight.xs};
   outline: none;
   &::placeholder {

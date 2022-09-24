@@ -1,9 +1,15 @@
 // Zustand
 import useChatStore from '../zustand/chat';
 
+// Packages
+import jwt_decode from 'jwt-decode';
+
+// Utils
+import { getCookie } from '../utils/cookie';
+
 import styled from 'styled-components';
 
-const ChatMember = ({roomId, sender, receiver, lastMessage}) => {
+const ChatMember = ({ roomId, sender, receiver, lastMessage, profileUrl }) => {
   const setSubRoomId = useChatStore((state) => state.setSubRoomId);
 
   const onClickHandle = () => {
@@ -13,13 +19,15 @@ const ChatMember = ({roomId, sender, receiver, lastMessage}) => {
   return (
     <ChatMemberContainer onClick={onClickHandle}>
       <ChatMemberProfileContainer>
-        <ChatMemberProfileImg></ChatMemberProfileImg>
+        <ChatMemberProfileImg src={profileUrl}></ChatMemberProfileImg>
       </ChatMemberProfileContainer>
       <ChatMemberTextContainer>
-        <ChatMemberTextNickname>{receiver}</ChatMemberTextNickname>
-        <ChatMemberTextMessage>
-          {lastMessage}
-        </ChatMemberTextMessage>
+        {receiver === jwt_decode(getCookie('authorization')).sub ? (
+          <ChatMemberTextNickname>{sender}</ChatMemberTextNickname>
+        ) : (
+          <ChatMemberTextNickname>{receiver}</ChatMemberTextNickname>
+        )}
+        <ChatMemberTextMessage>{lastMessage}</ChatMemberTextMessage>
       </ChatMemberTextContainer>
     </ChatMemberContainer>
   );
