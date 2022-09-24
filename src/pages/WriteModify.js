@@ -161,85 +161,6 @@ const WriteModify = () => {
     });
   };
 
-  useEffect(() => {
-    if (title !== '') {
-      setView((prev) => {
-        return { ...prev, title: true };
-      });
-    } else {
-      setView((prev) => {
-        return { ...prev, title: false };
-      });
-    }
-    if (lyrics !== '') {
-      setView((prev) => {
-        return { ...prev, lyrics: true };
-      });
-    } else {
-      setView((prev) => {
-        return { ...prev, lyrics: false };
-      });
-    }
-    if (intro !== '') {
-      setView((prev) => {
-        return { ...prev, intro: true };
-      });
-    } else {
-      setView((prev) => {
-        return { ...prev, intro: false };
-      });
-    }
-  }, [title, lyrics, intro]);
-
-  useEffect(() => {
-    getDetail(params).then((res) => {
-      if (res.success) {
-        const data = res.data;
-        setTitle(data.title);
-        setLyrics(data.lyrics);
-        setIntro(data.content);
-        setImage(data.imageUrl);
-        setImageSrc(data.imageUrl);
-        setAudio(data.mediaUrl);
-        setCollaborate(data.collaborate);
-        setPosition(data.position);
-        setTags(data.tags);
-
-        audioNameRef.current.innerText = data.mediaUrl.split('-').slice(-1);
-        audioBoxRef.current.style.display = 'block';
-
-        if (data.collaborate) {
-          collaboBoxRef.current.style.borderColor = '#28CA7C';
-          collaboBoxRef.current.style.backgroundColor = '#28CA7C';
-          collaboTextRef.current.style.color = '#ffffff';
-        } else {
-          collaboBoxRef.current.style.borderColor = '#b4b4b4';
-          collaboBoxRef.current.style.backgroundColor = '#ffffff';
-          collaboTextRef.current.style.color = '#b4b4b4';
-        }
-
-        if (data.position) {
-          singerBoxRef.current.style.borderColor = '#28CA7C';
-          singerBoxRef.current.style.backgroundColor = '#28CA7C';
-          singerTextRef.current.style.color = '#ffffff';
-          makerBoxRef.current.style.borderColor = '#b4b4b4';
-          makerBoxRef.current.style.backgroundColor = '#ffffff';
-          makerTextRef.current.style.color = '#b4b4b4';
-        } else {
-          makerBoxRef.current.style.borderColor = '#28CA7C';
-          makerBoxRef.current.style.backgroundColor = '#28CA7C';
-          makerTextRef.current.style.color = '#ffffff';
-          singerBoxRef.current.style.borderColor = '#b4b4b4';
-          singerBoxRef.current.style.backgroundColor = '#ffffff';
-          singerTextRef.current.style.color = '#b4b4b4';
-        }
-      } else {
-        alert('다시 시도 부탁드립니다.');
-        navigate(-1);
-      }
-    });
-  }, []);
-
   const deleteText = useCallback(
     (state) => {
       switch (state) {
@@ -437,6 +358,85 @@ const WriteModify = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (title !== '') {
+      setView((prev) => {
+        return { ...prev, title: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, title: false };
+      });
+    }
+    if (lyrics !== '') {
+      setView((prev) => {
+        return { ...prev, lyrics: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, lyrics: false };
+      });
+    }
+    if (intro !== '') {
+      setView((prev) => {
+        return { ...prev, intro: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, intro: false };
+      });
+    }
+  }, [title, lyrics, intro]);
+
+  useEffect(() => {
+    getDetail(params).then((res) => {
+      if (res.success) {
+        const data = res.data;
+        setTitle(data.title);
+        setLyrics(data.lyrics);
+        setIntro(data.content);
+        setImage(data.imageUrl);
+        setImageSrc(data.imageUrl);
+        setAudio(data.mediaUrl);
+        setCollaborate(data.collaborate);
+        setPosition(data.position);
+        setTags(data.tags);
+
+        audioNameRef.current.innerText = data.mediaUrl.split('-').slice(-1);
+        audioBoxRef.current.style.display = 'block';
+
+        if (data.collaborate) {
+          collaboBoxRef.current.style.borderColor = '#28CA7C';
+          collaboBoxRef.current.style.backgroundColor = '#28CA7C';
+          collaboTextRef.current.style.color = '#ffffff';
+        } else {
+          collaboBoxRef.current.style.borderColor = '#b4b4b4';
+          collaboBoxRef.current.style.backgroundColor = '#ffffff';
+          collaboTextRef.current.style.color = '#b4b4b4';
+        }
+
+        if (data.position) {
+          singerBoxRef.current.style.borderColor = '#28CA7C';
+          singerBoxRef.current.style.backgroundColor = '#28CA7C';
+          singerTextRef.current.style.color = '#ffffff';
+          makerBoxRef.current.style.borderColor = '#b4b4b4';
+          makerBoxRef.current.style.backgroundColor = '#ffffff';
+          makerTextRef.current.style.color = '#b4b4b4';
+        } else {
+          makerBoxRef.current.style.borderColor = '#28CA7C';
+          makerBoxRef.current.style.backgroundColor = '#28CA7C';
+          makerTextRef.current.style.color = '#ffffff';
+          singerBoxRef.current.style.borderColor = '#b4b4b4';
+          singerBoxRef.current.style.backgroundColor = '#ffffff';
+          singerTextRef.current.style.color = '#b4b4b4';
+        }
+      } else {
+        alert('다시 시도 부탁드립니다.');
+        navigate(-1);
+      }
+    });
+  }, []);
 
   const settings = {
     slidesToShow: 1,
