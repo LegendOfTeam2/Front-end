@@ -188,16 +188,16 @@ export const MyIntroContainer = styled.div`
   align-items: center;
   margin-top: 28px;
   margin-bottom: 31px;
-`
+`;
 export const MyIntroBox = styled.div`
   width: auto;
   height: auto;
-`
+`;
 export const MyIntroText = styled.span`
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.base};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-`
+`;
 export const MyMidTextDiv = styled.div`
   width: 100%;
   height: auto;
@@ -232,7 +232,7 @@ export const MyPostContainer = styled.div`
   margin-top: 62px;
   border: 1px solid #28ca72;
   margin-bottom: 220px;
-`
+`;
 export const MyBtmTextDiv = styled.div`
   width: 100%;
   height: auto;
@@ -259,7 +259,7 @@ export const MyBtmTextDivDivSelect = styled.div`
   &:hover {
     cursor: pointer;
   }
-`
+`;
 export const MyBtmDataDiv = styled.span`
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.base};

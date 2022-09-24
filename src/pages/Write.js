@@ -11,10 +11,12 @@ import { ImHeadphones } from 'react-icons/im';
 import { GiMicrophone } from 'react-icons/gi';
 import { SiBeatsbydre } from 'react-icons/si';
 import { BsFillFileEarmarkMusicFill } from 'react-icons/bs';
-import shortid from 'shortid';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../utils/cookie';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 // Components
 import UploadImage from '../components/UploadImage';
@@ -300,22 +302,22 @@ const Write = () => {
   };
 
   const settings = {
-    className: 'center',
-    centerMode: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    infinite: true,
+    infinite: false,
     centerPadding: '10px',
     arrows: false,
     variableWidth: true,
+    draggable: true,
   };
+
   return (
     <Fragment>
       <WriteModal isOpen={isOpen} onCancel={onCancel} />
       <WriteContainer>
         <WriteBox>
           <WriteIconContainer onClick={onHandleModal}>
-            <GrClose color='#cecece'></GrClose>
+            <GrClose color='#cecece' />
           </WriteIconContainer>
           <WriteCollaboContainer
             onClick={changeCollaborateStatus}
@@ -364,7 +366,7 @@ const Write = () => {
                 onClick={() => deleteText('title')}
                 ref={titleIconRef}
               >
-                <GrClose className='icon'></GrClose>
+                <GrClose className='icon' />
               </WriteInputIcon>
               <Input
                 _type={'text'}
@@ -384,14 +386,14 @@ const Write = () => {
                   bd_radius: '10px',
                   bd_color: '#28CA72',
                 }}
-              ></Input>
+              />
             </WriteInputContainer>
             <WriteImageTextContainer>
               <WriteImageBox>
                 {imageSrc === '' ? (
                   <Fragment />
                 ) : (
-                  <WriteImagePreviewImg src={imageSrc}></WriteImagePreviewImg>
+                  <WriteImagePreviewImg src={imageSrc} />
                 )}
                 <UploadImage
                   width={'236px'}
@@ -399,28 +401,28 @@ const Write = () => {
                   setFile={setImage}
                   setFileSrc={setImageSrc}
                   text={'이미지 삽입하기'}
-                ></UploadImage>
+                />
               </WriteImageBox>
               <WriteTextBox>
                 <WriteTextIconBox
                   onClick={() => deleteText('lyrics')}
                   ref={lyricsIconRef}
                 >
-                  <GrClose></GrClose>
+                  <GrClose />
                 </WriteTextIconBox>
                 <WriteTextArea
                   placeholder='가사 첨부...'
                   value={lyrics}
                   onChange={(e) => setLyrics(e.target.value)}
                   maxLength={20000}
-                ></WriteTextArea>
+                />
               </WriteTextBox>
               <WriteTextBox>
                 <WriteTextIconBox
                   onClick={() => deleteText('intro')}
                   ref={introIconRef}
                 >
-                  <GrClose></GrClose>
+                  <GrClose />
                 </WriteTextIconBox>
                 <WriteTextArea
                   placeholder='작업물 설명...'
@@ -428,7 +430,7 @@ const Write = () => {
                   onChange={(e) => setIntro(e.target.value)}
                   maxLength={20000}
                   required
-                ></WriteTextArea>
+                />
               </WriteTextBox>
             </WriteImageTextContainer>
             <WriteAudioContainer>
@@ -440,7 +442,7 @@ const Write = () => {
                 onDragOver={(e) => onDragOverHandle(e)}
               >
                 <WriteAudioIcon>
-                  <GrAdd className='icon'></GrAdd>
+                  <GrAdd className='icon' />
                 </WriteAudioIcon>
                 <WriteAudioText>오디오 삽입하기</WriteAudioText>
                 <WriteAudioInput
@@ -455,17 +457,13 @@ const Write = () => {
               </WriteAudioBox>
               <WriteAudioPreView>
                 <WriteAudioPreviewFile ref={audioBoxRef}>
-                  <WriteAudioPreviewFileName
-                    ref={audioNameRef}
-                  ></WriteAudioPreviewFileName>
-                  <WriteAudioPreviewFileSize
-                    ref={audioSizeRef}
-                  ></WriteAudioPreviewFileSize>
+                  <WriteAudioPreviewFileName ref={audioNameRef} />
+                  <WriteAudioPreviewFileSize ref={audioSizeRef} />
                   <WriteAudioPreviewFileIconMusic>
-                    <BsFillFileEarmarkMusicFill className='icon-music'></BsFillFileEarmarkMusicFill>
+                    <BsFillFileEarmarkMusicFill className='icon-music' />
                   </WriteAudioPreviewFileIconMusic>
                   <WriteAudioPreviewFileIconCancel onClick={deleteAudio}>
-                    <GrClose className='icon-cancel'></GrClose>
+                    <GrClose className='icon-cancel' />
                   </WriteAudioPreviewFileIconCancel>
                 </WriteAudioPreviewFile>
               </WriteAudioPreView>
@@ -480,21 +478,23 @@ const Write = () => {
                 placeholder='Tab, Enter로 구분하여 입력해 주세요.'
                 maxLength={100}
               />
-              {tags.length === 0 ? (
-                <Fragment></Fragment>
-              ) : (
-                <WriteHashTagBox>
-                  {tags.map((tag) => {
-                    return (
-                      <HashTagWithIcon
-                        key={shortid.generate()}
-                        tag={tag}
-                        removeTag={removeTag}
-                      />
-                    );
-                  })}
-                </WriteHashTagBox>
-              )}
+              <WriteHashTagBox>
+                <Slider {...settings}>
+                  {tags.length === 0 ? (
+                    <Fragment />
+                  ) : (
+                    tags.map((tag, idx) => {
+                      return (
+                        <HashTagWithIcon
+                          key={idx}
+                          tag={tag}
+                          removeTag={removeTag}
+                        />
+                      );
+                    })
+                  )}
+                </Slider>
+              </WriteHashTagBox>
             </WriteHashTagContainer>
           </WriteForm>
           <WriteButtonContainer>
@@ -511,7 +511,7 @@ const Write = () => {
                 line_height: '18',
               }}
               _form={'write'}
-            ></Button>
+            />
           </WriteButtonContainer>
         </WriteBox>
       </WriteContainer>

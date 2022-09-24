@@ -4,6 +4,7 @@ import { Fragment, useState, useCallback, useEffect } from 'react';
 //Zustand
 import useMemberStore from '../zustand/member';
 import useSearchStore from '../zustand/search';
+import usePlayerStore from '../zustand/player';
 
 // Packages
 import { useNavigate } from 'react-router-dom';
@@ -34,7 +35,6 @@ import {
   SearchIconDiv,
 } from '../assets/styles/components/Header.styled';
 import { HeaderlargeLogo, Search } from '../assets/images/image';
-import usePlayerStore from '../zustand/player';
 
 const Header = () => {
   const [keyword, setKeyword] = useState('');
@@ -75,6 +75,7 @@ const Header = () => {
     signOutMember({
       nickname: jwt_decode(getCookie('authorization')).sub,
     });
+    console.log('logout');
     removeCookie('authorization');
     window.sessionStorage.setItem('refresh-token', '');
     clearPlayListMember();
@@ -155,7 +156,7 @@ const Header = () => {
             <RightDiv>
               <ProfileDiv>
                 {getCookie('authorization') === undefined ? (
-                  <Fragment></Fragment>
+                  <Fragment />
                 ) : myProfileImgIsLoaded ? (
                   <ProfileImg
                     src={
@@ -169,7 +170,7 @@ const Header = () => {
                     onClick={ProfilPage}
                   ></ProfileImg>
                 ) : (
-                  <Fragment></Fragment>
+                  <Fragment />
                 )}
               </ProfileDiv>
               <BtmDiv>
@@ -189,14 +190,13 @@ const Header = () => {
                   _style={{
                     width: '90px',
                     height: '42 px',
-                    bd_px:'1px',
-                    bd_color:'#28CA7C',
+                    bd_px: '1px',
+                    bd_color: '#28CA7C',
                     bg_color: '#1B1E2F',
                     bd_radius: '11px',
                     color: '#28CA7C',
                     ft_size: '12',
                   }}
-                  
                   _text={'메세지'}
                 />
               </BtmDiv>

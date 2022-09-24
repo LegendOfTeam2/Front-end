@@ -126,7 +126,7 @@ export const WithdrawalInputIconBox = styled.div`
     width: 20px;
     height: 20px;
   }
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 `;

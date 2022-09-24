@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ProfileImgDivDiv = styled.div`
   width: 167px;
@@ -134,14 +134,13 @@ export const ImgBtmRight = styled.div`
   }
 `;
 
-
 export const DisImgTopRight = styled.div`
   position: absolute;
   width: auto;
   top: 8%;
   right: 10%;
   display: block;
-    :hover & {
+  :hover & {
     cursor: pointer;
   }
 `;

@@ -1,11 +1,14 @@
 // React
 import { Fragment, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // Zustand
 import useMyPageStore from '../zustand/mypage';
 import useMemberStore from '../zustand/member';
 import useFollowStore from '../zustand/follow';
 import useChatStore from '../zustand/chat';
+import useLikeStore from '../zustand/like';
+import usePostStore from '../zustand/post';
 
 // Packages
 import Slider from 'react-slick';
@@ -88,9 +91,6 @@ import {
   MakerMarker9,
   MakerMarker10,
 } from '../assets/images/image';
-import { useNavigate, useParams } from 'react-router-dom';
-import useLikeStore from '../zustand/like';
-import usePostStore from '../zustand/post';
 
 const MyPage = () => {
   const mainPost = useMyPageStore((state) => state.mainPost);
@@ -129,7 +129,7 @@ const MyPage = () => {
   const makerIsLike = useLikeStore((state) => state.makerIsLike);
 
   const follow = useFollowStore((state) => state.follow);
-  
+
   const makeRoom = useChatStore((state) => state.makeRoom);
 
   const [category, setCategory] = useState('upload');
@@ -147,6 +147,7 @@ const MyPage = () => {
     centerPadding: '10px',
     arrows: false,
     variableWidth: true,
+    draggable: true,
   };
 
   useEffect(() => {
@@ -283,7 +284,13 @@ const MyPage = () => {
         setMakerMarker(MakerMarker10);
       }
     }
-  }, [getProfileInfo, nickname, profileInfo.makerPostCnt, profileInfo.singerPostCnt, profileInfoIsLoaded]);
+  }, [
+    getProfileInfo,
+    nickname,
+    profileInfo.makerPostCnt,
+    profileInfo.singerPostCnt,
+    profileInfoIsLoaded,
+  ]);
 
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
@@ -373,12 +380,12 @@ const MyPage = () => {
                     {profileInfoIsLoaded ? (
                       <img src={isSingerMarker} alt='싱어마커' />
                     ) : (
-                      <></>
+                      <Fragment />
                     )}
                     {profileInfoIsLoaded ? (
                       <img src={isMakerMarker} alt='메이커마커' />
                     ) : (
-                      <></>
+                      <Fragment />
                     )}
                   </MyBadgeContainer>
                   {getCookie('authorization') !== undefined ? (
@@ -418,7 +425,7 @@ const MyPage = () => {
                             />
                           )
                         ) : (
-                          <Fragment></Fragment>
+                          <Fragment />
                         )}
                         <Button
                           _style={{
@@ -506,7 +513,7 @@ const MyPage = () => {
                           })
                         )
                       ) : (
-                        <Fragment></Fragment>
+                        <Fragment />
                       )}
                     </Slider>
                   </MyTagBoxTextSlide>
@@ -574,7 +581,7 @@ const MyPage = () => {
                       }
                     })
                   ) : (
-                    <Fragment></Fragment>
+                    <Fragment />
                   )
                 ) : (
                   <Fragment />
@@ -599,7 +606,7 @@ const MyPage = () => {
                   }
                 })
               ) : (
-                <Fragment></Fragment>
+                <Fragment />
               )}
             </MyTextDiv>
           </MyMidTextDiv>
@@ -736,7 +743,7 @@ const MyPage = () => {
                   })}
                 </MyBtmImgDiv>
               ) : (
-                <Fragment></Fragment>
+                <Fragment />
               )
             ) : likePostIsLoaded ? (
               <MyBtmImgDiv>
@@ -755,7 +762,7 @@ const MyPage = () => {
                 ))}
               </MyBtmImgDiv>
             ) : (
-              <Fragment></Fragment>
+              <Fragment />
             )}
           </MyPostContainer>
         </MyContainer>

@@ -45,7 +45,7 @@ const WriteDeleteModal = ({ isOpen, onCancel, onDeleteDetail }) => {
     <ReactModal isOpen={isOpen} style={customStyles}>
       <WriteModalContainer>
         <WriteModalIcon onClick={handleClickCancel}>
-          <GrClose className='icon'></GrClose>
+          <GrClose className='icon' />
         </WriteModalIcon>
         <WriteModalLogo>
           <WriteModalLogoImg src={Exclamation} />

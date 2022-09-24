@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const MainContainerDiv = styled.div`
   width: 100%;
@@ -76,7 +76,6 @@ export const MainImgDivBtmSpanDiv = styled.div`
   margin-left: 10px;
 `;
 
-
 export const MainImgDivTopSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xxxl};
   line-height: ${(props) => props.theme.lineHeight.xxxl};
@@ -116,7 +115,6 @@ export const BtmProfileImgDiv = styled.div`
   margin-right: auto;
   margin-bottom: 80px;
   position: relative;
-  
 `;
 export const MainArowLeft = styled.div`
   display: flex;
@@ -207,15 +205,13 @@ export const BtmProfileArrowDiv = styled.div`
   }
 `;
 
-
-
 export const MainProfileSliderGroup = styled.div`
   width: 1024px;
   height: auto;
   display: flex;
   flex-direction: column;
   margin-left: auto;
-    margin-right: auto;
+  margin-right: auto;
 `;
 
 export const DisMainPostImgDiv = styled.div`
@@ -268,4 +264,3 @@ export const MainHotArtistWrap = styled.div`
   flex-direction: row;
   gap: 40px;
 `;
-

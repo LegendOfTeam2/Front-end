@@ -4,6 +4,7 @@ import { useState, memo } from 'react';
 // Zustand
 import usePlayerStore from '../zustand/player';
 import useLikeStore from '../zustand/like';
+import useMemberStore from '../zustand/member';
 
 // Packages
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +39,7 @@ import {
   ImgMainSpanTitle,
   ImgTopBtmLeft,
 } from '../assets/styles/components/PostSlide.styled';
-import useMemberStore from '../zustand/member';
+
 const PostSlider = ({
   postId,
   position,
@@ -61,7 +62,7 @@ const PostSlider = ({
   const addLike = useLikeStore((state) => state.addLike);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
- 
+
   const navigate = useNavigate();
 
   const Play = () => {

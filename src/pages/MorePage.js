@@ -1,5 +1,15 @@
+// React
 import { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+// Zustand
+import useLikeStore from '../zustand/like';
+import usePostStore from '../zustand/post';
+// Components
+import Post from '../components/Post';
+import Header from '../components/Header';
+// Utils
+import { getCookie } from '../utils/cookie';
+// Assests
 import {
   MoreBtmDataDiv,
   MoreBtmDataDivSelect,
@@ -11,12 +21,6 @@ import {
   MoreTopDiv,
   MoreTopSpan,
 } from '../assets/styles/pages/MorePage.styled';
-import Header from '../components/Header';
-import PostBig from '../components/PostBig';
-import { getCookie } from '../utils/cookie';
-import useLikeStore from '../zustand/like';
-import usePostStore from '../zustand/post';
-import Post from '../components/Post';
 
 const MorePage = () => {
   const getRecentMaker = usePostStore((state) => state.getRecentMaker);
@@ -85,7 +89,7 @@ const MorePage = () => {
 
   return (
     <Fragment>
-      <Header></Header>
+      <Header />
       <MoreContainerDiv>
         <MoreContainer>
           <MoreTopDiv>
@@ -160,10 +164,10 @@ const MorePage = () => {
                         }
                       })
                     ) : (
-                      <Fragment></Fragment>
+                      <Fragment />
                     )
                   ) : (
-                    <></>
+                    <Fragment />
                   )
                 ) : recentSingerIsLoaded ? (
                   bestSingerIsLoaded ? (
@@ -203,10 +207,10 @@ const MorePage = () => {
                       }
                     })
                   ) : (
-                    <Fragment></Fragment>
+                    <Fragment />
                   )
                 ) : (
-                  <></>
+                  <Fragment />
                 )
               ) : category === 'new' ? (
                 singerIsLikeIsLoaded ? (
@@ -247,10 +251,10 @@ const MorePage = () => {
                       }
                     })
                   ) : (
-                    <Fragment></Fragment>
+                    <Fragment />
                   )
                 ) : (
-                  <></>
+                  <Fragment />
                 )
               ) : singerIsLikeIsLoaded ? (
                 bestMakerIsLoaded ? (
@@ -290,10 +294,10 @@ const MorePage = () => {
                     }
                   })
                 ) : (
-                  <Fragment></Fragment>
+                  <Fragment />
                 )
               ) : (
-                <></>
+                <Fragment />
               )
             ) : position === 'singer' ? (
               category === 'new' ? (
@@ -312,7 +316,7 @@ const MorePage = () => {
                     />
                   ))
                 ) : (
-                  <Fragment></Fragment>
+                  <Fragment />
                 )
               ) : bestSingerIsLoaded ? (
                 bestSinger.map((x) => (
@@ -329,7 +333,7 @@ const MorePage = () => {
                   />
                 ))
               ) : (
-                <Fragment></Fragment>
+                <Fragment />
               )
             ) : category === 'new' ? (
               recentMakerIsLoaded ? (
@@ -347,7 +351,7 @@ const MorePage = () => {
                   />
                 ))
               ) : (
-                <Fragment></Fragment>
+                <Fragment />
               )
             ) : bestMakerIsLoaded ? (
               bestMaker.map((x) => (
@@ -364,7 +368,7 @@ const MorePage = () => {
                 />
               ))
             ) : (
-              <Fragment></Fragment>
+              <Fragment />
             )}
           </MoreBtmImgDiv>
         </MoreContainer>

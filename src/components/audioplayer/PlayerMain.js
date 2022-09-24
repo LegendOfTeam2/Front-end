@@ -1,11 +1,12 @@
 // React
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, Fragment } from 'react';
 // Zustand
 import usePlayerStore from '../../zustand/player';
 // Utils
 import { getCookie } from '../../utils/cookie';
 // Components
 import Player from './Player';
+import PlayList from '../PlayList';
 // Assests
 import {
   DisRepeated,
@@ -48,7 +49,6 @@ import {
   VolumeolumeDivbar,
   VolumeolumeDivDiv,
 } from '../../assets/styles/components/Player.Styled';
-import PlayList from '../PlayList';
 
 function PlayerMain() {
   const playList = usePlayerStore((state) => state.playList);
@@ -180,6 +180,7 @@ function PlayerMain() {
     currentSongMember.postId,
     playListMemberIsLoaded,
   ]);
+
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
       if (viewState) {
@@ -289,48 +290,40 @@ function PlayerMain() {
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
       if (playListMemberIsLoaded) {
-        const audio = audioRef.current;
-        audio.loop = isLoop;
+        audioRef.current.loop = isLoop;
       }
     } else {
-      const audio = audioRef.current;
-      audio.loop = isLoop;
+      audioRef.current.loop = isLoop;
     }
   }, [isLoop]);
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
       if (playListMemberIsLoaded) {
-        const audio = audioRef.current;
-        audio.muted = ismuted;
+        audioRef.current.muted = ismuted;
       }
     } else {
-      const audio = audioRef.current;
-      audio.muted = ismuted;
+      audioRef.current.muted = ismuted;
     }
   }, [ismuted]);
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
       if (playListMemberIsLoaded) {
-        const audio = audioRef.current;
-        audio.autoplay = isAutoplay;
+        audioRef.current.autoplay = isAutoplay;
       }
     } else {
-      const audio = audioRef.current;
-      audio.autoplay = isAutoplay;
+      audioRef.current.autoplay = isAutoplay;
     }
   }, [isAutoplay]);
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
       if (playListMemberIsLoaded) {
-        const audio = audioRef.current;
-        audio.volume = parseFloat(volume);
+        audioRef.current.volume = parseFloat(volume);
       }
     } else {
-      const audio = audioRef.current;
-      audio.volume = parseFloat(volume);
+      audioRef.current.volume = parseFloat(volume);
     }
   }, [volume]);
 
@@ -426,6 +419,7 @@ function PlayerMain() {
       setIsLoop(false);
     }
   };
+
   const ClickMuted = () => {
     if (!ismuted) {
       setIsMuted(true);
@@ -518,8 +512,8 @@ function PlayerMain() {
   };
 
   return (
-    <>
-      {getCookie('authorization') !== undefined ? <PlayList /> : <></>}
+    <Fragment>
+      {getCookie('authorization') !== undefined ? <PlayList /> : <Fragment />}
 
       <MainAudioPlay yIndex={viewState ? '0' : '85%'}>
         <div>
@@ -555,7 +549,7 @@ function PlayerMain() {
                       />
                     )
                   ) : (
-                    <></>
+                    <Fragment />
                   )}
                 </IconImgHover>
               </AllUpVolumeolumeDiv>
@@ -587,7 +581,7 @@ function PlayerMain() {
                       </MidDiv>
                     )
                   ) : (
-                    <></>
+                    <Fragment />
                   )
                 ) : playList.length > 0 ? (
                   <MidDiv>
@@ -626,12 +620,12 @@ function PlayerMain() {
                       playListMember.length > 0 ? (
                         <img src={BackPlay} alt='그전곡' onClick={skipBack} />
                       ) : (
-                        <img src={BackPlay} alt='그전곡'/>
+                        <img src={BackPlay} alt='그전곡' />
                       )
                     ) : playList.length > 0 ? (
                       <img src={BackPlay} alt='그전곡' onClick={skipBack} />
                     ) : (
-                      <img src={BackPlay} alt='그전곡'/>
+                      <img src={BackPlay} alt='그전곡' />
                     )}
                   </IconImgHover>
                   <IconImgHover onClick={play}>
@@ -696,7 +690,7 @@ function PlayerMain() {
                         setDuration(e.currentTarget.duration.toFixed(2));
                       }}
                       src={currentSongMember?.mediaUrl}
-                    ></audio>
+                    />
                   ) : (
                     <audio
                       ref={audioRef}
@@ -705,10 +699,10 @@ function PlayerMain() {
                         setDuration(e.currentTarget.duration.toFixed(2));
                       }}
                       src=''
-                    ></audio>
+                    />
                   )
                 ) : (
-                  <></>
+                  <Fragment />
                 )
               ) : playList.length > 0 ? (
                 <audio
@@ -718,7 +712,7 @@ function PlayerMain() {
                     setDuration(e.currentTarget.duration.toFixed(2));
                   }}
                   src={currentSong?.mediaUrl}
-                ></audio>
+                />
               ) : (
                 <audio
                   ref={audioRef}
@@ -727,7 +721,7 @@ function PlayerMain() {
                     setDuration(e.currentTarget.duration.toFixed(2));
                   }}
                   src=''
-                ></audio>
+                />
               )}
 
               <TimerDiv>
@@ -739,7 +733,7 @@ function PlayerMain() {
           </PlayContainer>
         </div>
       </MainAudioPlay>
-    </>
+    </Fragment>
   );
 }
 

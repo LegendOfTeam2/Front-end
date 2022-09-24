@@ -127,7 +127,7 @@ const Search = () => {
   return (
     <SearchContainer>
       <BackgroundCover />
-      <Header></Header>
+      <Header />
       <SearchBox>
         <SearchNaviContainer>
           <SearchNaviIconBox onClick={() => navigate(-1)}>
@@ -175,7 +175,7 @@ const Search = () => {
                   <SearchInfoText>에 대한 검색 결과</SearchInfoText>
                 </Fragment>
               ) : (
-                <Fragment></Fragment>
+                <Fragment />
               )
             ) : makerSearchList.length !== 0 ? (
               <Fragment>
@@ -185,7 +185,7 @@ const Search = () => {
                 <SearchInfoText>에 대한 검색 결과</SearchInfoText>
               </Fragment>
             ) : (
-              <Fragment></Fragment>
+              <Fragment />
             )}
           </SearchInfoBox>
         </SearchInfo>
@@ -284,7 +284,7 @@ const Search = () => {
                       title={singer.title}
                       position={'Singer'}
                       likeState={false}
-                    ></Post>
+                    />
                   );
                 })}
               </SearchDataContainer>
@@ -411,7 +411,7 @@ const Search = () => {
                     collaborate={maker.collaborate}
                     title={maker.title}
                     position={'Maker'}
-                  ></Post>
+                  />
                 );
               })}
             </SearchDataContainer>

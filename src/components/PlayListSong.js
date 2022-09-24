@@ -1,5 +1,5 @@
 // React
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 // Zustand
 import usePlayerStore from '../zustand/player';
 // Packages
@@ -32,7 +32,6 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
   const postPlayList = usePlayerStore((state) => state.postPlayList);
-  
   const addLike = useLikeStore((state) => state.addLike);
   const [duration, setDuration] = useState(0);
   const [isLike, setIsLike] = useState(likeState);
@@ -41,7 +40,7 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
     setDuration(e.currentTarget.duration.toFixed(2));
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const secondsToHms = (seconds) => {
     if (!seconds) return '00 : 00';
@@ -98,12 +97,11 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
   };
 
   const LikeClick = () => {
-    
     if (getCookie('authorization') === undefined) {
       alert('로그인후 이용해주세요');
       navigate('/signin');
     } else {
-      addLike({ postId : data.postId, position : data.position }).then((res) => {
+      addLike({ postId: data.postId, position: data.position }).then((res) => {
         if (res.success && res.data) {
           toast.info('게시글에 좋아요를 눌렀습니다.', {
             position: toast.POSITION.BOTTOM_RIGHT,
@@ -154,9 +152,19 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
           onClick={() => listModalOpen(data.postId)}
         />
         {isLike ? (
-          <img src={Like24} alt='좋아요' className='midIcon' onClick={LikeClick} />
+          <img
+            src={Like24}
+            alt='좋아요'
+            className='midIcon'
+            onClick={LikeClick}
+          />
         ) : (
-          <img src={LikeWhite} alt='좋아요' className='midIcon' onClick={LikeClick} />
+          <img
+            src={LikeWhite}
+            alt='좋아요'
+            className='midIcon'
+            onClick={LikeClick}
+          />
         )}
 
         {data.collaborate ? (

@@ -11,7 +11,7 @@ const useSearchStore = create((set) => ({
   singerSearchList: [],
   makerSearchList: [],
   setSearchKeyword: (keyword) => {
-    set({keyword: keyword});
+    set({ keyword: keyword });
   },
   searchKeyword: async (keyword, position) => {
     const resData = await searchKeywordApi(keyword, position)
@@ -33,9 +33,9 @@ const useSearchStore = create((set) => ({
     }
   },
   resetList: () => {
-    set({singerSearchList: []});
-    set({makerSearchList: []});
-  }
+    set({ singerSearchList: [] });
+    set({ makerSearchList: [] });
+  },
 }));
 
 export default useSearchStore;

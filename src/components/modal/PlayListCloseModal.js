@@ -18,8 +18,6 @@ import {
 import { Exclamation } from '../../assets/images/image';
 import usePlayerStore from '../../zustand/player';
 
-
-
 const PlayListCloseModal = ({ isOpen, onCancel, playListMemberLength }) => {
   const deletePlayList = usePlayerStore((state) => state.deletePlayList);
   const customStyles = {
@@ -46,16 +44,15 @@ const PlayListCloseModal = ({ isOpen, onCancel, playListMemberLength }) => {
     onCancel();
   };
   const playListDelete = () => {
-    deletePlayList()
+    deletePlayList();
     onCancel();
   };
-
 
   return (
     <ReactModal isOpen={isOpen} style={customStyles}>
       <WriteModalContainer>
         <WriteModalIcon onClick={handleClickCancel}>
-          <GrClose className='icon'></GrClose>
+          <GrClose className='icon' />
         </WriteModalIcon>
         <WriteModalLogo>
           <WriteModalLogoImg src={Exclamation} />

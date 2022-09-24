@@ -3,13 +3,11 @@ import create from 'zustand';
 
 // Utils
 import createToken from '../utils/token';
-import { removeCookie } from '../utils/cookie';
 import {
   emailDupCheckApi,
   nicknameDupCheckApi,
   signUpMemberApi,
   signInMemberApi,
-  signOutMemberApi,
   kakaoAuthApi,
   googleAuthApi,
   getMyImageApi

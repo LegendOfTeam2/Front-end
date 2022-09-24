@@ -28,7 +28,7 @@ export const MessageBoxReceiverBox = styled.div`
   max-width: 70%;
   height: auto;
   color: black;
-  background-color: #E7E7E7;
+  background-color: #e7e7e7;
   border-radius: 8px;
   padding: 8px;
 `;

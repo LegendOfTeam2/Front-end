@@ -90,7 +90,7 @@ export const PositionAllDiv = styled.div`
 export const DetailProfileContainer = styled.div`
   width: 100%;
   height: 115px;
-  border: 1px solid #28CA7C;
+  border: 1px solid #28ca7c;
   margin-top: 41px;
   position: relative;
 `;
@@ -109,7 +109,7 @@ export const DetailProfileBox = styled.div`
 
 export const DetailProfileBtnVertical = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  color: #28CA7C;
+  color: #28ca7c;
 `;
 
 export const DetailProfileBtnGroup = styled.div`
@@ -144,7 +144,7 @@ export const PositionMarkerSpan = styled.div`
 export const PositionMidDiv = styled.div`
   width: 904px;
   height: 381px;
-  border: 1px solid #28CA7C;
+  border: 1px solid #28ca7c;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -278,7 +278,7 @@ export const DetailIntroContainer = styled.div`
   margin-top: 45px;
   width: auto;
   height: auto;
-  border: 1px solid #28CA7C;
+  border: 1px solid #28ca7c;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -289,12 +289,12 @@ export const DetailTopLyrics = styled.div`
   font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.xxxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  color: #28CA7C;
+  color: #28ca7c;
   padding: 16px 74px;
 `;
 
 export const DetailHorizonLine = styled.div`
-  border-top: 1px solid #28CA7C;
+  border-top: 1px solid #28ca7c;
   width: 98%;
 `;
 
@@ -324,7 +324,7 @@ export const DetailLyricsContainer = styled.div`
   margin-top: 45px;
   width: auto;
   height: auto;
-  border: 1px solid #28CA7C;
+  border: 1px solid #28ca7c;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -354,7 +354,6 @@ export const DetailBtmClickLyricsSpan = styled.div`
   }
 `;
 
-//소개글
 export const DetailBtmMoreDiv = styled.div`
   width: auto;
   height: auto;

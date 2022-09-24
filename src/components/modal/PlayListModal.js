@@ -1,4 +1,5 @@
 // React
+import { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Zustand
@@ -11,7 +12,6 @@ import { toast } from 'react-toastify';
 // Assets
 import {
   ListModalBtnDiv,
-  ListModalBtnLeft,
   ListModalBtnRight,
   ListModalBtnSpan,
   ListModalContainer,
@@ -36,9 +36,7 @@ import {
 } from '../../assets/styles/components/modal/PlayListModal.styled';
 import { Share38, Xbox20 } from '../../assets/images/image';
 
-
 const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
-
   const playListStateChange = usePlayerStore(
     (state) => state.playListStateChange
   );
@@ -48,7 +46,6 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
   const playListClose = () => {
     playListCancel();
   };
-
 
   const customStyles = {
     overlay: {
@@ -71,8 +68,6 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
       border: '1px solid #28ca72',
     },
   };
-
-
 
   const clip = () => {
     navigator.clipboard
@@ -126,14 +121,7 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
               <ListModalProfileNickname>
                 {ModalList.nickname}
               </ListModalProfileNickname>
-              {/* <ListModalProfilePosition>
-                <ListModalProfilePositionLeft>
-                  싱어
-                </ListModalProfilePositionLeft>
-                <ListModalProfilePositionrRight>
-                  메이커
-                </ListModalProfilePositionrRight>
-              </ListModalProfilePosition> */}
+
               <ListModalProfileDetail>
                 <ListModalProfileDetailTop onClick={ProfilPage}>
                   아티스트 보기
@@ -152,7 +140,7 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
           </ListModalBtnDiv>
         </ListModalContainer>
       ) : (
-        <></>
+        <Fragment />
       )}
     </ReactModal>
   );

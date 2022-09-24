@@ -21,7 +21,7 @@ const UserPosition = () => {
     <UserContainer>
       <UserInBox>
         <LogoDiv>
-          <LogoDivDiv></LogoDivDiv>
+          <LogoDivDiv />
         </LogoDiv>
         <TopTextDiv>
           <TopTextSpan>리드미에서</TopTextSpan>

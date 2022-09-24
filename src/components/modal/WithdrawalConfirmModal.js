@@ -39,7 +39,6 @@ const customStyles = {
 };
 
 const WithdrawalConfirmModal = ({ isOpen, onCancel, onChange }) => {
-
   const handelClickChange = () => {
     onChange();
   };
@@ -50,7 +49,7 @@ const WithdrawalConfirmModal = ({ isOpen, onCancel, onChange }) => {
     <ReactModal isOpen={isOpen} style={customStyles}>
       <ConfirmModalContainer>
         <ConfirmModalIcon onClick={handleClickCancel}>
-          <GrClose className='icon'></GrClose>
+          <GrClose className='icon' />
         </ConfirmModalIcon>
         <ConfirmModalLogo>
           <ConfirmModalLogoImg src={WithdrawalLogo} />

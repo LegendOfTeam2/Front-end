@@ -469,9 +469,7 @@ const SignUp = () => {
                     }}
                   />
                 </SignUpboxInputGroupData>
-                <SignUpBoxInputGroupAlert
-                  ref={emailSpanRef}
-                ></SignUpBoxInputGroupAlert>
+                <SignUpBoxInputGroupAlert ref={emailSpanRef} />
               </SignUpBoxInputGroup>
               <SignUpBoxInputGroup>
                 <SignUpBoxInputGroupTitle>
@@ -699,7 +697,7 @@ const SignUp = () => {
                   maxLength={100}
                 />
                 {tags.length === 0 ? (
-                  <Fragment></Fragment>
+                  <Fragment />
                 ) : (
                   <SignUpBoxTagBox>
                     {tags.map((tag) => {

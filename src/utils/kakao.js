@@ -20,7 +20,7 @@ const Kakao = () => {
   useEffect(() => {
     const fetchCode = (code) => {
       kakaoAuth(code).then((res) => {
-        if(res) {
+        if (res) {
           navigate('/');
         }
       });

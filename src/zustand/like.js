@@ -1,5 +1,7 @@
+// Zustand
 import create from 'zustand';
 
+// Utils
 import {
   addLikeApi,
   getMakerLikePostApi,

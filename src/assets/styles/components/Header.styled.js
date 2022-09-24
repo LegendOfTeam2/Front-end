@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const HeaderContainerDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: #1B1E2F;
+  background-color: #1b1e2f;
   position: fixed;
   border-bottom: 2px solid #28ca7c;
   z-index: 10;
@@ -23,10 +23,10 @@ export const HeaderTopDiv = styled.div`
   width: 100%;
   height: auto;
   display: flex;
-  flex-direction: row;  
+  flex-direction: row;
   justify-content: space-between;
   padding-bottom: 15px;
-  border-bottom: 0.3px solid #28CA72;
+  border-bottom: 0.3px solid #28ca72;
 `;
 
 export const HeaderTopLeftSpan = styled.span`
@@ -36,6 +36,7 @@ export const HeaderTopLeftSpan = styled.span`
   color: rgba(255, 255, 255, 1);
 `;
 export const HeaderTopRightSpan = styled.span`
+  z-index: 10;
   line-height: ${(props) => props.theme.lineHeight.xxs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.lg};
@@ -43,9 +44,7 @@ export const HeaderTopRightSpan = styled.span`
   &:hover {
     cursor: pointer;
   }
-
 `;
-
 
 export const HeaderDiv = styled.div`
   width: 100%;

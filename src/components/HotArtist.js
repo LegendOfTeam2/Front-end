@@ -1,9 +1,11 @@
 // React
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Zustand
 import useFollowStore from '../zustand/follow';
 import useChatStore from '../zustand/chat';
+import useMemberStore from '../zustand/member';
 
 // Packages
 import jwt_decode from 'jwt-decode';
@@ -28,8 +30,6 @@ import {
   HotArtistImgDivDiv,
   MainProfileimg,
 } from '../assets/styles/components/HotArtist.styled';
-import useMemberStore from '../zustand/member';
-import { useNavigate } from 'react-router-dom';
 
 const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   const follow = useFollowStore((state) => state.follow);
@@ -55,7 +55,7 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
         });
       } else {
         follow(nickname).then((res) => {
-          if(res.success) {
+          if (res.success) {
             if (res.data) {
               setFollowCheck(true);
               toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {

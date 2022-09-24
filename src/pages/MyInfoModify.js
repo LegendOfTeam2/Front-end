@@ -224,7 +224,7 @@ const MyInfoModify = () => {
 
   return (
     <Fragment>
-      <Header></Header>
+      <Header />
       <ModifyContainer>
         <ToastContainer />
         <ModifyBox>
@@ -246,7 +246,7 @@ const MyInfoModify = () => {
                 setFile={setImage}
                 setFileSrc={setImageSrc}
                 text={'프로필 사진 변경하기'}
-              ></UploadImage>
+              />
             </ModifyProfileBox>
           </ModifyProfileContainer>
           <ModifyInputContainer>
@@ -256,13 +256,11 @@ const MyInfoModify = () => {
               </ModifyInputTitle>
               <ModifyInputDataBox>
                 {view.nickname ? (
-                  <ModifyInputIconBox
-                    onClick={() => deleteText('nickname')}
-                  >
+                  <ModifyInputIconBox onClick={() => deleteText('nickname')}>
                     <GrClose className='icon'></GrClose>
                   </ModifyInputIconBox>
                 ) : (
-                  <Fragment></Fragment>
+                  <Fragment />
                 )}
                 <Input
                   _type={'text'}
@@ -280,7 +278,7 @@ const MyInfoModify = () => {
                     line_height: '29',
                     bg_color: 'transparent',
                   }}
-                ></Input>
+                />
               </ModifyInputDataBox>
             </ModifyInputBox>
             <ModifyInputBox>
@@ -292,9 +290,9 @@ const MyInfoModify = () => {
                   onKeyDown={addTag}
                   placeholder='Tab, Enter로 구분하여 입력해 주세요.'
                   maxLength={100}
-                ></ModifyHashTag>
+                />
                 {tags.length === 0 ? (
-                  <Fragment></Fragment>
+                  <Fragment />
                 ) : (
                   <ModifyHashTagBox>
                     {tags.map((tag) => {
@@ -316,13 +314,11 @@ const MyInfoModify = () => {
               </ModifyInputTitle>
               <ModifyInputDataBox>
                 {view.intro ? (
-                  <ModifyInputIconBox
-                    onClick={() => deleteText('intro')}
-                  >
-                    <GrClose className='icon'></GrClose>
+                  <ModifyInputIconBox onClick={() => deleteText('intro')}>
+                    <GrClose className='icon' />
                   </ModifyInputIconBox>
                 ) : (
-                  <Fragment></Fragment>
+                  <Fragment />
                 )}
                 <Input
                   _type={'text'}
@@ -340,7 +336,7 @@ const MyInfoModify = () => {
                     line_height: '29',
                     bg_color: 'transparent',
                   }}
-                ></Input>
+                />
               </ModifyInputDataBox>
             </ModifyInputBox>
             <ModifyMemberDeleteContainer>

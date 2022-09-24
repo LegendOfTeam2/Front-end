@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TagBox = styled.div`
   display: flex;
@@ -16,6 +16,7 @@ export const TagBox = styled.div`
 export const TagBoxText = styled.span`
   line-height: ${(props) => props.theme.lineHeight.base};
   font-size: ${(props) => props.theme.fontSizes.base};
+  margin: 3px;
 `;
 export const TagBoxIcon = styled.div`
   width: auto;

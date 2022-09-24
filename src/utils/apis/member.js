@@ -14,13 +14,13 @@ export const signInMemberApi = (payload) => {
   return api_basic.post(`/member/signin`, payload);
 };
 export const signOutMemberApi = (payload) => {
-  return api_auth.post(`/auth/member/signout`, payload)
+  return api_auth.post(`/auth/member/signout`, payload);
 };
 export const kakaoAuthApi = (payload) => {
-  return api_basic.get(`/api/kakao/callback?code=${payload}`)
+  return api_basic.get(`/api/kakao/callback?code=${payload}`);
 };
 export const googleAuthApi = (payload) => {
-  return api_basic.get(`/api/google/callback?code=${payload}`)
+  return api_basic.get(`/api/google/callback?code=${payload}`);
 };
 export const getMyImageApi = (payload) => {
   return api_auth.post(`/auth/myimage`, payload);

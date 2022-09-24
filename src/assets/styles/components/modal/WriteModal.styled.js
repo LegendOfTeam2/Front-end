@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const WriteModalContainer = styled.div`
   width: 100%;
@@ -48,7 +48,7 @@ export const WriteModalLogo = styled.div`
   top: 42px;
   left: 50%;
   transform: translateX(-50%);
-`
+`;
 export const WriteModalLogoImg = styled.img`
   background-image: url(${(props) => props.src});
   background-repeat: no-repeat;
@@ -56,4 +56,4 @@ export const WriteModalLogoImg = styled.img`
   background-size: cover;
   width: 116px;
   height: 116px;
-`
+`;

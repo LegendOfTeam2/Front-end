@@ -47,7 +47,7 @@ export const ConfirmModalLogo = styled.div`
   top: 33px;
   left: 50%;
   transform: translateX(-50%);
-`
+`;
 export const ConfirmModalLogoImg = styled.img`
   background-image: url(${(props) => props.src});
   background-repeat: no-repeat;
@@ -55,4 +55,4 @@ export const ConfirmModalLogoImg = styled.img`
   background-size: cover;
   width: 180px;
   height: 111px;
-`
+`;
