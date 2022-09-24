@@ -47,7 +47,7 @@ const WithdrawalNoticeModal = ({ isOpen, onCancel }) => {
     <ReactModal isOpen={isOpen} style={customStyles}>
       <NoticeModalContainer>
         <NoticeModalIcon onClick={handleClickCancel}>
-          <GrClose className='icon'></GrClose>
+          <GrClose className='icon' />
         </NoticeModalIcon>
         <NoticeModalLogo>
           <NoticeModalLogoImg src={ErrorLogo} />
@@ -69,7 +69,7 @@ const WithdrawalNoticeModal = ({ isOpen, onCancel }) => {
               color: 'white',
               height: 'auto',
               bd_radius: '10px',
-              ft_weight: '800'
+              ft_weight: '800',
             }}
             _onClick={() => navigate('/')}
           />

@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect, Fragment } from 'react';
 
 // Zustand
 import useMemberStore from '../zustand/member';
+import usePlayerStore from '../zustand/player';
 
 // Package
 import { GrClose } from 'react-icons/gr';
@@ -57,7 +58,6 @@ import {
   SignInBackground,
   SignInBackgroundSm,
 } from '../assets/images/image';
-import usePlayerStore from '../zustand/player';
 
 const SignIn = () => {
   const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -71,7 +71,7 @@ const SignIn = () => {
   const setCurrentSongMember = usePlayerStore(
     (state) => state.setCurrentSongMember
   );
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [view, setView] = useState({ email: false, password: false });
@@ -141,8 +141,8 @@ const SignIn = () => {
                     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
                   )[0];
                   setCurrentSongMember(firstSong);
-                  setPlaying(true)
-                  viewStateChange(true)
+                  setPlaying(true);
+                  viewStateChange(true);
                 }
               }
             });
@@ -418,7 +418,7 @@ const SignIn = () => {
             bg_img_sm={SignInBackgroundSm}
           >
             <SignInBoxIcon onClick={() => navigate('/')}>
-              <GrClose color='red' className='icon-cancel'></GrClose>
+              <GrClose color='red' className='icon-cancel' />
             </SignInBoxIcon>
           </SignInBoxCover>
         </SignInBox>

@@ -83,7 +83,7 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
       onDragOver={(e) => onDragOverHandle(e)}
     >
       <UploadImageIcon>
-        <GrAdd className='icon'></GrAdd>
+        <GrAdd className='icon' />
       </UploadImageIcon>
       <UploadImageText>{text}</UploadImageText>
       <UploadImageInput

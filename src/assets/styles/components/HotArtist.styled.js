@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const HotArtistImgDivDiv = styled.div`
   width: 229px;
@@ -10,7 +10,7 @@ export const HotArtistImgDivDiv = styled.div`
 export const BtmProfileDivDiv = styled.div`
   width: 167px;
   height: 170px;
-  border: 1px solid #28CA7C;
+  border: 1px solid #28ca7c;
   display: flex;
   flex-direction: column;
 `;
@@ -43,7 +43,6 @@ export const BtmTextDivSpan = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.lg};
 `;
-
 
 export const BtmTextDivDivSmDiv = styled.div`
   width: auto;

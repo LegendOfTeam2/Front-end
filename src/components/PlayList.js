@@ -1,7 +1,8 @@
 // React
-import { useCallback, useState } from 'react';
+import { useCallback, useState, Fragment } from 'react';
 // Zustand
 import usePlayerStore from '../zustand/player';
+import useLikeStore from '../zustand/like';
 // Components
 import PlayListSong from './PlayListSong';
 import PlayListModal from './modal/PlayListModal';
@@ -26,7 +27,6 @@ import {
   XboxDiv,
 } from '../assets/styles/components/PlayList.styled';
 import { Xbox20 } from '../assets/images/image';
-import useLikeStore from '../zustand/like';
 
 const PlayList = () => {
   const playListState = usePlayerStore((state) => state.playListState);
@@ -64,7 +64,7 @@ const PlayList = () => {
   const listModalOpen = (postId) => {
     const filterList = playListMember.filter((x) => x.postId === postId);
     if (singerIsLikeIsLoaded) {
-      if ([...singerIsLike, ...makerIsLike].indexOf(postId) > -1){
+      if ([...singerIsLike, ...makerIsLike].indexOf(postId) > -1) {
         setModalList({
           postId: filterList[0].postId,
           title: filterList[0].title,
@@ -73,8 +73,8 @@ const PlayList = () => {
           lyrics: filterList[0].lyrics,
           memberImageUrl: filterList[0].memberImageUrl,
           position: filterList[0].position,
-        });  
-      }else{
+        });
+      } else {
         setModalList({
           postId: filterList[0].postId,
           title: filterList[0].title,
@@ -83,10 +83,10 @@ const PlayList = () => {
           lyrics: filterList[0].lyrics,
           memberImageUrl: filterList[0].memberImageUrl,
           position: filterList[0].position,
-        });  
+        });
       }
     }
-    
+
     setModalOpen(true);
   };
 
@@ -97,11 +97,11 @@ const PlayList = () => {
         onCancel={onCancel}
         playListMemberLength={playListMember.length}
       />
-        <PlayListModal
-          modalOpen={modalOpen}
-          playListCancel={playListCancel}
-          ModalList={modalList}
-        />
+      <PlayListModal
+        modalOpen={modalOpen}
+        playListCancel={playListCancel}
+        ModalList={modalList}
+      />
 
       <PlayListContainer>
         <XboxDiv onClick={xboxClick}>
@@ -129,7 +129,6 @@ const PlayList = () => {
                 <MidDivDivSpan>재생시간</MidDivDivSpan>
               </MidMidDivDiv>
             </PlayListMidDivDiv>
-
             <MidRightDivDiv>
               <MidDivDivSpan>작품정보</MidDivDivSpan>
               <MidDivDivSpan>좋아요</MidDivDivSpan>
@@ -160,7 +159,7 @@ const PlayList = () => {
                 }
               })
             ) : (
-              <></>
+              <Fragment />
             )}
           </BtmAllDiv>
         </PlayListDiv>

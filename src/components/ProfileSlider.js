@@ -1,22 +1,20 @@
 // React
 import { Fragment, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 //zustand
 import useLikeStore from '../zustand/like';
 // Packages
-import {
-  MdOutlineArrowBackIosNew,
-  MdOutlineArrowForwardIos,
-} from 'react-icons/md';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+// Utils
+import { getCookie } from '../utils/cookie';
 // Components
 import PostSlider from './PostSlider';
 // Assests
 import {
   ArowLeft,
   ArowRight,
-  ProfileArrowDiv,
   ProfileContainer,
   ProfileContainerDiv,
   ProfileImgDiv,
@@ -25,9 +23,7 @@ import {
   ProfileTextNew,
   ProfileTextSingMakeDiv,
 } from '../assets/styles/components/ProfileSlider.styled';
-import { useNavigate } from 'react-router-dom';
 import { LeftArrow, RightArrow } from '../assets/images/image';
-import { getCookie } from '../utils/cookie';
 
 const ProfileSlider = ({ postList, name, position, ctg }) => {
   const singerIsLikeIsLoaded = useLikeStore(
@@ -118,7 +114,7 @@ const ProfileSlider = ({ postList, name, position, ctg }) => {
                     }
                   })
                 ) : (
-                  <></>
+                  <Fragment/>
                 )
               ) : (
                 postList.map((x, idx) => {

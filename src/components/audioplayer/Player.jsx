@@ -1,13 +1,14 @@
 // React
-import { useEffect, useRef, memo, useState } from "react";
+import { useEffect, useRef, memo, useState } from 'react';
+// Zustand
+import usePlayerStore from '../../zustand/player';
 // Assests
 import {
   ProgressBarCover,
   Range,
   SliderContainer,
   Thumb,
-} from "../../assets/styles/components/Player.Styled";
-import usePlayerStore from "../../zustand/player";
+} from '../../assets/styles/components/Player.Styled';
 
 function Player({ percentage = 0, onChange }) {
   const playListMember = usePlayerStore((state) => state.playListMember);
@@ -31,21 +32,20 @@ function Player({ percentage = 0, onChange }) {
     setPosition(percentage);
     setMarginLeft(centerThumb);
     setProgressBarWidth(centerProgressBar);
-   
   }, [percentage]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (playListMember.length === 0) {
-      setPosition(0)
-      setMarginLeft(0)
-      setProgressBarWidth(0)
+      setPosition(0);
+      setMarginLeft(0);
+      setProgressBarWidth(0);
     }
     if (playList.length === 0) {
-      setPosition(0)
-      setMarginLeft(0)
-      setProgressBarWidth(0)
+      setPosition(0);
+      setMarginLeft(0);
+      setProgressBarWidth(0);
     }
-  },[playListMember,playList])
+  }, [playListMember, playList]);
 
   return (
     <SliderContainer>
@@ -53,14 +53,14 @@ function Player({ percentage = 0, onChange }) {
         style={{
           width: `${progressBarWidth}px`,
         }}
-      ></ProgressBarCover>
+      />
       <Thumb
         ref={thumbRef}
         style={{
           left: `${position}%`,
           marginLeft: `${marginLeft}px`,
         }}
-      ></Thumb>
+      />
       <Range
         type='range'
         value={position}

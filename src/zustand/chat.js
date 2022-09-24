@@ -1,6 +1,6 @@
 // Zustand
 import create from 'zustand';
-
+// Utils
 import { makeRoomApi, getRoomsApi } from '../utils/apis/chat';
 
 const useChatStore = create((set) => ({

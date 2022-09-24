@@ -8,8 +8,8 @@ import { BsX } from 'react-icons/bs';
 import {
   TagBox,
   TagBoxText,
-  TagBoxIcon
-} from '../assets/styles/components/HashTagWithIcon.styled'
+  TagBoxIcon,
+} from '../assets/styles/components/HashTagWithIcon.styled';
 
 const HashTagWithIcon = ({ tag, removeTag }) => {
   return (

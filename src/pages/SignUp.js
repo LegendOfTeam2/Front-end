@@ -534,9 +534,7 @@ const SignUp = () => {
                     }}
                   />
                 </SignUpboxInputGroupData>
-                <SignUpBoxInputGroupAlert
-                  ref={emailSpanRef}
-                ></SignUpBoxInputGroupAlert>
+                <SignUpBoxInputGroupAlert ref={emailSpanRef} />
               </SignUpBoxInputGroup>
               <SignUpBoxInputGroup>
                 <SignUpBoxInputGroupTitle>

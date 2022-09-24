@@ -50,9 +50,9 @@ export const UpInIcon = styled.div`
   }
   @media ${(props) => props.theme.device.desktopL} {
     .icon-cancel {
-    width: 20px;
-    height: 20px;
-  }
+      width: 20px;
+      height: 20px;
+    }
   }
 `;
 export const UpLogoDiv = styled.div`
@@ -73,7 +73,7 @@ export const UpLogoDivDiv = styled.div`
 export const UpLogoImg = styled.img`
   width: auto;
   height: auto;
-`
+`;
 export const UpTopTextDiv = styled.div`
   width: 100%;
   height: auto;
@@ -131,39 +131,4 @@ export const UpTbmBtmDivDiv = styled.div`
     margin-bottom: 60px;
   }
 `;
-// export const Googleicon = styled.div`
-//   display: flex;
-//   position: relative;
-//   top: 25%;
-//   .icon-google {
-//     width: 30px;
-//     height: 30px;
-//     color: rgba(255, 255, 255, 1);
-//     position: absolute;
-//     left: 35.5%;
-//   }
-//   @media ${(props) => props.theme.device.desktopL} {
-//     .icon-google {
-//       width: 25px;
-//       height: 25px;
-//     }
-//   }
-// `;
-// export const Kakaoicon = styled.div`
-//   display: flex;
-//   position: relative;
-//   top: 22%;
-//   .icon-kakao {
-//     width: 40px;
-//     height: 35px;
-//     color: #959595;
-//     position: absolute;
-//     left: 34%;
-//   }
-//   @media ${(props) => props.theme.device.desktopL} {
-//     .icon-kakao {
-//       width: 35px;
-//       height: 30px;
-//     }
-//   }
-// `;
+

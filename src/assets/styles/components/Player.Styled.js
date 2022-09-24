@@ -311,4 +311,3 @@ export const MainAudioPlay = styled.div`
   transform: translateY(${(props) => props.yIndex});
   transition: transform 0.3s ease-in;
 `;
-

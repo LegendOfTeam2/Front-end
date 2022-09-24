@@ -1,5 +1,6 @@
 // Zustand
 import create from 'zustand';
+// Utils
 import {
   deletePlayListApi,
   getPlayListApi,
@@ -63,7 +64,7 @@ const usePlayerStore = create((set) => ({
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         ),
       });
-      return resData.data
+      return resData.data;
     }
   },
   deletePlayList: async (payload) => {

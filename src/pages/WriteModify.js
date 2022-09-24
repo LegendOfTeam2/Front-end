@@ -11,12 +11,14 @@ import { ImHeadphones } from 'react-icons/im';
 import { GiMicrophone } from 'react-icons/gi';
 import { SiBeatsbydre } from 'react-icons/si';
 import { BsFillFileEarmarkMusicFill } from 'react-icons/bs';
-import shortid from 'shortid';
 import jwt_decode from 'jwt-decode';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCookie } from '../utils/cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 // Components
 import UploadImage from '../components/UploadImage';
@@ -436,6 +438,16 @@ const WriteModify = () => {
     }
   };
 
+  const settings = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    infinite: false,
+    centerPadding: '10px',
+    arrows: false,
+    variableWidth: true,
+    draggable: true,
+  };
+
   return (
     <Fragment>
       <ToastContainer />
@@ -520,9 +532,9 @@ const WriteModify = () => {
                   ft_size: '14',
                   line_height: '20',
                   bd_radius: '10px',
-                  bd_color: '#d9d9d9',
+                  bd_color: '#28CA72',
                 }}
-              ></Input>
+              />
             </WriteInputContainer>
             <WriteImageTextContainer>
               <WriteImageBox>
@@ -537,7 +549,7 @@ const WriteModify = () => {
                   setFile={setImage}
                   setFileSrc={setImageSrc}
                   text={'이미지 삽입하기'}
-                ></UploadImage>
+                />
               </WriteImageBox>
               <WriteTextBox>
                 {view.lyrics ? (
@@ -555,7 +567,7 @@ const WriteModify = () => {
                   value={lyrics}
                   onChange={(e) => setLyrics(e.target.value)}
                   maxLength={20000}
-                ></WriteTextArea>
+                />
               </WriteTextBox>
               <WriteTextBox>
                 {view.intro ? (
@@ -601,17 +613,13 @@ const WriteModify = () => {
               </WriteAudioBox>
               <WriteAudioPreView>
                 <WriteAudioPreviewFile ref={audioBoxRef}>
-                  <WriteAudioPreviewFileName
-                    ref={audioNameRef}
-                  ></WriteAudioPreviewFileName>
-                  <WriteAudioPreviewFileSize
-                    ref={audioSizeRef}
-                  ></WriteAudioPreviewFileSize>
+                  <WriteAudioPreviewFileName ref={audioNameRef} />
+                  <WriteAudioPreviewFileSize ref={audioSizeRef} />
                   <WriteAudioPreviewFileIconMusic>
-                    <BsFillFileEarmarkMusicFill className='icon-music'></BsFillFileEarmarkMusicFill>
+                    <BsFillFileEarmarkMusicFill className='icon-music' />
                   </WriteAudioPreviewFileIconMusic>
                   <WriteAudioPreviewFileIconCancel onClick={deleteAudio}>
-                    <GrClose className='icon-cancel'></GrClose>
+                    <GrClose className='icon-cancel' />
                   </WriteAudioPreviewFileIconCancel>
                 </WriteAudioPreviewFile>
               </WriteAudioPreView>
@@ -630,10 +638,10 @@ const WriteModify = () => {
                 <Fragment />
               ) : (
                 <WriteHashTagBox>
-                  {tags.map((tag) => {
+                  {tags.map((tag, idx) => {
                     return (
                       <HashTagWithIcon
-                        key={shortid.generate()}
+                        key={idx}
                         tag={tag}
                         removeTag={removeTag}
                       />

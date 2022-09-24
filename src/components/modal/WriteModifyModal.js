@@ -13,7 +13,7 @@ import {
   WriteModalQuestionText,
   WriteModalBtnGroup,
   WriteModalLogo,
-  WriteModalLogoImg
+  WriteModalLogoImg,
 } from '../../assets/styles/components/modal/WriteModal.styled';
 import { Exclamation } from '../../assets/images/image';
 
@@ -46,7 +46,7 @@ const WriteModifyModal = ({ isOpen, onCancel }) => {
     <ReactModal isOpen={isOpen} style={customStyles}>
       <WriteModalContainer>
         <WriteModalIcon onClick={handleClickCancel}>
-          <GrClose className='icon'></GrClose>
+          <GrClose className='icon' />
         </WriteModalIcon>
         <WriteModalLogo>
           <WriteModalLogoImg src={Exclamation} />
@@ -84,7 +84,7 @@ const WriteModifyModal = ({ isOpen, onCancel }) => {
               line_height: '20',
               font: '14',
               pd_top: '20px',
-              pd_bottom: '20px',                         
+              pd_bottom: '20px',
               bg_color: '#de1b4a',
               color: 'white',
               height: 'auto',

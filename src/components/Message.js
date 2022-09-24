@@ -4,18 +4,17 @@ import {
   MessageBoxSenderBox,
   MessageBoxSenderText,
   MessageBoxReceiverBox,
-  MessageBoxReceiverText
-} from '../assets/styles/components/Message.styled'
+  MessageBoxReceiverText,
+} from '../assets/styles/components/Message.styled';
 
-const Message = ({ sender, message, messageState }) => {
-  
+const Message = ({ message, messageState }) => {
   return (
     <MessageContainer justifyContent={messageState ? 'flex-end' : 'flex-start'}>
       {messageState ? (
         <MessageBoxSenderBox>
-        <MessageBoxSenderText>{message}</MessageBoxSenderText>
-      </MessageBoxSenderBox>
-      ): (
+          <MessageBoxSenderText>{message}</MessageBoxSenderText>
+        </MessageBoxSenderBox>
+      ) : (
         <MessageBoxReceiverBox>
           <MessageBoxReceiverText>{message}</MessageBoxReceiverText>
         </MessageBoxReceiverBox>

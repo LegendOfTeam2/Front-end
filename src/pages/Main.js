@@ -11,7 +11,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 // Utils
 import { getCookie } from '../utils/cookie';
-// Pages
 // Components
 import Header from '../components/Header';
 import ProfileSlider from '../components/ProfileSlider';
@@ -224,7 +223,7 @@ const Main = () => {
               ))}
             </MainImgDiv>
           ) : (
-            <MainImgDiv></MainImgDiv>
+            <MainImgDiv />
           )}
           {getCookie('authorization') !== undefined ? (
             artistIsFollowIsLoaded ? (
@@ -279,17 +278,17 @@ const Main = () => {
                   <MainArowLeft>
                     <img
                       src={LeftArrow}
-                      alt='오른쪽화살표'
+                      alt='왼쪽화살표'
                       onClick={() => sliderRef.current.slickPrev()}
                     />
                   </MainArowLeft>
                   <Slider {...Btmsettings}>
                     {powerArtistLoaded ? (
-                      powerArtist.map((x) => {
+                      powerArtist.map((x, idx) => {
                         if (artistIsFollow.indexOf(x.nickname) < 0) {
                           return (
                             <HotArtist
-                              key={x.postId}
+                              key={idx}
                               nickname={x.nickname}
                               imageUrl={x.imageUrl}
                               follower={x.follower
@@ -304,7 +303,7 @@ const Main = () => {
                         } else {
                           return (
                             <HotArtist
-                              key={x.postId}
+                              key={idx}
                               nickname={x.nickname}
                               imageUrl={x.imageUrl}
                               follower={x.follower
@@ -376,7 +375,7 @@ const Main = () => {
                 <MainArowLeft>
                   <img
                     src={LeftArrow}
-                    alt='오른쪽화살표'
+                    alt='왼쪽화살표'
                     onClick={() => sliderRef.current.slickPrev()}
                   />
                 </MainArowLeft>
@@ -480,7 +479,7 @@ const Main = () => {
                       </DisMainPostImgDiv>
                     </DisMainPostImgDivImgDiv>
                   ) : (
-                    <>
+                    <Fragment>
                       <ProfileSlider
                         name={'싱어 최신작품'}
                         position={'singer'}
@@ -488,13 +487,13 @@ const Main = () => {
                         GrandTitle='싱어 최신작품'
                         ctg='new'
                       />
-                    </>
+                    </Fragment>
                   )
                 ) : (
-                  <> </>
+                  <Fragment />
                 )
               ) : (
-                <></>
+                <Fragment />
               )
             ) : recentSingerIsLoaded ? (
               recentSinger.length < 5 ? (
@@ -544,7 +543,7 @@ const Main = () => {
                   </DisMainPostImgDiv>
                 </DisMainPostImgDivImgDiv>
               ) : (
-                <>
+                <Fragment>
                   <ProfileSlider
                     name={'싱어 최신작품'}
                     position={'singer'}
@@ -552,10 +551,10 @@ const Main = () => {
                     GrandTitle='싱어 최신작품'
                     ctg='new'
                   />
-                </>
+                </Fragment>
               )
             ) : (
-              <> </>
+              <Fragment />
             )}
 
             {getCookie('authorization') !== undefined ? (
@@ -616,7 +615,7 @@ const Main = () => {
                       </DisMainPostImgDiv>
                     </DisMainPostImgDivImgDiv>
                   ) : (
-                    <>
+                    <Fragment>
                       <ProfileSlider
                         name={'싱어 인기작품'}
                         position={'singer'}
@@ -624,13 +623,13 @@ const Main = () => {
                         GrandTitle='싱어 인기작품'
                         ctg='popular'
                       />
-                    </>
+                    </Fragment>
                   )
                 ) : (
-                  <></>
+                  <Fragment />
                 )
               ) : (
-                <></>
+                <Fragment />
               )
             ) : bestSingerIsLoaded ? (
               bestSinger.length < 5 ? (
@@ -682,7 +681,7 @@ const Main = () => {
                   </DisMainPostImgDiv>
                 </DisMainPostImgDivImgDiv>
               ) : (
-                <>
+                <Fragment>
                   <ProfileSlider
                     name={'싱어 인기작품'}
                     position={'singer'}
@@ -690,10 +689,10 @@ const Main = () => {
                     GrandTitle='싱어 인기작품'
                     ctg='popular'
                   />
-                </>
+                </Fragment>
               )
             ) : (
-              <></>
+              <Fragment />
             )}
 
             {getCookie('authorization') !== undefined ? (
@@ -754,7 +753,7 @@ const Main = () => {
                       </DisMainPostImgDiv>
                     </DisMainPostImgDivImgDiv>
                   ) : (
-                    <>
+                    <Fragment>
                       <ProfileSlider
                         name={'메이커 최신작품'}
                         position={'maker'}
@@ -762,13 +761,13 @@ const Main = () => {
                         GrandTitle='메이커 최신작품'
                         ctg='new'
                       />
-                    </>
+                    </Fragment>
                   )
                 ) : (
-                  <></>
+                  <Fragment />
                 )
               ) : (
-                <></>
+                <Fragment />
               )
             ) : recentMakerIsLoaded ? (
               recentMaker.length < 5 ? (
@@ -818,7 +817,7 @@ const Main = () => {
                   </DisMainPostImgDiv>
                 </DisMainPostImgDivImgDiv>
               ) : (
-                <>
+                <Fragment>
                   <ProfileSlider
                     name={'메이커 최신작품'}
                     position={'maker'}
@@ -826,10 +825,10 @@ const Main = () => {
                     GrandTitle='메이커 최신작품'
                     ctg='new'
                   />
-                </>
+                </Fragment>
               )
             ) : (
-              <></>
+              <Fragment />
             )}
             {getCookie('authorization') !== undefined ? (
               singerIsLikeIsLoaded ? (
@@ -889,7 +888,7 @@ const Main = () => {
                       </DisMainPostImgDiv>
                     </DisMainPostImgDivImgDiv>
                   ) : (
-                    <>
+                    <Fragment>
                       <ProfileSlider
                         name={'메이커 인기작품'}
                         position={'maker'}
@@ -897,13 +896,13 @@ const Main = () => {
                         GrandTitle='메이커 인기작품'
                         ctg='popular'
                       />
-                    </>
+                    </Fragment>
                   )
                 ) : (
-                  <></>
+                  <Fragment />
                 )
               ) : (
-                <></>
+                <Fragment />
               )
             ) : bestMakerIsLoaded ? (
               bestMaker.length < 5 ? (
@@ -955,7 +954,7 @@ const Main = () => {
                   </DisMainPostImgDiv>
                 </DisMainPostImgDivImgDiv>
               ) : (
-                <>
+                <Fragment>
                   <ProfileSlider
                     name={'메이커 인기작품'}
                     position={'maker'}
@@ -963,10 +962,10 @@ const Main = () => {
                     GrandTitle='메이커 인기작품'
                     ctg='popular'
                   />
-                </>
+                </Fragment>
               )
             ) : (
-              <></>
+              <Fragment />
             )}
           </MainProfileSliderGroup>
         </MainContainer>

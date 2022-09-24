@@ -44,7 +44,7 @@ const SignUpCheck = () => {
       <UpContainer>
         <UpInBox>
           <UpInIcon onClick={() => navigate('/')}>
-            <GrClose className='icon-cancel' color='red'></GrClose>
+            <GrClose className='icon-cancel' color='red' />
           </UpInIcon>
           <UpLogoDiv>
             <UpLogoDivDiv>
