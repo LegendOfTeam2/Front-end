@@ -222,7 +222,7 @@ export const DisMainPostImgDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  gap: 63px;
+  gap: 61px;
 `;
 
 export const DisMainPostImgDivDiv = styled.div`

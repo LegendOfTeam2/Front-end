@@ -5,24 +5,17 @@ import { useNavigate } from 'react-router-dom';
 import usePostStore from '../zustand/post';
 import useLikeStore from '../zustand/like';
 import usePlayerStore from '../zustand/player';
-import useMemberStore from '../zustand/member';
 // Packages
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 // Utils
-import Button from '../elements/Button';
 import { getCookie } from '../utils/cookie';
 // Pages
-import {
-  MdOutlineArrowBackIosNew,
-  MdOutlineArrowForwardIos,
-} from 'react-icons/md';
 // Components
 import Header from '../components/Header';
 import ProfileSlider from '../components/ProfileSlider';
 import HotArtist from '../components/HotArtist';
-import Post from '../components/Post';
 // Assests
 import {
   MainProfileSliderGroup,
@@ -53,6 +46,7 @@ import {
   MainImgDivBtmSpan,
 } from '../assets/styles/pages/Main.styled';
 import { LeftArrow, MainBanner, RightArrow } from '../assets/images/image';
+import PostSmall from '../components/PostSmall';
 
 const Main = () => {
   const sliderRef = useRef();
@@ -99,8 +93,8 @@ const Main = () => {
   const bestSingerIsLoaded = usePostStore((state) => state.bestSingerIsLoaded);
   const bestSinger = usePostStore((state) => state.bestSinger);
 
-  const PowerArtistLoaded = usePostStore((state) => state.PowerArtistLoaded);
-  const PowerArtist = usePostStore((state) => state.PowerArtist);
+  const powerArtistLoaded = usePostStore((state) => state.powerArtistLoaded);
+  const powerArtist = usePostStore((state) => state.powerArtist);
 
   const artistIsFollowIsLoaded = usePostStore(
     (state) => state.artistIsFollowIsLoaded
@@ -194,7 +188,6 @@ const Main = () => {
         <MainContainer>
           {bestSongIsLoaded ? (
             <MainImgDiv>
-              {/* <Slider {...settings}> */}
               {bestSong.map((x) => (
                 <MainImgDivDiv key={x.postId}>
                   <MainImgDivImg img={x.imageUrl.imageUrl}></MainImgDivImg>
@@ -229,21 +222,20 @@ const Main = () => {
                   </MainImgDivBtnDiv>
                 </MainImgDivDiv>
               ))}
-              {/* </Slider> */}
             </MainImgDiv>
           ) : (
             <MainImgDiv></MainImgDiv>
           )}
           {getCookie('authorization') !== undefined ? (
             artistIsFollowIsLoaded ? (
-              PowerArtist.length < 5 ? (
+              powerArtist.length < 5 ? (
                 <BtmProfileImgDiv>
                   <BtmProfileTextDiv>
                     <BtmProfileTextNew>요즘 핫한 아티스트</BtmProfileTextNew>
                   </BtmProfileTextDiv>
                   <MainHotArtistWrap>
-                    {PowerArtistLoaded ? (
-                      PowerArtist.map((x) => {
+                    {powerArtistLoaded ? (
+                      powerArtist.map((x) => {
                         if (artistIsFollow.indexOf(x.nickname) < 0) {
                           return (
                             <HotArtist
@@ -292,8 +284,8 @@ const Main = () => {
                     />
                   </MainArowLeft>
                   <Slider {...Btmsettings}>
-                    {PowerArtistLoaded ? (
-                      PowerArtist.map((x) => {
+                    {powerArtistLoaded ? (
+                      powerArtist.map((x) => {
                         if (artistIsFollow.indexOf(x.nickname) < 0) {
                           return (
                             <HotArtist
@@ -342,14 +334,14 @@ const Main = () => {
             ) : (
               <Fragment />
             )
-          ) : PowerArtistLoaded ? (
-            PowerArtist.length < 5 ? (
+          ) : powerArtistLoaded ? (
+            powerArtist.length < 5 ? (
               <BtmProfileImgDiv>
                 <BtmProfileTextDiv>
                   <BtmProfileTextNew>요즘 핫한 아티스트</BtmProfileTextNew>
                 </BtmProfileTextDiv>
                 <MainHotArtistWrap>
-                  {PowerArtist.map((x) => {
+                  {powerArtist.map((x) => {
                     if (artistIsFollow.indexOf(x.nickname) < 0) {
                       return (
                         <HotArtist
@@ -389,7 +381,7 @@ const Main = () => {
                   />
                 </MainArowLeft>
                 <Slider {...Btmsettings}>
-                  {PowerArtist.map((x) => {
+                  {powerArtist.map((x) => {
                     if (artistIsFollow.indexOf(x.nickname) < 0) {
                       return (
                         <HotArtist
@@ -430,7 +422,81 @@ const Main = () => {
             <Fragment />
           )}
           <MainProfileSliderGroup>
-            {recentSingerIsLoaded ? (
+            {getCookie('authorization') !== undefined ? (
+              singerIsLikeIsLoaded ? (
+                recentSingerIsLoaded ? (
+                  recentSinger.length < 5 ? (
+                    <DisMainPostImgDivImgDiv>
+                      <DisMainPostImgDivDiv>
+                        <DisMainPostImgDivNew>
+                          싱어 최신작품
+                        </DisMainPostImgDivNew>
+                        <DisMainPostImgDivMakeDiv>
+                          <DisMainPostImgDivMake
+                            onClick={() => goToSinger('new')}
+                          >
+                            더보기
+                          </DisMainPostImgDivMake>
+                        </DisMainPostImgDivMakeDiv>
+                      </DisMainPostImgDivDiv>
+                      <DisMainPostImgDiv>
+                        {recentSinger.map((x, idx) => {
+                          if (
+                            [...singerIsLike, ...makerIsLike].indexOf(
+                              x.postId
+                            ) > -1
+                          ) {
+                            return (
+                              <PostSmall
+                                key={idx}
+                                imageUrl={x.imageUrl.imageUrl}
+                                likes={x.likes}
+                                nickname={x.nickname}
+                                title={x.title}
+                                collaborate={x.collaborate}
+                                mediaUrl={x.mediaUrl.mediaUrl}
+                                postId={x.postId}
+                                position={x.position}
+                                likeState={true}
+                              />
+                            );
+                          } else {
+                            return (
+                              <PostSmall
+                                key={idx}
+                                imageUrl={x.imageUrl.imageUrl}
+                                likes={x.likes}
+                                nickname={x.nickname}
+                                title={x.title}
+                                collaborate={x.collaborate}
+                                mediaUrl={x.mediaUrl.mediaUrl}
+                                postId={x.postId}
+                                position={x.position}
+                                likeState={false}
+                              />
+                            );
+                          }
+                        })}
+                      </DisMainPostImgDiv>
+                    </DisMainPostImgDivImgDiv>
+                  ) : (
+                    <>
+                      <ProfileSlider
+                        name={'싱어 최신작품'}
+                        position={'singer'}
+                        postList={recentSinger}
+                        GrandTitle='싱어 최신작품'
+                        ctg='new'
+                      />
+                    </>
+                  )
+                ) : (
+                  <> </>
+                )
+              ) : (
+                <></>
+              )
+            ) : recentSingerIsLoaded ? (
               recentSinger.length < 5 ? (
                 <DisMainPostImgDivImgDiv>
                   <DisMainPostImgDivDiv>
@@ -445,7 +511,7 @@ const Main = () => {
                     {recentSinger.map((x, idx) => {
                       if ([...singerIsLike].indexOf(x.postId) !== -1) {
                         return (
-                          <Post
+                          <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
@@ -460,7 +526,7 @@ const Main = () => {
                         );
                       } else {
                         return (
-                          <Post
+                          <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
@@ -517,7 +583,7 @@ const Main = () => {
                             ) > -1
                           ) {
                             return (
-                              <Post
+                              <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
                                 likes={x.likes}
@@ -532,7 +598,7 @@ const Main = () => {
                             );
                           } else {
                             return (
-                              <Post
+                              <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
                                 likes={x.likes}
@@ -583,7 +649,7 @@ const Main = () => {
                     {bestSinger.map((x, idx) => {
                       if ([...singerIsLike].indexOf(x.postId) !== -1) {
                         return (
-                          <Post
+                          <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
@@ -598,7 +664,7 @@ const Main = () => {
                         );
                       } else {
                         return (
-                          <Post
+                          <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
@@ -655,7 +721,7 @@ const Main = () => {
                             ) > -1
                           ) {
                             return (
-                              <Post
+                              <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
                                 likes={x.likes}
@@ -670,7 +736,7 @@ const Main = () => {
                             );
                           } else {
                             return (
-                              <Post
+                              <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
                                 likes={x.likes}
@@ -719,7 +785,7 @@ const Main = () => {
                     {recentMaker.map((x, idx) => {
                       if ([...makerIsLike].indexOf(x.postId) !== -1) {
                         return (
-                          <Post
+                          <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
@@ -734,7 +800,7 @@ const Main = () => {
                         );
                       } else {
                         return (
-                          <Post
+                          <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
@@ -790,7 +856,7 @@ const Main = () => {
                             ) > -1
                           ) {
                             return (
-                              <Post
+                              <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
                                 likes={x.likes}
@@ -805,7 +871,7 @@ const Main = () => {
                             );
                           } else {
                             return (
-                              <Post
+                              <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
                                 likes={x.likes}
@@ -856,7 +922,7 @@ const Main = () => {
                     {bestMaker.map((x, idx) => {
                       if ([...makerIsLike].indexOf(x.postId) !== -1) {
                         return (
-                          <Post
+                          <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}
@@ -871,7 +937,7 @@ const Main = () => {
                         );
                       } else {
                         return (
-                          <Post
+                          <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
                             likes={x.likes}

@@ -4,7 +4,7 @@ export const UploadImageContainer = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => (props.height ? props.height : 'auto')};
   position: relative;
-  border: 1px solid #d9d9d9;
+  border: 1px solid #28CA72;
   border-radius: 10px;
   &:hover {
     cursor: pointer;

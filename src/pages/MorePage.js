@@ -16,6 +16,7 @@ import PostBig from '../components/PostBig';
 import { getCookie } from '../utils/cookie';
 import useLikeStore from '../zustand/like';
 import usePostStore from '../zustand/post';
+import Post from '../components/Post';
 
 const MorePage = () => {
   const getRecentMaker = usePostStore((state) => state.getRecentMaker);
@@ -128,7 +129,7 @@ const MorePage = () => {
                           -1
                         ) {
                           return (
-                            <PostBig
+                            <Post
                               key={x.postId}
                               imageUrl={x.imageUrl.imageUrl}
                               likeCount={x.likeCount}
@@ -143,7 +144,7 @@ const MorePage = () => {
                           );
                         } else {
                           return (
-                            <PostBig
+                            <Post
                               key={x.postId}
                               imageUrl={x.imageUrl.imageUrl}
                               likeCount={x.likeCount}
@@ -171,7 +172,7 @@ const MorePage = () => {
                         [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
                       ) {
                         return (
-                          <PostBig
+                          <Post
                             key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likeCount={x.likeCount}
@@ -186,7 +187,7 @@ const MorePage = () => {
                         );
                       } else {
                         return (
-                          <PostBig
+                          <Post
                             key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likeCount={x.likeCount}
@@ -215,7 +216,7 @@ const MorePage = () => {
                         [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
                       ) {
                         return (
-                          <PostBig
+                          <Post
                             key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likeCount={x.likeCount}
@@ -230,7 +231,7 @@ const MorePage = () => {
                         );
                       } else {
                         return (
-                          <PostBig
+                          <Post
                             key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
                             likeCount={x.likeCount}
@@ -258,7 +259,7 @@ const MorePage = () => {
                       [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
                     ) {
                       return (
-                        <PostBig
+                        <Post
                           key={x.postId}
                           imageUrl={x.imageUrl.imageUrl}
                           likeCount={x.likeCount}
@@ -273,7 +274,7 @@ const MorePage = () => {
                       );
                     } else {
                       return (
-                        <PostBig
+                        <Post
                           key={x.postId}
                           imageUrl={x.imageUrl.imageUrl}
                           likeCount={x.likeCount}
@@ -298,7 +299,7 @@ const MorePage = () => {
               category === 'new' ? (
                 recentSingerIsLoaded ? (
                   recentSinger.map((x) => (
-                    <PostBig
+                    <Post
                       key={x.postId}
                       imageUrl={x.imageUrl.imageUrl}
                       likeCount={x.likeCount}
@@ -315,7 +316,7 @@ const MorePage = () => {
                 )
               ) : bestSingerIsLoaded ? (
                 bestSinger.map((x) => (
-                  <PostBig
+                  <Post
                     key={x.postId}
                     imageUrl={x.imageUrl.imageUrl}
                     likeCount={x.likeCount}
@@ -333,7 +334,7 @@ const MorePage = () => {
             ) : category === 'new' ? (
               recentMakerIsLoaded ? (
                 recentMaker.map((x) => (
-                  <PostBig
+                  <Post
                     key={x.postId}
                     imageUrl={x.imageUrl.imageUrl}
                     likeCount={x.likeCount}
@@ -350,9 +351,8 @@ const MorePage = () => {
               )
             ) : bestMakerIsLoaded ? (
               bestMaker.map((x) => (
-                <PostBig
+                <Post
                   key={x.postId}
-                  k
                   imageUrl={x.imageUrl.imageUrl}
                   likeCount={x.likeCount}
                   nickname={x.nickname}

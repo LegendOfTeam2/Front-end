@@ -67,10 +67,26 @@ import {
   MyBtmTextDivDivSelect,
 } from '../assets/styles/pages/MyPage.styled';
 import {
-  DisMakerMarke,
-  DisSingerMarker,
-  MakerMarke,
-  SingerMarker,
+  SingerMarker1,
+  SingerMarker2,
+  SingerMarker3,
+  SingerMarker4,
+  SingerMarker5,
+  SingerMarker6,
+  SingerMarker7,
+  SingerMarker8,
+  SingerMarker9,
+  SingerMarker10,
+  MakerMarker1,
+  MakerMarker2,
+  MakerMarker3,
+  MakerMarker4,
+  MakerMarker5,
+  MakerMarker6,
+  MakerMarker7,
+  MakerMarker8,
+  MakerMarker9,
+  MakerMarker10,
 } from '../assets/images/image';
 import { useNavigate, useParams } from 'react-router-dom';
 import useLikeStore from '../zustand/like';
@@ -118,6 +134,8 @@ const MyPage = () => {
 
   const [category, setCategory] = useState('upload');
   const [isFollow, setIsFollow] = useState(false);
+  const [isSingerMarker, setSingerMarker] = useState();
+  const [isMakerMarker, setMakerMarker] = useState();
 
   const { nickname } = useParams();
   const navigate = useNavigate();
@@ -201,6 +219,72 @@ const MyPage = () => {
     }
   };
 
+  useEffect(() => {
+    getProfileInfo(nickname);
+    if (profileInfoIsLoaded) {
+      if (profileInfo.singerPostCnt === 0 || profileInfo.singerPostCnt === 1) {
+        setSingerMarker(SingerMarker1);
+      }
+      if (profileInfo.singerPostCnt === 2) {
+        setSingerMarker(SingerMarker2);
+      }
+      if (profileInfo.singerPostCnt === 3) {
+        setSingerMarker(SingerMarker3);
+      }
+      if (profileInfo.singerPostCnt === 4) {
+        setSingerMarker(SingerMarker4);
+      }
+      if (profileInfo.singerPostCnt === 5) {
+        setSingerMarker(SingerMarker5);
+      }
+      if (profileInfo.singerPostCnt === 6) {
+        setSingerMarker(SingerMarker6);
+      }
+      if (profileInfo.singerPostCnt === 7) {
+        setSingerMarker(SingerMarker7);
+      }
+      if (profileInfo.singerPostCnt === 8) {
+        setSingerMarker(SingerMarker8);
+      }
+      if (profileInfo.singerPostCnt === 9) {
+        setSingerMarker(SingerMarker9);
+      }
+      if (profileInfo.singerPostCnt > 9) {
+        setSingerMarker(SingerMarker10);
+      }
+      if (profileInfo.makerPostCnt === 0 || profileInfo.makerPostCnt === 1) {
+        setMakerMarker(MakerMarker1);
+      }
+      if (profileInfo.makerPostCnt === 2) {
+        setMakerMarker(MakerMarker2);
+      }
+      if (profileInfo.makerPostCnt === 3) {
+        setMakerMarker(MakerMarker3);
+      }
+      if (profileInfo.makerPostCnt === 4) {
+        setMakerMarker(MakerMarker4);
+      }
+      if (profileInfo.makerPostCnt === 5) {
+        setMakerMarker(MakerMarker5);
+      }
+      if (profileInfo.makerPostCnt === 6) {
+        setMakerMarker(MakerMarker6);
+      }
+      if (profileInfo.makerPostCnt === 7) {
+        setMakerMarker(MakerMarker7);
+      }
+      if (profileInfo.makerPostCnt === 8) {
+        setMakerMarker(MakerMarker8);
+      }
+      if (profileInfo.makerPostCnt === 9) {
+        setMakerMarker(MakerMarker9);
+      }
+      if (profileInfo.makerPostCnt === 10) {
+        setMakerMarker(MakerMarker10);
+      }
+    }
+  }, [getProfileInfo, nickname, profileInfo.makerPostCnt, profileInfo.singerPostCnt, profileInfoIsLoaded]);
+
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
       follow(nickname).then((res) => {
@@ -233,7 +317,7 @@ const MyPage = () => {
       });
     }
   };
-
+  console.log(isSingerMarker);
   return (
     <Fragment>
       <Header />
@@ -286,23 +370,15 @@ const MyPage = () => {
                     </MyRightTopBtmDiv>
                   </MyRightTopDiv>
                   <MyBadgeContainer>
-                    {profileInfo.singerPostCnt > 10 ? (
-                      <img src={SingerMarker} backgrond='white' alt='이미지' />
+                    {profileInfoIsLoaded ? (
+                      <img src={isSingerMarker} alt='싱어마커' />
                     ) : (
-                      <img
-                        src={DisSingerMarker}
-                        backgrond='white'
-                        alt='이미지'
-                      />
+                      <></>
                     )}
-                    {profileInfo.makerPostCnt > 10 ? (
-                      <img src={MakerMarke} backgrond='white' alt='이미지' />
+                    {profileInfoIsLoaded ? (
+                      <img src={isMakerMarker} alt='메이커마커' />
                     ) : (
-                      <img
-                        src={DisMakerMarke}
-                        backgrond='white'
-                        alt='로고이미지'
-                      />
+                      <></>
                     )}
                   </MyBadgeContainer>
                   {getCookie('authorization') !== undefined ? (

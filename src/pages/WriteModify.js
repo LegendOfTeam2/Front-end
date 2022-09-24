@@ -71,7 +71,6 @@ import {
   WriteButtonContainer,
   WriteButtonDeleteContainer,
 } from '../assets/styles/pages/Write.styled';
-import PlayList from '../components/PlayList';
 
 const WriteModify = () => {
   const uploadAudio = useUploadStore((state) => state.uploadAudio);
@@ -588,17 +587,17 @@ const WriteModify = () => {
               {tags.length === 0 ? (
                 <Fragment></Fragment>
               ) : (
-                <WriteHashTagBox>
-                  {tags.map((tag) => {
-                    return (
-                      <HashTagWithIcon
-                        key={shortid.generate()}
-                        tag={tag}
-                        removeTag={removeTag}
-                      />
-                    );
-                  })}
-                </WriteHashTagBox>
+                  <WriteHashTagBox>
+                    {tags.map((tag) => {
+                      return (
+                        <HashTagWithIcon
+                          key={shortid.generate()}
+                          tag={tag}
+                          removeTag={removeTag}
+                        />
+                      );
+                    })}
+                  </WriteHashTagBox>
               )}
             </WriteHashTagContainer>
           </WriteForm>

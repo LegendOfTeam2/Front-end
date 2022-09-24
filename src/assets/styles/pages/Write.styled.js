@@ -18,7 +18,7 @@ export const WriteBox = styled.div`
   justify-content: center;
   position: relative;
   border-radius: 30px;
-  border: 1px solid rgba(40, 202, 124, 1);
+  border: 1px solid #28CA72;
   background-color: #ffffff;
 `;
 export const WriteIconContainer = styled.div`
@@ -243,7 +243,7 @@ export const WriteTextArea = styled.textarea`
   height: 236px;
   padding: 31px 31px 15px 35px;
   border-radius: 10px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid #28CA72;
   resize: none;
   outline: none;
   font-size: ${(props) => props.theme.fontSizes.sm};
@@ -264,9 +264,8 @@ export const WriteAudioContainer = styled.div`
 export const WriteAudioBox = styled.div`
   width: 236px;
   height: 100px;
-  border: 1px solid red;
   position: relative;
-  border: 1px solid #d9d9d9;
+  border: 1px solid #28CA72;
   border-radius: 10px;
   &:hover {
     cursor: pointer;
@@ -301,7 +300,7 @@ export const WriteAudioInput = styled.input`
 export const WriteAudioPreView = styled.div`
   width: 524px;
   height: 100px;
-  border: 1px solid #dedede;
+  border: 1px solid #28CA72;
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -386,7 +385,7 @@ export const WriteHashTag = styled.input`
   font-size: ${(props) => props.theme.fontSizes.sm};
   padding: 20px 40px 20px 19px;
   border-radius: 10px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid #28CA72;
   line-height: ${(props) => props.theme.lineHeight.xs};
   outline: none;
   &::placeholder {

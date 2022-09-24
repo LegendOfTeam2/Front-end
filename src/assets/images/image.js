@@ -62,6 +62,26 @@ import Modify from './Modify.svg';
 import Success from './Success.svg';
 import ListCollaborateWhite from './ListCollaborateWhite.svg';
 import LikeWhite from './LikeWhite.svg';
+import MakerMarker1 from './positionMarker/MakerMarker1.svg';
+import MakerMarker2 from './positionMarker/MakerMarker2.svg';
+import MakerMarker3 from './positionMarker/MakerMarker3.svg';
+import MakerMarker4 from './positionMarker/MakerMarker4.svg';
+import MakerMarker5 from './positionMarker/MakerMarker5.svg';
+import MakerMarker6 from './positionMarker/MakerMarker6.svg';
+import MakerMarker7 from './positionMarker/MakerMarker7.svg';
+import MakerMarker8 from './positionMarker/MakerMarker8.svg';
+import MakerMarker9 from './positionMarker/MakerMarker9.svg';
+import MakerMarker10 from './positionMarker/MakerMarker10.svg';
+import SingerMarker1 from './positionMarker/SingerMarker1.png';
+import SingerMarker2 from './positionMarker/SingerMarker2.png';
+import SingerMarker3 from './positionMarker/SingerMarker3.png';
+import SingerMarker4 from './positionMarker/SingerMarker4.png';
+import SingerMarker5 from './positionMarker/SingerMarker5.png';
+import SingerMarker6 from './positionMarker/SingerMarker6.png';
+import SingerMarker7 from './positionMarker/SingerMarker7.png';
+import SingerMarker8 from './positionMarker/SingerMarker8.png';
+import SingerMarker9 from './positionMarker/SingerMarker9.png';
+import SingerMarker10 from './positionMarker/SingerMarker10.png';
 
 export {
   albumCover_1,
@@ -127,5 +147,25 @@ export {
   Modify,
   Success,
   ListCollaborateWhite,
-  LikeWhite
+  LikeWhite,
+  MakerMarker1,
+  MakerMarker2,
+  MakerMarker3,
+  MakerMarker4,
+  MakerMarker5,
+  MakerMarker6,
+  MakerMarker7,
+  MakerMarker8,
+  MakerMarker9,
+  MakerMarker10,
+  SingerMarker1,
+  SingerMarker2,
+  SingerMarker3,
+  SingerMarker4,
+  SingerMarker5,
+  SingerMarker6,
+  SingerMarker7,
+  SingerMarker8,
+  SingerMarker9,
+  SingerMarker10,
 };

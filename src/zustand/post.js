@@ -32,8 +32,8 @@ const usePostStore = create((set) => ({
   bestSingerIsLoaded: false,
   bestSinger: [],
 
-  PowerArtistLoaded: false,
-  PowerArtist: [],
+  powerArtistLoaded: false,
+  powerArtist: [],
 
   artistIsFollowIsLoaded: false,
   artistIsFollow: [],
@@ -118,8 +118,8 @@ const usePostStore = create((set) => ({
       .catch((err) => console.log(err));
 
     if (resData?.data.success) {
-      set({ PowerArtist: resData.data.data });
-      set({ PowerArtistLoaded: true });
+      set({ powerArtist: resData.data.data });
+      set({ powerArtistLoaded: true });
     }
   },
   getDetail: async (payload) => {
