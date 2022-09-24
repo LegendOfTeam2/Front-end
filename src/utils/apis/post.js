@@ -4,8 +4,8 @@ import api_basic from './api/api_basic';
 export const addPostApi = (payload) => {
   return api_auth.post(`/auth/post`, payload);
 };
-export const getFollowerListApi = (payload) => {
-  return api_auth.get(`/auth/followerlist`, payload);
+export const getFollowerListApi = () => {
+  return api_auth.get(`/auth/followerlist`);
 };
 export const getBestSongApi = (payload) => {
   return api_basic.get(`/api/bestsong`, payload);

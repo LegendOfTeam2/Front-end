@@ -51,10 +51,8 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [emailCheck, setEmailCheck] = useState(false);
   const [password, setPassword] = useState('');
-  const [passwordView, setPasswordView] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
   const [passwordCheck, setPasswordCheck] = useState('');
-  const [passwordCheckView, setPasswordCheckView] = useState(false);
   const [nickname, setNickname] = useState('');
   const [nicknameCheck, setNicknameCheck] = useState('');
   const [tags, setTags] = useState([]);
@@ -62,17 +60,21 @@ const SignUp = () => {
   const [fileSrc, setFileSrc] = useState('');
   const [isOpen, setOpen] = useState(false);
   const [nicknameModal, setNicknameModal] = useState('');
+  const [view, setView] = useState({
+    email: false,
+    passwordDelete: false,
+    passwordView: false,
+    passwordCheckDelete: false,
+    passwordCheckView: false,
+    nickname: false,
+  });
 
   const emailRef = useRef();
-  const emailIconRef = useRef();
   const emailSpanRef = useRef();
   const passwordRef = useRef();
-  const passwordIconRef = useRef();
   const passwordCheckRef = useRef();
-  const passwordCheckIconRef = useRef();
   const passwordCheckSpanRef = useRef();
   const nicknameRef = useRef();
-  const nicknameIconRef = useRef();
   const nicknameSpanRef = useRef();
 
   const passwordNumRef = useRef();
@@ -111,12 +113,16 @@ const SignUp = () => {
         }
         case 'password': {
           setPassword('');
-          setPasswordView(false);
+          setView((prev) => {
+            return { ...prev, setPasswordView: false };
+          });
           break;
         }
         case 'passwordCheck': {
           setPasswordCheck('');
-          setPasswordCheckView(false);
+          setView((prev) => {
+            return { ...prev, setPasswordCheckView: false };
+          });
           break;
         }
         case 'nickname': {
@@ -139,11 +145,13 @@ const SignUp = () => {
           } else {
             const type = passwordRef.current.type;
             if (type === 'password') {
-              passwordRef.current.type = 'text';
-              setPasswordView(true);
+              setView((prev) => {
+                return { ...prev, passwordView: true };
+              });
             } else {
-              passwordRef.current.type = 'password';
-              setPasswordView(false);
+              setView((prev) => {
+                return { ...prev, passwordView: false };
+              });
             }
             break;
           }
@@ -154,11 +162,13 @@ const SignUp = () => {
           } else {
             const type = passwordCheckRef.current.type;
             if (type === 'password') {
-              passwordCheckRef.current.type = 'text';
-              setPasswordCheckView(true);
+              setView((prev) => {
+                return { ...prev, passwordCheckView: true };
+              });
             } else {
-              passwordCheckRef.current.type = 'password';
-              setPasswordCheckView(false);
+              setView((prev) => {
+                return { ...prev, passwordCheckView: false };
+              });
             }
             break;
           }
@@ -294,15 +304,42 @@ const SignUp = () => {
   }, [nickname]);
 
   useEffect(() => {
-    if (email !== '') emailIconRef.current.style.display = 'block';
-    else emailIconRef.current.style.display = 'none';
-    if (password !== '') passwordIconRef.current.style.display = 'block';
-    else passwordIconRef.current.style.display = 'none';
-    if (passwordCheck !== '')
-      passwordCheckIconRef.current.style.display = 'block';
-    else passwordCheckIconRef.current.style.display = 'none';
-    if (nickname !== '') nicknameIconRef.current.style.display = 'block';
-    else nicknameIconRef.current.style.display = 'none';
+    if (email !== '') {
+      setView((prev) => {
+        return { ...prev, email: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, email: false };
+      });
+    }
+    if (password !== '') {
+      setView((prev) => {
+        return { ...prev, passwordDelete: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, passwordDelete: false };
+      });
+    }
+    if (passwordCheck !== '') {
+      setView((prev) => {
+        return { ...prev, passwordCheckDelete: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, passwordCheckDelete: false };
+      });
+    }
+    if (nickname !== '') {
+      setView((prev) => {
+        return { ...prev, nickname: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, nickname: false };
+      });
+    }
   }, [email, password, passwordCheck, nickname]);
 
   useEffect(() => {
@@ -350,42 +387,38 @@ const SignUp = () => {
     }
   }, [password]);
 
-  const onSubmitHandle = useCallback(
-    (e) => {
-      e.preventDefault();
+  const onSubmitHandle = (e) => {
+    e.preventDefault();
 
-      if (emailCheck === false) {
-        emailRef.current.focus();
-        emailSpanRef.current.style.color = '#f2153e';
-        emailSpanRef.current.innerText = '중복되는 이메일입니다.';
+    if (emailCheck === false) {
+      emailRef.current.focus();
+      emailSpanRef.current.style.color = '#f2153e';
+      emailSpanRef.current.innerText = '중복되는 이메일입니다.';
+    } else {
+      if (passwordValid === false) {
+        passwordRef.current.focus();
+        alert('유효하지 않은 패스워드입니다.');
       } else {
-        if (passwordValid === false) {
-          passwordRef.current.focus();
-          alert('유효하지 않은 패스워드입니다.');
+        if (password !== passwordCheck) {
+          passwordCheckRef.current.focus();
+          alert('패스워드가 일치하지 않습니다.');
         } else {
-          if (password !== passwordCheck) {
-            passwordCheckRef.current.focus();
-            alert('패스워드가 일치하지 않습니다.');
+          if (nicknameCheck === false) {
+            nicknameRef.current.focus();
+            nicknameSpanRef.current.style.color = '#f2153e';
+            nicknameSpanRef.current.innerText = '중복되는 닉네임입니다.';
           } else {
-            if (nicknameCheck === false) {
-              nicknameRef.current.focus();
-              nicknameSpanRef.current.style.color = '#f2153e';
-              nicknameSpanRef.current.innerText = '중복되는 닉네임입니다.';
-            } else {
-              signUpMember(newMember).then((res) => {
-                console.log(res);
-                if (res.success) {
-                  setNicknameModal(nickname);
-                  setOpen(true);
-                }
-              });
-            }
+            signUpMember(newMember).then((res) => {
+              if (res.success) {
+                setNicknameModal(nickname);
+                setOpen(true);
+              }
+            });
           }
         }
       }
-    },
-    [email, password, passwordCheck, nickname, tags, file, fileSrc]
-  );
+    }
+  };
 
   return (
     <Fragment>
@@ -406,12 +439,15 @@ const SignUp = () => {
                   이메일(필수)
                 </SignUpBoxInputGroupTitle>
                 <SignUpboxInputGroupData>
-                  <SignUpDataInputGroupIcon
-                    onClick={() => deleteText('email')}
-                    ref={emailIconRef}
-                  >
-                    <img src={Xbox20} alt='Xbox' className='icon-cancel' />
-                  </SignUpDataInputGroupIcon>
+                  {view.email ? (
+                    <SignUpDataInputGroupIcon
+                      onClick={() => deleteText('email')}
+                    >
+                      <img src={Xbox20} alt='Xbox' className='icon-cancel' />
+                    </SignUpDataInputGroupIcon>
+                  ) : (
+                    <Fragment />
+                  )}
                   <Input
                     _type={'text'}
                     _placeholder={'아이디를 입력해 주세요.'}
@@ -442,55 +478,77 @@ const SignUp = () => {
                   비밀번호(필수)
                 </SignUpBoxInputGroupTitle>
                 <SignUpboxInputGroupData>
-                  <SignUpDataInputGroupIcon
-                    onClick={() => deleteText('password')}
-                    ref={passwordIconRef}
-                  >
-                    <img
-                      src={Xbox20}
-                      alt='Xbox'
-                      className='icon-password-cancel'
-                    />
-                  </SignUpDataInputGroupIcon>
-                  {passwordView ? (
-                    <>
+                  {view.passwordDelete ? (
+                    <SignUpDataInputGroupIcon
+                      onClick={() => deleteText('password')}
+                    >
                       <img
-                        src={ShowPw}
-                        alt='패스워드 보기'
-                        className='icon-hidden'
-                        onClick={() => viewPassword('password')}
+                        src={Xbox20}
+                        alt='Xbox'
+                        className='icon-password-cancel'
                       />
-                    </>
+                    </SignUpDataInputGroupIcon>
                   ) : (
-                    <>
-                      <img
-                        src={HidePw}
-                        alt='패스워드 감추기'
-                        className='icon-hidden'
-                        onClick={() => viewPassword('password')}
-                      />
-                    </>
+                    <Fragment />
                   )}
-                  <Input
-                    _type={'password'}
-                    _placeholder={'비밀번호를 입력해주세요.'}
-                    _value={password}
-                    _onChange={(event) => setPassword(event.target.value)}
-                    _ref={passwordRef}
-                    _style={{
-                      width: '100%',
-                      height: 'auto',
-                      ft_size: '14',
-                      pd_top: '20px',
-                      pd_bottom: '20px',
-                      pd_left: '19px',
-                      pd_right: '70px',
-                      bd_radius: '10px',
-                      bd_px: '1px',
-                      bd_color: '#d9d9d9',
-                      line_height: '20',
-                    }}
-                  />
+                  {view.passwordView ? (
+                    <img
+                      src={ShowPw}
+                      alt='패스워드 보기'
+                      className='icon-hidden'
+                      onClick={() => viewPassword('password')}
+                    />
+                  ) : (
+                    <img
+                      src={HidePw}
+                      alt='패스워드 감추기'
+                      className='icon-hidden'
+                      onClick={() => viewPassword('password')}
+                    />
+                  )}
+                  {view.passwordView ? (
+                    <Input
+                      _type={'text'}
+                      _placeholder={'비밀번호를 입력해주세요.'}
+                      _value={password}
+                      _onChange={(event) => setPassword(event.target.value)}
+                      _ref={passwordRef}
+                      _style={{
+                        width: '100%',
+                        height: 'auto',
+                        ft_size: '14',
+                        pd_top: '20px',
+                        pd_bottom: '20px',
+                        pd_left: '19px',
+                        pd_right: '70px',
+                        bd_radius: '10px',
+                        bd_px: '1px',
+                        bd_color: '#d9d9d9',
+                        line_height: '20',
+                      }}
+                    />
+                  ) : (
+                    <Input
+                      _type={'password'}
+                      _placeholder={'비밀번호를 입력해주세요.'}
+                      _value={password}
+                      _onChange={(event) => setPassword(event.target.value)}
+                      _ref={passwordRef}
+                      _style={{
+                        width: '100%',
+                        height: 'auto',
+                        ft_size: '14',
+                        pd_top: '20px',
+                        pd_bottom: '20px',
+                        pd_left: '19px',
+                        pd_right: '70px',
+                        bd_radius: '10px',
+                        bd_px: '1px',
+                        bd_color: '#d9d9d9',
+                        line_height: '20',
+                      }}
+                    />
+                  )}
                 </SignUpboxInputGroupData>
                 <SignUpBoxPasswordValidGroup>
                   <SignUpBoxPasswordValidText ref={passwordEngLgRef}>
@@ -510,55 +568,81 @@ const SignUp = () => {
                   </SignUpBoxPasswordValidText>
                 </SignUpBoxPasswordValidGroup>
                 <SignUpboxInputGroupData>
-                  <SignUpDataInputGroupIcon
-                    onClick={() => deleteText('passwordCheck')}
-                    ref={passwordCheckIconRef}
-                  >
-                    <img
-                      src={Xbox20}
-                      alt='Xbox'
-                      className='icon-password-cancel'
-                    />
-                  </SignUpDataInputGroupIcon>
-                  {passwordCheckView ? (
-                    <>
+                  {view.passwordCheckDelete ? (
+                    <SignUpDataInputGroupIcon
+                      onClick={() => deleteText('passwordCheck')}
+                    >
                       <img
-                        src={ShowPw}
-                        alt='패스워드 보기'
-                        className='icon-hidden'
-                        onClick={() => viewPassword('passwordCheck')}
+                        src={Xbox20}
+                        alt='Xbox'
+                        className='icon-password-cancel'
                       />
-                    </>
+                    </SignUpDataInputGroupIcon>
                   ) : (
-                    <>
-                      <img
-                        src={HidePw}
-                        alt='패스워드 감추기'
-                        className='icon-hidden'
-                        onClick={() => viewPassword('passwordCheck')}
-                      />
-                    </>
+                    <Fragment />
                   )}
-                  <Input
-                    _type={'password'}
-                    _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
-                    _value={passwordCheck}
-                    _onChange={(event) => setPasswordCheck(event.target.value)}
-                    _ref={passwordCheckRef}
-                    _style={{
-                      width: '100%',
-                      height: 'auto',
-                      ft_size: '14',
-                      pd_top: '20px',
-                      pd_bottom: '20px',
-                      pd_left: '19px',
-                      pd_right: '70px',
-                      bd_radius: '10px',
-                      bd_px: '1px',
-                      bd_color: '#d9d9d9',
-                      line_height: '20',
-                    }}
-                  />
+                  {view.passwordCheckView ? (
+                    <img
+                      src={ShowPw}
+                      alt='패스워드 보기'
+                      className='icon-hidden'
+                      onClick={() => viewPassword('passwordCheck')}
+                    />
+                  ) : (
+                    <img
+                      src={HidePw}
+                      alt='패스워드 감추기'
+                      className='icon-hidden'
+                      onClick={() => viewPassword('passwordCheck')}
+                    />
+                  )}
+                  {view.passwordCheckView ? (
+                    <Input
+                      _type={'text'}
+                      _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
+                      _value={passwordCheck}
+                      _onChange={(event) =>
+                        setPasswordCheck(event.target.value)
+                      }
+                      _ref={passwordCheckRef}
+                      _style={{
+                        width: '100%',
+                        height: 'auto',
+                        ft_size: '14',
+                        pd_top: '20px',
+                        pd_bottom: '20px',
+                        pd_left: '19px',
+                        pd_right: '70px',
+                        bd_radius: '10px',
+                        bd_px: '1px',
+                        bd_color: '#d9d9d9',
+                        line_height: '20',
+                      }}
+                    />
+                  ) : (
+                    <Input
+                      _type={'password'}
+                      _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
+                      _value={passwordCheck}
+                      _onChange={(event) =>
+                        setPasswordCheck(event.target.value)
+                      }
+                      _ref={passwordCheckRef}
+                      _style={{
+                        width: '100%',
+                        height: 'auto',
+                        ft_size: '14',
+                        pd_top: '20px',
+                        pd_bottom: '20px',
+                        pd_left: '19px',
+                        pd_right: '70px',
+                        bd_radius: '10px',
+                        bd_px: '1px',
+                        bd_color: '#d9d9d9',
+                        line_height: '20',
+                      }}
+                    />
+                  )}
                 </SignUpboxInputGroupData>
                 <SignUpBoxInputGroupAlert
                   ref={passwordCheckSpanRef}
@@ -569,12 +653,15 @@ const SignUp = () => {
                   닉네임(필수)
                 </SignUpBoxInputGroupTitle>
                 <SignUpboxInputGroupData>
-                  <SignUpDataInputGroupIcon
-                    onClick={() => deleteText('nickname')}
-                    ref={nicknameIconRef}
-                  >
-                    <img src={Xbox20} alt='Xbox' className='icon-cancel' />
-                  </SignUpDataInputGroupIcon>
+                  {view.nickname ? (
+                    <SignUpDataInputGroupIcon
+                      onClick={() => deleteText('nickname')}
+                    >
+                      <img src={Xbox20} alt='Xbox' className='icon-cancel' />
+                    </SignUpDataInputGroupIcon>
+                  ) : (
+                    <Fragment />
+                  )}
                   <Input
                     _type={'text'}
                     _placeholder={'닉네임을 입력해 주세요. (15자리 이내)'}

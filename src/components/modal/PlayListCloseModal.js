@@ -61,7 +61,7 @@ const PlayListCloseModal = ({ isOpen, onCancel, playListMemberLength }) => {
           <WriteModalLogoImg src={Exclamation} />
         </WriteModalLogo>
         <WriteModalQuestionText>
-          선택한 {playListMemberLength} 곡을 삭제하시겠습니다까?
+          선택한 {playListMemberLength} 곡을 삭제하시겠습니까?
         </WriteModalQuestionText>
         <WriteModalBtnGroup>
           <Button
