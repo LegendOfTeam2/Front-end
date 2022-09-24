@@ -135,6 +135,22 @@ export const SignUpBoxInputGroupAlert = styled.div`
   font-size: ${(props) => props.theme.fontSizes.xs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
+export const SignUpBoxInputGroupAlertError = styled.div`
+  width: 100%;
+  height: ${(props) => props.theme.lineHeight.xxs};
+  line-height: ${(props) => props.theme.lineHeight.xxs};
+  font-size: ${(props) => props.theme.fontSizes.xs};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  color: #f2153e;
+`;
+export const SignUpBoxInputGroupAlertSuccess = styled.div`
+  width: 100%;
+  height: ${(props) => props.theme.lineHeight.xxs};
+  line-height: ${(props) => props.theme.lineHeight.xxs};
+  font-size: ${(props) => props.theme.fontSizes.xs};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  color: rgba(40, 202, 124, 1);
+`;
 export const SignUpBoxPasswordValidGroup = styled.div`
   width: auto;
   height: auto;
@@ -146,6 +162,13 @@ export const SignUpBoxPasswordValidText = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xs};
   line-height: ${(props) => props.theme.lineHeight.xxs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
+`;
+export const SignUpBoxPasswordValidTextSuccess = styled.span`
+  color: #d9d9d9;
+  font-size: ${(props) => props.theme.fontSizes.xs};
+  line-height: ${(props) => props.theme.lineHeight.xxs};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  color: rgba(40, 202, 124, 1);
 `;
 export const SignUpBoxInputTagsAlert = styled.span`
   width: 100%;

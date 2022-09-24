@@ -35,8 +35,11 @@ import {
   SignUpboxInputGroupData,
   SignUpDataInputGroupIcon,
   SignUpBoxInputGroupAlert,
+  SignUpBoxInputGroupAlertError,
+  SignUpBoxInputGroupAlertSuccess,
   SignUpBoxPasswordValidGroup,
   SignUpBoxPasswordValidText,
+  SignUpBoxPasswordValidTextSuccess,
   SignUpBoxInputTagsAlert,
   SignUpBoxInputTags,
   SignUpBoxTagBox,
@@ -50,6 +53,10 @@ import {
 import { HidePw, LargeLogo, ShowPw, Xbox20 } from '../assets/images/image';
 
 const SignUp = () => {
+  const emailDupCheck = useMemberStore((state) => state.emailDupCheck);
+  const nicknameDupCheck = useMemberStore((state) => state.nicknameDupCheck);
+  const signUpMember = useMemberStore((state) => state.signUpMember);
+
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -59,7 +66,18 @@ const SignUp = () => {
     file: '',
     fileSrc: '',
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    email: 'none',
+    passwordCheck: 'none',
+    nickname: 'none',
+  });
+  const [passwordValid, setPasswordValid] = useState({
+    engLarge: false,
+    engSmall: false,
+    special: false,
+    number: false,
+    length: false,
+  });
   const [validCheck, setValidCheck] = useState({
     emailDupCheck: false,
     passwordValid: false,
@@ -77,18 +95,11 @@ const SignUp = () => {
   const [nicknameModal, setNicknameModal] = useState('');
 
   const emailRef = useRef();
-  const emailSpanRef = useRef();
   const passwordRef = useRef();
   const passwordCheckRef = useRef();
-  const passwordCheckSpanRef = useRef();
   const nicknameRef = useRef();
-  const nicknameSpanRef = useRef();
 
-  const passwordNumRef = useRef();
-  const passwordSpecailRef = useRef();
-  const passwordEngLgRef = useRef();
-  const passwordEngSmRef = useRef();
-  const passwordLengthRef = useRef();
+  const navigate = useNavigate();
 
   const emailRegExp =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -96,12 +107,6 @@ const SignUp = () => {
   const regExpSpecial = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
   const regExpEngLg = /[A-Z]/g;
   const regExpEngSm = /[a-z]/g;
-
-  const emailDupCheck = useMemberStore((state) => state.emailDupCheck);
-  const nicknameDupCheck = useMemberStore((state) => state.nicknameDupCheck);
-  const signUpMember = useMemberStore((state) => state.signUpMember);
-
-  const navigate = useNavigate();
 
   const newMember = {
     email: values.email,
@@ -116,6 +121,9 @@ const SignUp = () => {
       case 'email': {
         setValues((prev) => {
           return { ...prev, email: '' };
+        });
+        setErrors((prev) => {
+          return { ...prev, email: 'none' };
         });
         break;
       }
@@ -135,11 +143,17 @@ const SignUp = () => {
         setViews((prev) => {
           return { ...prev, passwordCheckView: false };
         });
+        setErrors((prev) => {
+          return { ...prev, passwordCheck: 'none' };
+        });
         break;
       }
       case 'nickname': {
         setValues((prev) => {
           return { ...prev, nickname: '' };
+        });
+        setErrors((prev) => {
+          return { ...prev, nickname: 'none' };
         });
         break;
       }
@@ -253,24 +267,27 @@ const SignUp = () => {
   const checkEmail = useCallback(
     debounce((email) => {
       if (emailRegExp.test(email) === false) {
-        emailSpanRef.current.innerText = '이메일 형식에 맞지 않습니다';
-        emailSpanRef.current.style.color = '#f2153e';
         setValidCheck((prev) => {
           return { ...prev, emailDupCheck: false };
+        });
+        setErrors((prev) => {
+          return { ...prev, email: 'invalid' };
         });
       } else {
         emailDupCheck({ email }).then((res) => {
           if (res) {
-            emailSpanRef.current.innerText = '사용가능한 이메일입니다';
-            emailSpanRef.current.style.color = 'rgba(40, 202, 124, 1)';
+            setValidCheck((prev) => {
+              return { ...prev, emailDupCheck: true };
+            });
+            setErrors((prev) => {
+              return { ...prev, email: 'success' };
+            });
+          } else {
             setValidCheck((prev) => {
               return { ...prev, emailDupCheck: false };
             });
-          } else {
-            emailSpanRef.current.innerText = '중복되는 이메일입니다';
-            emailSpanRef.current.style.color = '#f2153e';
-            setValidCheck((prev) => {
-              return { ...prev, emailDupCheck: false };
+            setErrors((prev) => {
+              return { ...prev, email: 'dupCheckFail' };
             });
           }
         });
@@ -283,16 +300,18 @@ const SignUp = () => {
     debounce((nickname) => {
       nicknameDupCheck({ nickname }).then((res) => {
         if (res) {
-          nicknameSpanRef.current.innerText = '사용가능한 닉네임입니다';
-          nicknameSpanRef.current.style.color = 'rgba(40, 202, 124, 1)';
           setValidCheck((prev) => {
             return { ...prev, nicknameDupCheck: true };
           });
+          setErrors((prev) => {
+            return { ...prev, nickname: 'success' };
+          });
         } else {
-          nicknameSpanRef.current.innerText = '중복되는 닉네임입니다';
-          nicknameSpanRef.current.style.color = '#f2153e';
           setValidCheck((prev) => {
             return { ...prev, nicknameDupCheck: false };
+          });
+          setErrors((prev) => {
+            return { ...prev, nickname: 'dupCheckFail' };
           });
         }
       });
@@ -315,12 +334,13 @@ const SignUp = () => {
   const onSubmitHandle = (e) => {
     e.preventDefault();
 
-    if (validCheck.emailDupCheck) {
+    if (!validCheck.emailDupCheck) {
       emailRef.current.focus();
-      emailSpanRef.current.style.color = '#f2153e';
-      emailSpanRef.current.innerText = '중복되는 이메일입니다.';
+      setErrors((prev) => {
+        return { ...prev, email: 'dupCheckFail' };
+      });
     } else {
-      if (validCheck.passwordValid === false) {
+      if (!validCheck.passwordValid) {
         passwordRef.current.focus();
         alert('유효하지 않은 패스워드입니다.');
       } else {
@@ -328,10 +348,11 @@ const SignUp = () => {
           passwordCheckRef.current.focus();
           alert('패스워드가 일치하지 않습니다.');
         } else {
-          if (validCheck.nicknameDupCheck === false) {
+          if (!validCheck.nicknameDupCheck) {
             nicknameRef.current.focus();
-            nicknameSpanRef.current.style.color = '#f2153e';
-            nicknameSpanRef.current.innerText = '중복되는 닉네임입니다.';
+            setErrors((prev) => {
+              return { ...prev, nickname: 'dupCheckFail' };
+            });
           } else {
             signUpMember(newMember).then((res) => {
               if (res.success) {
@@ -347,14 +368,18 @@ const SignUp = () => {
 
   useEffect(() => {
     if (values.password === '' && values.passwordCheck === '') {
-      passwordCheckSpanRef.current.innerText = '';
+      setErrors((prev) => {
+        return { ...prev, passwordCheck: 'none' };
+      });
     } else {
       if (values.password !== values.passwordCheck) {
-        passwordCheckSpanRef.current.style.color = '#f2153e';
-        passwordCheckSpanRef.current.innerText = '입력한 비밀번호와 다릅니다';
+        setErrors((prev) => {
+          return { ...prev, passwordCheck: 'mismatch' };
+        });
       } else {
-        passwordCheckSpanRef.current.innerText = '비밀번호가 일치합니다';
-        passwordCheckSpanRef.current.style.color = 'rgba(40, 202, 124, 1)';
+        setErrors((prev) => {
+          return { ...prev, passwordCheck: 'success' };
+        });
       }
     }
   }, [values.passwordCheck]);
@@ -378,8 +403,9 @@ const SignUp = () => {
     if (values.email !== '') {
       checkEmail(values.email);
     } else {
-      emailSpanRef.current.innerText = '';
-      emailSpanRef.current.style.color = '';
+      setErrors((prev) => {
+        return { ...prev, email: 'none' };
+      });
     }
   }, [values.email]);
 
@@ -387,8 +413,9 @@ const SignUp = () => {
     if (values.nickname !== '') {
       checkNickname(values.nickname);
     } else {
-      nicknameSpanRef.current.innerText = '';
-      nicknameSpanRef.current.style.color = '';
+      setErrors((prev) => {
+        return { ...prev, nickname: 'none' };
+      });
     }
   }, [values.nickname]);
 
@@ -433,33 +460,53 @@ const SignUp = () => {
 
   useEffect(() => {
     if (values.password.search(regExpEngLg) >= 0) {
-      passwordEngLgRef.current.style.color = 'rgba(40, 202, 124, 1)';
+      setPasswordValid((prev) => {
+        return { ...prev, engLarge: true };
+      });
     } else {
-      passwordEngLgRef.current.style.color = '#cecece';
+      setPasswordValid((prev) => {
+        return { ...prev, engLarge: false };
+      });
     }
 
     if (values.password.search(regExpEngSm) >= 0) {
-      passwordEngSmRef.current.style.color = 'rgba(40, 202, 124, 1)';
+      setPasswordValid((prev) => {
+        return { ...prev, engSmall: true };
+      });
     } else {
-      passwordEngSmRef.current.style.color = '#cecece';
+      setPasswordValid((prev) => {
+        return { ...prev, engSmall: false };
+      });
     }
 
     if (values.password.search(regExpSpecial) >= 0) {
-      passwordSpecailRef.current.style.color = 'rgba(40, 202, 124, 1)';
+      setPasswordValid((prev) => {
+        return { ...prev, special: true };
+      });
     } else {
-      passwordSpecailRef.current.style.color = '#cecece';
+      setPasswordValid((prev) => {
+        return { ...prev, special: false };
+      });
     }
 
     if (values.password.search(regExpNum) >= 0) {
-      passwordNumRef.current.style.color = 'rgba(40, 202, 124, 1)';
+      setPasswordValid((prev) => {
+        return { ...prev, number: true };
+      });
     } else {
-      passwordNumRef.current.style.color = '#cecece';
+      setPasswordValid((prev) => {
+        return { ...prev, number: false };
+      });
     }
 
     if (values.password.length >= 6 && values.password.length <= 20) {
-      passwordLengthRef.current.style.color = 'rgba(40, 202, 124, 1)';
+      setPasswordValid((prev) => {
+        return { ...prev, length: true };
+      });
     } else {
-      passwordLengthRef.current.style.color = '#cecece';
+      setPasswordValid((prev) => {
+        return { ...prev, length: false };
+      });
     }
 
     if (
@@ -534,7 +581,26 @@ const SignUp = () => {
                     }}
                   />
                 </SignUpboxInputGroupData>
-                <SignUpBoxInputGroupAlert ref={emailSpanRef} />
+                {
+                  {
+                    none: <SignUpBoxInputGroupAlert />,
+                    invalid: (
+                      <SignUpBoxInputGroupAlertError>
+                        이메일 형식에 맞지 않습니다.
+                      </SignUpBoxInputGroupAlertError>
+                    ),
+                    dupCheckFail: (
+                      <SignUpBoxInputGroupAlertError>
+                        중복되는 이메일입니다.
+                      </SignUpBoxInputGroupAlertError>
+                    ),
+                    success: (
+                      <SignUpBoxInputGroupAlertSuccess>
+                        사용가능한 이메일입니다.
+                      </SignUpBoxInputGroupAlertSuccess>
+                    ),
+                  }[errors.email]
+                }
               </SignUpBoxInputGroup>
               <SignUpBoxInputGroup>
                 <SignUpBoxInputGroupTitle>
@@ -622,21 +688,51 @@ const SignUp = () => {
                   )}
                 </SignUpboxInputGroupData>
                 <SignUpBoxPasswordValidGroup>
-                  <SignUpBoxPasswordValidText ref={passwordEngLgRef}>
-                    영문 대문자
-                  </SignUpBoxPasswordValidText>
-                  <SignUpBoxPasswordValidText ref={passwordEngSmRef}>
-                    영문 소문자
-                  </SignUpBoxPasswordValidText>
-                  <SignUpBoxPasswordValidText ref={passwordNumRef}>
-                    숫자
-                  </SignUpBoxPasswordValidText>
-                  <SignUpBoxPasswordValidText ref={passwordSpecailRef}>
-                    특수문자
-                  </SignUpBoxPasswordValidText>
-                  <SignUpBoxPasswordValidText ref={passwordLengthRef}>
-                    6-20글자
-                  </SignUpBoxPasswordValidText>
+                  {passwordValid.engLarge ? (
+                    <SignUpBoxPasswordValidTextSuccess>
+                      영문 대문자
+                    </SignUpBoxPasswordValidTextSuccess>
+                  ) : (
+                    <SignUpBoxPasswordValidText>
+                      영문 대문자
+                    </SignUpBoxPasswordValidText>
+                  )}
+                  {passwordValid.engSmall ? (
+                    <SignUpBoxPasswordValidTextSuccess>
+                      영문 소문자
+                    </SignUpBoxPasswordValidTextSuccess>
+                  ) : (
+                    <SignUpBoxPasswordValidText>
+                      영문 소문자
+                    </SignUpBoxPasswordValidText>
+                  )}
+                  {passwordValid.number ? (
+                    <SignUpBoxPasswordValidTextSuccess>
+                      숫자
+                    </SignUpBoxPasswordValidTextSuccess>
+                  ) : (
+                    <SignUpBoxPasswordValidText>
+                      숫자
+                    </SignUpBoxPasswordValidText>
+                  )}
+                  {passwordValid.special ? (
+                    <SignUpBoxPasswordValidTextSuccess>
+                      특수문자
+                    </SignUpBoxPasswordValidTextSuccess>
+                  ) : (
+                    <SignUpBoxPasswordValidText>
+                      특수문자
+                    </SignUpBoxPasswordValidText>
+                  )}
+                  {passwordValid.length ? (
+                    <SignUpBoxPasswordValidTextSuccess>
+                      6-20글자
+                    </SignUpBoxPasswordValidTextSuccess>
+                  ) : (
+                    <SignUpBoxPasswordValidText>
+                      6-20글자
+                    </SignUpBoxPasswordValidText>
+                  )}
                 </SignUpBoxPasswordValidGroup>
                 <SignUpboxInputGroupData>
                   {views.passwordCheckDelete ? (
@@ -719,9 +815,21 @@ const SignUp = () => {
                     />
                   )}
                 </SignUpboxInputGroupData>
-                <SignUpBoxInputGroupAlert
-                  ref={passwordCheckSpanRef}
-                ></SignUpBoxInputGroupAlert>
+                {
+                  {
+                    none: <SignUpBoxInputGroupAlert />,
+                    mismatch: (
+                      <SignUpBoxInputGroupAlertError>
+                        입력한 비밀번호와 다릅니다.
+                      </SignUpBoxInputGroupAlertError>
+                    ),
+                    success: (
+                      <SignUpBoxInputGroupAlertSuccess>
+                        비밀번호가 일치합니다.
+                      </SignUpBoxInputGroupAlertSuccess>
+                    ),
+                  }[errors.passwordCheck]
+                }
               </SignUpBoxInputGroup>
               <SignUpBoxInputGroup>
                 <SignUpBoxInputGroupTitle>
@@ -763,9 +871,21 @@ const SignUp = () => {
                     }}
                   />
                 </SignUpboxInputGroupData>
-                <SignUpBoxInputGroupAlert
-                  ref={nicknameSpanRef}
-                ></SignUpBoxInputGroupAlert>
+                {
+                  {
+                    none: <SignUpBoxInputGroupAlert />,
+                    dupCheckFail: (
+                      <SignUpBoxInputGroupAlertError>
+                        중복되는 닉네임입니다.
+                      </SignUpBoxInputGroupAlertError>
+                    ),
+                    success: (
+                      <SignUpBoxInputGroupAlertSuccess>
+                        사용가능한 닉네임입니다.
+                      </SignUpBoxInputGroupAlertSuccess>
+                    ),
+                  }[errors.nickname]
+                }
               </SignUpBoxInputGroup>
               <SignUpBoxInputGroup>
                 <SignUpBoxInputGroupTitle>해시태그</SignUpBoxInputGroupTitle>

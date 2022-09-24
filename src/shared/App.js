@@ -38,7 +38,7 @@ const Kakao = lazy(() => import('../utils/kakao'));
 const Google = lazy(() => import('../utils/google'));
 
 function App() {
-  const is_login = useMemberStore((state) => state.is_login);
+  const is_login = getCookie('authorization');
   const changeLoginStatus = useMemberStore((state) => state.changeLoginStatus);
 
   let location = useLocation().pathname.split('/')[1];
@@ -61,24 +61,23 @@ function App() {
         <Route path='/signupcheck' element={<SignUpCheck />} />
         <Route path='/kakao/callback' element={<Kakao />} />
         <Route path='/google/callback' element={<Google />} />
-        <Route path='/write' element={is_login ? <Write /> : <Main />} />
+        <Route path='/write' element={is_login !== undefined ? <Write /> : <Main />} />
         <Route
           path='/ModifyWrite/:position/:postId'
-          element={is_login ? <WriteModify /> : <Main />}
+          element={is_login !== undefined ? <WriteModify /> : <Main />}
         />
         <Route
           path='/myinfomodify'
-          element={is_login ? <MyInfoModify /> : <Main />}
+          element={is_login !== undefined ? <MyInfoModify /> : <Main />}
         />
         <Route path='/search' element={<Search />} />
         <Route path='/detail/:position/:postId' element={<Detail />} />
         <Route path='/morepage/:position/:ctg' element={<MorePage />} />
         <Route
           path='/withdrawal'
-          element={is_login ? <Withdrawal /> : <Main />}
+          element={is_login !== undefined ? <Withdrawal /> : <Main />}
         />
-        <Route path='/chat' element={<Chat />} />
-        <Route path='/test' element={<PlayListModal />} />
+        <Route path='/chat' element={is_login !== undefined ? <Chat /> : <Main />} />
 
         <Route path='*' element={<Main />} />
       </Routes>
