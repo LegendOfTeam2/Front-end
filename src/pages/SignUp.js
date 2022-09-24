@@ -9,6 +9,8 @@ import { GrClose } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import shortid from 'shortid';
 import { debounce } from 'lodash';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Components
 import HashTagWithIcon from '../components/HashTagWithIcon';
@@ -48,19 +50,22 @@ import {
 import { HidePw, LargeLogo, ShowPw, Xbox20 } from '../assets/images/image';
 
 const SignUp = () => {
-  const [email, setEmail] = useState('');
-  const [emailCheck, setEmailCheck] = useState(false);
-  const [password, setPassword] = useState('');
-  const [passwordValid, setPasswordValid] = useState(false);
-  const [passwordCheck, setPasswordCheck] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [nicknameCheck, setNicknameCheck] = useState('');
-  const [tags, setTags] = useState([]);
-  const [file, setFile] = useState('');
-  const [fileSrc, setFileSrc] = useState('');
-  const [isOpen, setOpen] = useState(false);
-  const [nicknameModal, setNicknameModal] = useState('');
-  const [view, setView] = useState({
+  const [values, setValues] = useState({
+    email: '',
+    password: '',
+    passwordCheck: '',
+    nickname: '',
+    tags: [],
+    file: '',
+    fileSrc: '',
+  });
+  const [errors, setErrors] = useState({});
+  const [validCheck, setValidCheck] = useState({
+    emailDupCheck: false,
+    passwordValid: false,
+    nicknameDupCheck: false,
+  });
+  const [views, setViews] = useState({
     email: false,
     passwordDelete: false,
     passwordView: false,
@@ -68,6 +73,8 @@ const SignUp = () => {
     passwordCheckView: false,
     nickname: false,
   });
+  const [isOpen, setOpen] = useState(false);
+  const [nicknameModal, setNicknameModal] = useState('');
 
   const emailRef = useRef();
   const emailSpanRef = useRef();
@@ -97,59 +104,64 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const newMember = {
-    email,
-    password,
-    nickname,
-    hashtag: tags,
-    imgUrl: file,
+    email: values.email,
+    password: values.password,
+    nickname: values.nickname,
+    hashtag: values.tags,
+    imgUrl: values.file,
   };
 
-  const deleteText = useCallback(
-    (state) => {
-      switch (state) {
-        case 'email': {
-          setEmail('');
-          break;
-        }
-        case 'password': {
-          setPassword('');
-          setView((prev) => {
-            return { ...prev, setPasswordView: false };
-          });
-          break;
-        }
-        case 'passwordCheck': {
-          setPasswordCheck('');
-          setView((prev) => {
-            return { ...prev, setPasswordCheckView: false };
-          });
-          break;
-        }
-        case 'nickname': {
-          setNickname('');
-          break;
-        }
-        default:
-          break;
+  const deleteText = (state) => {
+    switch (state) {
+      case 'email': {
+        setValues((prev) => {
+          return { ...prev, email: '' };
+        });
+        break;
       }
-    },
-    [email, password, passwordCheck, nickname]
-  );
+      case 'password': {
+        setValues((prev) => {
+          return { ...prev, password: '' };
+        });
+        setViews((prev) => {
+          return { ...prev, passwordView: false };
+        });
+        break;
+      }
+      case 'passwordCheck': {
+        setValues((prev) => {
+          return { ...prev, passwordCheck: '' };
+        });
+        setViews((prev) => {
+          return { ...prev, passwordCheckView: false };
+        });
+        break;
+      }
+      case 'nickname': {
+        setValues((prev) => {
+          return { ...prev, nickname: '' };
+        });
+        break;
+      }
+      default:
+        break;
+    }
+  };
 
   const viewPassword = useCallback(
     (state) => {
       switch (state) {
         case 'password': {
-          if (password === '') {
+          if (values.password === '') {
             break;
           } else {
             const type = passwordRef.current.type;
             if (type === 'password') {
-              setView((prev) => {
+              setViews((prev) => {
                 return { ...prev, passwordView: true };
               });
             } else {
-              setView((prev) => {
+              setViews((prev) => {
                 return { ...prev, passwordView: false };
               });
             }
@@ -157,16 +169,16 @@ const SignUp = () => {
           }
         }
         case 'passwordCheck': {
-          if (passwordCheck === '') {
+          if (values.passwordCheck === '') {
             break;
           } else {
             const type = passwordCheckRef.current.type;
             if (type === 'password') {
-              setView((prev) => {
+              setViews((prev) => {
                 return { ...prev, passwordCheckView: true };
               });
             } else {
-              setView((prev) => {
+              setViews((prev) => {
                 return { ...prev, passwordCheckView: false };
               });
             }
@@ -177,18 +189,28 @@ const SignUp = () => {
           break;
       }
     },
-    [password, passwordCheck]
+    [values.password, values.passwordCheck]
   );
 
   const addTag = useCallback(
     (event) => {
       if (event.key === 'Enter') {
         if (event.target.value.length > 0) {
-          if (tags.findIndex((tag) => tag === event.target.value) === -1) {
-            setTags([...tags, event.target.value]);
+          if (
+            values.tags.findIndex((tag) => tag === event.target.value) === -1
+          ) {
+            const newTag = event.target.value;
+            setValues((prev) => {
+              return { ...prev, tags: [...prev.tags, newTag] };
+            });
             event.target.value = '';
           } else {
-            alert('중복되는 태그입니다.');
+            toast.warning(`중복되는 태그입니다.`, {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
           }
         }
       }
@@ -196,24 +218,36 @@ const SignUp = () => {
       if (event.keyCode === 9) {
         event.preventDefault();
         if (event.target.value.length > 0) {
-          if (tags.findIndex((tag) => tag === event.target.value) === -1) {
-            setTags([...tags, event.target.value]);
+          if (
+            values.tags.findIndex((tag) => tag === event.target.value) === -1
+          ) {
+            const newTag = event.target.value;
+            setValues((prev) => {
+              return { ...prev, tags: [...prev.tags, newTag] };
+            });
             event.target.value = '';
           } else {
-            alert('중복되는 태그입니다.');
+            toast.warning(`중복되는 태그입니다.`, {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
           }
         }
       }
     },
-    [tags]
+    [values.tags]
   );
 
   const removeTag = useCallback(
     (removedTag) => {
-      const newTags = tags.filter((tag) => tag !== removedTag);
-      setTags(newTags);
+      const newTags = values.tags.filter((tag) => tag !== removedTag);
+      setValues((prev) => {
+        return { ...prev, tags: newTags };
+      });
     },
-    [tags]
+    [values.tags]
   );
 
   const checkEmail = useCallback(
@@ -221,22 +255,28 @@ const SignUp = () => {
       if (emailRegExp.test(email) === false) {
         emailSpanRef.current.innerText = '이메일 형식에 맞지 않습니다';
         emailSpanRef.current.style.color = '#f2153e';
-        setEmailCheck(false);
+        setValidCheck((prev) => {
+          return { ...prev, emailDupCheck: false };
+        });
       } else {
         emailDupCheck({ email }).then((res) => {
           if (res) {
             emailSpanRef.current.innerText = '사용가능한 이메일입니다';
             emailSpanRef.current.style.color = 'rgba(40, 202, 124, 1)';
-            setEmailCheck(true);
+            setValidCheck((prev) => {
+              return { ...prev, emailDupCheck: false };
+            });
           } else {
             emailSpanRef.current.innerText = '중복되는 이메일입니다';
             emailSpanRef.current.style.color = '#f2153e';
-            setEmailCheck(false);
+            setValidCheck((prev) => {
+              return { ...prev, emailDupCheck: false };
+            });
           }
         });
       }
     }, 500),
-    [email]
+    [values.email]
   );
 
   const checkNickname = useCallback(
@@ -245,22 +285,71 @@ const SignUp = () => {
         if (res) {
           nicknameSpanRef.current.innerText = '사용가능한 닉네임입니다';
           nicknameSpanRef.current.style.color = 'rgba(40, 202, 124, 1)';
-          setNicknameCheck(true);
+          setValidCheck((prev) => {
+            return { ...prev, nicknameDupCheck: true };
+          });
         } else {
           nicknameSpanRef.current.innerText = '중복되는 닉네임입니다';
           nicknameSpanRef.current.style.color = '#f2153e';
-          setNicknameCheck(false);
+          setValidCheck((prev) => {
+            return { ...prev, nicknameDupCheck: false };
+          });
         }
       });
     }, 500),
-    [nickname]
+    [values.nickname]
   );
 
+  const setFile = (file) => {
+    setValues((prev) => {
+      return { ...prev, file };
+    });
+  };
+
+  const setFileSrc = (fileSrc) => {
+    setValues((prev) => {
+      return { ...prev, fileSrc };
+    });
+  };
+
+  const onSubmitHandle = (e) => {
+    e.preventDefault();
+
+    if (validCheck.emailDupCheck) {
+      emailRef.current.focus();
+      emailSpanRef.current.style.color = '#f2153e';
+      emailSpanRef.current.innerText = '중복되는 이메일입니다.';
+    } else {
+      if (validCheck.passwordValid === false) {
+        passwordRef.current.focus();
+        alert('유효하지 않은 패스워드입니다.');
+      } else {
+        if (values.password !== values.passwordCheck) {
+          passwordCheckRef.current.focus();
+          alert('패스워드가 일치하지 않습니다.');
+        } else {
+          if (validCheck.nicknameDupCheck === false) {
+            nicknameRef.current.focus();
+            nicknameSpanRef.current.style.color = '#f2153e';
+            nicknameSpanRef.current.innerText = '중복되는 닉네임입니다.';
+          } else {
+            signUpMember(newMember).then((res) => {
+              if (res.success) {
+                setNicknameModal(values.nickname);
+                setOpen(true);
+              }
+            });
+          }
+        }
+      }
+    }
+  };
+
   useEffect(() => {
-    if (password === '' && passwordCheck === '') {
+    if (values.password === '' && values.passwordCheck === '') {
       passwordCheckSpanRef.current.innerText = '';
     } else {
-      if (password !== passwordCheck) {
+      if (values.password !== values.passwordCheck) {
         passwordCheckSpanRef.current.style.color = '#f2153e';
         passwordCheckSpanRef.current.innerText = '입력한 비밀번호와 다릅니다';
       } else {
@@ -268,7 +357,7 @@ const SignUp = () => {
         passwordCheckSpanRef.current.style.color = 'rgba(40, 202, 124, 1)';
       }
     }
-  }, [passwordCheck]);
+  }, [values.passwordCheck]);
 
   useEffect(() => {
     document.addEventListener('keydown', (e) => {
@@ -286,143 +375,115 @@ const SignUp = () => {
   });
 
   useEffect(() => {
-    if (email !== '') {
-      checkEmail(email);
+    if (values.email !== '') {
+      checkEmail(values.email);
     } else {
       emailSpanRef.current.innerText = '';
       emailSpanRef.current.style.color = '';
     }
-  }, [email]);
+  }, [values.email]);
 
   useEffect(() => {
-    if (nickname !== '') {
-      checkNickname(nickname);
+    if (values.nickname !== '') {
+      checkNickname(values.nickname);
     } else {
       nicknameSpanRef.current.innerText = '';
       nicknameSpanRef.current.style.color = '';
     }
-  }, [nickname]);
+  }, [values.nickname]);
 
   useEffect(() => {
-    if (email !== '') {
-      setView((prev) => {
+    if (values.email !== '') {
+      setViews((prev) => {
         return { ...prev, email: true };
       });
     } else {
-      setView((prev) => {
+      setViews((prev) => {
         return { ...prev, email: false };
       });
     }
-    if (password !== '') {
-      setView((prev) => {
+    if (values.password !== '') {
+      setViews((prev) => {
         return { ...prev, passwordDelete: true };
       });
     } else {
-      setView((prev) => {
+      setViews((prev) => {
         return { ...prev, passwordDelete: false };
       });
     }
-    if (passwordCheck !== '') {
-      setView((prev) => {
+    if (values.passwordCheck !== '') {
+      setViews((prev) => {
         return { ...prev, passwordCheckDelete: true };
       });
     } else {
-      setView((prev) => {
+      setViews((prev) => {
         return { ...prev, passwordCheckDelete: false };
       });
     }
-    if (nickname !== '') {
-      setView((prev) => {
+    if (values.nickname !== '') {
+      setViews((prev) => {
         return { ...prev, nickname: true };
       });
     } else {
-      setView((prev) => {
+      setViews((prev) => {
         return { ...prev, nickname: false };
       });
     }
-  }, [email, password, passwordCheck, nickname]);
+  }, [values]);
 
   useEffect(() => {
-    if (password.search(regExpEngLg) >= 0) {
+    if (values.password.search(regExpEngLg) >= 0) {
       passwordEngLgRef.current.style.color = 'rgba(40, 202, 124, 1)';
     } else {
       passwordEngLgRef.current.style.color = '#cecece';
     }
 
-    if (password.search(regExpEngSm) >= 0) {
+    if (values.password.search(regExpEngSm) >= 0) {
       passwordEngSmRef.current.style.color = 'rgba(40, 202, 124, 1)';
     } else {
       passwordEngSmRef.current.style.color = '#cecece';
     }
 
-    if (password.search(regExpSpecial) >= 0) {
+    if (values.password.search(regExpSpecial) >= 0) {
       passwordSpecailRef.current.style.color = 'rgba(40, 202, 124, 1)';
     } else {
       passwordSpecailRef.current.style.color = '#cecece';
     }
 
-    if (password.search(regExpNum) >= 0) {
+    if (values.password.search(regExpNum) >= 0) {
       passwordNumRef.current.style.color = 'rgba(40, 202, 124, 1)';
     } else {
       passwordNumRef.current.style.color = '#cecece';
     }
 
-    if (password.length >= 6 && password.length <= 20) {
+    if (values.password.length >= 6 && values.password.length <= 20) {
       passwordLengthRef.current.style.color = 'rgba(40, 202, 124, 1)';
     } else {
       passwordLengthRef.current.style.color = '#cecece';
     }
 
     if (
-      password.search(regExpEngLg) >= 0 &&
-      password.search(regExpEngSm) >= 0 &&
-      password.search(regExpSpecial) >= 0 &&
-      password.search(regExpNum) >= 0 &&
-      password.length >= 6 &&
-      password.length <= 20
+      values.password.search(regExpEngLg) >= 0 &&
+      values.password.search(regExpEngSm) >= 0 &&
+      values.password.search(regExpSpecial) >= 0 &&
+      values.password.search(regExpNum) >= 0 &&
+      values.password.length >= 6 &&
+      values.password.length <= 20
     ) {
-      setPasswordValid(true);
+      setValidCheck((prev) => {
+        return { ...prev, passwordValid: true };
+      });
     } else {
-      setPasswordValid(false);
+      setValidCheck((prev) => {
+        return { ...prev, passwordValid: false };
+      });
     }
-  }, [password]);
-
-  const onSubmitHandle = (e) => {
-    e.preventDefault();
-
-    if (emailCheck === false) {
-      emailRef.current.focus();
-      emailSpanRef.current.style.color = '#f2153e';
-      emailSpanRef.current.innerText = '중복되는 이메일입니다.';
-    } else {
-      if (passwordValid === false) {
-        passwordRef.current.focus();
-        alert('유효하지 않은 패스워드입니다.');
-      } else {
-        if (password !== passwordCheck) {
-          passwordCheckRef.current.focus();
-          alert('패스워드가 일치하지 않습니다.');
-        } else {
-          if (nicknameCheck === false) {
-            nicknameRef.current.focus();
-            nicknameSpanRef.current.style.color = '#f2153e';
-            nicknameSpanRef.current.innerText = '중복되는 닉네임입니다.';
-          } else {
-            signUpMember(newMember).then((res) => {
-              if (res.success) {
-                setNicknameModal(nickname);
-                setOpen(true);
-              }
-            });
-          }
-        }
-      }
-    }
-  };
+  }, [values.password]);
 
   return (
     <Fragment>
       <BackgroudColor />
+      <ToastContainer />
       <SignUpContainer>
         <WelcomeModal isOpen={isOpen} nickname={nicknameModal} />
         <SignUpBox>
@@ -439,7 +500,7 @@ const SignUp = () => {
                   이메일(필수)
                 </SignUpBoxInputGroupTitle>
                 <SignUpboxInputGroupData>
-                  {view.email ? (
+                  {views.email ? (
                     <SignUpDataInputGroupIcon
                       onClick={() => deleteText('email')}
                     >
@@ -451,8 +512,12 @@ const SignUp = () => {
                   <Input
                     _type={'text'}
                     _placeholder={'아이디를 입력해 주세요.'}
-                    _value={email}
-                    _onChange={(event) => setEmail(event.target.value)}
+                    _value={values.email}
+                    _onChange={(e) =>
+                      setValues((prev) => {
+                        return { ...prev, email: e.target.value };
+                      })
+                    }
                     _ref={emailRef}
                     _style={{
                       width: '100%',
@@ -476,7 +541,7 @@ const SignUp = () => {
                   비밀번호(필수)
                 </SignUpBoxInputGroupTitle>
                 <SignUpboxInputGroupData>
-                  {view.passwordDelete ? (
+                  {views.passwordDelete ? (
                     <SignUpDataInputGroupIcon
                       onClick={() => deleteText('password')}
                     >
@@ -489,7 +554,7 @@ const SignUp = () => {
                   ) : (
                     <Fragment />
                   )}
-                  {view.passwordView ? (
+                  {views.passwordView ? (
                     <img
                       src={ShowPw}
                       alt='패스워드 보기'
@@ -504,12 +569,16 @@ const SignUp = () => {
                       onClick={() => viewPassword('password')}
                     />
                   )}
-                  {view.passwordView ? (
+                  {views.passwordView ? (
                     <Input
                       _type={'text'}
                       _placeholder={'비밀번호를 입력해주세요.'}
-                      _value={password}
-                      _onChange={(event) => setPassword(event.target.value)}
+                      _value={values.password}
+                      _onChange={(e) =>
+                        setValues((prev) => {
+                          return { ...prev, password: e.target.value };
+                        })
+                      }
                       _ref={passwordRef}
                       _style={{
                         width: '100%',
@@ -529,8 +598,12 @@ const SignUp = () => {
                     <Input
                       _type={'password'}
                       _placeholder={'비밀번호를 입력해주세요.'}
-                      _value={password}
-                      _onChange={(event) => setPassword(event.target.value)}
+                      _value={values.password}
+                      _onChange={(e) =>
+                        setValues((prev) => {
+                          return { ...prev, password: e.target.value };
+                        })
+                      }
                       _ref={passwordRef}
                       _style={{
                         width: '100%',
@@ -566,7 +639,7 @@ const SignUp = () => {
                   </SignUpBoxPasswordValidText>
                 </SignUpBoxPasswordValidGroup>
                 <SignUpboxInputGroupData>
-                  {view.passwordCheckDelete ? (
+                  {views.passwordCheckDelete ? (
                     <SignUpDataInputGroupIcon
                       onClick={() => deleteText('passwordCheck')}
                     >
@@ -579,7 +652,7 @@ const SignUp = () => {
                   ) : (
                     <Fragment />
                   )}
-                  {view.passwordCheckView ? (
+                  {views.passwordCheckView ? (
                     <img
                       src={ShowPw}
                       alt='패스워드 보기'
@@ -594,13 +667,15 @@ const SignUp = () => {
                       onClick={() => viewPassword('passwordCheck')}
                     />
                   )}
-                  {view.passwordCheckView ? (
+                  {views.passwordCheckView ? (
                     <Input
                       _type={'text'}
                       _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
-                      _value={passwordCheck}
-                      _onChange={(event) =>
-                        setPasswordCheck(event.target.value)
+                      _value={values.passwordCheck}
+                      _onChange={(e) =>
+                        setValues((prev) => {
+                          return { ...prev, passwordCheck: e.target.value };
+                        })
                       }
                       _ref={passwordCheckRef}
                       _style={{
@@ -621,9 +696,11 @@ const SignUp = () => {
                     <Input
                       _type={'password'}
                       _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
-                      _value={passwordCheck}
-                      _onChange={(event) =>
-                        setPasswordCheck(event.target.value)
+                      _value={values.passwordCheck}
+                      _onChange={(e) =>
+                        setValues((prev) => {
+                          return { ...prev, passwordCheck: e.target.value };
+                        })
                       }
                       _ref={passwordCheckRef}
                       _style={{
@@ -651,7 +728,7 @@ const SignUp = () => {
                   닉네임(필수)
                 </SignUpBoxInputGroupTitle>
                 <SignUpboxInputGroupData>
-                  {view.nickname ? (
+                  {views.nickname ? (
                     <SignUpDataInputGroupIcon
                       onClick={() => deleteText('nickname')}
                     >
@@ -663,8 +740,12 @@ const SignUp = () => {
                   <Input
                     _type={'text'}
                     _placeholder={'닉네임을 입력해 주세요. (15자리 이내)'}
-                    _value={nickname}
-                    _onChange={(event) => setNickname(event.target.value)}
+                    _value={values.nickname}
+                    _onChange={(e) =>
+                      setValues((prev) => {
+                        return { ...prev, nickname: e.target.value };
+                      })
+                    }
                     _maxLength={'15'}
                     _ref={nicknameRef}
                     _style={{
@@ -696,11 +777,11 @@ const SignUp = () => {
                   placeholder='Tab, Enter로 구분하여 입력해 주세요.'
                   maxLength={100}
                 />
-                {tags.length === 0 ? (
+                {values.tags.length === 0 ? (
                   <Fragment />
                 ) : (
                   <SignUpBoxTagBox>
-                    {tags.map((tag) => {
+                    {values.tags.map((tag) => {
                       return (
                         <HashTagWithIcon
                           key={shortid.generate()}
@@ -721,11 +802,11 @@ const SignUp = () => {
                 text={'이미지 삽입하기'}
               />
               <SignUpBoxImagePreviewBox>
-                {fileSrc === '' ? (
+                {values.fileSrc === '' ? (
                   <SignUpBoxImagePreviewBoxSkeleton />
                 ) : (
                   <SignUpBoxImagePreviewBoxImg
-                    src={fileSrc}
+                    src={values.fileSrc}
                     alt={'preview-img'}
                   />
                 )}

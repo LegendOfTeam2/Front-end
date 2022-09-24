@@ -14,6 +14,8 @@ const useChatStore = create((set) => ({
 
     if (resData?.data.success) {
       return resData.data;
+    } else {
+      return resData.data;
     }
   },
   getRooms: async () => {
