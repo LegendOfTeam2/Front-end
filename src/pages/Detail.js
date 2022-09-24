@@ -89,7 +89,7 @@ import {
   ShowPw38,
   Modify,
 } from '../assets/images/image';
-import { AiOutlineConsoleSql } from 'react-icons/ai';
+
 
 const Detail = () => {
   const getDetail = usePostStore((state) => state.getDetail);

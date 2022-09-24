@@ -11,13 +11,14 @@ const usePlayerStore = create((set) => ({
   playListState: false,
   playing: false,
   isAutoplay: false,
-  
+
   playListMemberIsLoaded: false,
   playListMember: [],
   currentSongMember: {},
 
   playList: [],
   currentSong: {},
+
   viewStateChange: (state) => {
     set({ viewState: state });
   },

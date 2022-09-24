@@ -73,7 +73,6 @@ const PlayList = () => {
           lyrics: filterList[0].lyrics,
           memberImageUrl: filterList[0].memberImageUrl,
           position: filterList[0].position,
-          likeState: true
         });  
       }else{
         setModalList({
@@ -84,7 +83,6 @@ const PlayList = () => {
           lyrics: filterList[0].lyrics,
           memberImageUrl: filterList[0].memberImageUrl,
           position: filterList[0].position,
-          likeState: false
         });  
       }
     }

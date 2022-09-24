@@ -16,20 +16,20 @@ import { getCookie } from '../utils/cookie';
 
 // Assets
 import {
-  DisMyImgTopRight,
-  ImgMyBtmRight,
-  ImgNotSlideSpan,
-  ImgNotTopSlideSpan,
-  Myimg,
-  MyImgBtmLeft,
-  MyImgBtmLeftDiv,
-  MyImgBtmLeftspan,
-  MyImgBtmRight,
-  MyImgDivDiv,
-  MyImgTopBotmLeft,
-  MyImgTopLeft,
-  MyImgTopRight,
-} from '../assets/styles/components/Post.styled';
+  DisMyImgTopRightSm,
+  ImgMyBtmRightSm,
+  ImgNotSlideSpanSm,
+  ImgNotTopSlideSpanSm,
+  MyimgSm,
+  MyImgBtmLeftSm,
+  MyImgBtmLeftDivSm,
+  MyImgBtmLeftspanSm,
+  MyImgBtmRightSm,
+  MyImgDivDivSm,
+  MyImgTopBotmLeftSm,
+  MyImgTopLeftSm,
+  MyImgTopRightSm,
+} from '../assets/styles/components/PostSmall.styled';
 import {
   DisLike,
   OnPlay,
@@ -38,7 +38,7 @@ import {
   WhiteCollaborate24,
 } from '../assets/images/image';
 
-const Post = ({
+const PostSmall = ({
   postId,
   position,
   title,
@@ -120,8 +120,8 @@ const Post = ({
     }
   };
   return (
-    <MyImgDivDiv key={postId}>
-      <Myimg
+    <MyImgDivDivSm key={postId}>
+      <MyimgSm
         src={
           imageUrl === null
             ? profileImgArr[random]
@@ -132,45 +132,45 @@ const Post = ({
         alt=''
       />
       <ToastContainer />
-      <ImgMyBtmRight>
-        <ImgNotTopSlideSpan>{title.slice(0, 9)}</ImgNotTopSlideSpan>
-        <ImgNotSlideSpan>{nickname.slice(0, 9)}</ImgNotSlideSpan>
-      </ImgMyBtmRight>
-      <MyImgTopLeft onClick={goToDetail}>{title}</MyImgTopLeft>
-      <MyImgTopBotmLeft>{nickname.slice(0, 9)}</MyImgTopBotmLeft>
-      <DisMyImgTopRight>
+      <ImgMyBtmRightSm>
+        <ImgNotTopSlideSpanSm>{title.slice(0, 9)}</ImgNotTopSlideSpanSm>
+        <ImgNotSlideSpanSm>{nickname.slice(0, 9)}</ImgNotSlideSpanSm>
+      </ImgMyBtmRightSm>
+      <MyImgTopLeftSm onClick={goToDetail}>{title}</MyImgTopLeftSm>
+      <MyImgTopBotmLeftSm>{nickname.slice(0, 9)}</MyImgTopBotmLeftSm>
+      <DisMyImgTopRightSm>
         {collaborate ? (
           <img src={DisCollaboration} alt='콜라보' />
         ) : (
-          <img src={WhiteCollaborate24} alt='콜라보' />
+          <img src={WhiteCollaborate24} alt='콜라보 화이트' />
         )}
-      </DisMyImgTopRight>
-      <MyImgTopRight>
+      </DisMyImgTopRightSm>
+      <MyImgTopRightSm>
         {collaborate ? (
           <img src={DisCollaboration} alt='콜라보' />
         ) : (
-          <img src={WhiteCollaborate24} alt='콜라보' />
+          <img src={WhiteCollaborate24} alt='콜라보 화이트' />
         )}
-      </MyImgTopRight>
-      <MyImgBtmLeft>
-        <MyImgBtmLeftDiv>
+      </MyImgTopRightSm>
+      <MyImgBtmLeftSm>
+        <MyImgBtmLeftDivSm>
           {isLike ? (
             <img src={Like24} alt='좋아요 상태' onClick={LikeClick} />
           ) : (
             <img src={DisLike} alt='좋아요 안한 상태' onClick={LikeClick} />
           )}
-          <MyImgBtmLeftspan>좋아요</MyImgBtmLeftspan>
-        </MyImgBtmLeftDiv>
-      </MyImgBtmLeft>
-      <MyImgBtmRight>
+          <MyImgBtmLeftspanSm>좋아요</MyImgBtmLeftspanSm>
+        </MyImgBtmLeftDivSm>
+      </MyImgBtmLeftSm>
+      <MyImgBtmRightSm>
         {getCookie('authorization') !== undefined ? (
           <img src={OnPlay} alt='플레이 버튼' onClick={PlayMember} />
         ) : (
           <img src={OnPlay} alt='플레이 버튼' onClick={Play} />
         )}
-      </MyImgBtmRight>
-    </MyImgDivDiv>
+      </MyImgBtmRightSm>
+    </MyImgDivDivSm>
   );
 };
 
-export default memo(Post);
+export default memo(PostSmall);

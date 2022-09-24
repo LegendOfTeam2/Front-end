@@ -581,8 +581,8 @@ function PlayerMain() {
                           />
                         </div>
                         <IntroduceDiv>
-                          <TitleSapn>재생 목록이 비어 있어요~</TitleSapn>
-                          <SingerSpan>환영 합니다!</SingerSpan>
+                          <TitleSapn>재생 목록이</TitleSapn>
+                          <SingerSpan>비어 있어요 !</SingerSpan>
                         </IntroduceDiv>
                       </MidDiv>
                     )
@@ -626,12 +626,12 @@ function PlayerMain() {
                       playListMember.length > 0 ? (
                         <img src={BackPlay} alt='그전곡' onClick={skipBack} />
                       ) : (
-                        <></>
+                        <img src={BackPlay} alt='그전곡'/>
                       )
                     ) : playList.length > 0 ? (
                       <img src={BackPlay} alt='그전곡' onClick={skipBack} />
                     ) : (
-                      <></>
+                      <img src={BackPlay} alt='그전곡'/>
                     )}
                   </IconImgHover>
                   <IconImgHover onClick={play}>
@@ -646,12 +646,12 @@ function PlayerMain() {
                       playListMember.length > 0 ? (
                         <img src={NextPlay} alt='다음곡' onClick={skipBack} />
                       ) : (
-                        <></>
+                        <img src={NextPlay} alt='다음곡' />
                       )
                     ) : playList.length > 0 ? (
                       <img src={NextPlay} alt='다음곡' onClick={skipBack} />
                     ) : (
-                      <></>
+                      <img src={NextPlay} alt='다음곡' />
                     )}
                   </IconImgHover>
                   <IconImgHover onClick={ClickLoop}>

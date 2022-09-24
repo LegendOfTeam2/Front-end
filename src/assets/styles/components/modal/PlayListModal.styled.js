@@ -235,7 +235,9 @@ export const ListModalBtnLeft = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 3px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ListModalBtnSpan = styled.span`
