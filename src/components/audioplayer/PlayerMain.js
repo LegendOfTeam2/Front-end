@@ -49,6 +49,7 @@ import {
   VolumeolumeDivbar,
   VolumeolumeDivDiv,
 } from '../../assets/styles/components/Player.Styled';
+import useMemberStore from '../../zustand/member';
 
 function PlayerMain() {
   const playList = usePlayerStore((state) => state.playList);
@@ -75,6 +76,8 @@ function PlayerMain() {
   const playListMemberIsLoaded = usePlayerStore(
     (state) => state.playListMemberIsLoaded
   );
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
 
   const [percentage, setPercentage] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -513,7 +516,7 @@ function PlayerMain() {
 
   return (
     <Fragment>
-      {getCookie('authorization') !== undefined ? <PlayList /> : <Fragment />}
+      {getCookie('authorization') !== undefined ? <PlayList /> : <PlayList /> }
 
       <MainAudioPlay yIndex={viewState ? '0' : '85%'}>
         <div>
@@ -549,7 +552,19 @@ function PlayerMain() {
                       />
                     )
                   ) : (
-                    <Fragment />
+                    playListState ? (
+                      <img
+                        src={PlayListIcon}
+                        alt='플레이리스트'
+                        onClick={PlayListHandlers}
+                      />
+                    ) : (
+                      <img
+                        src={DisPlayListIcon}
+                        alt='플레이리스트 닫기'
+                        onClick={PlayListHandlers}
+                      />
+                    )
                   )}
                 </IconImgHover>
               </AllUpVolumeolumeDiv>
@@ -559,7 +574,16 @@ function PlayerMain() {
                     playListMember.length > 0 ? (
                       <MidDiv>
                         <div>
-                          <ImgCover src={currentSongMember?.imageUrl} alt='' />
+                          <ImgCover
+                            src={
+                              currentSongMember?.imageUrl === null
+                                ? profileImgArr[random]
+                                : currentSongMember?.imageUrl === ''
+                                ? profileImgArr[random]
+                                : currentSongMember?.imageUrl
+                            }
+                            alt='이미지 커버'
+                          />
                         </div>
                         <IntroduceDiv>
                           <TitleSapn>{currentSongMember?.title}</TitleSapn>
@@ -586,7 +610,16 @@ function PlayerMain() {
                 ) : playList.length > 0 ? (
                   <MidDiv>
                     <div>
-                      <ImgCover src={currentSong?.imageUrl} alt='' />
+                      <ImgCover
+                        src={
+                          currentSong?.imageUrl === null
+                            ? profileImgArr[random]
+                            : currentSong?.imageUrl === ''
+                            ? profileImgArr[random]
+                            : currentSong?.imageUrl
+                        }
+                        alt=''
+                      />
                     </div>
                     <IntroduceDiv>
                       <TitleSapn>{currentSong?.title}</TitleSapn>

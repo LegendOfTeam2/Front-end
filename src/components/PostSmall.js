@@ -119,6 +119,7 @@ const PostSmall = ({
       navigate(`/detail/${position}/${postId}`);
     }
   };
+
   return (
     <MyImgDivDivSm key={postId}>
       <MyimgSm

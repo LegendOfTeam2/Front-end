@@ -46,6 +46,7 @@ import {
 } from '../assets/styles/pages/Main.styled';
 import { LeftArrow, MainBanner, RightArrow } from '../assets/images/image';
 import PostSmall from '../components/PostSmall';
+import useMemberStore from '../zustand/member';
 
 const Main = () => {
   const sliderRef = useRef();
@@ -111,6 +112,8 @@ const Main = () => {
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
   const postPlayList = usePlayerStore((state) => state.postPlayList);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
 
   const navigate = useNavigate();
 
@@ -189,7 +192,15 @@ const Main = () => {
             <MainImgDiv>
               {bestSong.map((x) => (
                 <MainImgDivDiv key={x.postId}>
-                  <MainImgDivImg img={x.imageUrl.imageUrl}></MainImgDivImg>
+                  <MainImgDivImg
+                    img={
+                      x.imageUrl.imageUrl === null
+                        ? profileImgArr[random]
+                        : x.imageUrl.imageUrl === ''
+                        ? profileImgArr[random]
+                        : x.imageUrl.imageUrl
+                    }
+                  ></MainImgDivImg>
                   <MainImgDivDivDiv>베스트 송</MainImgDivDivDiv>
                   <MainImgDivDivBtmDiv>
                     리드미에서 가장 많이 재생된 아티스트 추천!

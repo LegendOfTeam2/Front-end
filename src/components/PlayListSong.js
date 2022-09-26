@@ -26,6 +26,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import useLikeStore from '../zustand/like';
+import useMemberStore from '../zustand/member';
 
 const PlayListSong = ({ data, listModalOpen, likeState }) => {
   const addPlayList = usePlayerStore((state) => state.addPlayList);
@@ -33,6 +34,8 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
   const postPlayList = usePlayerStore((state) => state.postPlayList);
   const addLike = useLikeStore((state) => state.addLike);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
   const [duration, setDuration] = useState(0);
   const [isLike, setIsLike] = useState(likeState);
 
@@ -126,7 +129,16 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
   return (
     <BtmMapDiv>
       <BtmMapImgDiv>
-        <BtmMapImg src={data.imageUrl} alt='커버 이미지'></BtmMapImg>
+        <BtmMapImg
+          src={
+            data.imageUrl === null
+              ? profileImgArr[random]
+              : data.imageUrl === ''
+              ? profileImgArr[random]
+              : data.imageUrl
+          }
+          alt='커버 이미지'
+        ></BtmMapImg>
         <BtmMapInImgDiv>
           {getCookie('authorization') !== undefined ? (
             <img src={OnPlay} alt='플레이 버튼' onClick={PlayMember} />

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Zustand
 import usePlayerStore from '../../zustand/player';
-
+import useMemberStore from '../../zustand/member';
 // Packages
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
@@ -35,11 +35,14 @@ import {
   XboxDiv,
 } from '../../assets/styles/components/modal/PlayListModal.styled';
 import { Share38, Xbox20 } from '../../assets/images/image';
+import { getCookie } from '../../utils/cookie';
 
 const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
   const playListStateChange = usePlayerStore(
     (state) => state.playListStateChange
   );
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
 
   const navigate = useNavigate();
 
@@ -102,7 +105,16 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
             <ListModalNicknameSpan>{ModalList.nickname}</ListModalNicknameSpan>
           </ListModalTopDiv>
           <ListModalImgDiv>
-            <ListModalImg src={ModalList.imageUrl} alt='리스트 이미지' />
+            <ListModalImg
+              src={
+                ModalList.imageUrl === null
+                  ? profileImgArr[random]
+                  : ModalList.imageUrl === ''
+                  ? profileImgArr[random]
+                  : ModalList.imageUrl
+              }
+              alt='리스트 이미지'
+            />
           </ListModalImgDiv>
           <ListModalMidDiv>
             <ListModalMidDivDiv>
@@ -114,10 +126,21 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
           </ListModalLyrics>
           <ListModalProfileDiv>
             <ListModalProfileDivDiv>
-              <ListModalProfileImg
-                src={ModalList.memberImageUrl}
-                alt='프로필 이미지'
-              />
+              {getCookie('authorization') !== undefined ? (
+                <ListModalProfileImg
+                  src={
+                    ModalList.memberImageUrl === null
+                      ? profileImgArr[random]
+                      : ModalList.memberImageUrl === ''
+                      ? profileImgArr[random]
+                      : ModalList.memberImageUrl
+                  }
+                  alt='프로필 이미지'
+                />
+              ) : (
+                <></>
+              )}
+
               <ListModalProfileNickname>
                 {ModalList.nickname}
               </ListModalProfileNickname>

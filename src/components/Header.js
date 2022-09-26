@@ -109,12 +109,17 @@ const Header = () => {
       navigate(`/mypage/${nickname}`);
     }
   };
+
+  const goToPromotional = () => {
+    navigate(`/Promotional`)
+  }
+
   return (
     <Fragment>
       <HeaderContainerDiv>
         <HeaderContainer>
           <HeaderTopDiv>
-            <HeaderTopLeftSpan>About RyhthMe</HeaderTopLeftSpan>
+            <HeaderTopLeftSpan onClick={goToPromotional} >About RyhthMe</HeaderTopLeftSpan>
             {getCookie('authorization') !== undefined ? (
               <HeaderTopRightSpan onClick={onHandleSingOut}>
                 로그아웃

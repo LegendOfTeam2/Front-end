@@ -34,6 +34,9 @@ export const HeaderTopLeftSpan = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.lg};
   color: rgba(255, 255, 255, 1);
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export const HeaderTopRightSpan = styled.span`
   z-index: 10;
