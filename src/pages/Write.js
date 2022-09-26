@@ -17,6 +17,8 @@ import { getCookie } from '../utils/cookie';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Components
 import UploadImage from '../components/UploadImage';
@@ -33,14 +35,20 @@ import {
   WriteBox,
   WriteIconContainer,
   WriteCollaboContainer,
+  WriteCollaboContainerSuccess,
   WriteCollaboIcon,
   WriteCollaboText,
+  WriteCollaboTextSuccess,
   WriteSingerContainer,
+  WriteSingerContainerSelected,
   WriteSingerIcon,
   WriteSingerText,
+  WriteSingerTextSelected,
   WriteMakerContainer,
+  WriteMakerContainerSelected,
   WriteMakerIcon,
   WriteMakerText,
+  WriteMakerTextSelected,
   WriteForm,
   WriteInputContainer,
   WriteInputIcon,
@@ -70,62 +78,67 @@ import {
 } from '../assets/styles/pages/Write.styled';
 
 const Write = () => {
-  const [title, setTitle] = useState('');
-  const [lyrics, setLyrics] = useState('');
-  const [intro, setIntro] = useState('');
-  const [image, setImage] = useState('');
-  const [imageSrc, setImageSrc] = useState('');
-  const [audio, setAudio] = useState('');
-  const [tags, setTags] = useState([]);
-  const [collaborate, setCollaborate] = useState(false);
-  const [position, setPosition] = useState('');
-  const [isOpen, setOpen] = useState(false);
+  const uploadAudio = useUploadStore((state) => state.uploadAudio);
+  const addPost = usePostStore((state) => state.addPost);
+
+  const [values, setValues] = useState({
+    title: '',
+    lyrics: '',
+    intro: '',
+    image: '',
+    imageSrc: '',
+    audio: '',
+    tags: [],
+    collaborate: false,
+    position: 'none',
+  });
   const [view, setView] = useState({
     title: false,
     lyrics: false,
     intro: false,
   });
+  const [audioPreview, setAudioPreview] = useState({
+    fileName: '',
+    fileSize: '',
+  });
+  const [isOpen, setOpen] = useState(false);
+
+  const uploadInputRef = useRef();
 
   const navigate = useNavigate();
-  const uploadAudio = useUploadStore((state) => state.uploadAudio);
-  const addPost = usePostStore((state) => state.addPost);
 
-  const collaboBoxRef = useRef();
-  const collaboTextRef = useRef();
-  const singerBoxRef = useRef();
-  const singerTextRef = useRef();
-  const makerBoxRef = useRef();
-  const makerTextRef = useRef();
-  const uploadInputRef = useRef();
-  const titleIconRef = useRef();
-  const lyricsIconRef = useRef();
-  const introIconRef = useRef();
-  const audioBoxRef = useRef();
-  const audioNameRef = useRef();
-  const audioSizeRef = useRef();
+  const settings = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    infinite: false,
+    centerPadding: '10px',
+    arrows: false,
+    variableWidth: true,
+    draggable: true,
+  };
 
   const newPost = {
-    position,
-    title,
-    content: intro,
+    position: values.position,
+    title: values.title,
+    content: values.intro,
     nickname: jwt_decode(getCookie('authorization')).sub,
-    lyrics,
-    imageUrl: image,
-    mediaUrl: audio,
-    tags,
-    collaborate,
+    lyrics: values.lyrics,
+    imageUrl: values.image,
+    mediaUrl: values.audio,
+    tags: values.tags,
+    collaborate: values.collaborate,
   };
 
   const onHandleModal = () => {
     setOpen(true);
   };
 
-  const onCancel = useCallback(() => {
+  const onCancel = () => {
     setOpen(false);
-  }, [isOpen]);
+  };
 
   useEffect(() => {
-    if (title !== '') {
+    if (values.title !== '') {
       setView((prev) => {
         return { ...prev, title: true };
       });
@@ -134,7 +147,7 @@ const Write = () => {
         return { ...prev, title: false };
       });
     }
-    if (lyrics !== '') {
+    if (values.lyrics !== '') {
       setView((prev) => {
         return { ...prev, lyrics: true };
       });
@@ -143,7 +156,7 @@ const Write = () => {
         return { ...prev, lyrics: false };
       });
     }
-    if (intro !== '') {
+    if (values.intro !== '') {
       setView((prev) => {
         return { ...prev, intro: true };
       });
@@ -152,37 +165,55 @@ const Write = () => {
         return { ...prev, intro: false };
       });
     }
-  }, [title, lyrics, intro]);
+  }, [values.title, values.lyrics, values.intro]);
 
-  const deleteText = useCallback(
-    (state) => {
-      switch (state) {
-        case 'title': {
-          setTitle('');
-          break;
-        }
-        case 'lyrics': {
-          setLyrics('');
-          break;
-        }
-        case 'intro': {
-          setIntro('');
-          break;
-        }
-        default:
-          break;
+  const setImage = (image) => {
+    setValues((prev) => {
+      return { ...prev, image };
+    });
+  };
+
+  const setImageSrc = (imageSrc) => {
+    setValues((prev) => {
+      return { ...prev, imageSrc };
+    });
+  };
+
+  const deleteText = (state) => {
+    switch (state) {
+      case 'title': {
+        setValues((prev) => {
+          return { ...prev, title: '' };
+        });
+        break;
       }
-    },
-    [title, lyrics, intro]
-  );
+      case 'lyrics': {
+        setValues((prev) => {
+          return { ...prev, lyrics: '' };
+        });
+        break;
+      }
+      case 'intro': {
+        setValues((prev) => {
+          return { ...prev, intro: '' };
+        });
+        break;
+      }
+      default:
+        break;
+    }
+  };
 
   // Audio
   const addPreview = (fileBlob) => {
     const fileName = fileBlob.name;
     const fileSize = String((parseInt(fileBlob.size) / 1024 / 1024).toFixed(2));
-    audioNameRef.current.innerText = fileName;
-    audioSizeRef.current.innerText = `Size: ${fileSize}MB`;
-    audioBoxRef.current.style.display = 'block';
+    setAudioPreview((prev) => {
+      return { ...prev, fileName };
+    });
+    setAudioPreview((prev) => {
+      return { ...prev, fileSize: `Size: ${fileSize}MB` };
+    });
   };
 
   const onUploadAudio = (e) => {
@@ -194,10 +225,19 @@ const Write = () => {
     formData.append('mediaUrl', e.target.files[0]);
     uploadAudio(formData).then((res) => {
       if (res.success) {
-        setAudio(res.data[0]);
+        setValues((prev) => {
+          return { ...prev, audio: res.data[0] };
+        });
       } else {
-        alert('오디오 업로드에 실패했습니다.');
-        setAudio('');
+        toast.warning(`오디오 업로드에 실패했습니다.`, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
+        setValues((prev) => {
+          return { ...prev, audio: '' };
+        });
       }
     });
   };
@@ -211,10 +251,19 @@ const Write = () => {
     formData.append('mediaUrl', e.dataTransfer.files[0]);
     uploadAudio(formData).then((res) => {
       if (res.success) {
-        setAudio(res.data[0]);
+        setValues((prev) => {
+          return { ...prev, audio: res.data[0] };
+        });
       } else {
-        alert('오디오 업로드에 실패했습니다.');
-        setAudio('');
+        toast.warning(`오디오 업로드에 실패했습니다.`, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
+        setValues((prev) => {
+          return { ...prev, audio: '' };
+        });
       }
     });
   };
@@ -227,10 +276,11 @@ const Write = () => {
     uploadInputRef.current.click();
   };
 
-  const deleteAudio = useCallback(() => {
-    audioBoxRef.current.style.display = 'none';
-    setAudio('');
-  }, [audio]);
+  const deleteAudio = () => {
+    setValues((prev) => {
+      return { ...prev, audio: '' };
+    });
+  };
 
   // Hashtag
   const addTag = useCallback(
@@ -238,11 +288,21 @@ const Write = () => {
       if (event.key === 'Enter') {
         event.preventDefault();
         if (event.target.value.length > 0) {
-          if (tags.findIndex((tag) => tag === event.target.value) === -1) {
-            setTags([...tags, event.target.value]);
+          if (
+            values.tags.findIndex((tag) => tag === event.target.value) === -1
+          ) {
+            const newTag = event.target.value;
+            setValues((prev) => {
+              return { ...prev, tags: [...prev.tags, newTag] };
+            });
             event.target.value = '';
           } else {
-            alert('중복되는 태그입니다.');
+            toast.warning(`중복되는 태그입니다.`, {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
           }
         }
       }
@@ -250,46 +310,50 @@ const Write = () => {
       if (event.keyCode === 9) {
         event.preventDefault();
         if (event.target.value.length > 0) {
-          if (tags.findIndex((tag) => tag === event.target.value) === -1) {
-            setTags([...tags, event.target.value]);
+          if (
+            values.tags.findIndex((tag) => tag === event.target.value) === -1
+          ) {
+            const newTag = event.target.value;
+            setValues((prev) => {
+              return { ...prev, tags: [...prev.tags, newTag] };
+            });
             event.target.value = '';
           } else {
-            alert('중복되는 태그입니다.');
+            toast.warning(`중복되는 태그입니다.`, {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
           }
         }
       }
     },
-    [tags]
+    [values.tags]
   );
 
   const removeTag = useCallback(
     (removedTag) => {
-      const newTags = tags.filter((tag) => tag !== removedTag);
-      setTags(newTags);
+      const newTags = values.tags.filter((tag) => tag !== removedTag);
+      setValues((prev) => {
+        return { ...prev, tags: newTags };
+      });
     },
-    [tags]
+    [values.tags]
   );
 
   // Position
   const choosePostion = (position) => {
     switch (position) {
-      case 'singer':
-        singerBoxRef.current.style.borderColor = '#28CA7C';
-        singerBoxRef.current.style.backgroundColor = '#28CA7C';
-        singerTextRef.current.style.color = '#ffffff';
-        makerBoxRef.current.style.borderColor = '#b4b4b4';
-        makerBoxRef.current.style.backgroundColor = '#ffffff';
-        makerTextRef.current.style.color = '#b4b4b4';
-        setPosition('Singer');
+      case 'Singer':
+        setValues((prev) => {
+          return { ...prev, position: 'Singer' };
+        });
         break;
-      case 'maker':
-        makerBoxRef.current.style.borderColor = '#28CA7C';
-        makerBoxRef.current.style.backgroundColor = '#28CA7C';
-        makerTextRef.current.style.color = '#ffffff';
-        singerBoxRef.current.style.borderColor = '#b4b4b4';
-        singerBoxRef.current.style.backgroundColor = '#ffffff';
-        singerTextRef.current.style.color = '#b4b4b4';
-        setPosition('Maker');
+      case 'Maker':
+        setValues((prev) => {
+          return { ...prev, position: 'Maker' };
+        });
         break;
       default:
         break;
@@ -298,101 +362,126 @@ const Write = () => {
 
   // Collabo
   const changeCollaborateStatus = () => {
-    if (collaborate) {
-      collaboBoxRef.current.style.borderColor = '#b4b4b4';
-      collaboBoxRef.current.style.backgroundColor = '#ffffff';
-      collaboTextRef.current.style.color = '#b4b4b4';
-      setCollaborate(!collaborate);
+    if (values.collaborate) {
+      setValues((prev) => {
+        return { ...prev, collaborate: false };
+      });
     } else {
-      collaboBoxRef.current.style.borderColor = '#28CA7C';
-      collaboBoxRef.current.style.backgroundColor = '#28CA7C';
-      collaboTextRef.current.style.color = '#ffffff';
-      setCollaborate(!collaborate);
+      setValues((prev) => {
+        return { ...prev, collaborate: true };
+      });
     }
   };
 
   const addPostHandle = (e) => {
     e.preventDefault();
 
-    if (audio === '') {
+    if (values.audio === '') {
       alert('오디오를 삽입해주세요.');
     } else {
-      if (position === '') {
+      if (values.position === 'none') {
         alert('포지션을 선택해주세요.');
       } else {
         addPost(newPost).then((res) => {
-          navigate('/');
+          if (res.success) {
+            navigate('/');
+          } else {
+            toast.warning(`업로드에 실패했습니다.`, {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
+          }
         });
       }
     }
   };
 
-  const settings = {
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    infinite: false,
-    centerPadding: '10px',
-    arrows: false,
-    variableWidth: true,
-    draggable: true,
-  };
-
   return (
     <Fragment>
       <WriteModal isOpen={isOpen} onCancel={onCancel} />
+      <ToastContainer />
       <WriteContainer>
         <WriteBox>
           <WriteIconContainer onClick={onHandleModal}>
             <GrClose color='#cecece' />
           </WriteIconContainer>
-          <WriteCollaboContainer
-            onClick={changeCollaborateStatus}
-            ref={collaboBoxRef}
-          >
-            {collaborate ? (
+          {values.collaborate ? (
+            <WriteCollaboContainerSuccess onClick={changeCollaborateStatus}>
               <WriteCollaboIcon>
                 <ImHeadphones className='icon' color='white' />
               </WriteCollaboIcon>
-            ) : (
+              <WriteCollaboTextSuccess>콜라보</WriteCollaboTextSuccess>
+            </WriteCollaboContainerSuccess>
+          ) : (
+            <WriteCollaboContainer onClick={changeCollaborateStatus}>
               <WriteCollaboIcon>
                 <ImHeadphones className='icon' />
               </WriteCollaboIcon>
-            )}
-            <WriteCollaboText ref={collaboTextRef}>콜라보</WriteCollaboText>
-          </WriteCollaboContainer>
-          <WriteSingerContainer
-            onClick={() => choosePostion('singer')}
-            ref={singerBoxRef}
-          >
-            <WriteSingerIcon>
-              {position === 'Singer' ? (
-                <GiMicrophone className='icon' color='white' />
-              ) : (
-                <GiMicrophone className='icon' />
-              )}
-            </WriteSingerIcon>
-            <WriteSingerText ref={singerTextRef}>싱어</WriteSingerText>
-          </WriteSingerContainer>
-          <WriteMakerContainer
-            onClick={() => choosePostion('maker')}
-            ref={makerBoxRef}
-          >
-            <WriteMakerIcon>
-              {position === 'Maker' ? (
-                <SiBeatsbydre className='icon' color='white' />
-              ) : (
-                <SiBeatsbydre className='icon' />
-              )}
-            </WriteMakerIcon>
-            <WriteMakerText ref={makerTextRef}>메이커</WriteMakerText>
-          </WriteMakerContainer>
+              <WriteCollaboText>콜라보</WriteCollaboText>
+            </WriteCollaboContainer>
+          )}
+          {
+            {
+              none: (
+                <Fragment>
+                  <WriteSingerContainer onClick={() => choosePostion('Singer')}>
+                    <WriteSingerIcon>
+                      <GiMicrophone className='icon' />
+                    </WriteSingerIcon>
+                    <WriteSingerText>싱어</WriteSingerText>
+                  </WriteSingerContainer>
+                  <WriteMakerContainer onClick={() => choosePostion('Maker')}>
+                    <WriteMakerIcon>
+                      <SiBeatsbydre className='icon' />
+                    </WriteMakerIcon>
+                    <WriteMakerText>메이커</WriteMakerText>
+                  </WriteMakerContainer>
+                </Fragment>
+              ),
+              Singer: (
+                <Fragment>
+                  <WriteSingerContainerSelected
+                    onClick={() => choosePostion('Singer')}
+                  >
+                    <WriteSingerIcon>
+                      <GiMicrophone className='icon' color='white' />
+                    </WriteSingerIcon>
+                    <WriteSingerTextSelected>싱어</WriteSingerTextSelected>
+                  </WriteSingerContainerSelected>
+                  <WriteMakerContainer onClick={() => choosePostion('Maker')}>
+                    <WriteMakerIcon>
+                      <SiBeatsbydre className='icon' />
+                    </WriteMakerIcon>
+                    <WriteMakerText>메이커</WriteMakerText>
+                  </WriteMakerContainer>
+                </Fragment>
+              ),
+              Maker: (
+                <Fragment>
+                  <WriteSingerContainer onClick={() => choosePostion('Singer')}>
+                    <WriteSingerIcon>
+                      <GiMicrophone className='icon' />
+                    </WriteSingerIcon>
+                    <WriteSingerText>싱어</WriteSingerText>
+                  </WriteSingerContainer>
+                  <WriteMakerContainerSelected
+                    onClick={() => choosePostion('Maker')}
+                  >
+                    <WriteMakerIcon>
+                      <SiBeatsbydre className='icon' color='white' />
+                    </WriteMakerIcon>
+                    <WriteMakerTextSelected>메이커</WriteMakerTextSelected>
+                  </WriteMakerContainerSelected>
+                </Fragment>
+              ),
+            }[values.position]
+          }
           <WriteForm id='write' onSubmit={(e) => addPostHandle(e)}>
             <WriteInputContainer>
               {view.title ? (
-                <WriteInputIcon
-                  onClick={() => deleteText('title')}
-                  ref={titleIconRef}
-                >
+                <WriteInputIcon onClick={() => deleteText('title')}>
                   <GrClose className='icon' />
                 </WriteInputIcon>
               ) : (
@@ -400,8 +489,12 @@ const Write = () => {
               )}
               <Input
                 _type={'text'}
-                _value={title}
-                _onChange={(e) => setTitle(e.target.value)}
+                _value={values.title}
+                _onChange={(e) =>
+                  setValues((prev) => {
+                    return { ...prev, title: e.target.value };
+                  })
+                }
                 _placeholder={'작업물의 제목을 입력해 주세요.(30자 이내)'}
                 _maxLength={30}
                 _style={{
@@ -420,10 +513,10 @@ const Write = () => {
             </WriteInputContainer>
             <WriteImageTextContainer>
               <WriteImageBox>
-                {imageSrc === '' ? (
+                {values.imageSrc === '' ? (
                   <Fragment />
                 ) : (
-                  <WriteImagePreviewImg src={imageSrc} />
+                  <WriteImagePreviewImg src={values.imageSrc} />
                 )}
                 <UploadImage
                   width={'236px'}
@@ -435,10 +528,7 @@ const Write = () => {
               </WriteImageBox>
               <WriteTextBox>
                 {view.lyrics ? (
-                  <WriteTextIconBox
-                    onClick={() => deleteText('lyrics')}
-                    ref={lyricsIconRef}
-                  >
+                  <WriteTextIconBox onClick={() => deleteText('lyrics')}>
                     <GrClose />
                   </WriteTextIconBox>
                 ) : (
@@ -446,17 +536,18 @@ const Write = () => {
                 )}
                 <WriteTextArea
                   placeholder='가사 첨부...'
-                  value={lyrics}
-                  onChange={(e) => setLyrics(e.target.value)}
+                  value={values.lyrics}
+                  onChange={(e) =>
+                    setValues((prev) => {
+                      return { ...prev, lyrics: e.target.value };
+                    })
+                  }
                   maxLength={20000}
                 />
               </WriteTextBox>
               <WriteTextBox>
                 {view.intro ? (
-                  <WriteTextIconBox
-                    onClick={() => deleteText('intro')}
-                    ref={introIconRef}
-                  >
+                  <WriteTextIconBox onClick={() => deleteText('intro')}>
                     <GrClose />
                   </WriteTextIconBox>
                 ) : (
@@ -464,8 +555,12 @@ const Write = () => {
                 )}
                 <WriteTextArea
                   placeholder='작업물 설명...'
-                  value={intro}
-                  onChange={(e) => setIntro(e.target.value)}
+                  value={values.intro}
+                  onChange={(e) =>
+                    setValues((prev) => {
+                      return { ...prev, intro: e.target.value };
+                    })
+                  }
                   maxLength={20000}
                   required
                 />
@@ -494,16 +589,24 @@ const Write = () => {
                 />
               </WriteAudioBox>
               <WriteAudioPreView>
-                <WriteAudioPreviewFile ref={audioBoxRef}>
-                  <WriteAudioPreviewFileName ref={audioNameRef} />
-                  <WriteAudioPreviewFileSize ref={audioSizeRef} />
-                  <WriteAudioPreviewFileIconMusic>
-                    <BsFillFileEarmarkMusicFill className='icon-music' />
-                  </WriteAudioPreviewFileIconMusic>
-                  <WriteAudioPreviewFileIconCancel onClick={deleteAudio}>
-                    <GrClose className='icon-cancel' />
-                  </WriteAudioPreviewFileIconCancel>
-                </WriteAudioPreviewFile>
+                {values.audio !== '' ? (
+                  <WriteAudioPreviewFile>
+                    <WriteAudioPreviewFileName>
+                      {audioPreview.fileName}
+                    </WriteAudioPreviewFileName>
+                    <WriteAudioPreviewFileSize>
+                      {audioPreview.fileSize}
+                    </WriteAudioPreviewFileSize>
+                    <WriteAudioPreviewFileIconMusic>
+                      <BsFillFileEarmarkMusicFill className='icon-music' />
+                    </WriteAudioPreviewFileIconMusic>
+                    <WriteAudioPreviewFileIconCancel onClick={deleteAudio}>
+                      <GrClose className='icon-cancel' />
+                    </WriteAudioPreviewFileIconCancel>
+                  </WriteAudioPreviewFile>
+                ) : (
+                  <Fragment />
+                )}
               </WriteAudioPreView>
             </WriteAudioContainer>
             <WriteHashTagContainer>
@@ -518,10 +621,10 @@ const Write = () => {
               />
               <WriteHashTagBox>
                 <Slider {...settings}>
-                  {tags.length === 0 ? (
+                  {values.tags.length === 0 ? (
                     <Fragment />
                   ) : (
-                    tags.map((tag, idx) => {
+                    values.tags.reverse().map((tag, idx) => {
                       return (
                         <HashTagWithIcon
                           key={idx}

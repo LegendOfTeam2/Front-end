@@ -45,6 +45,7 @@ const usePostStore = create((set) => ({
     const resData = await addPostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
+
     return resData.data;
   },
   getFollowerList: async (payload) => {
