@@ -369,7 +369,7 @@ const Detail = () => {
                     detailList.tags === [] ? (
                       <Fragment />
                     ) : (
-                      detailList.tags.map((x, idx) => {
+                      detailList.tags.reverse().map((x, idx) => {
                         return (
                           <DetailHashTagBox key={idx}>
                             <DetailHashTag># {x}</DetailHashTag>

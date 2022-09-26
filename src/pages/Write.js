@@ -19,6 +19,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useMediaQuery } from 'react-responsive';
 
 // Components
 import UploadImage from '../components/UploadImage';
@@ -107,11 +108,14 @@ const Write = () => {
 
   const navigate = useNavigate();
 
+  const isSmallScreen = useMediaQuery({
+    query: '(max-width: 1920px)',
+  });
+
   const settings = {
     slidesToShow: 1,
     slidesToScroll: 1,
     infinite: false,
-    centerPadding: '10px',
     arrows: false,
     variableWidth: true,
     draggable: true,
@@ -136,36 +140,6 @@ const Write = () => {
   const onCancel = () => {
     setOpen(false);
   };
-
-  useEffect(() => {
-    if (values.title !== '') {
-      setView((prev) => {
-        return { ...prev, title: true };
-      });
-    } else {
-      setView((prev) => {
-        return { ...prev, title: false };
-      });
-    }
-    if (values.lyrics !== '') {
-      setView((prev) => {
-        return { ...prev, lyrics: true };
-      });
-    } else {
-      setView((prev) => {
-        return { ...prev, lyrics: false };
-      });
-    }
-    if (values.intro !== '') {
-      setView((prev) => {
-        return { ...prev, intro: true };
-      });
-    } else {
-      setView((prev) => {
-        return { ...prev, intro: false };
-      });
-    }
-  }, [values.title, values.lyrics, values.intro]);
 
   const setImage = (image) => {
     setValues((prev) => {
@@ -204,7 +178,6 @@ const Write = () => {
     }
   };
 
-  // Audio
   const addPreview = (fileBlob) => {
     const fileName = fileBlob.name;
     const fileSize = String((parseInt(fileBlob.size) / 1024 / 1024).toFixed(2));
@@ -282,7 +255,6 @@ const Write = () => {
     });
   };
 
-  // Hashtag
   const addTag = useCallback(
     (event) => {
       if (event.key === 'Enter') {
@@ -342,7 +314,6 @@ const Write = () => {
     [values.tags]
   );
 
-  // Position
   const choosePostion = (position) => {
     switch (position) {
       case 'Singer':
@@ -360,7 +331,6 @@ const Write = () => {
     }
   };
 
-  // Collabo
   const changeCollaborateStatus = () => {
     if (values.collaborate) {
       setValues((prev) => {
@@ -377,10 +347,20 @@ const Write = () => {
     e.preventDefault();
 
     if (values.audio === '') {
-      alert('오디오를 삽입해주세요.');
+      toast.warning(`오디오를 삽입해주세요.`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 1500,
+        draggablePercent: 60,
+        hideProgressBar: true,
+      });
     } else {
       if (values.position === 'none') {
-        alert('포지션을 선택해주세요.');
+        toast.warning(`포지션을 선택해주세요.`, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
       } else {
         addPost(newPost).then((res) => {
           if (res.success) {
@@ -397,6 +377,36 @@ const Write = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (values.title !== '') {
+      setView((prev) => {
+        return { ...prev, title: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, title: false };
+      });
+    }
+    if (values.lyrics !== '') {
+      setView((prev) => {
+        return { ...prev, lyrics: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, lyrics: false };
+      });
+    }
+    if (values.intro !== '') {
+      setView((prev) => {
+        return { ...prev, intro: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, intro: false };
+      });
+    }
+  }, [values.title, values.lyrics, values.intro]);
 
   return (
     <Fragment>
@@ -487,29 +497,55 @@ const Write = () => {
               ) : (
                 <Fragment />
               )}
-              <Input
-                _type={'text'}
-                _value={values.title}
-                _onChange={(e) =>
-                  setValues((prev) => {
-                    return { ...prev, title: e.target.value };
-                  })
-                }
-                _placeholder={'작업물의 제목을 입력해 주세요.(30자 이내)'}
-                _maxLength={30}
-                _style={{
-                  width: '776px',
-                  height: 'auto',
-                  pd_left: '19px',
-                  pd_top: '20px',
-                  pd_bottom: '20px',
-                  pd_right: '40px',
-                  ft_size: '14',
-                  line_height: '20',
-                  bd_radius: '10px',
-                  bd_color: '#28CA72',
-                }}
-              />
+              {isSmallScreen ? (
+                <Input
+                  _type={'text'}
+                  _value={values.title}
+                  _onChange={(e) =>
+                    setValues((prev) => {
+                      return { ...prev, title: e.target.value };
+                    })
+                  }
+                  _placeholder={'작업물의 제목을 입력해 주세요.(30자 이내)'}
+                  _maxLength={30}
+                  _style={{
+                    width: '676px',
+                    height: 'auto',
+                    pd_left: '19px',
+                    pd_top: '15px',
+                    pd_bottom: '15px',
+                    pd_right: '40px',
+                    ft_size: '12',
+                    line_height: '18',
+                    bd_radius: '10px',
+                    bd_color: '#28CA72',
+                  }}
+                />
+              ) : (
+                <Input
+                  _type={'text'}
+                  _value={values.title}
+                  _onChange={(e) =>
+                    setValues((prev) => {
+                      return { ...prev, title: e.target.value };
+                    })
+                  }
+                  _placeholder={'작업물의 제목을 입력해 주세요.(30자 이내)'}
+                  _maxLength={30}
+                  _style={{
+                    width: '776px',
+                    height: 'auto',
+                    pd_left: '19px',
+                    pd_top: '20px',
+                    pd_bottom: '20px',
+                    pd_right: '40px',
+                    ft_size: '14',
+                    line_height: '20',
+                    bd_radius: '10px',
+                    bd_color: '#28CA72',
+                  }}
+                />
+              )}
             </WriteInputContainer>
             <WriteImageTextContainer>
               <WriteImageBox>
@@ -518,13 +554,23 @@ const Write = () => {
                 ) : (
                   <WriteImagePreviewImg src={values.imageSrc} />
                 )}
-                <UploadImage
-                  width={'236px'}
-                  height={'236px'}
-                  setFile={setImage}
-                  setFileSrc={setImageSrc}
-                  text={'이미지 삽입하기'}
-                />
+                {isSmallScreen ? (
+                  <UploadImage
+                    width={'186px'}
+                    height={'186px'}
+                    setFile={setImage}
+                    setFileSrc={setImageSrc}
+                    text={'이미지 삽입하기'}
+                  />
+                ) : (
+                  <UploadImage
+                    width={'236px'}
+                    height={'236px'}
+                    setFile={setImage}
+                    setFileSrc={setImageSrc}
+                    text={'이미지 삽입하기'}
+                  />
+                )}
               </WriteImageBox>
               <WriteTextBox>
                 {view.lyrics ? (
@@ -568,8 +614,6 @@ const Write = () => {
             </WriteImageTextContainer>
             <WriteAudioContainer>
               <WriteAudioBox
-                width={'236px'}
-                height={'100px'}
                 onClick={uploadHandle}
                 onDrop={(e) => onDropHandle(e)}
                 onDragOver={(e) => onDragOverHandle(e)}
@@ -639,20 +683,37 @@ const Write = () => {
             </WriteHashTagContainer>
           </WriteForm>
           <WriteButtonContainer>
-            <Button
-              _type={'submit'}
-              _text={'업로드'}
-              _style={{
-                bd_radius: '5px',
-                width: '124px',
-                height: '44px',
-                bg_color: 'black',
-                ft_weight: '800',
-                ft_size: '12',
-                line_height: '18',
-              }}
-              _form={'write'}
-            />
+            {isSmallScreen ? (
+              <Button
+                _type={'submit'}
+                _text={'업로드'}
+                _style={{
+                  bd_radius: '5px',
+                  width: '104px',
+                  height: '34px',
+                  bg_color: 'black',
+                  ft_weight: '800',
+                  ft_size: '12',
+                  line_height: '18',
+                }}
+                _form={'write'}
+              />
+            ) : (
+              <Button
+                _type={'submit'}
+                _text={'업로드'}
+                _style={{
+                  bd_radius: '5px',
+                  width: '124px',
+                  height: '44px',
+                  bg_color: 'black',
+                  ft_weight: '800',
+                  ft_size: '12',
+                  line_height: '18',
+                }}
+                _form={'write'}
+              />
+            )}
           </WriteButtonContainer>
         </WriteBox>
       </WriteContainer>
