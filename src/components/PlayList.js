@@ -27,6 +27,7 @@ import {
   XboxDiv,
 } from '../assets/styles/components/PlayList.styled';
 import { Xbox20 } from '../assets/images/image';
+import { getCookie } from '../utils/cookie';
 
 const PlayList = () => {
   const playListState = usePlayerStore((state) => state.playListState);
@@ -40,6 +41,8 @@ const PlayList = () => {
   );
   const singerIsLike = useLikeStore((state) => state.singerIsLike);
   const makerIsLike = useLikeStore((state) => state.makerIsLike);
+
+  const playList = usePlayerStore((state) => state.playList);
 
   const [isOpen, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -62,33 +65,35 @@ const PlayList = () => {
   }, [isOpen]);
 
   const listModalOpen = (postId) => {
-    const filterList = playListMember.filter((x) => x.postId === postId);
-    if (singerIsLikeIsLoaded) {
-      if ([...singerIsLike, ...makerIsLike].indexOf(postId) > -1) {
+    const filterListMember = playListMember.filter((x) => x.postId === postId);
+    const fillterList = playList.filter((x) => x.postId === postId);
+
+
+      if (getCookie('authorization') !== undefined) {
         setModalList({
-          postId: filterList[0].postId,
-          title: filterList[0].title,
-          nickname: filterList[0].nickname,
-          imageUrl: filterList[0].imageUrl,
-          lyrics: filterList[0].lyrics,
-          memberImageUrl: filterList[0].memberImageUrl,
-          position: filterList[0].position,
+          postId: filterListMember[0].postId,
+          title: filterListMember[0].title,
+          nickname: filterListMember[0].nickname,
+          imageUrl: filterListMember[0].imageUrl,
+          lyrics: filterListMember[0].lyrics,
+          memberImageUrl: filterListMember[0].memberImageUrl,
+          position: filterListMember[0].position,
         });
       } else {
         setModalList({
-          postId: filterList[0].postId,
-          title: filterList[0].title,
-          nickname: filterList[0].nickname,
-          imageUrl: filterList[0].imageUrl,
-          lyrics: filterList[0].lyrics,
-          memberImageUrl: filterList[0].memberImageUrl,
-          position: filterList[0].position,
+          postId: fillterList[0].postId,
+          title: fillterList[0].title,
+          nickname: fillterList[0].nickname,
+          imageUrl: fillterList[0].imageUrl,
+          lyrics: fillterList[0].lyrics,
+          memberImageUrl: fillterList[0].memberImageUrl,
+          position: fillterList[0].position,
         });
       }
-    }
-
     setModalOpen(true);
   };
+
+  console.log(playList);
 
   return (
     <PlayListAllContainer ListyIndex={playListState ? 'flex' : 'none'}>
@@ -112,7 +117,9 @@ const PlayList = () => {
             <PlayListTopDiv>
               <PlayListTopLeftSpan>재생목록</PlayListTopLeftSpan>
               <PlayListTopRightSpan>
-                곡({playListMember.length})
+                {getCookie('authorization') !== undefined
+                  ? `곡 (${playListMember.length})`
+                  : `곡 ${playList.length}`}
               </PlayListTopRightSpan>
             </PlayListTopDiv>
             <PlayListTopRihtRightSpan onClick={playListCloseModalOpen}>
@@ -122,6 +129,7 @@ const PlayList = () => {
           <PlayListMidDiv>
             <PlayListMidDivDiv>
               <PlayListTopLeftDiv>
+                ``
                 <MidDivDivSpan>제목</MidDivDivSpan>
               </PlayListTopLeftDiv>
               <MidMidDivDiv>
@@ -136,30 +144,44 @@ const PlayList = () => {
             </MidRightDivDiv>
           </PlayListMidDiv>
           <BtmAllDiv>
-            {singerIsLikeIsLoaded ? (
-              playListMember.map((x, idx) => {
-                if ([...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1) {
-                  return (
-                    <PlayListSong
-                      key={idx}
-                      data={x}
-                      listModalOpen={listModalOpen}
-                      likeState={true}
-                    />
-                  );
-                } else {
-                  return (
-                    <PlayListSong
-                      key={idx}
-                      data={x}
-                      listModalOpen={listModalOpen}
-                      likeState={false}
-                    />
-                  );
-                }
-              })
+            {getCookie('authorization') !== undefined ? (
+              singerIsLikeIsLoaded ? (
+                playListMember.map((x, idx) => {
+                  if (
+                    [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
+                  ) {
+                    return (
+                      <PlayListSong
+                        key={idx}
+                        data={x}
+                        listModalOpen={listModalOpen}
+                        likeState={true}
+                      />
+                    );
+                  } else {
+                    return (
+                      <PlayListSong
+                        key={idx}
+                        data={x}
+                        listModalOpen={listModalOpen}
+                        likeState={false}
+                      />
+                    );
+                  }
+                })
+              ) : (
+                <Fragment />
+              )
             ) : (
-              <Fragment />
+              playList.map((x, idx) => {
+                return (
+                  <PlayListSong
+                    key={idx}
+                    data={x}
+                    listModalOpen={listModalOpen}
+                  />
+                );
+              })
             )}
           </BtmAllDiv>
         </PlayListDiv>

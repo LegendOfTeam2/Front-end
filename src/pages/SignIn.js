@@ -47,7 +47,6 @@ import {
   SignInBoxSocialBoxSocialIcon,
   SignInBoxCover,
   SignInBoxIcon,
-  SignInBoxIntroTopSpanSpan,
   SignInBoxIntroTopRegularSpan,
   SignInBoxIntroTopBoldSpan,
   BackgroudColor,

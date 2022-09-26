@@ -31,6 +31,7 @@ const Detail = lazy(() => import('../pages/Detail'));
 const Withdrawal = lazy(() => import('../pages/Withdrawal'));
 const MorePage = lazy(() => import('../pages/MorePage'));
 const Chat = lazy(() => import('../pages/Chat'));
+const PromotionalPage = lazy(() => import('../pages/PromotionalPage'));
 
 // Utils - Lazy
 const Kakao = lazy(() => import('../utils/kakao'));
@@ -61,6 +62,8 @@ function App() {
         <Route path='/kakao/callback' element={<Kakao />} />
         <Route path='/google/callback' element={<Google />} />
         <Route path='/write' element={is_login !== undefined ? <Write /> : <Main />} />
+        <Route path='/Promotional' element={<PromotionalPage />} />
+        
         <Route
           path='/ModifyWrite/:position/:postId'
           element={is_login !== undefined ? <WriteModify /> : <Main />}
