@@ -57,6 +57,15 @@ const SignUp = () => {
   const nicknameDupCheck = useMemberStore((state) => state.nicknameDupCheck);
   const signUpMember = useMemberStore((state) => state.signUpMember);
 
+  // const [values, setValues] = useState({
+  //   email: '',
+  //   password: '',
+  //   passwordCheck: '',
+  //   nickname: '',
+  //   tags: [],
+  //   file: '',
+  //   fileSrc: '',
+  // });
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -120,8 +129,9 @@ const SignUp = () => {
     switch (state) {
       case 'email': {
         setValues((prev) => {
-          return { ...prev, email: '' };
-        });
+          return {...prev, email: ''} 
+        })
+        setValues('email', '');
         setErrors((prev) => {
           return { ...prev, email: 'none' };
         });
@@ -129,8 +139,8 @@ const SignUp = () => {
       }
       case 'password': {
         setValues((prev) => {
-          return { ...prev, password: '' };
-        });
+          return {...prev, password: ''} 
+        })
         setViews((prev) => {
           return { ...prev, passwordView: false };
         });
@@ -138,8 +148,8 @@ const SignUp = () => {
       }
       case 'passwordCheck': {
         setValues((prev) => {
-          return { ...prev, passwordCheck: '' };
-        });
+          return {...prev, passwordCheck: ''} 
+        })
         setViews((prev) => {
           return { ...prev, passwordCheckView: false };
         });
@@ -150,8 +160,8 @@ const SignUp = () => {
       }
       case 'nickname': {
         setValues((prev) => {
-          return { ...prev, nickname: '' };
-        });
+          return {...prev, nickname: ''} 
+        })
         setErrors((prev) => {
           return { ...prev, nickname: 'none' };
         });
@@ -209,6 +219,7 @@ const SignUp = () => {
   const addTag = useCallback(
     (event) => {
       if (event.key === 'Enter') {
+        event.preventDefault();
         if (event.target.value.length > 0) {
           if (
             values.tags.findIndex((tag) => tag === event.target.value) === -1

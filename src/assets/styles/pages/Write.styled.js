@@ -51,10 +51,25 @@ export const WriteCollaboContainer = styled.div`
     cursor: pointer;
   }
 `;
-export const WriteCollaboBox = styled.div`
-  width: auto;
-  height: auto;
-  position: relative;
+export const WriteCollaboContainerSuccess = styled.div`
+  position: absolute;
+  top: 102px;
+  right: 0;
+  width: 113px;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 18px;
+  border-radius: 8px 0 0 8px;
+  border-top: 1px solid #28CA7C;
+  border-bottom: 1px solid #28CA7C;
+  border-left: 1px solid #28CA7C;
+  background-color: #28CA7C;
+  color: #ffffff;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export const WriteCollaboIcon = styled.div`
   width: auto;
@@ -81,6 +96,18 @@ export const WriteCollaboText = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   color: #b4b4b4;
 `;
+export const WriteCollaboTextSuccess = styled.span`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-10%, -50%);
+  width: auto;
+  height: auto;
+  line-height: ${(props) => props.theme.lineHeight.base};
+  font-size: ${(props) => props.theme.fontSizes.base};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  color: #ffffff;
+`;
 export const WriteSingerContainer = styled.div`
   position: absolute;
   top: 190px;
@@ -95,6 +122,25 @@ export const WriteSingerContainer = styled.div`
   border-top: 1px solid #b4b4b4;
   border-bottom: 1px solid #b4b4b4;
   border-left: 1px solid #b4b4b4;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+export const WriteSingerContainerSelected = styled.div`
+  position: absolute;
+  top: 190px;
+  right: 0;
+  width: 113px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  border-radius: 8px 0 0 8px;
+  border-top: 1px solid #28CA7C;
+  border-bottom: 1px solid #28CA7C;
+  border-left: 1px solid #28CA7C;
+  background-color: #28CA7C;
   &:hover {
     cursor: pointer;
   }
@@ -129,6 +175,18 @@ export const WriteSingerText = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   color: #b4b4b4;
 `;
+export const WriteSingerTextSelected = styled.span`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-10%, -50%);
+  width: auto;
+  height: auto;
+  line-height: ${(props) => props.theme.lineHeight.base};
+  font-size: ${(props) => props.theme.fontSizes.base};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  color: #ffffff;
+`;
 export const WriteMakerContainer = styled.div`
   position: absolute;
   top: 278px;
@@ -143,6 +201,25 @@ export const WriteMakerContainer = styled.div`
   border-top: 1px solid #b4b4b4;
   border-bottom: 1px solid #b4b4b4;
   border-left: 1px solid #b4b4b4;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+export const WriteMakerContainerSelected = styled.div`
+  position: absolute;
+  top: 278px;
+  right: 0;
+  width: 113px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  border-radius: 8px 0 0 8px;
+  border-top: 1px solid #28CA7C;
+  border-bottom: 1px solid #28CA7C;
+  border-left: 1px solid #28CA7C;
+  background-color: #28CA7C;
   &:hover {
     cursor: pointer;
   }
@@ -176,6 +253,18 @@ export const WriteMakerText = styled.span`
   font-size: ${(props) => props.theme.fontSizes.base};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   color: #b4b4b4;
+`;
+export const WriteMakerTextSelected = styled.span`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-10%, -50%);
+  width: auto;
+  height: auto;
+  line-height: ${(props) => props.theme.lineHeight.base};
+  font-size: ${(props) => props.theme.fontSizes.base};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  color: #ffffff;
 `;
 export const WriteForm = styled.form`
   position: absolute;
@@ -312,7 +401,6 @@ export const WriteAudioPreviewFile = styled.div`
   height: 70px;
   background-color: #d2f8df;
   border-radius: 10px;
-  display: none;
 `;
 export const WriteAudioPreviewFileName = styled.span`
   position: absolute;

@@ -31,7 +31,6 @@ const Detail = lazy(() => import('../pages/Detail'));
 const Withdrawal = lazy(() => import('../pages/Withdrawal'));
 const MorePage = lazy(() => import('../pages/MorePage'));
 const Chat = lazy(() => import('../pages/Chat'));
-const PlayListModal = lazy(() => import('../components/modal/PlayListModal'));
 
 // Utils - Lazy
 const Kakao = lazy(() => import('../utils/kakao'));
