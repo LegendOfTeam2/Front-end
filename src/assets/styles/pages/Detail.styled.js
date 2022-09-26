@@ -409,7 +409,7 @@ export const DetailClickHover = styled.div`
 `;
 
 export const DetailHashtagContainer = styled.div`
-  width: 870px;
+  width: 850px;
   height: 68px;
   margin-top: 56px;
 `;
