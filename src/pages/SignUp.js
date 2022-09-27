@@ -57,15 +57,6 @@ const SignUp = () => {
   const nicknameDupCheck = useMemberStore((state) => state.nicknameDupCheck);
   const signUpMember = useMemberStore((state) => state.signUpMember);
 
-  // const [values, setValues] = useState({
-  //   email: '',
-  //   password: '',
-  //   passwordCheck: '',
-  //   nickname: '',
-  //   tags: [],
-  //   file: '',
-  //   fileSrc: '',
-  // });
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -129,9 +120,11 @@ const SignUp = () => {
     switch (state) {
       case 'email': {
         setValues((prev) => {
-          return {...prev, email: ''} 
-        })
-        setValues('email', '');
+          return { ...prev, email: '' };
+        });
+        setValidCheck((prev) => {
+          return { ...prev, emailDupCheck: false };
+        });
         setErrors((prev) => {
           return { ...prev, email: 'none' };
         });
@@ -139,8 +132,11 @@ const SignUp = () => {
       }
       case 'password': {
         setValues((prev) => {
-          return {...prev, password: ''} 
-        })
+          return { ...prev, password: '' };
+        });
+        setValidCheck((prev) => {
+          return { ...prev, passwordValid: false };
+        });
         setViews((prev) => {
           return { ...prev, passwordView: false };
         });
@@ -148,8 +144,8 @@ const SignUp = () => {
       }
       case 'passwordCheck': {
         setValues((prev) => {
-          return {...prev, passwordCheck: ''} 
-        })
+          return { ...prev, passwordCheck: '' };
+        });
         setViews((prev) => {
           return { ...prev, passwordCheckView: false };
         });
@@ -160,8 +156,11 @@ const SignUp = () => {
       }
       case 'nickname': {
         setValues((prev) => {
-          return {...prev, nickname: ''} 
-        })
+          return { ...prev, nickname: '' };
+        });
+        setValidCheck((prev) => {
+          return { ...prev, nicknameDupCheck: false };
+        });
         setErrors((prev) => {
           return { ...prev, nickname: 'none' };
         });
@@ -378,7 +377,7 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (values.password === '' && values.passwordCheck === '') {
+    if (values.passwordCheck === '') {
       setErrors((prev) => {
         return { ...prev, passwordCheck: 'none' };
       });
@@ -567,30 +566,57 @@ const SignUp = () => {
                   ) : (
                     <Fragment />
                   )}
-                  <Input
-                    _type={'text'}
-                    _placeholder={'아이디를 입력해 주세요.'}
-                    _value={values.email}
-                    _onChange={(e) =>
-                      setValues((prev) => {
-                        return { ...prev, email: e.target.value };
-                      })
-                    }
-                    _ref={emailRef}
-                    _style={{
-                      width: '100%',
-                      height: 'auto',
-                      ft_size: '14',
-                      pd_top: '20px',
-                      pd_bottom: '20px',
-                      pd_left: '19px',
-                      pd_right: '40px',
-                      bd_radius: '10px',
-                      bd_px: '1px',
-                      bd_color: '#d9d9d9',
-                      line_height: '20',
-                    }}
-                  />
+                  {validCheck.emailDupCheck ? (
+                    <Input
+                      _type={'text'}
+                      _placeholder={'아이디를 입력해 주세요.'}
+                      _value={values.email}
+                      _onChange={(e) =>
+                        setValues((prev) => {
+                          return { ...prev, email: e.target.value };
+                        })
+                      }
+                      _ref={emailRef}
+                      _style={{
+                        width: '100%',
+                        height: 'auto',
+                        ft_size: '14',
+                        pd_top: '20px',
+                        pd_bottom: '20px',
+                        pd_left: '19px',
+                        pd_right: '40px',
+                        bd_radius: '10px',
+                        bd_px: '1px',
+                        bd_color: '#28ca7c',
+                        line_height: '20',
+                      }}
+                    />
+                  ) : (
+                    <Input
+                      _type={'text'}
+                      _placeholder={'아이디를 입력해 주세요.'}
+                      _value={values.email}
+                      _onChange={(e) =>
+                        setValues((prev) => {
+                          return { ...prev, email: e.target.value };
+                        })
+                      }
+                      _ref={emailRef}
+                      _style={{
+                        width: '100%',
+                        height: 'auto',
+                        ft_size: '14',
+                        pd_top: '20px',
+                        pd_bottom: '20px',
+                        pd_left: '19px',
+                        pd_right: '40px',
+                        bd_radius: '10px',
+                        bd_px: '1px',
+                        bd_color: '#d9d9d9',
+                        line_height: '20',
+                      }}
+                    />
+                  )}
                 </SignUpboxInputGroupData>
                 {
                   {
@@ -647,8 +673,60 @@ const SignUp = () => {
                     />
                   )}
                   {views.passwordView ? (
+                    validCheck.passwordValid ? (
+                      <Input
+                        _type={'text'}
+                        _placeholder={'비밀번호를 입력해주세요.'}
+                        _value={values.password}
+                        _onChange={(e) =>
+                          setValues((prev) => {
+                            return { ...prev, password: e.target.value };
+                          })
+                        }
+                        _ref={passwordRef}
+                        _style={{
+                          width: '100%',
+                          height: 'auto',
+                          ft_size: '14',
+                          pd_top: '20px',
+                          pd_bottom: '20px',
+                          pd_left: '19px',
+                          pd_right: '70px',
+                          bd_radius: '10px',
+                          bd_px: '1px',
+                          bd_color: '#28ca7c',
+                          line_height: '20',
+                        }}
+                      />
+                    ) : (
+                      <Input
+                        _type={'text'}
+                        _placeholder={'비밀번호를 입력해주세요.'}
+                        _value={values.password}
+                        _onChange={(e) =>
+                          setValues((prev) => {
+                            return { ...prev, password: e.target.value };
+                          })
+                        }
+                        _ref={passwordRef}
+                        _style={{
+                          width: '100%',
+                          height: 'auto',
+                          ft_size: '14',
+                          pd_top: '20px',
+                          pd_bottom: '20px',
+                          pd_left: '19px',
+                          pd_right: '70px',
+                          bd_radius: '10px',
+                          bd_px: '1px',
+                          bd_color: '#d9d9d9',
+                          line_height: '20',
+                        }}
+                      />
+                    )
+                  ) : validCheck.passwordValid ? (
                     <Input
-                      _type={'text'}
+                      _type={'password'}
                       _placeholder={'비밀번호를 입력해주세요.'}
                       _value={values.password}
                       _onChange={(e) =>
@@ -667,7 +745,7 @@ const SignUp = () => {
                         pd_right: '70px',
                         bd_radius: '10px',
                         bd_px: '1px',
-                        bd_color: '#d9d9d9',
+                        bd_color: '#28ca7c',
                         line_height: '20',
                       }}
                     />
@@ -775,8 +853,60 @@ const SignUp = () => {
                     />
                   )}
                   {views.passwordCheckView ? (
+                    errors.passwordCheck === 'success' ? (
+                      <Input
+                        _type={'text'}
+                        _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
+                        _value={values.passwordCheck}
+                        _onChange={(e) =>
+                          setValues((prev) => {
+                            return { ...prev, passwordCheck: e.target.value };
+                          })
+                        }
+                        _ref={passwordCheckRef}
+                        _style={{
+                          width: '100%',
+                          height: 'auto',
+                          ft_size: '14',
+                          pd_top: '20px',
+                          pd_bottom: '20px',
+                          pd_left: '19px',
+                          pd_right: '70px',
+                          bd_radius: '10px',
+                          bd_px: '1px',
+                          bd_color: '#28ca7c',
+                          line_height: '20',
+                        }}
+                      />
+                    ) : (
+                      <Input
+                        _type={'text'}
+                        _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
+                        _value={values.passwordCheck}
+                        _onChange={(e) =>
+                          setValues((prev) => {
+                            return { ...prev, passwordCheck: e.target.value };
+                          })
+                        }
+                        _ref={passwordCheckRef}
+                        _style={{
+                          width: '100%',
+                          height: 'auto',
+                          ft_size: '14',
+                          pd_top: '20px',
+                          pd_bottom: '20px',
+                          pd_left: '19px',
+                          pd_right: '70px',
+                          bd_radius: '10px',
+                          bd_px: '1px',
+                          bd_color: '#d9d9d9',
+                          line_height: '20',
+                        }}
+                      />
+                    )
+                  ) : errors.passwordCheck === 'success' ? (
                     <Input
-                      _type={'text'}
+                      _type={'password'}
                       _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
                       _value={values.passwordCheck}
                       _onChange={(e) =>
@@ -795,7 +925,7 @@ const SignUp = () => {
                         pd_right: '70px',
                         bd_radius: '10px',
                         bd_px: '1px',
-                        bd_color: '#d9d9d9',
+                        bd_color: '#28ca7c',
                         line_height: '20',
                       }}
                     />
@@ -856,31 +986,59 @@ const SignUp = () => {
                   ) : (
                     <Fragment />
                   )}
-                  <Input
-                    _type={'text'}
-                    _placeholder={'닉네임을 입력해 주세요. (15자리 이내)'}
-                    _value={values.nickname}
-                    _onChange={(e) =>
-                      setValues((prev) => {
-                        return { ...prev, nickname: e.target.value };
-                      })
-                    }
-                    _maxLength={'15'}
-                    _ref={nicknameRef}
-                    _style={{
-                      width: '100%',
-                      height: 'auto',
-                      ft_size: '14',
-                      pd_top: '20px',
-                      pd_bottom: '20px',
-                      pd_left: '19px',
-                      pd_right: '40px',
-                      bd_radius: '10px',
-                      bd_px: '1px',
-                      bd_color: '#d9d9d9',
-                      line_height: '20',
-                    }}
-                  />
+                  {validCheck.nicknameDupCheck ? (
+                    <Input
+                      _type={'text'}
+                      _placeholder={'닉네임을 입력해 주세요. (15자리 이내)'}
+                      _value={values.nickname}
+                      _onChange={(e) =>
+                        setValues((prev) => {
+                          return { ...prev, nickname: e.target.value };
+                        })
+                      }
+                      _maxLength={'15'}
+                      _ref={nicknameRef}
+                      _style={{
+                        width: '100%',
+                        height: 'auto',
+                        ft_size: '14',
+                        pd_top: '20px',
+                        pd_bottom: '20px',
+                        pd_left: '19px',
+                        pd_right: '40px',
+                        bd_radius: '10px',
+                        bd_px: '1px',
+                        bd_color: '#28ca7c',
+                        line_height: '20',
+                      }}
+                    />
+                  ) : (
+                    <Input
+                      _type={'text'}
+                      _placeholder={'닉네임을 입력해 주세요. (15자리 이내)'}
+                      _value={values.nickname}
+                      _onChange={(e) =>
+                        setValues((prev) => {
+                          return { ...prev, nickname: e.target.value };
+                        })
+                      }
+                      _maxLength={'15'}
+                      _ref={nicknameRef}
+                      _style={{
+                        width: '100%',
+                        height: 'auto',
+                        ft_size: '14',
+                        pd_top: '20px',
+                        pd_bottom: '20px',
+                        pd_left: '19px',
+                        pd_right: '40px',
+                        bd_radius: '10px',
+                        bd_px: '1px',
+                        bd_color: '#d9d9d9',
+                        line_height: '20',
+                      }}
+                    />
+                  )}
                 </SignUpboxInputGroupData>
                 {
                   {
@@ -912,7 +1070,7 @@ const SignUp = () => {
                   <Fragment />
                 ) : (
                   <SignUpBoxTagBox>
-                    {values.tags.map((tag) => {
+                    {values.tags.reverse().map((tag) => {
                       return (
                         <HashTagWithIcon
                           key={shortid.generate()}
