@@ -9,6 +9,7 @@ import usePlayerStore from '../zustand/player';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useMediaQuery } from 'react-responsive';
 // Utils
 import { getCookie } from '../utils/cookie';
 // Components
@@ -44,7 +45,12 @@ import {
   MainImgDivTopSpan,
   MainImgDivBtmSpan,
 } from '../assets/styles/pages/Main.styled';
-import { LeftArrow, MainBanner, RightArrow } from '../assets/images/image';
+import {
+  LeftArrow,
+  MainBanner,
+  MainBannerMini,
+  RightArrow,
+} from '../assets/images/image';
 import PostSmall from '../components/PostSmall';
 import useMemberStore from '../zustand/member';
 
@@ -115,6 +121,10 @@ const Main = () => {
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
+  const isSmallScreen = useMediaQuery({
+    query: '(max-width: 1920px)',
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -146,6 +156,7 @@ const Main = () => {
       });
     }
   }, []);
+
 
   const play = () => {
     viewStateChange(true);
@@ -216,7 +227,21 @@ const Main = () => {
                     </MainImgDivBtmSpanDiv>
                   </MainImgDivBtmImgDiv>
                   <MainImgDivBtnDiv>
-                    {getCookie('authorization') !== undefined ? (
+                    {isSmallScreen ? (
+                      getCookie('authorization') !== undefined ? (
+                        <img
+                          src={MainBannerMini}
+                          alt='배너 플레이 버튼'
+                          onClick={PlayMember}
+                        />
+                      ) : (
+                        <img
+                          src={MainBannerMini}
+                          alt='배너 플레이 버튼'
+                          onClick={play}
+                        />
+                      )
+                    ) : getCookie('authorization') !== undefined ? (
                       <img
                         src={MainBanner}
                         alt='배너 플레이 버튼'

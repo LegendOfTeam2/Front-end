@@ -1,5 +1,5 @@
 // React
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Zustand
@@ -8,7 +8,7 @@ import useMemberStore from '../../zustand/member';
 // Packages
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
-
+import { useMediaQuery } from 'react-responsive';
 // Assets
 import {
   ListModalBtnDiv,
@@ -45,6 +45,9 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
   const random = useMemberStore((state) => state.random);
 
   const navigate = useNavigate();
+  const isSmallScreen = useMediaQuery({
+    query: '(max-width: 1920px)',
+  });
 
   const playListClose = () => {
     playListCancel();
@@ -53,7 +56,7 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
   const customStyles = {
     overlay: {
       position: 'fixed',
-      top: 0,
+      top: isSmallScreen ? '130px': '0',
       left: 0,
       right: 0,
       bottom: 0,
@@ -64,8 +67,8 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      width: '630px',
-      height: '990px',
+      width: isSmallScreen ? '480px':'630px',
+      height: isSmallScreen ? '480px':'990px',
       borderRadius: '20px',
       backgroundColor: 'rgba(27, 30, 47, 0.8)',
       border: '1px solid #28ca72',
@@ -149,9 +152,6 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
                 <ListModalProfileDetailTop onClick={ProfilPage}>
                   아티스트 보기
                 </ListModalProfileDetailTop>
-                <ListModalProfileDetailBtm>
-                  팔로우 하기
-                </ListModalProfileDetailBtm>
               </ListModalProfileDetail>
             </ListModalProfileDivDiv>
           </ListModalProfileDiv>
