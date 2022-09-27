@@ -6,6 +6,9 @@ export const ProfileContainerDiv = styled.div`
   justify-content: center;
   position: relative;
   margin-bottom: 80px;
+  @media ${(props) => props.theme.device.desktopL} {
+    margin-bottom: 20px;
+  }
 `;
 
 export const ProfileContainer = styled.div`
