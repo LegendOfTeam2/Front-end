@@ -145,7 +145,7 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
               _onClick={onHandleFollow}
               _style={{
                 width: '66px',
-                height: '33px',
+                height: '31px',
                 bg_color: '#FFFFFF',
                 bd_radius: '8px',
                 color: '#28CA7C',

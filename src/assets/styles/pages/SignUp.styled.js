@@ -34,7 +34,7 @@ export const SignUpBox = styled.div`
   }
   @media ${(props) => props.theme.device.desktopL} {
     width: 861px;
-    height: 709px;
+    height: 661px;
   }
 `;
 export const SignUpIcon = styled.div`
