@@ -15,7 +15,7 @@ import {
   ConfirmModalQuestionText,
   ConfirmModalBtnGroup,
 } from '../../assets/styles/components/modal/WithdrawalConfirmModal.styled';
-import { WithdrawalLogo } from '../../assets/images/image';
+import { WithdrawalLogo, Xbox20 } from '../../assets/images/image';
 
 const customStyles = {
   overlay: {
@@ -49,7 +49,7 @@ const WithdrawalConfirmModal = ({ isOpen, onCancel, onChange }) => {
     <ReactModal isOpen={isOpen} style={customStyles}>
       <ConfirmModalContainer>
         <ConfirmModalIcon onClick={handleClickCancel}>
-          <GrClose className='icon' />
+          <img src={Xbox20} alt='Xbox' className='icon' />
         </ConfirmModalIcon>
         <ConfirmModalLogo>
           <ConfirmModalLogoImg src={WithdrawalLogo} />

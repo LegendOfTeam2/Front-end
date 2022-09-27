@@ -56,6 +56,7 @@ import {
   KakaoTalkPhoto,
   SignInBackground,
   SignInBackgroundSm,
+  Xbox20,
 } from '../assets/images/image';
 
 const SignIn = () => {
@@ -186,7 +187,7 @@ const SignIn = () => {
                       <SignUpDataInputGroupIcon
                         onClick={() => deleteText('email')}
                       >
-                        <GrClose className='icon-cancel'></GrClose>
+                        <img src={Xbox20} alt='Xbox' className='icon-cancel' />
                       </SignUpDataInputGroupIcon>
                     ) : (
                       <Fragment />
@@ -239,7 +240,7 @@ const SignIn = () => {
                       <SignUpDataInputGroupIcon
                         onClick={() => deleteText('password')}
                       >
-                        <GrClose className='icon-cancel'></GrClose>
+                        <img src={Xbox20} alt='Xbox' className='icon-cancel' />
                       </SignUpDataInputGroupIcon>
                     ) : (
                       <Fragment />

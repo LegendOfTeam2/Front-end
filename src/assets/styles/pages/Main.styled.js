@@ -216,7 +216,7 @@ export const BtmProfileTextMake = styled.span`
 export const BtmProfileTextSingMakeDiv = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 40px;
+  gap: 61px;
   margin-top: 3px;
 `;
 
@@ -298,5 +298,5 @@ export const DisMainPostImgDivImgDiv = styled.div`
 export const MainHotArtistWrap = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 40px;
+  gap: 61px;
 `;

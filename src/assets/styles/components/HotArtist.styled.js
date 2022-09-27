@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const HotArtistImgDivDiv = styled.div`
-  width: 229px;
-  display: 167px;
+  width: 167px;
   position: relative;
   margin-top: 24px;
 `;

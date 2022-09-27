@@ -23,6 +23,7 @@ import {
   Show,
   PlayListIcon,
   DisPlayListIcon,
+  AlbumCover,
 } from '../../assets/images/image';
 import {
   AllBtnContainer,
@@ -516,7 +517,7 @@ function PlayerMain() {
 
   return (
     <Fragment>
-      {getCookie('authorization') !== undefined ? <PlayList /> : <PlayList /> }
+      {getCookie('authorization') !== undefined ? <PlayList /> : <PlayList />}
 
       <MainAudioPlay yIndex={viewState ? '0' : '85%'}>
         <div>
@@ -551,20 +552,18 @@ function PlayerMain() {
                         onClick={PlayListHandlers}
                       />
                     )
+                  ) : playListState ? (
+                    <img
+                      src={PlayListIcon}
+                      alt='플레이리스트'
+                      onClick={PlayListHandlers}
+                    />
                   ) : (
-                    playListState ? (
-                      <img
-                        src={PlayListIcon}
-                        alt='플레이리스트'
-                        onClick={PlayListHandlers}
-                      />
-                    ) : (
-                      <img
-                        src={DisPlayListIcon}
-                        alt='플레이리스트 닫기'
-                        onClick={PlayListHandlers}
-                      />
-                    )
+                    <img
+                      src={DisPlayListIcon}
+                      alt='플레이리스트 닫기'
+                      onClick={PlayListHandlers}
+                    />
                   )}
                 </IconImgHover>
               </AllUpVolumeolumeDiv>
@@ -594,13 +593,13 @@ function PlayerMain() {
                       <MidDiv>
                         <div>
                           <ImgCover
-                            src='https://www.cuonet.com/data/file/job/thumb-1925922832_WlgGOts6_dac17e6b0bf647414bfd8736fe074d1e0c26e018_700x525.jpg'
+                            src={AlbumCover}
                             alt='재생목록이 비어 있을때'
                           />
                         </div>
                         <IntroduceDiv>
-                          <TitleSapn>재생 목록이</TitleSapn>
-                          <SingerSpan>비어 있어요 !</SingerSpan>
+                          <TitleSapn>재생목록이 비어 있어요~</TitleSapn>
+                          <SingerSpan>환영 합니다!</SingerSpan>
                         </IntroduceDiv>
                       </MidDiv>
                     )
@@ -629,10 +628,7 @@ function PlayerMain() {
                 ) : (
                   <MidDiv>
                     <div>
-                      <ImgCover
-                        src='https://www.cuonet.com/data/file/job/thumb-1925922832_WlgGOts6_dac17e6b0bf647414bfd8736fe074d1e0c26e018_700x525.jpg'
-                        alt='재생목록이 비어 있을때'
-                      />
+                      <ImgCover src={AlbumCover} alt='재생목록이 비어 있을때' />
                     </div>
                     <IntroduceDiv>
                       <TitleSapn>재생목록이 비어 있어요~</TitleSapn>

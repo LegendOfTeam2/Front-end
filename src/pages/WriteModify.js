@@ -80,6 +80,7 @@ import {
   WriteButtonContainer,
   WriteButtonDeleteContainer,
 } from '../assets/styles/pages/Write.styled';
+import { Xbox20 } from '../assets/images/image';
 
 const WriteModify = () => {
   const uploadAudio = useUploadStore((state) => state.uploadAudio);
@@ -559,7 +560,7 @@ const WriteModify = () => {
             <WriteInputContainer>
               {view.title ? (
                 <WriteInputIcon onClick={() => deleteText('title')}>
-                  <GrClose className='icon' />
+                  <img src={Xbox20} alt='Xbox' className='icon' />
                 </WriteInputIcon>
               ) : (
                 <Fragment />
@@ -642,7 +643,7 @@ const WriteModify = () => {
               <WriteTextBox>
                 {view.lyrics ? (
                   <WriteTextIconBox onClick={() => deleteText('lyrics')}>
-                    <GrClose></GrClose>
+                    <img src={Xbox20} alt='Xbox'/>
                   </WriteTextIconBox>
                 ) : (
                   <Fragment />
@@ -661,7 +662,7 @@ const WriteModify = () => {
               <WriteTextBox>
                 {view.intro ? (
                   <WriteTextIconBox onClick={() => deleteText('intro')}>
-                    <GrClose></GrClose>
+                    <img src={Xbox20} alt='Xbox'/>
                   </WriteTextIconBox>
                 ) : (
                   <Fragment />
