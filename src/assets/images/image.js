@@ -51,6 +51,7 @@ import MakerWhite from './MakerWhite.svg';
 import DisPlayListIcon from './DisPlayListIcon.svg';
 import PlayListIcon from './PlayListIcon.svg';
 import MainBanner from './MainBanner.svg';
+import MainBannerMini from './MainBannerMini.svg';
 import RightArrow from './RightArrow.png';
 import LeftArrow from './LeftArrow.png';
 import DisCollaboration from './DisCollaboration.svg';
@@ -171,5 +172,6 @@ export {
   SingerMarker8,
   SingerMarker9,
   SingerMarker10,
-  Promotional
+  Promotional,
+  MainBannerMini
 };

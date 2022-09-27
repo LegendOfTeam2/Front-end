@@ -143,4 +143,7 @@ export const BtmAllDiv = styled.div`
   max-height: 415.5px;
   display: flex;
   flex-direction: column;
+  @media ${(props) => props.theme.device.desktopL} {
+    max-height: 125.5px;
+  }
 `;

@@ -33,6 +33,11 @@ export const ListModalTitleSpan = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   font-size: ${(props) => props.theme.fontSizes.lg};
   color: rgba(255, 255, 255, 1);
+  @media ${(props) => props.theme.device.desktopL} {
+    line-height: ${(props) => props.theme.lineHeight.base};
+    font-weight: ${(props) => props.theme.fontWeight.Medium};
+    font-size: ${(props) => props.theme.fontSizes.sm};
+  }
 `;
 
 export const ListModalNicknameSpan = styled.span`
@@ -40,6 +45,11 @@ export const ListModalNicknameSpan = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   font-size: ${(props) => props.theme.fontSizes.lg};
   color: rgba(180, 180, 180, 1);
+  @media ${(props) => props.theme.device.desktopL} {
+    line-height: ${(props) => props.theme.lineHeight.base};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  font-size: ${(props) => props.theme.fontSizes.sm};
+  }
 `;
 
 export const ListModalImgDiv = styled.div`
@@ -54,6 +64,10 @@ export const ListModalImg = styled.img`
   height: 247px;
   margin-left: auto;
   margin-right: auto;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 147px;
+    height: 147px;
+  }
 `;
 
 export const ListModalMidDiv = styled.div`
@@ -72,6 +86,9 @@ export const ListModalMidDivDiv = styled.div`
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #28ca72;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 70px;
+  }
 `;
 
 export const ListModalMidDivSpan = styled.span`
@@ -79,6 +96,11 @@ export const ListModalMidDivSpan = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   font-size: ${(props) => props.theme.fontSizes.lg};
   color: rgba(255, 255, 255, 1);
+  @media ${(props) => props.theme.device.desktopL} {
+    line-height: ${(props) => props.theme.lineHeight.base};
+    font-weight: ${(props) => props.theme.fontWeight.Medium};
+    font-size: ${(props) => props.theme.fontSizes.sm};
+  }
 `;
 
 export const ListModalLyrics = styled.div`
@@ -88,6 +110,10 @@ export const ListModalLyrics = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 228px;
+    height: 104px;
+  }
 `;
 
 export const ListModalLyricsSpan = styled.span`
@@ -98,6 +124,11 @@ export const ListModalLyricsSpan = styled.span`
   word-break: break-all;
   overflow: auto;
   color: rgba(255, 255, 255, 1);
+  @media ${(props) => props.theme.device.desktopL} {
+    line-height: ${(props) => props.theme.lineHeight.xl};
+    font-weight: ${(props) => props.theme.fontWeight.Medium};
+    font-size: ${(props) => props.theme.fontSizes.xs};
+  }
 `;
 
 export const ListModalProfileDiv = styled.div`
@@ -107,6 +138,9 @@ export const ListModalProfileDiv = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 130px;
+  @media ${(props) => props.theme.device.desktopL} {
+    margin-bottom: 30px;
+  }
 `;
 
 export const ListModalProfileDivDiv = styled.div`
@@ -119,12 +153,19 @@ export const ListModalProfileDivDiv = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 453px;
+  }
 `;
 
 export const ListModalProfileImg = styled.img`
   width: 64px;
   height: 64px;
   border-radius: 50%;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 44px;
+  height: 44px;
+  }
 `;
 
 export const ListModalProfileNickname = styled.span`
@@ -175,6 +216,7 @@ export const ListModalProfilePositionrRight = styled.div`
   line-height: ${(props) => props.theme.lineHeight.xs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   color: #28ca72;
+
 `;
 
 export const ListModalProfileDetail = styled.div`
@@ -185,23 +227,32 @@ export const ListModalProfileDetail = styled.div`
   justify-content: center;
   align-items: center;
   margin-left: 200px;
+  @media ${(props) => props.theme.device.desktopL} {
+    flex-direction: row;
+    margin-left: 0;
+  }
 `;
 
 export const ListModalProfileDetailTop = styled.div`
   width: auto;
   height: auto;
   display: flex;
-  border-bottom: 1px solid #28ca72;
   justify-content: center;
   align-items: center;
   color: rgba(255, 255, 255, 1);
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.sm};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
-  padding-bottom: 18px;
   z-index: 4px;
   :hover {
     cursor: pointer;
+  }
+  @media ${(props) => props.theme.device.desktopL} {
+    padding-bottom: 0;
+    margin-left: 120px;
+    font-size: ${(props) => props.theme.fontSizes.sm};
+  line-height: ${(props) => props.theme.lineHeight.base};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
   }
 `;
 
@@ -216,6 +267,13 @@ export const ListModalProfileDetailBtm = styled.div`
   line-height: ${(props) => props.theme.lineHeight.sm};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   margin-top: 18px;
+  @media ${(props) => props.theme.device.desktopL} {
+    margin-top: 0px;
+    margin-left: 10px;
+    font-size: ${(props) => props.theme.fontSizes.sm};
+  line-height: ${(props) => props.theme.lineHeight.base};
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  }
 `;
 
 export const ListModalBtnDiv = styled.div`

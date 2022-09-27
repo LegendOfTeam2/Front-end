@@ -24,6 +24,9 @@ export const MainImgDiv = styled.div`
   width: 100%;
   margin-bottom: 80px;
   box-shadow: inset (-$offset) 0 $blur-radius (-$spread-radius);
+  @media ${(props) => props.theme.device.desktopL} {
+    margin-bottom: 20px;
+  }
 `;
 export const MainImgDivDiv = styled.div`
   width: 100%;
@@ -37,13 +40,22 @@ export const MainImgDivDivDiv = styled.div`
   color: rgba(255, 255, 255, 1);
   font-size: ${(props) => props.theme.fontSizes.titleSize};
   line-height: ${(props) => props.theme.lineHeight.xxxl};
-  font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  @media ${(props) => props.theme.device.desktopL} {
+    font-size: ${(props) => props.theme.fontSizes.xxxxl};
+    line-height: ${(props) => props.theme.lineHeight.xxxl};
+    font-weight: ${(props) => props.theme.fontWeight.Bold};
+  }
 `;
 
 export const MainImgDivBtmImg = styled.img`
   width: 80px;
   height: 80px;
   border-radius: 50%;
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 60px;
+    height: 60px;
+  }
 `;
 
 export const MainImgDivBtmImgDiv = styled.div`
@@ -64,7 +76,12 @@ export const MainImgDivDivBtmDiv = styled.div`
   color: rgba(255, 255, 255, 1);
   font-size: ${(props) => props.theme.fontSizes.xxxl};
   line-height: ${(props) => props.theme.lineHeight.xxxl};
-  font-weight: ${(props) => props.theme.fontWeight.Medium}; ;
+  font-weight: ${(props) => props.theme.fontWeight.Medium};
+  @media ${(props) => props.theme.device.desktopL} {
+    font-size: ${(props) => props.theme.fontSizes.xxl};
+    line-height: ${(props) => props.theme.lineHeight.xxxl};
+    font-weight: ${(props) => props.theme.fontWeight.Bold};
+  }
 `;
 
 export const MainImgDivBtmSpanDiv = styled.div`
@@ -81,12 +98,22 @@ export const MainImgDivTopSpan = styled.span`
   line-height: ${(props) => props.theme.lineHeight.xxxl};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   color: rgba(255, 255, 255, 1);
+  @media ${(props) => props.theme.device.desktopL} {
+    font-size: ${(props) => props.theme.fontSizes.xxl};
+    line-height: ${(props) => props.theme.lineHeight.xxxl};
+    font-weight: ${(props) => props.theme.fontWeight.Medium};
+  }
 `;
 
 export const MainImgDivBtmSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.sm};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
+  @media ${(props) => props.theme.device.desktopL} {
+    font-size: ${(props) => props.theme.fontSizes.sm};
+    line-height: ${(props) => props.theme.lineHeight.sm};
+    font-weight: ${(props) => props.theme.fontWeight.Medium};
+  }
   color: rgba(255, 255, 255, 1);
 `;
 
@@ -106,6 +133,9 @@ export const MainImgDivImg = styled.div`
   background-image: url(${(props) => props.img});
   background-repeat: no-repeat;
   background-position: center;
+  @media ${(props) => props.theme.device.desktopL} {
+    height: 372px;
+  }
 `;
 export const BtmProfileImgDiv = styled.div`
   width: 856px;
@@ -115,6 +145,9 @@ export const BtmProfileImgDiv = styled.div`
   margin-right: auto;
   margin-bottom: 80px;
   position: relative;
+  @media ${(props) => props.theme.device.desktopL} {
+    margin-bottom: 20px;
+  }
 `;
 export const MainArowLeft = styled.div`
   display: flex;
@@ -258,6 +291,9 @@ export const DisMainPostImgDivImgDiv = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 80px;
+  @media ${(props) => props.theme.device.desktopL} {
+    margin-bottom: 20px;
+  }
 `;
 export const MainHotArtistWrap = styled.div`
   display: flex;
