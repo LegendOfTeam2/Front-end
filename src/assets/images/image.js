@@ -84,8 +84,7 @@ import SingerMarker8 from './positionMarker/SingerMarker8.png';
 import SingerMarker9 from './positionMarker/SingerMarker9.png';
 import SingerMarker10 from './positionMarker/SingerMarker10.png';
 import Promotional from './Promotional.png';
-
-
+import AlbumCover from './AlbumCover.jpeg';
 
 export {
   albumCover_1,
@@ -173,5 +172,6 @@ export {
   SingerMarker9,
   SingerMarker10,
   Promotional,
-  MainBannerMini
+  MainBannerMini,
+  AlbumCover
 };

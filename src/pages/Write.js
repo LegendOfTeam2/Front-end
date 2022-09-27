@@ -77,6 +77,7 @@ import {
   WriteHashTagBox,
   WriteButtonContainer,
 } from '../assets/styles/pages/Write.styled';
+import { Xbox20 } from '../assets/images/image';
 
 const Write = () => {
   const uploadAudio = useUploadStore((state) => state.uploadAudio);
@@ -492,7 +493,7 @@ const Write = () => {
             <WriteInputContainer>
               {view.title ? (
                 <WriteInputIcon onClick={() => deleteText('title')}>
-                  <GrClose className='icon' />
+                  <img src={Xbox20} alt='Xbox' className='icon-cancel' />
                 </WriteInputIcon>
               ) : (
                 <Fragment />
@@ -575,7 +576,7 @@ const Write = () => {
               <WriteTextBox>
                 {view.lyrics ? (
                   <WriteTextIconBox onClick={() => deleteText('lyrics')}>
-                    <GrClose />
+                    <img src={Xbox20} alt='Xbox'/>
                   </WriteTextIconBox>
                 ) : (
                   <Fragment />
@@ -594,7 +595,7 @@ const Write = () => {
               <WriteTextBox>
                 {view.intro ? (
                   <WriteTextIconBox onClick={() => deleteText('intro')}>
-                    <GrClose />
+                    <img src={Xbox20} alt='Xbox'/>
                   </WriteTextIconBox>
                 ) : (
                   <Fragment />
