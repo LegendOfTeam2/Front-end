@@ -32,6 +32,10 @@ export const SignUpBox = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  @media ${(props) => props.theme.device.desktopL} {
+    width: 861px;
+    height: 709px;
+  }
 `;
 export const SignUpIcon = styled.div`
   opacity: 0.3;
