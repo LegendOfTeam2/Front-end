@@ -216,7 +216,7 @@ const SignUp = () => {
   );
 
   const addTag = useCallback(
-    (event) => {
+    debounce((event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
         if (event.target.value.length > 0) {
@@ -239,7 +239,7 @@ const SignUp = () => {
         }
       }
 
-      if (event.keyCode === 9) {
+      if (event.key === 'Tab') {
         event.preventDefault();
         if (event.target.value.length > 0) {
           if (
@@ -260,8 +260,8 @@ const SignUp = () => {
           }
         }
       }
-    },
-    [values.tags]
+    }, 10),
+    []
   );
 
   const removeTag = useCallback(
@@ -1070,7 +1070,7 @@ const SignUp = () => {
                   <Fragment />
                 ) : (
                   <SignUpBoxTagBox>
-                    {values.tags.reverse().map((tag) => {
+                    {[...values.tags].reverse().map((tag) => {
                       return (
                         <HashTagWithIcon
                           key={shortid.generate()}

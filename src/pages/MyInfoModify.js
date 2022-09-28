@@ -13,6 +13,9 @@ import jwt_decode from 'jwt-decode';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Utils
+import { getCookie, removeCookie } from '../utils/cookie';
+
 // Components
 import UploadImage from '../components/UploadImage';
 import HashTagWithIcon from '../components/HashTagWithIcon';
@@ -20,9 +23,6 @@ import Header from '../components/Header';
 
 // Elements
 import Input from '../elements/Input';
-
-// Utils
-import { getCookie, removeCookie } from '../utils/cookie';
 
 // Assets
 import {

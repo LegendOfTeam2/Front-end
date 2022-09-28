@@ -1,0 +1,32 @@
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 630px;
+  height: 990px;
+  border-radius: 20px;
+  background-color: rgba(27, 30, 47, 0.8);
+  border: 1px solid #28ca72;
+  overflow-y: scroll;
+}
+.modal::-webkit-scrollbar  {
+  display: none;
+}
+
+@media (max-width: 1920px) {
+  .modal {
+    width: 480px;
+    height: 480px;
+  }
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(20, 20, 20, 0.75);
+}

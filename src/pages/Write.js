@@ -13,13 +13,14 @@ import { SiBeatsbydre } from 'react-icons/si';
 import { BsFillFileEarmarkMusicFill } from 'react-icons/bs';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
-import { getCookie } from '../utils/cookie';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useMediaQuery } from 'react-responsive';
+import shortid from 'shortid';
+import { debounce } from 'lodash';
 
 // Components
 import UploadImage from '../components/UploadImage';
@@ -29,6 +30,9 @@ import WriteModal from '../components/modal/WriteModal';
 // Elements
 import Input from '../elements/Input';
 import Button from '../elements/Button';
+
+// Utils
+import { getCookie } from '../utils/cookie';
 
 // Essets
 import {
@@ -257,7 +261,7 @@ const Write = () => {
   };
 
   const addTag = useCallback(
-    (event) => {
+    debounce((event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
         if (event.target.value.length > 0) {
@@ -280,7 +284,7 @@ const Write = () => {
         }
       }
 
-      if (event.keyCode === 9) {
+      if (event.key === 'Tab') {
         event.preventDefault();
         if (event.target.value.length > 0) {
           if (
@@ -301,7 +305,7 @@ const Write = () => {
           }
         }
       }
-    },
+    }, 10),
     [values.tags]
   );
 
@@ -309,7 +313,7 @@ const Write = () => {
     (removedTag) => {
       const newTags = values.tags.filter((tag) => tag !== removedTag);
       setValues((prev) => {
-        return { ...prev, tags: newTags };
+        return { ...prev, tags: newTags.reverse() };
       });
     },
     [values.tags]
@@ -576,7 +580,7 @@ const Write = () => {
               <WriteTextBox>
                 {view.lyrics ? (
                   <WriteTextIconBox onClick={() => deleteText('lyrics')}>
-                    <img src={Xbox20} alt='Xbox'/>
+                    <img src={Xbox20} alt='Xbox' />
                   </WriteTextIconBox>
                 ) : (
                   <Fragment />
@@ -595,7 +599,7 @@ const Write = () => {
               <WriteTextBox>
                 {view.intro ? (
                   <WriteTextIconBox onClick={() => deleteText('intro')}>
-                    <img src={Xbox20} alt='Xbox'/>
+                    <img src={Xbox20} alt='Xbox' />
                   </WriteTextIconBox>
                 ) : (
                   <Fragment />
@@ -669,10 +673,10 @@ const Write = () => {
                   {values.tags.length === 0 ? (
                     <Fragment />
                   ) : (
-                    values.tags.reverse().map((tag, idx) => {
+                    [...values.tags].reverse().map((tag) => {
                       return (
                         <HashTagWithIcon
-                          key={idx}
+                          key={shortid.generate()}
                           tag={tag}
                           removeTag={removeTag}
                         />

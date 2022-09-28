@@ -1,6 +1,5 @@
 // React
 import { Fragment, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 
 // Zustand
 import useMyPageStore from '../zustand/mypage';
@@ -18,6 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import jwt_decode from 'jwt-decode';
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // Utils
 import { getCookie } from '../utils/cookie';
