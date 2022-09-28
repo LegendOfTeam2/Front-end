@@ -21,11 +21,11 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-// Components
-import Header from '../components/Header';
-
 // Utils
 import { getCookie } from '../utils/cookie';
+
+// Components
+import Header from '../components/Header';
 
 // Assests
 import {

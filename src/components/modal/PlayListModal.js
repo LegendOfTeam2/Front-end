@@ -33,7 +33,8 @@ import {
   ListModalTopDiv,
   XboxDiv,
 } from '../../assets/styles/components/modal/PlayListModal.styled';
-import { Hide, Share38, Xbox20 } from '../../assets/images/image';
+import '../../assets/styles/components/modal/PlayListModal.css';
+import { Share38, Xbox20 } from '../../assets/images/image';
 import { getCookie } from '../../utils/cookie';
 
 const PlayListModal = ({ ModalList }) => {
@@ -60,7 +61,7 @@ const PlayListModal = ({ ModalList }) => {
   const location = useLocation().pathname.split('/')[2];
 
   const playListClose = () => {
-    playListModalHandle(false);
+    playListModalHandle();
   };
 
   const customStyles = {
@@ -109,75 +110,128 @@ const PlayListModal = ({ ModalList }) => {
   };
 
   return (
-    <ReactModal isOpen={playListModalState} style={customStyles}>
-      {ModalList !== undefined ? (
-        <ListModalContainer>
-          <XboxDiv onClick={playListClose}>
-            <img src={Xbox20} alt='Xbox' />
-          </XboxDiv>
-          <ListModalTopDiv>
-            <ListModalTitleSpan>{ModalList.title}</ListModalTitleSpan>
-            <ListModalNicknameSpan>{ModalList.nickname}</ListModalNicknameSpan>
-          </ListModalTopDiv>
-          <ListModalImgDiv>
-            <ListModalImg
-              src={
-                ModalList.imageUrl === null
-                  ? profileImgArr[random]
-                  : ModalList.imageUrl === ''
-                  ? profileImgArr[random]
-                  : ModalList.imageUrl
-              }
-              alt='리스트 이미지'
-            />
-          </ListModalImgDiv>
-          <ListModalMidDiv>
-            <ListModalMidDivDiv>
-              <ListModalMidDivSpan>소개글</ListModalMidDivSpan>
-            </ListModalMidDivDiv>
-          </ListModalMidDiv>
-          <ListModalLyrics>
-            <ListModalLyricsSpan>{ModalList.lyrics}</ListModalLyricsSpan>
-          </ListModalLyrics>
-          <ListModalProfileDiv>
-            <ListModalProfileDivDiv>
-              {getCookie('authorization') !== undefined ? (
-                <ListModalProfileImg
-                  src={
-                    ModalList.memberImageUrl === null
-                      ? profileImgArr[random]
-                      : ModalList.memberImageUrl === ''
-                      ? profileImgArr[random]
-                      : ModalList.memberImageUrl
-                  }
-                  alt='프로필 이미지'
-                />
-              ) : (
-                <></>
-              )}
+    // <ReactModal isOpen={playListModalState} style={customStyles}>
+    //   {ModalList !== undefined ? (
+    //     <ListModalContainer>
+    //       <XboxDiv onClick={playListClose}>
+    //         <img src={Xbox20} alt='Xbox' />
+    //       </XboxDiv>
+    //       <ListModalTopDiv>
+    //         <ListModalTitleSpan>{ModalList.title}</ListModalTitleSpan>
+    //         <ListModalNicknameSpan>{ModalList.nickname}</ListModalNicknameSpan>
+    //       </ListModalTopDiv>
+    //       <ListModalImgDiv>
+    //         <ListModalImg
+    //           src={
+    //             ModalList.imageUrl === null
+    //               ? profileImgArr[random]
+    //               : ModalList.imageUrl === ''
+    //               ? profileImgArr[random]
+    //               : ModalList.imageUrl
+    //           }
+    //           alt='리스트 이미지'
+    //         />
+    //       </ListModalImgDiv>
+    //       <ListModalMidDiv>
+    //         <ListModalMidDivDiv>
+    //           <ListModalMidDivSpan>소개글</ListModalMidDivSpan>
+    //         </ListModalMidDivDiv>
+    //       </ListModalMidDiv>
+    //       <ListModalLyrics>
+    //         <ListModalLyricsSpan>{ModalList.lyrics}</ListModalLyricsSpan>
+    //       </ListModalLyrics>
+    //       <ListModalProfileDiv>
+    //         <ListModalProfileDivDiv>
+    //           {getCookie('authorization') !== undefined ? (
+    //             <ListModalProfileImg
+    //               src={
+    //                 ModalList.memberImageUrl === null
+    //                   ? profileImgArr[random]
+    //                   : ModalList.memberImageUrl === ''
+    //                   ? profileImgArr[random]
+    //                   : ModalList.memberImageUrl
+    //               }
+    //               alt='프로필 이미지'
+    //             />
+    //           ) : (
+    //             <></>
+    //           )}
 
-              <ListModalProfileNickname>
+    //           <ListModalProfileNickname>
+    <Fragment>
+      <div className='background' />
+      <ReactModal isOpen={playListModalState} className='modal'>
+        {ModalList !== undefined ? (
+          <ListModalContainer>
+            <XboxDiv onClick={playListClose}>
+              <img src={Xbox20} alt='Xbox' />
+            </XboxDiv>
+            <ListModalTopDiv>
+              <ListModalTitleSpan>{ModalList.title}</ListModalTitleSpan>
+              <ListModalNicknameSpan>
                 {ModalList.nickname}
-              </ListModalProfileNickname>
+              </ListModalNicknameSpan>
+            </ListModalTopDiv>
+            <ListModalImgDiv>
+              <ListModalImg
+                src={
+                  ModalList.imageUrl === null
+                    ? profileImgArr[random]
+                    : ModalList.imageUrl === ''
+                    ? profileImgArr[random]
+                    : ModalList.imageUrl
+                }
+                alt='리스트 이미지'
+              />
+            </ListModalImgDiv>
+            <ListModalMidDiv>
+              <ListModalMidDivDiv>
+                <ListModalMidDivSpan>소개글</ListModalMidDivSpan>
+              </ListModalMidDivDiv>
+            </ListModalMidDiv>
+            <ListModalLyrics>
+              <ListModalLyricsSpan>{ModalList.lyrics}</ListModalLyricsSpan>
+            </ListModalLyrics>
+            <ListModalProfileDiv>
+              <ListModalProfileDivDiv>
+                {getCookie('authorization') !== undefined ? (
+                  <ListModalProfileImg
+                    src={
+                      ModalList.memberImageUrl === null
+                        ? profileImgArr[random]
+                        : ModalList.memberImageUrl === ''
+                        ? profileImgArr[random]
+                        : ModalList.memberImageUrl
+                    }
+                    alt='프로필 이미지'
+                  />
+                ) : (
+                  <></>
+                )}
 
-              <ListModalProfileDetail>
-                <ListModalProfileDetailTop onClick={ProfilPage}>
-                  아티스트 보기
-                </ListModalProfileDetailTop>
-              </ListModalProfileDetail>
-            </ListModalProfileDivDiv>
-          </ListModalProfileDiv>
-          <ListModalBtnDiv>
-            <ListModalBtnRight onClick={clip}>
-              <img src={Share38} alt='공유하기' />
-              <ListModalBtnSpan>공유하기</ListModalBtnSpan>
-            </ListModalBtnRight>
-          </ListModalBtnDiv>
-        </ListModalContainer>
-      ) : (
-        <Fragment />
-      )}
-    </ReactModal>
+                <ListModalProfileNickname>
+                  {ModalList.nickname}
+                </ListModalProfileNickname>
+
+                <ListModalProfileDetail>
+                  <ListModalProfileDetailTop onClick={ProfilPage}>
+                    아티스트 보기
+                  </ListModalProfileDetailTop>
+                </ListModalProfileDetail>
+              </ListModalProfileDivDiv>
+            </ListModalProfileDiv>
+            <ListModalBtnDiv>
+              <ListModalBtnRight onClick={clip}>
+                <img src={Share38} alt='공유하기' />
+                <ListModalBtnSpan>공유하기</ListModalBtnSpan>
+              </ListModalBtnRight>
+            </ListModalBtnDiv>
+          </ListModalContainer>
+        ) : (
+          <Fragment />
+        )}
+      </ReactModal>
+    </Fragment>
   );
 };
 

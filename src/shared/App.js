@@ -1,5 +1,5 @@
 // React
-import { lazy, Suspense, Fragment } from 'react';
+import React, { lazy, Suspense, Fragment, useMemo } from 'react';
 
 // Zustand
 import useMemberStore from '../zustand/member';
@@ -42,7 +42,7 @@ function App() {
   const is_login = getCookie('authorization');
   const changeLoginStatus = useMemberStore((state) => state.changeLoginStatus);
 
-  let location = useLocation().pathname.split('/')[1];
+  const location = useLocation().pathname.split('/')[1];
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {

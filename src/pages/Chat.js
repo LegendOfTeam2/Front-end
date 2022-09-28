@@ -11,6 +11,9 @@ import jwt_decode from 'jwt-decode';
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
+// Utils
+import { getCookie } from '../utils/cookie';
+
 // Components
 import Header from '../components/Header';
 import Message from '../components/Message';
@@ -18,9 +21,6 @@ import ChatMember from '../components/ChatMember';
 
 // Elements
 import Button from '../elements/Button';
-
-// Utils
-import { getCookie } from '../utils/cookie';
 
 // Assets
 import {

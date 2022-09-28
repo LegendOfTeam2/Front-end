@@ -239,7 +239,7 @@ const SignUp = () => {
         }
       }
 
-      if (event.keyCode === 9) {
+      if (event.key === 'Tab') {
         event.preventDefault();
         if (event.target.value.length > 0) {
           if (
@@ -261,7 +261,7 @@ const SignUp = () => {
         }
       }
     }, 10),
-    [values.tags]
+    []
   );
 
   const removeTag = useCallback(
@@ -1070,7 +1070,7 @@ const SignUp = () => {
                   <Fragment />
                 ) : (
                   <SignUpBoxTagBox>
-                    {values.tags.reverse().map((tag) => {
+                    {[...values.tags].reverse().map((tag) => {
                       return (
                         <HashTagWithIcon
                           key={shortid.generate()}

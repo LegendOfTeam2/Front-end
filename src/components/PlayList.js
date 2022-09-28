@@ -34,8 +34,9 @@ const PlayList = () => {
   const playListStateChange = usePlayerStore(
     (state) => state.playListStateChange
   );
-  const playListModalHandle = usePlayerStore((state) => state.playListModalHandle);
-
+  const playListModalHandle = usePlayerStore(
+    (state) => state.playListModalHandle
+  );
 
   const playListMember = usePlayerStore((state) => state.playListMember);
   const singerIsLikeIsLoaded = useLikeStore(
@@ -60,7 +61,6 @@ const PlayList = () => {
   const onCancel = () => {
     setOpen(false);
   };
-
 
   const listModalOpen = (postId) => {
     const filterListMember = playListMember.filter((x) => x.postId === postId);
@@ -97,9 +97,7 @@ const PlayList = () => {
         onCancel={onCancel}
         playListMemberLength={playListMember.length}
       />
-      <PlayListModal
-        ModalList={modalList}
-      />
+      <PlayListModal ModalList={modalList} />
 
       <PlayListContainer>
         <XboxDiv onClick={xboxClick}>
