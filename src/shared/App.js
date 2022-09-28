@@ -17,6 +17,7 @@ import Loading from '../components/Loading';
 import { getCookie } from '../utils/cookie';
 import { useEffect } from 'react';
 import PlayerMain from '../components/audioplayer/PlayerMain';
+import usePlayerStore from '../zustand/player';
 
 // Pages -Lazy
 const Main = lazy(() => import('../pages/Main'));
@@ -65,7 +66,8 @@ function App() {
           path='/write'
           element={is_login !== undefined ? <Write /> : <Main />}
         />
-        <Route path='/Promotional' element={<PromotionalPage />} />
+        <Route path='/promotional' element={<PromotionalPage />} />
+
         <Route
           path='/ModifyWrite/:position/:postId'
           element={is_login !== undefined ? <WriteModify /> : <Main />}
@@ -85,6 +87,7 @@ function App() {
           path='/chat'
           element={is_login !== undefined ? <Chat /> : <Main />}
         />
+
         <Route path='*' element={<Main />} />
       </Routes>
       {location === '' ||

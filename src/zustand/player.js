@@ -19,6 +19,7 @@ const usePlayerStore = create((set) => ({
 
   playList: [],
   currentSong: {},
+  playListModalState: false,
 
   viewStateChange: (state) => {
     set({ viewState: state });
@@ -89,6 +90,9 @@ const usePlayerStore = create((set) => ({
     set({ playList: [] });
     set({ currentSong: {} });
   },
+  playListModalHandle: (payload)=>{
+    set({playListModalState: payload})
+  }
 }));
 
 export default usePlayerStore;

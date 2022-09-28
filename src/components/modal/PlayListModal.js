@@ -1,6 +1,6 @@
 // React
 import { Fragment, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // Zustand
 import usePlayerStore from '../../zustand/player';
@@ -37,21 +37,31 @@ import '../../assets/styles/components/modal/PlayListModal.css';
 import { Share38, Xbox20 } from '../../assets/images/image';
 import { getCookie } from '../../utils/cookie';
 
-const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
+const PlayListModal = ({ ModalList }) => {
   const playListStateChange = usePlayerStore(
     (state) => state.playListStateChange
   );
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
+  const playListModalState = usePlayerStore(
+    (state) => state.playListModalState
+  );
+  const playListModalHandle = usePlayerStore(
+    (state) => state.playListModalHandle
+  );
+
+  
+
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery({
     query: '(max-width: 1920px)',
   });
+  
+  const location = useLocation().pathname.split('/')[2];
 
   const playListClose = () => {
-    console.log('test');
-    playListCancel();
+    playListModalHandle();
   };
 
   const customStyles = {
@@ -92,15 +102,65 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
   };
 
   const ProfilPage = () => {
+    if (location === ModalList.nickname) {
+      playListModalHandle(false)
+    }
     playListStateChange(false);
-    playListCancel();
     navigate(`/mypage/${ModalList.nickname}`);
   };
 
   return (
+    // <ReactModal isOpen={playListModalState} style={customStyles}>
+    //   {ModalList !== undefined ? (
+    //     <ListModalContainer>
+    //       <XboxDiv onClick={playListClose}>
+    //         <img src={Xbox20} alt='Xbox' />
+    //       </XboxDiv>
+    //       <ListModalTopDiv>
+    //         <ListModalTitleSpan>{ModalList.title}</ListModalTitleSpan>
+    //         <ListModalNicknameSpan>{ModalList.nickname}</ListModalNicknameSpan>
+    //       </ListModalTopDiv>
+    //       <ListModalImgDiv>
+    //         <ListModalImg
+    //           src={
+    //             ModalList.imageUrl === null
+    //               ? profileImgArr[random]
+    //               : ModalList.imageUrl === ''
+    //               ? profileImgArr[random]
+    //               : ModalList.imageUrl
+    //           }
+    //           alt='리스트 이미지'
+    //         />
+    //       </ListModalImgDiv>
+    //       <ListModalMidDiv>
+    //         <ListModalMidDivDiv>
+    //           <ListModalMidDivSpan>소개글</ListModalMidDivSpan>
+    //         </ListModalMidDivDiv>
+    //       </ListModalMidDiv>
+    //       <ListModalLyrics>
+    //         <ListModalLyricsSpan>{ModalList.lyrics}</ListModalLyricsSpan>
+    //       </ListModalLyrics>
+    //       <ListModalProfileDiv>
+    //         <ListModalProfileDivDiv>
+    //           {getCookie('authorization') !== undefined ? (
+    //             <ListModalProfileImg
+    //               src={
+    //                 ModalList.memberImageUrl === null
+    //                   ? profileImgArr[random]
+    //                   : ModalList.memberImageUrl === ''
+    //                   ? profileImgArr[random]
+    //                   : ModalList.memberImageUrl
+    //               }
+    //               alt='프로필 이미지'
+    //             />
+    //           ) : (
+    //             <></>
+    //           )}
+
+    //           <ListModalProfileNickname>
     <Fragment>
       <div className='background' />
-      <ReactModal isOpen={modalOpen} className='modal'>
+      <ReactModal isOpen={playListModalState} className='modal'>
         {ModalList !== undefined ? (
           <ListModalContainer>
             <XboxDiv onClick={playListClose}>

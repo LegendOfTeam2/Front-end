@@ -91,6 +91,7 @@ import {
   MakerMarker9,
   MakerMarker10,
 } from '../assets/images/image';
+import usePlayerStore from '../zustand/player';
 
 const MyPage = () => {
   const mainPost = useMyPageStore((state) => state.mainPost);
@@ -132,6 +133,10 @@ const MyPage = () => {
 
   const makeRoom = useChatStore((state) => state.makeRoom);
 
+  const playListModalHandle = usePlayerStore(
+    (state) => state.playListModalHandle
+  );
+
   const [category, setCategory] = useState('upload');
   const [isFollow, setIsFollow] = useState(false);
   const [isSingerMarker, setSingerMarker] = useState();
@@ -151,6 +156,7 @@ const MyPage = () => {
   };
 
   useEffect(() => {
+    playListModalHandle(false);
     getFollowerList().then((res) => {
       if (res.success) {
         const tempFollowerArr = res.data.map((element) => {

@@ -31,10 +31,13 @@ import { getCookie } from '../utils/cookie';
 
 const PlayList = () => {
   const playListState = usePlayerStore((state) => state.playListState);
-
   const playListStateChange = usePlayerStore(
     (state) => state.playListStateChange
   );
+  const playListModalHandle = usePlayerStore(
+    (state) => state.playListModalHandle
+  );
+
   const playListMember = usePlayerStore((state) => state.playListMember);
   const singerIsLikeIsLoaded = useLikeStore(
     (state) => state.singerIsLikeIsLoaded
@@ -45,7 +48,6 @@ const PlayList = () => {
   const playList = usePlayerStore((state) => state.playList);
 
   const [isOpen, setOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
   const [modalList, setModalList] = useState();
 
   const xboxClick = () => {
@@ -58,10 +60,6 @@ const PlayList = () => {
 
   const onCancel = () => {
     setOpen(false);
-  };
-
-  const playListCancel = () => {
-    setModalOpen(false);
   };
 
   const listModalOpen = (postId) => {
@@ -89,7 +87,7 @@ const PlayList = () => {
         position: fillterList[0].position,
       });
     }
-    setModalOpen(true);
+    playListModalHandle(true);
   };
 
   return (
@@ -99,11 +97,7 @@ const PlayList = () => {
         onCancel={onCancel}
         playListMemberLength={playListMember.length}
       />
-      <PlayListModal
-        modalOpen={modalOpen}
-        playListCancel={playListCancel}
-        ModalList={modalList}
-      />
+      <PlayListModal ModalList={modalList} />
 
       <PlayListContainer>
         <XboxDiv onClick={xboxClick}>

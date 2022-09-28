@@ -1,7 +1,11 @@
 // React
 import { Fragment } from 'react';
+
+// Components
 import Header from '../components/Header';
 
+
+// Assets
 import styled from 'styled-components';
 import { Promotional } from '../assets/images/image';
 

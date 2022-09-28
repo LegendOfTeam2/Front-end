@@ -1,5 +1,5 @@
 // React
-import { useState, useRef, useEffect, useCallback, Fragment } from 'react';
+import { useState, useRef, useEffect, Fragment } from 'react';
 // Zustand
 import usePlayerStore from '../../zustand/player';
 // Utils
@@ -170,7 +170,6 @@ function PlayerMain() {
         if (currentSong.postId === playList[0].postId) {
           if (playing) {
             setPlaying(true);
-            // audio.play();
           }
         }
       }
@@ -226,16 +225,51 @@ function PlayerMain() {
       }
     }
   }, [viewState, playing, setPlaying, setIsAutoplay]);
+
+  const callback = () => {
+    const random = Math.floor(Math.random() * playList.length);
+    if (playList[random].postId !== currentSong.postId) {
+      setCurrentSong(playList[random]);
+      audioRef.current.currentTime = 0;
+      setIsAutoplay(true);
+    } else {
+      const filterRandom = playList.filter(
+        (x) => x.postId !== currentSong.postId
+      );
+      const retryRandom = Math.floor(Math.random() * filterRandom.length);
+      setCurrentSong(filterRandom[retryRandom]);
+      audioRef.current.currentTime = 0;
+      setIsAutoplay(true);
+    }
+  };
+
+  const callbackMember = () => {
+    if (playListMemberIsLoaded) {
+      const random = Math.floor(Math.random() * playListMember.length);
+      if (playListMember[random].postId !== currentSongMember.postId) {
+        setCurrentSongMember(playListMember[random]);
+        audioRef.current.currentTime = 0;
+        setIsAutoplay(true);
+      } else {
+        const filterRandom = playListMember.filter(
+          (x) => x.postId !== playListMember[random].postId
+        );
+        const retryRandom = Math.floor(Math.random() * filterRandom.length);
+        setCurrentSongMember(filterRandom[retryRandom]);
+        audioRef.current.currentTime = 0;
+        setIsAutoplay(true);
+      }
+    }
+  };
+
   useEffect(() => {
-    const index = playList.indexOf(playList[0]);
     if (getCookie('authorization') !== undefined) {
       if (playListMemberIsLoaded) {
         const audioEnd = audioRef.current.ended;
-        const indexMember = playListMember.indexOf(playListMember[0]);
 
         if (audioEnd) {
           if (isRandom) {
-            callbackMember(indexMember);
+            callbackMember();
           } else {
             skipNext();
           }
@@ -245,51 +279,20 @@ function PlayerMain() {
       const audioEnd = audioRef.current.ended;
       if (audioEnd) {
         if (isRandom) {
-          callback(index);
+          callback();
         } else {
           skipNext();
         }
       }
     }
-  }, [percentage, isRandom, playing, playListMemberIsLoaded, playListMember]);
-
-  const callback = useCallback(
-    (index) => {
-      const random = Math.floor(Math.random() * playList.length);
-      if (random !== index) {
-        setCurrentSong(playList[random]);
-        audioRef.current.currentTime = 0;
-        setIsAutoplay(true);
-      } else {
-        const filterRandom = playList.filter((x) => x.id !== random);
-        const retryRandom = Math.floor(Math.random() * filterRandom.length);
-        setCurrentSong(filterRandom[retryRandom]);
-        audioRef.current.currentTime = 0;
-        setIsAutoplay(true);
-      }
-    },
-    [isRandom]
-  );
-
-  const callbackMember = useCallback(
-    (indexMember) => {
-      if (playListMemberIsLoaded) {
-        const random = Math.floor(Math.random() * playListMember.length);
-        if (random !== indexMember) {
-          setCurrentSongMember(playListMember[random]);
-          audioRef.current.currentTime = 0;
-          setIsAutoplay(true);
-        } else {
-          const filterRandom = playListMember.filter((x) => x.id !== random);
-          const retryRandom = Math.floor(Math.random() * filterRandom.length);
-          setCurrentSongMember(filterRandom[retryRandom]);
-          audioRef.current.currentTime = 0;
-          setIsAutoplay(true);
-        }
-      }
-    },
-    [isRandom]
-  );
+  }, [
+    percentage,
+    isRandom,
+    playing,
+    playListMemberIsLoaded,
+    playListMember,
+    playList,
+  ]);
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
@@ -379,12 +382,12 @@ function PlayerMain() {
   };
 
   const skipNext = () => {
-    const index = playList.findIndex((x) => x.title === currentSong.title);
+    const index = playList.findIndex((x) => x.postId === currentSong.postId);
 
     if (getCookie('authorization') !== undefined) {
       if (playListMemberIsLoaded) {
         const indexMember = playListMember.findIndex(
-          (x) => x.title === currentSongMember.title
+          (x) => x.postId === currentSongMember.postId
         );
         if (indexMember === playListMember.length - 1) {
           setCurrentSongMember(playListMember[0]);
@@ -637,13 +640,38 @@ function PlayerMain() {
                   </MidDiv>
                 )}
                 <BtnContainer>
-                  <IconImgHover onClick={RandomPlay}>
-                    {isRandom ? (
-                      <img src={RandomIcon} alt='랜덤' />
+                  {getCookie('authorization') !== undefined ? (
+                    playListMemberIsLoaded ? (
+                      playListMember.length > 2 ? (
+                        <IconImgHover onClick={RandomPlay}>
+                          {isRandom ? (
+                            <img src={RandomIcon} alt='랜덤' />
+                          ) : (
+                            <img src={DisRandomIcon} alt='램덤아닐때' />
+                          )}
+                        </IconImgHover>
+                      ) : (
+                        <IconImgHover>
+                          <img src={DisRandomIcon} alt='램덤아닐때' />
+                        </IconImgHover>
+                      )
                     ) : (
+                      <Fragment />
+                    )
+                  ) : playList.length > 2 ? (
+                    <IconImgHover onClick={RandomPlay}>
+                      {isRandom ? (
+                        <img src={RandomIcon} alt='랜덤' />
+                      ) : (
+                        <img src={DisRandomIcon} alt='램덤아닐때' />
+                      )}
+                    </IconImgHover>
+                  ) : (
+                    <IconImgHover>
                       <img src={DisRandomIcon} alt='램덤아닐때' />
-                    )}
-                  </IconImgHover>
+                    </IconImgHover>
+                  )}
+
                   <IconImgHover>
                     {getCookie('authorization') !== undefined ? (
                       playListMember.length > 0 ? (
