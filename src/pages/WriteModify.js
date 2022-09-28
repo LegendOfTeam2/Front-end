@@ -32,7 +32,7 @@ import SuccessModal from '../components/modal/SuccessModal';
 import Input from '../elements/Input';
 import Button from '../elements/Button';
 
-// Essets
+// Assests
 import {
   WriteContainer,
   WriteBox,

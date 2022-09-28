@@ -111,7 +111,7 @@ const Header = () => {
   };
 
   const goToPromotional = () => {
-    navigate(`/Promotional`)
+    navigate(`/promotional`)
   }
 
   return (

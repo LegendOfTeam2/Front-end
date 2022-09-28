@@ -31,10 +31,12 @@ import { getCookie } from '../utils/cookie';
 
 const PlayList = () => {
   const playListState = usePlayerStore((state) => state.playListState);
-
   const playListStateChange = usePlayerStore(
     (state) => state.playListStateChange
   );
+  const playListModalHandle = usePlayerStore((state) => state.playListModalHandle);
+
+
   const playListMember = usePlayerStore((state) => state.playListMember);
   const singerIsLikeIsLoaded = useLikeStore(
     (state) => state.singerIsLikeIsLoaded
@@ -45,7 +47,6 @@ const PlayList = () => {
   const playList = usePlayerStore((state) => state.playList);
 
   const [isOpen, setOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
   const [modalList, setModalList] = useState();
 
   const xboxClick = () => {
@@ -56,44 +57,38 @@ const PlayList = () => {
     setOpen(true);
   };
 
-  const onCancel = useCallback(() => {
+  const onCancel = () => {
     setOpen(false);
-  }, [modalOpen]);
+  };
 
-  const playListCancel = useCallback(() => {
-    setModalOpen(false);
-  }, [isOpen]);
 
   const listModalOpen = (postId) => {
     const filterListMember = playListMember.filter((x) => x.postId === postId);
     const fillterList = playList.filter((x) => x.postId === postId);
 
-
-      if (getCookie('authorization') !== undefined) {
-        setModalList({
-          postId: filterListMember[0].postId,
-          title: filterListMember[0].title,
-          nickname: filterListMember[0].nickname,
-          imageUrl: filterListMember[0].imageUrl,
-          lyrics: filterListMember[0].lyrics,
-          memberImageUrl: filterListMember[0].memberImageUrl,
-          position: filterListMember[0].position,
-        });
-      } else {
-        setModalList({
-          postId: fillterList[0].postId,
-          title: fillterList[0].title,
-          nickname: fillterList[0].nickname,
-          imageUrl: fillterList[0].imageUrl,
-          lyrics: fillterList[0].lyrics,
-          memberImageUrl: fillterList[0].memberImageUrl,
-          position: fillterList[0].position,
-        });
-      }
-    setModalOpen(true);
+    if (getCookie('authorization') !== undefined) {
+      setModalList({
+        postId: filterListMember[0].postId,
+        title: filterListMember[0].title,
+        nickname: filterListMember[0].nickname,
+        imageUrl: filterListMember[0].imageUrl,
+        lyrics: filterListMember[0].lyrics,
+        memberImageUrl: filterListMember[0].memberImageUrl,
+        position: filterListMember[0].position,
+      });
+    } else {
+      setModalList({
+        postId: fillterList[0].postId,
+        title: fillterList[0].title,
+        nickname: fillterList[0].nickname,
+        imageUrl: fillterList[0].imageUrl,
+        lyrics: fillterList[0].lyrics,
+        memberImageUrl: fillterList[0].memberImageUrl,
+        position: fillterList[0].position,
+      });
+    }
+    playListModalHandle(true);
   };
-
-  console.log(playList);
 
   return (
     <PlayListAllContainer ListyIndex={playListState ? 'flex' : 'none'}>
@@ -103,8 +98,6 @@ const PlayList = () => {
         playListMemberLength={playListMember.length}
       />
       <PlayListModal
-        modalOpen={modalOpen}
-        playListCancel={playListCancel}
         ModalList={modalList}
       />
 

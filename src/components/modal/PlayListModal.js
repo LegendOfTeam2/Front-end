@@ -1,6 +1,6 @@
 // React
 import { Fragment, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // Zustand
 import usePlayerStore from '../../zustand/player';
@@ -24,7 +24,6 @@ import {
   ListModalMidDivSpan,
   ListModalNicknameSpan,
   ListModalProfileDetail,
-  ListModalProfileDetailBtm,
   ListModalProfileDetailTop,
   ListModalProfileDiv,
   ListModalProfileDivDiv,
@@ -34,29 +33,40 @@ import {
   ListModalTopDiv,
   XboxDiv,
 } from '../../assets/styles/components/modal/PlayListModal.styled';
-import { Share38, Xbox20 } from '../../assets/images/image';
+import { Hide, Share38, Xbox20 } from '../../assets/images/image';
 import { getCookie } from '../../utils/cookie';
 
-const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
+const PlayListModal = ({ ModalList }) => {
   const playListStateChange = usePlayerStore(
     (state) => state.playListStateChange
   );
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
+  const playListModalState = usePlayerStore(
+    (state) => state.playListModalState
+  );
+  const playListModalHandle = usePlayerStore(
+    (state) => state.playListModalHandle
+  );
+
+  
+
   const navigate = useNavigate();
   const isSmallScreen = useMediaQuery({
     query: '(max-width: 1920px)',
   });
+  
+  const location = useLocation().pathname.split('/')[2];
 
   const playListClose = () => {
-    playListCancel();
+    playListModalHandle(false);
   };
 
   const customStyles = {
     overlay: {
       position: 'fixed',
-      top: isSmallScreen ? '130px': '0',
+      top: isSmallScreen ? '130px' : '0',
       left: 0,
       right: 0,
       bottom: 0,
@@ -67,8 +77,8 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      width: isSmallScreen ? '480px':'630px',
-      height: isSmallScreen ? '480px':'990px',
+      width: isSmallScreen ? '480px' : '630px',
+      height: isSmallScreen ? '480px' : '990px',
       borderRadius: '20px',
       backgroundColor: 'rgba(27, 30, 47, 0.8)',
       border: '1px solid #28ca72',
@@ -91,13 +101,15 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
   };
 
   const ProfilPage = () => {
-    navigate(`/mypage/${ModalList.nickname}`);
-    playListCancel();
+    if (location === ModalList.nickname) {
+      playListModalHandle(false)
+    }
     playListStateChange(false);
+    navigate(`/mypage/${ModalList.nickname}`);
   };
 
   return (
-    <ReactModal isOpen={modalOpen} style={customStyles}>
+    <ReactModal isOpen={playListModalState} style={customStyles}>
       {ModalList !== undefined ? (
         <ListModalContainer>
           <XboxDiv onClick={playListClose}>

@@ -7,7 +7,6 @@ import useLikeStore from '../zustand/like';
 
 // Packages
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
-import Post from '../components/Post';
 import { useNavigate } from 'react-router-dom';
 
 // Utils
@@ -15,6 +14,7 @@ import { getCookie } from '../utils/cookie';
 
 // Components
 import Header from '../components/Header';
+import Post from '../components/Post';
 
 // Assets
 import {

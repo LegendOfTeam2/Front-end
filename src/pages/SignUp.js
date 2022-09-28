@@ -216,7 +216,7 @@ const SignUp = () => {
   );
 
   const addTag = useCallback(
-    (event) => {
+    debounce((event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
         if (event.target.value.length > 0) {
@@ -260,7 +260,7 @@ const SignUp = () => {
           }
         }
       }
-    },
+    }, 10),
     [values.tags]
   );
 

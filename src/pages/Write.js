@@ -30,7 +30,7 @@ import WriteModal from '../components/modal/WriteModal';
 import Input from '../elements/Input';
 import Button from '../elements/Button';
 
-// Essets
+// Assests
 import {
   WriteContainer,
   WriteBox,
