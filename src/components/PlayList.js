@@ -56,44 +56,41 @@ const PlayList = () => {
     setOpen(true);
   };
 
-  const onCancel = useCallback(() => {
+  const onCancel = () => {
     setOpen(false);
-  }, [modalOpen]);
+  };
 
-  const playListCancel = useCallback(() => {
+  const playListCancel = () => {
     setModalOpen(false);
-  }, [isOpen]);
+  };
 
   const listModalOpen = (postId) => {
     const filterListMember = playListMember.filter((x) => x.postId === postId);
     const fillterList = playList.filter((x) => x.postId === postId);
 
-
-      if (getCookie('authorization') !== undefined) {
-        setModalList({
-          postId: filterListMember[0].postId,
-          title: filterListMember[0].title,
-          nickname: filterListMember[0].nickname,
-          imageUrl: filterListMember[0].imageUrl,
-          lyrics: filterListMember[0].lyrics,
-          memberImageUrl: filterListMember[0].memberImageUrl,
-          position: filterListMember[0].position,
-        });
-      } else {
-        setModalList({
-          postId: fillterList[0].postId,
-          title: fillterList[0].title,
-          nickname: fillterList[0].nickname,
-          imageUrl: fillterList[0].imageUrl,
-          lyrics: fillterList[0].lyrics,
-          memberImageUrl: fillterList[0].memberImageUrl,
-          position: fillterList[0].position,
-        });
-      }
+    if (getCookie('authorization') !== undefined) {
+      setModalList({
+        postId: filterListMember[0].postId,
+        title: filterListMember[0].title,
+        nickname: filterListMember[0].nickname,
+        imageUrl: filterListMember[0].imageUrl,
+        lyrics: filterListMember[0].lyrics,
+        memberImageUrl: filterListMember[0].memberImageUrl,
+        position: filterListMember[0].position,
+      });
+    } else {
+      setModalList({
+        postId: fillterList[0].postId,
+        title: fillterList[0].title,
+        nickname: fillterList[0].nickname,
+        imageUrl: fillterList[0].imageUrl,
+        lyrics: fillterList[0].lyrics,
+        memberImageUrl: fillterList[0].memberImageUrl,
+        position: fillterList[0].position,
+      });
+    }
     setModalOpen(true);
   };
-
-  console.log(playList);
 
   return (
     <PlayListAllContainer ListyIndex={playListState ? 'flex' : 'none'}>

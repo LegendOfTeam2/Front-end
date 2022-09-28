@@ -129,6 +129,9 @@ export const ListModalLyricsSpan = styled.span`
     font-weight: ${(props) => props.theme.fontWeight.Medium};
     font-size: ${(props) => props.theme.fontSizes.xs};
   }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const ListModalProfileDiv = styled.div`

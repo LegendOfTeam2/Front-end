@@ -1,5 +1,5 @@
 // React
-import { lazy, Suspense, Fragment } from 'react';
+import React, { lazy, Suspense, Fragment, useMemo } from 'react';
 
 // Zustand
 import useMemberStore from '../zustand/member';
@@ -41,7 +41,7 @@ function App() {
   const is_login = getCookie('authorization');
   const changeLoginStatus = useMemberStore((state) => state.changeLoginStatus);
 
-  let location = useLocation().pathname.split('/')[1];
+  const location = useLocation().pathname.split('/')[1];
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
@@ -61,9 +61,11 @@ function App() {
         <Route path='/signupcheck' element={<SignUpCheck />} />
         <Route path='/kakao/callback' element={<Kakao />} />
         <Route path='/google/callback' element={<Google />} />
-        <Route path='/write' element={is_login !== undefined ? <Write /> : <Main />} />
+        <Route
+          path='/write'
+          element={is_login !== undefined ? <Write /> : <Main />}
+        />
         <Route path='/Promotional' element={<PromotionalPage />} />
-        
         <Route
           path='/ModifyWrite/:position/:postId'
           element={is_login !== undefined ? <WriteModify /> : <Main />}
@@ -79,8 +81,10 @@ function App() {
           path='/withdrawal'
           element={is_login !== undefined ? <Withdrawal /> : <Main />}
         />
-        <Route path='/chat' element={is_login !== undefined ? <Chat /> : <Main />} />
-
+        <Route
+          path='/chat'
+          element={is_login !== undefined ? <Chat /> : <Main />}
+        />
         <Route path='*' element={<Main />} />
       </Routes>
       {location === '' ||

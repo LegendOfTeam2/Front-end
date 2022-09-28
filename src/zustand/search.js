@@ -8,8 +8,10 @@ const useSearchStore = create((set) => ({
   keyword: '',
   singerSearchIsLoaded: false,
   makerSearchIsLoaded: false,
+  memberSearchIsLoaded: false,
   singerSearchList: [],
   makerSearchList: [],
+  memberSearchList: [],
   setSearchKeyword: (keyword) => {
     set({ keyword: keyword });
   },
@@ -24,10 +26,15 @@ const useSearchStore = create((set) => ({
           set({ singerSearchIsLoaded: resData.data.success });
           set({ singerSearchList: resData.data.data });
         }
-      } else {
+      } else if (position === 'Maker') {
         if (resData.data.data !== []) {
           set({ makerSearchIsLoaded: resData.data.success });
           set({ makerSearchList: resData.data.data });
+        }
+      } else {
+        if (resData.data.data !== []) {
+          set({ memberSearchIsLoaded: resData.data.success });
+          set({ memberSearchList: resData.data.data });
         }
       }
     }

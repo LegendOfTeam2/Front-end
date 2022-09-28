@@ -1,14 +1,20 @@
 // React
 import { Fragment, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+
 // Zustand
 import useLikeStore from '../zustand/like';
 import usePostStore from '../zustand/post';
+
+// Packages
+import { useParams } from 'react-router-dom';
+
+// Utils
+import { getCookie } from '../utils/cookie';
+
 // Components
 import Post from '../components/Post';
 import Header from '../components/Header';
-// Utils
-import { getCookie } from '../utils/cookie';
+
 // Assests
 import {
   MoreBtmDataDiv,

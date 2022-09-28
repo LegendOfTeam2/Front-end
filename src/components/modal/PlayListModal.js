@@ -24,7 +24,6 @@ import {
   ListModalMidDivSpan,
   ListModalNicknameSpan,
   ListModalProfileDetail,
-  ListModalProfileDetailBtm,
   ListModalProfileDetailTop,
   ListModalProfileDiv,
   ListModalProfileDivDiv,
@@ -34,6 +33,7 @@ import {
   ListModalTopDiv,
   XboxDiv,
 } from '../../assets/styles/components/modal/PlayListModal.styled';
+import '../../assets/styles/components/modal/PlayListModal.css';
 import { Share38, Xbox20 } from '../../assets/images/image';
 import { getCookie } from '../../utils/cookie';
 
@@ -50,13 +50,14 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
   });
 
   const playListClose = () => {
+    console.log('test');
     playListCancel();
   };
 
   const customStyles = {
     overlay: {
       position: 'fixed',
-      top: isSmallScreen ? '130px': '0',
+      top: isSmallScreen ? '130px' : '0',
       left: 0,
       right: 0,
       bottom: 0,
@@ -67,8 +68,8 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      width: isSmallScreen ? '480px':'630px',
-      height: isSmallScreen ? '480px':'990px',
+      width: isSmallScreen ? '480px' : '630px',
+      height: isSmallScreen ? '480px' : '990px',
       borderRadius: '20px',
       backgroundColor: 'rgba(27, 30, 47, 0.8)',
       border: '1px solid #28ca72',
@@ -91,81 +92,86 @@ const PlayListModal = ({ modalOpen, playListCancel, ModalList }) => {
   };
 
   const ProfilPage = () => {
-    navigate(`/mypage/${ModalList.nickname}`);
-    playListCancel();
     playListStateChange(false);
+    playListCancel();
+    navigate(`/mypage/${ModalList.nickname}`);
   };
 
   return (
-    <ReactModal isOpen={modalOpen} style={customStyles}>
-      {ModalList !== undefined ? (
-        <ListModalContainer>
-          <XboxDiv onClick={playListClose}>
-            <img src={Xbox20} alt='Xbox' />
-          </XboxDiv>
-          <ListModalTopDiv>
-            <ListModalTitleSpan>{ModalList.title}</ListModalTitleSpan>
-            <ListModalNicknameSpan>{ModalList.nickname}</ListModalNicknameSpan>
-          </ListModalTopDiv>
-          <ListModalImgDiv>
-            <ListModalImg
-              src={
-                ModalList.imageUrl === null
-                  ? profileImgArr[random]
-                  : ModalList.imageUrl === ''
-                  ? profileImgArr[random]
-                  : ModalList.imageUrl
-              }
-              alt='리스트 이미지'
-            />
-          </ListModalImgDiv>
-          <ListModalMidDiv>
-            <ListModalMidDivDiv>
-              <ListModalMidDivSpan>소개글</ListModalMidDivSpan>
-            </ListModalMidDivDiv>
-          </ListModalMidDiv>
-          <ListModalLyrics>
-            <ListModalLyricsSpan>{ModalList.lyrics}</ListModalLyricsSpan>
-          </ListModalLyrics>
-          <ListModalProfileDiv>
-            <ListModalProfileDivDiv>
-              {getCookie('authorization') !== undefined ? (
-                <ListModalProfileImg
-                  src={
-                    ModalList.memberImageUrl === null
-                      ? profileImgArr[random]
-                      : ModalList.memberImageUrl === ''
-                      ? profileImgArr[random]
-                      : ModalList.memberImageUrl
-                  }
-                  alt='프로필 이미지'
-                />
-              ) : (
-                <></>
-              )}
-
-              <ListModalProfileNickname>
+    <Fragment>
+      <div className='background' />
+      <ReactModal isOpen={modalOpen} className='modal'>
+        {ModalList !== undefined ? (
+          <ListModalContainer>
+            <XboxDiv onClick={playListClose}>
+              <img src={Xbox20} alt='Xbox' />
+            </XboxDiv>
+            <ListModalTopDiv>
+              <ListModalTitleSpan>{ModalList.title}</ListModalTitleSpan>
+              <ListModalNicknameSpan>
                 {ModalList.nickname}
-              </ListModalProfileNickname>
+              </ListModalNicknameSpan>
+            </ListModalTopDiv>
+            <ListModalImgDiv>
+              <ListModalImg
+                src={
+                  ModalList.imageUrl === null
+                    ? profileImgArr[random]
+                    : ModalList.imageUrl === ''
+                    ? profileImgArr[random]
+                    : ModalList.imageUrl
+                }
+                alt='리스트 이미지'
+              />
+            </ListModalImgDiv>
+            <ListModalMidDiv>
+              <ListModalMidDivDiv>
+                <ListModalMidDivSpan>소개글</ListModalMidDivSpan>
+              </ListModalMidDivDiv>
+            </ListModalMidDiv>
+            <ListModalLyrics>
+              <ListModalLyricsSpan>{ModalList.lyrics}</ListModalLyricsSpan>
+            </ListModalLyrics>
+            <ListModalProfileDiv>
+              <ListModalProfileDivDiv>
+                {getCookie('authorization') !== undefined ? (
+                  <ListModalProfileImg
+                    src={
+                      ModalList.memberImageUrl === null
+                        ? profileImgArr[random]
+                        : ModalList.memberImageUrl === ''
+                        ? profileImgArr[random]
+                        : ModalList.memberImageUrl
+                    }
+                    alt='프로필 이미지'
+                  />
+                ) : (
+                  <></>
+                )}
 
-              <ListModalProfileDetail>
-                <ListModalProfileDetailTop onClick={ProfilPage}>
-                  아티스트 보기
-                </ListModalProfileDetailTop>
-              </ListModalProfileDetail>
-            </ListModalProfileDivDiv>
-          </ListModalProfileDiv>
-          <ListModalBtnDiv>
-            <ListModalBtnRight onClick={clip}>
-              <img src={Share38} alt='공유하기' />
-              <ListModalBtnSpan>공유하기</ListModalBtnSpan>
-            </ListModalBtnRight>
-          </ListModalBtnDiv>
-        </ListModalContainer>
-      ) : (
-        <Fragment />
-      )}
-    </ReactModal>
+                <ListModalProfileNickname>
+                  {ModalList.nickname}
+                </ListModalProfileNickname>
+
+                <ListModalProfileDetail>
+                  <ListModalProfileDetailTop onClick={ProfilPage}>
+                    아티스트 보기
+                  </ListModalProfileDetailTop>
+                </ListModalProfileDetail>
+              </ListModalProfileDivDiv>
+            </ListModalProfileDiv>
+            <ListModalBtnDiv>
+              <ListModalBtnRight onClick={clip}>
+                <img src={Share38} alt='공유하기' />
+                <ListModalBtnSpan>공유하기</ListModalBtnSpan>
+              </ListModalBtnRight>
+            </ListModalBtnDiv>
+          </ListModalContainer>
+        ) : (
+          <Fragment />
+        )}
+      </ReactModal>
+    </Fragment>
   );
 };
 

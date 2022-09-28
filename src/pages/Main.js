@@ -1,21 +1,28 @@
 // React
 import { Fragment, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 // Zustand
 import usePostStore from '../zustand/post';
 import useLikeStore from '../zustand/like';
 import usePlayerStore from '../zustand/player';
+import useMemberStore from '../zustand/member';
+
 // Packages
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useMediaQuery } from 'react-responsive';
+import { useNavigate } from 'react-router-dom';
+
 // Utils
 import { getCookie } from '../utils/cookie';
+
 // Components
 import Header from '../components/Header';
 import ProfileSlider from '../components/ProfileSlider';
 import HotArtist from '../components/HotArtist';
+import PostSmall from '../components/PostSmall';
+
 // Assests
 import {
   MainProfileSliderGroup,
@@ -51,8 +58,6 @@ import {
   MainBannerMini,
   RightArrow,
 } from '../assets/images/image';
-import PostSmall from '../components/PostSmall';
-import useMemberStore from '../zustand/member';
 
 const Main = () => {
   const sliderRef = useRef();
@@ -156,7 +161,6 @@ const Main = () => {
       });
     }
   }, []);
-
 
   const play = () => {
     viewStateChange(true);
@@ -270,10 +274,11 @@ const Main = () => {
                   </BtmProfileTextDiv>
                   <MainHotArtistWrap>
                     {powerArtistLoaded ? (
-                      powerArtist.map((x) => {
+                      powerArtist.map((x, idx) => {
                         if (artistIsFollow.indexOf(x.nickname) < 0) {
                           return (
                             <HotArtist
+                              key={idx}
                               nickname={x.nickname}
                               imageUrl={x.imageUrl}
                               follower={x.follower
@@ -288,6 +293,7 @@ const Main = () => {
                         } else {
                           return (
                             <HotArtist
+                              key={idx}
                               nickname={x.nickname}
                               imageUrl={x.imageUrl}
                               follower={x.follower
@@ -376,10 +382,11 @@ const Main = () => {
                   <BtmProfileTextNew>요즘 핫한 아티스트</BtmProfileTextNew>
                 </BtmProfileTextDiv>
                 <MainHotArtistWrap>
-                  {powerArtist.map((x) => {
+                  {powerArtist.map((x, idx) => {
                     if (artistIsFollow.indexOf(x.nickname) < 0) {
                       return (
                         <HotArtist
+                          key={idx}
                           nickname={x.nickname}
                           imageUrl={x.imageUrl}
                           follower={x.follower
@@ -391,6 +398,7 @@ const Main = () => {
                     } else {
                       return (
                         <HotArtist
+                          key={idx}
                           nickname={x.nickname}
                           imageUrl={x.imageUrl}
                           follower={x.follower
@@ -416,11 +424,11 @@ const Main = () => {
                   />
                 </MainArowLeft>
                 <Slider {...Btmsettings}>
-                  {powerArtist.map((x) => {
+                  {powerArtist.map((x, idx) => {
                     if (artistIsFollow.indexOf(x.nickname) < 0) {
                       return (
                         <HotArtist
-                          key={x.postId}
+                          key={idx}
                           nickname={x.nickname}
                           imageUrl={x.imageUrl}
                           follower={x.follower
@@ -432,7 +440,7 @@ const Main = () => {
                     } else {
                       return (
                         <HotArtist
-                          key={x.postId}
+                          key={idx}
                           nickname={x.nickname}
                           imageUrl={x.imageUrl}
                           follower={x.follower
