@@ -61,13 +61,13 @@ const Post = ({
 
   const navigate = useNavigate();
 
-  const Play = () => {
+  const play = () => {
     viewStateChange(true);
     setPlaying(true);
     setIsAutoplay(true);
     addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
   };
-  const PlayMember = () => {
+  const playMember = () => {
     viewStateChange(true);
     setPlaying(true);
     setIsAutoplay(true);
@@ -81,7 +81,7 @@ const Post = ({
     });
   };
 
-  const LikeClick = () => {
+  const likeClick = () => {
     if (getCookie('authorization') === undefined) {
       alert('로그인 후 이용해 주세요.');
       navigate('/signin');
@@ -153,18 +153,18 @@ const Post = ({
       <MyImgBtmLeft>
         <MyImgBtmLeftDiv>
           {isLike ? (
-            <img src={Like24} alt='좋아요 상태' onClick={LikeClick} />
+            <img src={Like24} alt='좋아요 상태' onClick={likeClick} />
           ) : (
-            <img src={DisLike} alt='좋아요 안한 상태' onClick={LikeClick} />
+            <img src={DisLike} alt='좋아요 안한 상태' onClick={likeClick} />
           )}
           <MyImgBtmLeftspan>좋아요</MyImgBtmLeftspan>
         </MyImgBtmLeftDiv>
       </MyImgBtmLeft>
       <MyImgBtmRight>
         {getCookie('authorization') !== undefined ? (
-          <img src={OnPlay} alt='플레이 버튼' onClick={PlayMember} />
+          <img src={OnPlay} alt='플레이 버튼' onClick={playMember} />
         ) : (
-          <img src={OnPlay} alt='플레이 버튼' onClick={Play} />
+          <img src={OnPlay} alt='플레이 버튼' onClick={play} />
         )}
       </MyImgBtmRight>
     </MyImgDivDiv>

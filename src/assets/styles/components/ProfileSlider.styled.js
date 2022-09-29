@@ -41,9 +41,9 @@ export const ProfileTextDiv = styled.div`
 `;
 
 export const ProfileTextNew = styled.span`
-  line-height: ${(props) => props.theme.lineHeight.xxxxl};
+  line-height: ${(props) => props.theme.lineHeight.xl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  font-size: ${(props) => props.theme.fontSizes.xxxxl};
+  font-size: ${(props) => props.theme.fontSizes.xl};
 `;
 
 export const ProfileTextSinger = styled.span`
@@ -56,8 +56,8 @@ export const ProfileTextSinger = styled.span`
 export const ProfileTextMake = styled.span`
   line-height: ${(props) => props.theme.lineHeight.xl};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
-  font-size: ${(props) => props.theme.fontSizes.xl};
-  margin-top: 3px;
+  font-size: ${(props) => props.theme.fontSizes.base};
+  margin-top: 2px;
   color: rgba(204, 204, 204, 1);
   &:hover {
     cursor: pointer;
@@ -67,9 +67,8 @@ export const ProfileTextMake = styled.span`
 export const ProfileTextSingMakeDiv = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 36px;
+  margin-left: 33px;
   gap: 40px;
-  margin-top: 3px;
 `;
 
 export const ProfileArrowDiv = styled.div`

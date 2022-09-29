@@ -317,6 +317,7 @@ export const ListModalBtnRight = styled.div`
   align-items: center;
   gap: 3px;
   z-index: 4px;
+  margin-bottom: 20px;
   &:hover {
     cursor: pointer;
   }
