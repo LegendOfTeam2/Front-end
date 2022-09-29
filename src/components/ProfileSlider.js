@@ -1,16 +1,21 @@
 // React
 import { Fragment, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 //zustand
 import useLikeStore from '../zustand/like';
+
 // Packages
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
 // Utils
 import { getCookie } from '../utils/cookie';
+
 // Components
 import PostSlider from './PostSlider';
+
 // Assests
 import {
   ArowLeft,
@@ -26,18 +31,16 @@ import {
 import { LeftArrow, RightArrow } from '../assets/images/image';
 
 const ProfileSlider = ({ postList, name, position, ctg }) => {
-  const singerIsLikeIsLoaded = useLikeStore(
-    (state) => state.singerIsLikeIsLoaded
-  );
   const singerIsLike = useLikeStore((state) => state.singerIsLike);
   const makerIsLike = useLikeStore((state) => state.makerIsLike);
 
-  const sliderRef = useRef();
-  const navigate = useNavigate();
+  const singerIsLikeIsLoaded = useLikeStore(
+    (state) => state.singerIsLikeIsLoaded
+  );
 
-  const goToPosition = () => {
-    navigate(`/morepage/${position}/${ctg}`);
-  };
+  const sliderRef = useRef();
+
+  const navigate = useNavigate();
 
   const settings = {
     className: 'center',
@@ -51,6 +54,11 @@ const ProfileSlider = ({ postList, name, position, ctg }) => {
     draggable: true,
     initialSlide: 2,
   };
+
+  const goToPosition = () => {
+    navigate(`/morepage/${position}/${ctg}`);
+  };
+
   return (
     <Fragment>
       <ProfileContainerDiv>
@@ -114,7 +122,7 @@ const ProfileSlider = ({ postList, name, position, ctg }) => {
                     }
                   })
                 ) : (
-                  <Fragment/>
+                  <Fragment />
                 )
               ) : (
                 postList.map((x, idx) => {

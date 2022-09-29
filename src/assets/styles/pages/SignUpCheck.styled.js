@@ -131,4 +131,3 @@ export const UpTbmBtmDivDiv = styled.div`
     margin-bottom: 60px;
   }
 `;
-

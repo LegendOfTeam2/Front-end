@@ -20,6 +20,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useMediaQuery } from 'react-responsive';
 import { debounce } from 'lodash';
+import shortid from 'shortid';
 
 // Components
 import UploadImage from '../components/UploadImage';
@@ -84,7 +85,7 @@ import {
   WriteButtonDeleteContainer,
 } from '../assets/styles/pages/Write.styled';
 import { Xbox20 } from '../assets/images/image';
-import shortid from 'shortid';
+
 
 const WriteModify = () => {
   const uploadAudio = useUploadStore((state) => state.uploadAudio);

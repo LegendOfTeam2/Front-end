@@ -90,9 +90,9 @@ const usePlayerStore = create((set) => ({
     set({ playList: [] });
     set({ currentSong: {} });
   },
-  playListModalHandle: (payload)=>{
-    set({playListModalState: payload})
-  }
+  playListModalHandle: (payload) => {
+    set({ playListModalState: payload });
+  },
 }));
 
 export default usePlayerStore;

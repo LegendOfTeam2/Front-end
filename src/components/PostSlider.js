@@ -18,9 +18,7 @@ import {
   DisLike,
   OnPlay,
   Like24,
-  Collaborate,
   DisCollaboration,
-  WhiteCollaborate,
   WhiteCollaborate24,
 } from '../assets/images/image';
 import {
@@ -44,16 +42,12 @@ const PostSlider = ({
   postId,
   position,
   title,
-  likeCount,
   collaborate,
   imageUrl,
   mediaUrl,
   nickname,
-  likes,
   likeState,
 }) => {
-  const [isLike, setIsLike] = useState(likeState);
-
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
@@ -62,6 +56,8 @@ const PostSlider = ({
   const addLike = useLikeStore((state) => state.addLike);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
+
+  const [isLike, setIsLike] = useState(likeState);
 
   const navigate = useNavigate();
 

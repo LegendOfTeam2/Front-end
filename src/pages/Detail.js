@@ -92,28 +92,25 @@ import {
 
 const Detail = () => {
   const getDetail = usePostStore((state) => state.getDetail);
-  const detailListLoaded = usePostStore((state) => state.detailListLoaded);
   const detailList = usePostStore((state) => state.detailList);
-
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const postPlayList = usePlayerStore((state) => state.postPlayList);
-
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
-
   const addLike = useLikeStore((state) => state.addLike);
   const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
   const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
+  const detailListLoaded = usePostStore((state) => state.detailListLoaded);
 
   const [lyrics, setLyrics] = useState(false);
   const [introduction, setIntroduction] = useState(false);
   const [isLike, setIsLike] = useState(false);
   const [counter, setCounter] = useState(0);
 
-  const Params = useParams();
+  const params = useParams();
   const navigate = useNavigate();
 
   const settings = {
@@ -127,14 +124,14 @@ const Detail = () => {
   };
 
   const goToModify = () => {
-    navigate(`/ModifyWrite/${Params.position}/${Params.postId}`);
+    navigate(`/ModifyWrite/${params.position}/${params.postId}`);
   };
 
-  const HandelLyrics = () => {
+  const handelLyrics = () => {
     setLyrics(!lyrics);
   };
 
-  const HandelMore = () => {
+  const handelMore = () => {
     setIntroduction(!introduction);
   };
 
@@ -170,14 +167,61 @@ const Detail = () => {
     }
   };
 
+  const clip = () => {
+    navigator.clipboard
+      .writeText(
+        `https://rhythme.shop/detail/${params.position}/${params.postId}`
+      )
+      .then(() => {
+        toast.info('URL 복사가 완료되었습니다.', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 1500,
+          draggablePercent: 60,
+          hideProgressBar: true,
+        });
+      });
+  };
+
+  const play = () => {
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    addPlayList({
+      postId: detailList.postId,
+      title: detailList.title,
+      nickname: detailList.nickname,
+      mediaUrl: detailList.mediaUrl,
+      imageUrl: detailList.imageUrl,
+      position: detailList.position,
+    });
+  };
+
+  const playMember = () => {
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    postPlayList({
+      postId: detailList.postId,
+      title: detailList.title,
+      nickname: detailList.nickname,
+      mediaUrl: detailList.mediaUrl,
+      imageUrl: detailList.imageUrl,
+      position: detailList.position,
+    });
+  };
+
+  const profilPage = () => {
+    navigate(`/mypage/${detailList.nickname}`);
+  };
+
   useEffect(() => {
-    if (Params.position === 'Singer') {
+    if (params.position === 'Singer') {
       getSingerLikePost().then((res) => {
         if (res) {
           const likePostArr = res.data.map((element) => {
             return element.postId;
           });
-          getDetail(Params).then((res) => {
+          getDetail(params).then((res) => {
             if (res.success) {
               setCounter(res.data.likes);
               if (likePostArr.indexOf(res.data.postId) > -1) {
@@ -194,7 +238,7 @@ const Detail = () => {
             return element.postId;
           });
 
-          getDetail(Params).then((res) => {
+          getDetail(params).then((res) => {
             if (res.success) {
               setCounter(res.data.likes);
               if (likePostArr.indexOf(res.data.postId) > -1) {
@@ -206,53 +250,6 @@ const Detail = () => {
       });
     }
   }, []);
-
-  const clip = () => {
-    navigator.clipboard
-      .writeText(
-        `https://rhythme.shop/detail/${Params.position}/${Params.postId}`
-      )
-      .then(() => {
-        toast.info('URL 복사가 완료되었습니다.', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 1500,
-          draggablePercent: 60,
-          hideProgressBar: true,
-        });
-      });
-  };
-
-  const Play = () => {
-    viewStateChange(true);
-    setPlaying(true);
-    setIsAutoplay(true);
-    addPlayList({
-      postId: detailList.postId,
-      title: detailList.title,
-      nickname: detailList.nickname,
-      mediaUrl: detailList.mediaUrl,
-      imageUrl: detailList.imageUrl,
-      position: detailList.position,
-    });
-  };
-
-  const PlayMember = () => {
-    viewStateChange(true);
-    setPlaying(true);
-    setIsAutoplay(true);
-    postPlayList({
-      postId: detailList.postId,
-      title: detailList.title,
-      nickname: detailList.nickname,
-      mediaUrl: detailList.mediaUrl,
-      imageUrl: detailList.imageUrl,
-      position: detailList.position,
-    });
-  };
-
-  const ProfilPage = () => {
-    navigate(`/mypage/${detailList.nickname}`);
-  };
 
   return (
     <Fragment>
@@ -305,13 +302,13 @@ const Detail = () => {
                           <img
                             src={OnPlay96}
                             alt='플레이 버튼'
-                            onClick={PlayMember}
+                            onClick={playMember}
                           />
                         ) : (
                           <img
                             src={OnPlay96}
                             alt='플레이 버튼'
-                            onClick={Play}
+                            onClick={play}
                           />
                         )}
                       </DetailClickHover>
@@ -404,7 +401,7 @@ const Detail = () => {
             </DetailProfileBox>
             <DetailProfileBtnGroup>
               <DetailProfileBtmFirDiv>
-                <DetailClickHover onClick={ProfilPage}>
+                <DetailClickHover onClick={profilPage}>
                   <img src={ShowPw38} backgrond='white' alt='아티스트' />
                 </DetailClickHover>
                 <DetailProfileBtmSecSpan>아티스트 보기</DetailProfileBtmSecSpan>
@@ -477,7 +474,7 @@ const Detail = () => {
                 <DetailBtmLyricsDivDivDiv>
                   {detailListLoaded ? (
                     detailList.lyrics.length > 65 ? (
-                      <DetailBtmClickLyricsSpan onClick={HandelLyrics}>
+                      <DetailBtmClickLyricsSpan onClick={handelLyrics}>
                         {lyrics ? (
                           <Fragment>
                             <DetailBtmLyricsSpan>접기</DetailBtmLyricsSpan>
@@ -517,7 +514,7 @@ const Detail = () => {
             <DetailBtmMoreDivDivDiv>
               {detailListLoaded ? (
                 detailList.content.length > 65 ? (
-                  <DetailBtmClickMoreSpan onClick={HandelMore}>
+                  <DetailBtmClickMoreSpan onClick={handelMore}>
                     {introduction ? (
                       <Fragment>
                         <DetailBtmMoreSpan>접기</DetailBtmMoreSpan>

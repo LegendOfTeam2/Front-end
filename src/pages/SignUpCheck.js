@@ -27,12 +27,12 @@ import {
 import { LargeLogo } from '../assets/images/image';
 
 const SignUpCheck = () => {
-  const navigate = useNavigate();
-
   const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
   const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
   const KAKAO_REDIRECT_URI = 'https://rhythme.shop/kakao/callback';
   const GOOGLE_REDIRECT_URI = 'https://rhythme.shop/google/callback';
+
+  const navigate = useNavigate();
 
   const isSmallScreen = useMediaQuery({
     query: '(max-width: 1920px)',

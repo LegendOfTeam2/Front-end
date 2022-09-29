@@ -1,9 +1,19 @@
 // React
 import { useState } from 'react';
+
 // Zustand
 import usePlayerStore from '../zustand/player';
+import useLikeStore from '../zustand/like';
+import useMemberStore from '../zustand/member';
+
 // Packages
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// Utils
 import { getCookie } from '../utils/cookie';
+
 // Assets
 import {
   AboutSong,
@@ -23,10 +33,6 @@ import {
   BtmMapImgSpan,
   BtmMapInImgDiv,
 } from '../assets/styles/components/PlayListSong.styled';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import useLikeStore from '../zustand/like';
-import useMemberStore from '../zustand/member';
 
 const PlayListSong = ({ data, listModalOpen, likeState }) => {
   const addPlayList = usePlayerStore((state) => state.addPlayList);
@@ -36,6 +42,7 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
   const addLike = useLikeStore((state) => state.addLike);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
+
   const [duration, setDuration] = useState(0);
   const [isLike, setIsLike] = useState(likeState);
 
@@ -73,7 +80,7 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
     }
   };
 
-  const Play = () => {
+  const play = () => {
     setPlaying(true);
     setIsAutoplay(true);
     addPlayList({
@@ -86,7 +93,7 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
     });
   };
 
-  const PlayMember = () => {
+  const playMember = () => {
     setPlaying(true);
     setIsAutoplay(true);
     postPlayList({
@@ -99,7 +106,7 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
     });
   };
 
-  const LikeClick = () => {
+  const likeClick = () => {
     if (getCookie('authorization') === undefined) {
       alert('로그인후 이용해주세요');
       navigate('/signin');
@@ -141,9 +148,9 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
         ></BtmMapImg>
         <BtmMapInImgDiv>
           {getCookie('authorization') !== undefined ? (
-            <img src={OnPlay} alt='플레이 버튼' onClick={PlayMember} />
+            <img src={OnPlay} alt='플레이 버튼' onClick={playMember} />
           ) : (
-            <img src={OnPlay} alt='플레이 버튼' onClick={Play} />
+            <img src={OnPlay} alt='플레이 버튼' onClick={play} />
           )}
         </BtmMapInImgDiv>
       </BtmMapImgDiv>
@@ -168,14 +175,14 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
             src={Like24}
             alt='좋아요'
             className='midIcon'
-            onClick={LikeClick}
+            onClick={likeClick}
           />
         ) : (
           <img
             src={LikeWhite}
             alt='좋아요'
             className='midIcon'
-            onClick={LikeClick}
+            onClick={likeClick}
           />
         )}
 

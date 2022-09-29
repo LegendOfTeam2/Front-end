@@ -1,5 +1,5 @@
 // React
-import React, { lazy, Suspense, Fragment, useMemo } from 'react';
+import React, { lazy, Suspense, Fragment } from 'react';
 
 // Zustand
 import useMemberStore from '../zustand/member';
@@ -12,12 +12,11 @@ import Search from '../pages/Search';
 
 // Components
 import Loading from '../components/Loading';
+import PlayerMain from '../components/audioplayer/PlayerMain';
 
 // Utils
 import { getCookie } from '../utils/cookie';
 import { useEffect } from 'react';
-import PlayerMain from '../components/audioplayer/PlayerMain';
-import usePlayerStore from '../zustand/player';
 
 // Pages -Lazy
 const Main = lazy(() => import('../pages/Main'));

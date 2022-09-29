@@ -8,6 +8,7 @@ import useFollowStore from '../zustand/follow';
 import useChatStore from '../zustand/chat';
 import useLikeStore from '../zustand/like';
 import usePostStore from '../zustand/post';
+import usePlayerStore from '../zustand/player';
 
 // Packages
 import Slider from 'react-slick';
@@ -91,50 +92,39 @@ import {
   MakerMarker9,
   MakerMarker10,
 } from '../assets/images/image';
-import usePlayerStore from '../zustand/player';
 
 const MyPage = () => {
   const mainPost = useMyPageStore((state) => state.mainPost);
-
   const getProfileInfo = useMyPageStore((state) => state.getProfileInfo);
   const profileInfo = useMyPageStore((state) => state.profileInfo);
+  const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
+  const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
+  const getUploadPost = useMyPageStore((state) => state.getUploadPost);
+  const uploadPost = useMyPageStore((state) => state.uploadPost);
+  const getLikePost = useMyPageStore((state) => state.getLikePost);
+  const likePost = useMyPageStore((state) => state.likePost);
+  const getFollowerList = usePostStore((state) => state.getFollowerList);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
+  const follow = useFollowStore((state) => state.follow);
+  const makeRoom = useChatStore((state) => state.makeRoom);
+  const likePostIsLoaded = useMyPageStore((state) => state.likePostIsLoaded);
+  const playListModalHandle = usePlayerStore(
+    (state) => state.playListModalHandle
+  );
   const profileInfoIsLoaded = useMyPageStore(
     (state) => state.profileInfoIsLoaded
   );
-
-  const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
-  const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
-
-  const getUploadPost = useMyPageStore((state) => state.getUploadPost);
-  const uploadPost = useMyPageStore((state) => state.uploadPost);
   const uploadPostIsLoaded = useMyPageStore(
     (state) => state.uploadPostIsLoaded
   );
-
-  const getLikePost = useMyPageStore((state) => state.getLikePost);
-  const likePost = useMyPageStore((state) => state.likePost);
-  const likePostIsLoaded = useMyPageStore((state) => state.likePostIsLoaded);
-
-  const getFollowerList = usePostStore((state) => state.getFollowerList);
   const artistIsFollowIsLoaded = usePostStore(
     (state) => state.artistIsFollowIsLoaded
   );
-
-  const profileImgArr = useMemberStore((state) => state.profileImgArr);
-  const random = useMemberStore((state) => state.random);
-
   const singerIsLikeIsLoaded = useLikeStore(
     (state) => state.singerIsLikeIsLoaded
-  );
-  const singerIsLike = useLikeStore((state) => state.singerIsLike);
-  const makerIsLike = useLikeStore((state) => state.makerIsLike);
-
-  const follow = useFollowStore((state) => state.follow);
-
-  const makeRoom = useChatStore((state) => state.makeRoom);
-
-  const playListModalHandle = usePlayerStore(
-    (state) => state.playListModalHandle
   );
 
   const [category, setCategory] = useState('upload');
@@ -154,39 +144,6 @@ const MyPage = () => {
     variableWidth: true,
     draggable: true,
   };
-
-  useEffect(() => {
-    playListModalHandle(false);
-    getFollowerList().then((res) => {
-      if (res.success) {
-        const tempFollowerArr = res.data.map((element) => {
-          return element.nickname;
-        });
-        if (tempFollowerArr.indexOf(nickname) !== -1) setIsFollow(true);
-        getProfileInfo(nickname);
-      }
-    });
-  }, [nickname]);
-
-  useEffect(() => {
-    if (category === 'upload') {
-      if (getCookie('authorization') !== undefined) {
-        getSingerLikePost().then((res) => {
-          if (res.success) {
-            getMakerLikePost().then((res) => {
-              if (res.success) {
-                getUploadPost(nickname);
-              }
-            });
-          }
-        });
-      } else {
-        getUploadPost(nickname);
-      }
-    } else {
-      getLikePost(nickname);
-    }
-  }, [category]);
 
   const onHandleCategory = (state) => {
     switch (state) {
@@ -227,6 +184,72 @@ const MyPage = () => {
       });
     }
   };
+
+  const onHandleFollow = () => {
+    if (getCookie('authorization') !== undefined) {
+      follow(nickname).then((res) => {
+        if (res.success) {
+          if (res.data) {
+            setIsFollow(true);
+            toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
+          } else {
+            setIsFollow(false);
+            toast.info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`, {
+              position: toast.POSITION.BOTTOM_RIGHT,
+              autoClose: 1500,
+              draggablePercent: 60,
+              hideProgressBar: true,
+            });
+          }
+        }
+      });
+    } else {
+      toast.warning(`로그인 후에 이용 가능합니다.`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        autoClose: 1500,
+        draggablePercent: 60,
+        hideProgressBar: true,
+      });
+    }
+  };
+
+  useEffect(() => {
+    playListModalHandle(false);
+    getFollowerList().then((res) => {
+      if (res.success) {
+        const tempFollowerArr = res.data.map((element) => {
+          return element.nickname;
+        });
+        if (tempFollowerArr.indexOf(nickname) !== -1) setIsFollow(true);
+        getProfileInfo(nickname);
+      }
+    });
+  }, [nickname]);
+
+  useEffect(() => {
+    if (category === 'upload') {
+      if (getCookie('authorization') !== undefined) {
+        getSingerLikePost().then((res) => {
+          if (res.success) {
+            getMakerLikePost().then((res) => {
+              if (res.success) {
+                getUploadPost(nickname);
+              }
+            });
+          }
+        });
+      } else {
+        getUploadPost(nickname);
+      }
+    } else {
+      getLikePost(nickname);
+    }
+  }, [category]);
 
   useEffect(() => {
     getProfileInfo(nickname);
@@ -300,38 +323,6 @@ const MyPage = () => {
     profileInfoIsLoaded,
   ]);
 
-  const onHandleFollow = () => {
-    if (getCookie('authorization') !== undefined) {
-      follow(nickname).then((res) => {
-        if (res.success) {
-          if (res.data) {
-            setIsFollow(true);
-            toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
-          } else {
-            setIsFollow(false);
-            toast.info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`, {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
-          }
-        }
-      });
-    } else {
-      toast.warning(`로그인 후에 이용 가능합니다.`, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        autoClose: 1500,
-        draggablePercent: 60,
-        hideProgressBar: true,
-      });
-    }
-  };
   return (
     <Fragment>
       <Header />

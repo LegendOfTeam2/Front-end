@@ -33,28 +33,25 @@ const MorePage = () => {
   const getRecentSinger = usePostStore((state) => state.getRecentSinger);
   const getBestMaker = usePostStore((state) => state.getBestMaker);
   const getBestSinger = usePostStore((state) => state.getBestSinger);
-  const recentSingerIsLoaded = usePostStore(
-    (state) => state.recentSingerIsLoaded
-  );
   const recentSinger = usePostStore((state) => state.recentSinger);
-  const bestSingerIsLoaded = usePostStore((state) => state.bestSingerIsLoaded);
   const bestSinger = usePostStore((state) => state.bestSinger);
-
-  const recentMakerIsLoaded = usePostStore(
-    (state) => state.recentMakerIsLoaded
-  );
   const recentMaker = usePostStore((state) => state.recentMaker);
-  const bestMakerIsLoaded = usePostStore((state) => state.bestMakerIsLoaded);
   const bestMaker = usePostStore((state) => state.bestMaker);
-
   const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
   const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
-
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
+  const bestSingerIsLoaded = usePostStore((state) => state.bestSingerIsLoaded);
+  const bestMakerIsLoaded = usePostStore((state) => state.bestMakerIsLoaded);
   const singerIsLikeIsLoaded = useLikeStore(
     (state) => state.singerIsLikeIsLoaded
   );
-  const singerIsLike = useLikeStore((state) => state.singerIsLike);
-  const makerIsLike = useLikeStore((state) => state.makerIsLike);
+  const recentMakerIsLoaded = usePostStore(
+    (state) => state.recentMakerIsLoaded
+  );
+  const recentSingerIsLoaded = usePostStore(
+    (state) => state.recentSingerIsLoaded
+  );
 
   const { position, ctg } = useParams();
 

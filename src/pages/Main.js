@@ -60,6 +60,54 @@ import {
 } from '../assets/images/image';
 
 const Main = () => {
+  const getBestSong = usePostStore((state) => state.getBestSong);
+  const getRecentMaker = usePostStore((state) => state.getRecentMaker);
+  const getRecentSinger = usePostStore((state) => state.getRecentSinger);
+  const getBestMaker = usePostStore((state) => state.getBestMaker);
+  const getBestSinger = usePostStore((state) => state.getBestSinger);
+  const getPowerArtist = usePostStore((state) => state.getPowerArtist);
+  const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
+  const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
+  const getFollowerList = usePostStore((state) => state.getFollowerList);
+  const bestSongIsLoaded = usePostStore((state) => state.bestSongIsLoaded);
+  const bestSong = usePostStore((state) => state.bestSong);
+  const recentMaker = usePostStore((state) => state.recentMaker);
+  const recentSinger = usePostStore((state) => state.recentSinger);
+  const bestMaker = usePostStore((state) => state.bestMaker);
+  const bestSinger = usePostStore((state) => state.bestSinger);
+  const powerArtist = usePostStore((state) => state.powerArtist);
+  const artistIsFollow = usePostStore((state) => state.artistIsFollow);
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
+  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
+  const addPlayList = usePlayerStore((state) => state.addPlayList);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+  const postPlayList = usePlayerStore((state) => state.postPlayList);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const bestMakerIsLoaded = usePostStore((state) => state.bestMakerIsLoaded);
+  const bestSingerIsLoaded = usePostStore((state) => state.bestSingerIsLoaded);
+  const powerArtistLoaded = usePostStore((state) => state.powerArtistLoaded);
+  const random = useMemberStore((state) => state.random);
+  const recentMakerIsLoaded = usePostStore(
+    (state) => state.recentMakerIsLoaded
+  );
+  const recentSingerIsLoaded = usePostStore(
+    (state) => state.recentSingerIsLoaded
+  );
+  const artistIsFollowIsLoaded = usePostStore(
+    (state) => state.artistIsFollowIsLoaded
+  );
+  const singerIsLikeIsLoaded = useLikeStore(
+    (state) => state.singerIsLikeIsLoaded
+  );
+
+  const isSmallScreen = useMediaQuery({
+    query: '(max-width: 1920px)',
+  });
+
+  const navigate = useNavigate();
+
   const sliderRef = useRef();
 
   const Btmsettings = {
@@ -74,63 +122,41 @@ const Main = () => {
     ref: sliderRef,
   };
 
-  const getBestSong = usePostStore((state) => state.getBestSong);
-  const getRecentMaker = usePostStore((state) => state.getRecentMaker);
-  const getRecentSinger = usePostStore((state) => state.getRecentSinger);
-  const getBestMaker = usePostStore((state) => state.getBestMaker);
-  const getBestSinger = usePostStore((state) => state.getBestSinger);
-  const getPowerArtist = usePostStore((state) => state.getPowerArtist);
+  const play = () => {
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    addPlayList({
+      postId: bestSong[0].postId,
+      title: bestSong[0].title,
+      nickname: bestSong[0].nickname,
+      mediaUrl: bestSong[0].mediaUrl.mediaUrl,
+      imageUrl: bestSong[0].imageUrl.imageUrl,
+      position: bestSong[0].position,
+    });
+  };
 
-  const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
-  const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
-  const getFollowerList = usePostStore((state) => state.getFollowerList);
+  const playMember = () => {
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    postPlayList({
+      postId: bestSong[0].postId,
+      title: bestSong[0].title,
+      nickname: bestSong[0].nickname,
+      mediaUrl: bestSong[0].mediaUrl.mediaUrl,
+      imageUrl: bestSong[0].imageUrl.imageUrl,
+      position: bestSong[0].position,
+    });
+  };
 
-  const bestSongIsLoaded = usePostStore((state) => state.bestSongIsLoaded);
-  const bestSong = usePostStore((state) => state.bestSong);
+  const goToSinger = (category) => {
+    navigate(`/morepage/singer/${category}`);
+  };
 
-  const recentMakerIsLoaded = usePostStore(
-    (state) => state.recentMakerIsLoaded
-  );
-  const recentMaker = usePostStore((state) => state.recentMaker);
-
-  const recentSingerIsLoaded = usePostStore(
-    (state) => state.recentSingerIsLoaded
-  );
-  const recentSinger = usePostStore((state) => state.recentSinger);
-
-  const bestMakerIsLoaded = usePostStore((state) => state.bestMakerIsLoaded);
-  const bestMaker = usePostStore((state) => state.bestMaker);
-
-  const bestSingerIsLoaded = usePostStore((state) => state.bestSingerIsLoaded);
-  const bestSinger = usePostStore((state) => state.bestSinger);
-
-  const powerArtistLoaded = usePostStore((state) => state.powerArtistLoaded);
-  const powerArtist = usePostStore((state) => state.powerArtist);
-
-  const artistIsFollowIsLoaded = usePostStore(
-    (state) => state.artistIsFollowIsLoaded
-  );
-  const artistIsFollow = usePostStore((state) => state.artistIsFollow);
-
-  const singerIsLikeIsLoaded = useLikeStore(
-    (state) => state.singerIsLikeIsLoaded
-  );
-  const singerIsLike = useLikeStore((state) => state.singerIsLike);
-  const makerIsLike = useLikeStore((state) => state.makerIsLike);
-
-  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
-  const addPlayList = usePlayerStore((state) => state.addPlayList);
-  const setPlaying = usePlayerStore((state) => state.setPlaying);
-  const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
-  const postPlayList = usePlayerStore((state) => state.postPlayList);
-  const profileImgArr = useMemberStore((state) => state.profileImgArr);
-  const random = useMemberStore((state) => state.random);
-
-  const isSmallScreen = useMediaQuery({
-    query: '(max-width: 1920px)',
-  });
-
-  const navigate = useNavigate();
+  const goToMaker = (category) => {
+    navigate(`/morepage/maker/${category}`);
+  };
 
   useEffect(() => {
     if (getCookie('authorization') === undefined) {
@@ -161,42 +187,6 @@ const Main = () => {
       });
     }
   }, []);
-
-  const play = () => {
-    viewStateChange(true);
-    setPlaying(true);
-    setIsAutoplay(true);
-    addPlayList({
-      postId: bestSong[0].postId,
-      title: bestSong[0].title,
-      nickname: bestSong[0].nickname,
-      mediaUrl: bestSong[0].mediaUrl.mediaUrl,
-      imageUrl: bestSong[0].imageUrl.imageUrl,
-      position: bestSong[0].position,
-    });
-  };
-
-  const PlayMember = () => {
-    viewStateChange(true);
-    setPlaying(true);
-    setIsAutoplay(true);
-    postPlayList({
-      postId: bestSong[0].postId,
-      title: bestSong[0].title,
-      nickname: bestSong[0].nickname,
-      mediaUrl: bestSong[0].mediaUrl.mediaUrl,
-      imageUrl: bestSong[0].imageUrl.imageUrl,
-      position: bestSong[0].position,
-    });
-  };
-
-  const goToSinger = (category) => {
-    navigate(`/morepage/singer/${category}`);
-  };
-
-  const goToMaker = (category) => {
-    navigate(`/morepage/maker/${category}`);
-  };
 
   return (
     <Fragment>
@@ -236,7 +226,7 @@ const Main = () => {
                         <img
                           src={MainBannerMini}
                           alt='배너 플레이 버튼'
-                          onClick={PlayMember}
+                          onClick={playMember}
                         />
                       ) : (
                         <img
@@ -249,7 +239,7 @@ const Main = () => {
                       <img
                         src={MainBanner}
                         alt='배너 플레이 버튼'
-                        onClick={PlayMember}
+                        onClick={playMember}
                       />
                     ) : (
                       <img

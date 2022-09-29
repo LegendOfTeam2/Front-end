@@ -56,22 +56,12 @@ const Chat = () => {
   const getRoomsIsLoaded = useChatStore((state) => state.getRoomsIsLoaded);
   const getRooms = useChatStore((state) => state.getRooms);
   const rooms = useChatStore((state) => state.rooms);
+  const subRoomId = useChatStore((state) => state.subRoomId);
 
   const [message, setMessage] = useState('');
   const [contents, setContents] = useState([]);
-  const subRoomId = useChatStore((state) => state.subRoomId);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    getRooms();
-    stompClient.connect({}, () => {
-      stompClient.subscribe(`/sub/chat/room/${subRoomId}`, (data) => {
-        const newMessage = JSON.parse(data.body);
-        addMessage(newMessage);
-      });
-    });
-  }, [subRoomId]);
 
   const onHandleClick = () => {
     if (message !== '' && message !== ' ') {
@@ -111,6 +101,16 @@ const Chat = () => {
   const addMessage = (message) => {
     setContents((prev) => [...prev, message]);
   };
+
+  useEffect(() => {
+    getRooms();
+    stompClient.connect({}, () => {
+      stompClient.subscribe(`/sub/chat/room/${subRoomId}`, (data) => {
+        const newMessage = JSON.parse(data.body);
+        addMessage(newMessage);
+      });
+    });
+  }, [subRoomId]);
 
   return (
     <Fragment>
