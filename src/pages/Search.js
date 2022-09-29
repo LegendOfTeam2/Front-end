@@ -63,20 +63,18 @@ const Search = () => {
   const singerSearchList = useSearchStore((state) => state.singerSearchList);
   const makerSearchList = useSearchStore((state) => state.makerSearchList);
   const memberSearchList = useSearchStore((state) => state.memberSearchList);
-
   const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
   const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
+  const artistIsFollow = usePostStore((state) => state.artistIsFollow);
+  const getFollowerList = usePostStore((state) => state.getFollowerList);
   const singerIsLikeIsLoaded = useLikeStore(
     (state) => state.singerIsLikeIsLoaded
   );
-  const singerIsLike = useLikeStore((state) => state.singerIsLike);
-  const makerIsLike = useLikeStore((state) => state.makerIsLike);
-
   const artistIsFollowIsLoaded = usePostStore(
     (state) => state.artistIsFollowIsLoaded
   );
-  const artistIsFollow = usePostStore((state) => state.artistIsFollow);
-  const getFollowerList = usePostStore((state) => state.getFollowerList);
 
   const [category, setCategory] = useState('Singer');
 

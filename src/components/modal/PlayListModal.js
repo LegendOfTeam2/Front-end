@@ -1,14 +1,19 @@
 // React
-import { Fragment, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Fragment } from 'react';
 
 // Zustand
 import usePlayerStore from '../../zustand/player';
 import useMemberStore from '../../zustand/member';
+
 // Packages
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
 import { useMediaQuery } from 'react-responsive';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+// Utils
+import { getCookie } from '../../utils/cookie';
+
 // Assets
 import {
   ListModalBtnDiv,
@@ -35,15 +40,13 @@ import {
 } from '../../assets/styles/components/modal/PlayListModal.styled';
 import '../../assets/styles/components/modal/PlayListModal.css';
 import { Share38, Xbox20 } from '../../assets/images/image';
-import { getCookie } from '../../utils/cookie';
 
 const PlayListModal = ({ ModalList }) => {
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
   const playListStateChange = usePlayerStore(
     (state) => state.playListStateChange
   );
-  const profileImgArr = useMemberStore((state) => state.profileImgArr);
-  const random = useMemberStore((state) => state.random);
-
   const playListModalState = usePlayerStore(
     (state) => state.playListModalState
   );
@@ -51,13 +54,12 @@ const PlayListModal = ({ ModalList }) => {
     (state) => state.playListModalHandle
   );
 
-  
-
   const navigate = useNavigate();
+
   const isSmallScreen = useMediaQuery({
     query: '(max-width: 1920px)',
   });
-  
+
   const location = useLocation().pathname.split('/')[2];
 
   const playListClose = () => {
@@ -103,7 +105,7 @@ const PlayListModal = ({ ModalList }) => {
 
   const ProfilPage = () => {
     if (location === ModalList.nickname) {
-      playListModalHandle(false)
+      playListModalHandle(false);
     }
     playListStateChange(false);
     navigate(`/mypage/${ModalList.nickname}`);

@@ -6,6 +6,6 @@ export const makeRoomApi = (payload) => {
 export const getRoomsApi = () => {
   return api_auth.get(`/auth/chat/rooms`);
 };
-export const enterRoomApi = (payload) => {
-  return api_auth.get(`/auth/chat/room/${payload}`);
+export const getChatMessagesApi = (payload) => {
+  return api_auth.post(`/auth/chat/room/${payload}`);
 };

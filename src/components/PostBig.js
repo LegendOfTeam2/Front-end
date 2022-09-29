@@ -42,7 +42,6 @@ const PostBig = ({
   postId,
   position,
   title,
-  likeCount,
   collaborate,
   imageUrl,
   mediaUrl,

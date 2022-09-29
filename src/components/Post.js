@@ -1,5 +1,5 @@
 // React
-import { useState, memo, Fragment } from 'react';
+import { useState, memo } from 'react';
 
 // Zustand
 import usePlayerStore from '../zustand/player';
@@ -53,12 +53,10 @@ const Post = ({
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
   const postPlayList = usePlayerStore((state) => state.postPlayList);
-
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
-
   const addLike = useLikeStore((state) => state.addLike);
-
+  
   const [isLike, setIsLike] = useState(likeState);
 
   const navigate = useNavigate();

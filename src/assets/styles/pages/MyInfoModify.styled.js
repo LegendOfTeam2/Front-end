@@ -10,7 +10,7 @@ export const ModifyContainer = styled.div`
 export const ModifyBox = styled.div`
   width: 1024px;
   height: auto;
- margin-bottom: 10px;
+  margin-bottom: 10px;
 `;
 export const ModifyNaviContainer = styled.div`
   margin-top: 218px;

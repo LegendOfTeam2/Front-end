@@ -1,12 +1,17 @@
 // React
 import { useState, useRef, useEffect, Fragment } from 'react';
+
 // Zustand
 import usePlayerStore from '../../zustand/player';
+import useMemberStore from '../../zustand/member';
+
 // Utils
 import { getCookie } from '../../utils/cookie';
+
 // Components
 import Player from './Player';
 import PlayList from '../PlayList';
+
 // Assests
 import {
   DisRepeated,
@@ -50,35 +55,32 @@ import {
   VolumeolumeDivbar,
   VolumeolumeDivDiv,
 } from '../../assets/styles/components/Player.Styled';
-import useMemberStore from '../../zustand/member';
 
 function PlayerMain() {
   const playList = usePlayerStore((state) => state.playList);
   const currentSong = usePlayerStore((state) => state.currentSong);
   const setCurrentSong = usePlayerStore((state) => state.setCurrentSong);
-
   const viewState = usePlayerStore((state) => state.viewState);
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const playListState = usePlayerStore((state) => state.playListState);
-  const playListStateChange = usePlayerStore(
-    (state) => state.playListStateChange
-  );
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const playing = usePlayerStore((state) => state.playing);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
   const isAutoplay = usePlayerStore((state) => state.isAutoplay);
-
   const getPlayList = usePlayerStore((state) => state.getPlayList);
   const playListMember = usePlayerStore((state) => state.playListMember);
   const currentSongMember = usePlayerStore((state) => state.currentSongMember);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
+  const playListStateChange = usePlayerStore(
+    (state) => state.playListStateChange
+  );
   const setCurrentSongMember = usePlayerStore(
     (state) => state.setCurrentSongMember
   );
   const playListMemberIsLoaded = usePlayerStore(
     (state) => state.playListMemberIsLoaded
   );
-  const profileImgArr = useMemberStore((state) => state.profileImgArr);
-  const random = useMemberStore((state) => state.random);
 
   const [percentage, setPercentage] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -95,6 +97,214 @@ function PlayerMain() {
     audio.currentTime = (audio.duration / 100) * e.target.value;
     setPercentage(e.target.value);
   };
+
+  const callback = () => {
+    const random = Math.floor(Math.random() * playList.length);
+    if (playList[random].postId !== currentSong.postId) {
+      setCurrentSong(playList[random]);
+      audioRef.current.currentTime = 0;
+      setIsAutoplay(true);
+    } else {
+      const filterRandom = playList.filter(
+        (x) => x.postId !== currentSong.postId
+      );
+      const retryRandom = Math.floor(Math.random() * filterRandom.length);
+      setCurrentSong(filterRandom[retryRandom]);
+      audioRef.current.currentTime = 0;
+      setIsAutoplay(true);
+    }
+  };
+
+  const callbackMember = () => {
+    if (playListMemberIsLoaded) {
+      const random = Math.floor(Math.random() * playListMember.length);
+      if (playListMember[random].postId !== currentSongMember.postId) {
+        setCurrentSongMember(playListMember[random]);
+        audioRef.current.currentTime = 0;
+        setIsAutoplay(true);
+      } else {
+        const filterRandom = playListMember.filter(
+          (x) => x.postId !== playListMember[random].postId
+        );
+        const retryRandom = Math.floor(Math.random() * filterRandom.length);
+        setCurrentSongMember(filterRandom[retryRandom]);
+        audioRef.current.currentTime = 0;
+        setIsAutoplay(true);
+      }
+    }
+  };
+  const skipBack = () => {
+    const index = playList.findIndex((x) => x.title === currentSong.title);
+
+    if (getCookie('authorization') !== undefined) {
+      if (playListMemberIsLoaded) {
+        const indexMember = playListMember.findIndex(
+          (x) => x.title === currentSongMember.title
+        );
+
+        if (indexMember === 0) {
+          setCurrentSongMember(playListMember[playListMember.length - 1]);
+        } else {
+          setCurrentSongMember(playListMember[indexMember - 1]);
+        }
+        if (playing) {
+          setIsAutoplay(true);
+        } else {
+          setIsAutoplay(false);
+        }
+        audioRef.current.currentTime = 0;
+      }
+    } else {
+      if (index === 0) {
+        setCurrentSong(playList[playList.length - 1]);
+      } else {
+        setCurrentSong(playList[index - 1]);
+      }
+      if (playing) {
+        setIsAutoplay(true);
+      } else {
+        setIsAutoplay(false);
+      }
+      audioRef.current.currentTime = 0;
+    }
+  };
+
+  const skipNext = () => {
+    const index = playList.findIndex((x) => x.postId === currentSong.postId);
+
+    if (getCookie('authorization') !== undefined) {
+      if (playListMemberIsLoaded) {
+        const indexMember = playListMember.findIndex(
+          (x) => x.postId === currentSongMember.postId
+        );
+        if (indexMember === playListMember.length - 1) {
+          setCurrentSongMember(playListMember[0]);
+        } else {
+          setCurrentSongMember(playListMember[indexMember + 1]);
+        }
+        if (playing) {
+          setIsAutoplay(true);
+        } else {
+          setIsAutoplay(false);
+        }
+        audioRef.current.currentTime = 0;
+      }
+    } else {
+      if (index === playList.length - 1) {
+        setCurrentSong(playList[0]);
+      } else {
+        setCurrentSong(playList[index + 1]);
+      }
+      if (playing) {
+        setIsAutoplay(true);
+      } else {
+        setIsAutoplay(false);
+      }
+      audioRef.current.currentTime = 0;
+    }
+  };
+
+  const clickLoop = () => {
+    setIsRandom(false);
+    if (!isLoop) {
+      setIsLoop(true);
+    }
+
+    if (isLoop) {
+      setIsLoop(false);
+    }
+  };
+
+  const ClickMuted = () => {
+    if (!ismuted) {
+      setIsMuted(true);
+    }
+
+    if (ismuted) {
+      setIsMuted(false);
+    }
+  };
+
+  const play = () => {
+    const audio = audioRef.current;
+    audio.volume = volume;
+
+    if (!playing) {
+      setPlaying(true);
+      audio.play();
+    }
+
+    if (playing) {
+      setPlaying(false);
+      audio.pause();
+    }
+  };
+
+  const rangeVolume = (e) => {
+    let min = e.target.min;
+    let max = e.target.max;
+    let val = e.target.value;
+    const result = ((val - min) * 100) / (max - min);
+    e.target.style.backgroundSize = `${result}% 100%`;
+
+    setVolume(e.target.value);
+  };
+
+  const getCurrDuration = (e) => {
+    const percent = (
+      (e.currentTarget.currentTime / e.currentTarget.duration) *
+      100
+    ).toFixed(2);
+    const time = e.currentTarget.currentTime;
+
+    setPercentage(+percent);
+    setCurrentTime(time.toFixed(2));
+  };
+
+  const folding = () => {
+    setIsAutoplay(false);
+    setPlaying(false);
+    audioRef.current.pause();
+    viewStateChange(false);
+  };
+
+  const raiseIt = () => {
+    setIsAutoplay(true);
+    viewStateChange(true);
+    setPlaying(false);
+  };
+
+  const playListHandlers = () => {
+    playListStateChange(!playListState);
+  };
+
+  function secondsToHms(seconds) {
+    if (!seconds) return '00 : 00';
+
+    let duration = seconds;
+    let hours = duration / 3600;
+    duration = duration % 3600;
+
+    let min = parseInt(duration / 60);
+    duration = duration % 60;
+
+    let sec = parseInt(duration);
+
+    if (sec < 10) {
+      sec = `0${sec}`;
+    }
+    if (min < 10) {
+      min = `0${min}`;
+    }
+
+    if (parseInt(hours, 10) > 0) {
+      return `${parseInt(hours, 10)} : ${min} : ${sec}`;
+    } else if (min === 0) {
+      return `00 : ${sec}`;
+    } else {
+      return `${min} : ${sec}`;
+    }
+  }
 
   useEffect(() => {
     getPlayList().then((res) => {
@@ -214,53 +424,17 @@ function PlayerMain() {
   ]);
 
   useEffect(() => {
-    const audio = audioRef.current;
+    // const audio = audioRef.current;
     if (viewState) {
       if (playing) {
         setPlaying(true);
-        audio.play();
+        // audio.play();
       } else {
         setPlaying(false);
-        audio.pause();
+        // audio.pause();
       }
     }
   }, [viewState, playing, setPlaying, setIsAutoplay]);
-
-  const callback = () => {
-    const random = Math.floor(Math.random() * playList.length);
-    if (playList[random].postId !== currentSong.postId) {
-      setCurrentSong(playList[random]);
-      audioRef.current.currentTime = 0;
-      setIsAutoplay(true);
-    } else {
-      const filterRandom = playList.filter(
-        (x) => x.postId !== currentSong.postId
-      );
-      const retryRandom = Math.floor(Math.random() * filterRandom.length);
-      setCurrentSong(filterRandom[retryRandom]);
-      audioRef.current.currentTime = 0;
-      setIsAutoplay(true);
-    }
-  };
-
-  const callbackMember = () => {
-    if (playListMemberIsLoaded) {
-      const random = Math.floor(Math.random() * playListMember.length);
-      if (playListMember[random].postId !== currentSongMember.postId) {
-        setCurrentSongMember(playListMember[random]);
-        audioRef.current.currentTime = 0;
-        setIsAutoplay(true);
-      } else {
-        const filterRandom = playListMember.filter(
-          (x) => x.postId !== playListMember[random].postId
-        );
-        const retryRandom = Math.floor(Math.random() * filterRandom.length);
-        setCurrentSongMember(filterRandom[retryRandom]);
-        audioRef.current.currentTime = 0;
-        setIsAutoplay(true);
-      }
-    }
-  };
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
@@ -302,7 +476,7 @@ function PlayerMain() {
     } else {
       audioRef.current.loop = isLoop;
     }
-  }, [isLoop]);
+  }, [isLoop, playListMemberIsLoaded]);
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
@@ -312,7 +486,7 @@ function PlayerMain() {
     } else {
       audioRef.current.muted = ismuted;
     }
-  }, [ismuted]);
+  }, [ismuted, playListMemberIsLoaded]);
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
@@ -322,7 +496,7 @@ function PlayerMain() {
     } else {
       audioRef.current.autoplay = isAutoplay;
     }
-  }, [isAutoplay]);
+  }, [isAutoplay, playListMemberIsLoaded]);
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
@@ -332,190 +506,17 @@ function PlayerMain() {
     } else {
       audioRef.current.volume = parseFloat(volume);
     }
-  }, [volume]);
+  }, [playListMemberIsLoaded, volume]);
 
   useEffect(() => {
     if (viewState === false) {
       playListStateChange(false);
     }
-  }, [viewState]);
+  }, [playListStateChange, viewState]);
 
   const RandomPlay = () => {
     setIsRandom(!isRandom);
     setIsLoop(false);
-  };
-
-  const skipBack = () => {
-    const index = playList.findIndex((x) => x.title === currentSong.title);
-
-    if (getCookie('authorization') !== undefined) {
-      if (playListMemberIsLoaded) {
-        const indexMember = playListMember.findIndex(
-          (x) => x.title === currentSongMember.title
-        );
-
-        if (indexMember === 0) {
-          setCurrentSongMember(playListMember[playListMember.length - 1]);
-        } else {
-          setCurrentSongMember(playListMember[indexMember - 1]);
-        }
-        if (playing === true) {
-          setIsAutoplay(true);
-        } else {
-          setIsAutoplay(false);
-        }
-        audioRef.current.currentTime = 0;
-      }
-    } else {
-      if (index === 0) {
-        setCurrentSong(playList[playList.length - 1]);
-      } else {
-        setCurrentSong(playList[index - 1]);
-      }
-      if (playing === true) {
-        setIsAutoplay(true);
-      } else {
-        setIsAutoplay(false);
-      }
-      audioRef.current.currentTime = 0;
-    }
-  };
-
-  const skipNext = () => {
-    const index = playList.findIndex((x) => x.postId === currentSong.postId);
-
-    if (getCookie('authorization') !== undefined) {
-      if (playListMemberIsLoaded) {
-        const indexMember = playListMember.findIndex(
-          (x) => x.postId === currentSongMember.postId
-        );
-        if (indexMember === playListMember.length - 1) {
-          setCurrentSongMember(playListMember[0]);
-        } else {
-          setCurrentSongMember(playListMember[indexMember + 1]);
-        }
-        if (playing === true) {
-          setIsAutoplay(true);
-        } else {
-          setIsAutoplay(false);
-        }
-        audioRef.current.currentTime = 0;
-      }
-    } else {
-      if (index === playList.length - 1) {
-        setCurrentSong(playList[0]);
-      } else {
-        setCurrentSong(playList[index + 1]);
-      }
-      if (playing === true) {
-        setIsAutoplay(true);
-      } else {
-        setIsAutoplay(false);
-      }
-      audioRef.current.currentTime = 0;
-    }
-  };
-
-  const ClickLoop = () => {
-    setIsRandom(false);
-    if (!isLoop) {
-      setIsLoop(true);
-    }
-
-    if (isLoop) {
-      setIsLoop(false);
-    }
-  };
-
-  const ClickMuted = () => {
-    if (!ismuted) {
-      setIsMuted(true);
-    }
-
-    if (ismuted) {
-      setIsMuted(false);
-    }
-  };
-
-  const play = () => {
-    const audio = audioRef.current;
-    audio.volume = volume;
-
-    if (!playing) {
-      setPlaying(true);
-      audio.play();
-    }
-
-    if (playing) {
-      setPlaying(false);
-      audio.pause();
-    }
-  };
-
-  const rangeVolume = (e) => {
-    let min = e.target.min;
-    let max = e.target.max;
-    let val = e.target.value;
-    const result = ((val - min) * 100) / (max - min);
-    e.target.style.backgroundSize = `${result}% 100%`;
-
-    setVolume(e.target.value);
-  };
-
-  const getCurrDuration = (e) => {
-    const percent = (
-      (e.currentTarget.currentTime / e.currentTarget.duration) *
-      100
-    ).toFixed(2);
-    const time = e.currentTarget.currentTime;
-
-    setPercentage(+percent);
-    setCurrentTime(time.toFixed(2));
-  };
-
-  function secondsToHms(seconds) {
-    if (!seconds) return '00 : 00';
-
-    let duration = seconds;
-    let hours = duration / 3600;
-    duration = duration % 3600;
-
-    let min = parseInt(duration / 60);
-    duration = duration % 60;
-
-    let sec = parseInt(duration);
-
-    if (sec < 10) {
-      sec = `0${sec}`;
-    }
-    if (min < 10) {
-      min = `0${min}`;
-    }
-
-    if (parseInt(hours, 10) > 0) {
-      return `${parseInt(hours, 10)} : ${min} : ${sec}`;
-    } else if (min === 0) {
-      return `00 : ${sec}`;
-    } else {
-      return `${min} : ${sec}`;
-    }
-  }
-
-  const Folding = () => {
-    setIsAutoplay(false);
-    setPlaying(false);
-    audioRef.current.pause();
-    viewStateChange(false);
-  };
-
-  const RaiseIt = () => {
-    setIsAutoplay(true);
-    viewStateChange(true);
-    setPlaying(false);
-  };
-
-  const PlayListHandlers = () => {
-    playListStateChange(!playListState);
   };
 
   return (
@@ -527,12 +528,12 @@ function PlayerMain() {
           <PlayContainerOut>
             <PlayContainerOutDiv>
               {viewState ? (
-                <PlayContainerOutImg src={Hide} alt='접기' onClick={Folding} />
+                <PlayContainerOutImg src={Hide} alt='접기' onClick={folding} />
               ) : (
                 <PlayContainerOutImg
                   src={Show}
                   alt='올리기'
-                  onClick={RaiseIt}
+                  onClick={raiseIt}
                 />
               )}
             </PlayContainerOutDiv>
@@ -546,26 +547,26 @@ function PlayerMain() {
                       <img
                         src={PlayListIcon}
                         alt='플레이리스트'
-                        onClick={PlayListHandlers}
+                        onClick={playListHandlers}
                       />
                     ) : (
                       <img
                         src={DisPlayListIcon}
                         alt='플레이리스트 닫기'
-                        onClick={PlayListHandlers}
+                        onClick={playListHandlers}
                       />
                     )
                   ) : playListState ? (
                     <img
                       src={PlayListIcon}
                       alt='플레이리스트'
-                      onClick={PlayListHandlers}
+                      onClick={playListHandlers}
                     />
                   ) : (
                     <img
                       src={DisPlayListIcon}
                       alt='플레이리스트 닫기'
-                      onClick={PlayListHandlers}
+                      onClick={playListHandlers}
                     />
                   )}
                 </IconImgHover>
@@ -705,7 +706,7 @@ function PlayerMain() {
                       <img src={NextPlay} alt='다음곡' />
                     )}
                   </IconImgHover>
-                  <IconImgHover onClick={ClickLoop}>
+                  <IconImgHover onClick={clickLoop}>
                     {isLoop ? (
                       <img src={LoopPlay} alt='루프있을때' />
                     ) : (

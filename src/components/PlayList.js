@@ -1,12 +1,18 @@
 // React
-import { useCallback, useState, Fragment } from 'react';
+import { useState, Fragment } from 'react';
+
 // Zustand
 import usePlayerStore from '../zustand/player';
 import useLikeStore from '../zustand/like';
+
 // Components
 import PlayListSong from './PlayListSong';
 import PlayListModal from './modal/PlayListModal';
 import PlayListCloseModal from './modal/PlayListCloseModal';
+
+// Utils
+import { getCookie } from '../utils/cookie';
+
 // Assets
 import {
   BtmAllDiv,
@@ -27,25 +33,22 @@ import {
   XboxDiv,
 } from '../assets/styles/components/PlayList.styled';
 import { Xbox20 } from '../assets/images/image';
-import { getCookie } from '../utils/cookie';
 
 const PlayList = () => {
   const playListState = usePlayerStore((state) => state.playListState);
+  const playListMember = usePlayerStore((state) => state.playListMember);
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
+  const playList = usePlayerStore((state) => state.playList);
+  const singerIsLikeIsLoaded = useLikeStore(
+    (state) => state.singerIsLikeIsLoaded
+  );
   const playListStateChange = usePlayerStore(
     (state) => state.playListStateChange
   );
   const playListModalHandle = usePlayerStore(
     (state) => state.playListModalHandle
   );
-
-  const playListMember = usePlayerStore((state) => state.playListMember);
-  const singerIsLikeIsLoaded = useLikeStore(
-    (state) => state.singerIsLikeIsLoaded
-  );
-  const singerIsLike = useLikeStore((state) => state.singerIsLike);
-  const makerIsLike = useLikeStore((state) => state.makerIsLike);
-
-  const playList = usePlayerStore((state) => state.playList);
 
   const [isOpen, setOpen] = useState(false);
   const [modalList, setModalList] = useState();
