@@ -82,7 +82,7 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
     }
   };
 
-  const ProfilPage = () => {
+  const profilPage = () => {
     navigate(`/mypage/${nickname}`);
   };
 
@@ -109,7 +109,7 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
                 : imageUrl
             }
             alt=''
-            onClick={ProfilPage}
+            onClick={profilPage}
           />
         </BtmProfileDivDivDiv>
         <BtmTextDivDivDiv>

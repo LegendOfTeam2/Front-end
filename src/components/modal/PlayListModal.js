@@ -85,7 +85,10 @@ const PlayListModal = ({ ModalList }) => {
       borderRadius: '20px',
       backgroundColor: 'rgba(27, 30, 47, 0.8)',
       border: '1px solid #28ca72',
+      overflow: 'auto',
     },
+  
+
   };
 
   const clip = () => {
@@ -161,8 +164,9 @@ const PlayListModal = ({ ModalList }) => {
 
     //           <ListModalProfileNickname>
     <Fragment>
-      <div className='background' />
-      <ReactModal isOpen={playListModalState} className='modal'>
+      {/* <div className='background' /> */}
+      {/* <ReactModal isOpen={playListModalState} className='modal'> */}
+      <ReactModal isOpen={playListModalState} style={customStyles} className='box'>
         {ModalList !== undefined ? (
           <ListModalContainer>
             <XboxDiv onClick={playListClose}>

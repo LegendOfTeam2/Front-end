@@ -1,4 +1,4 @@
-.modal {
+/* .modal {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -18,6 +18,7 @@
   .modal {
     width: 480px;
     height: 480px;
+    top: 60%;
   }
 }
 
@@ -28,4 +29,13 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(20, 20, 20, 0.75);
+  border: 1px solid #28ca72;
+} */
+
+.box {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.box::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
 }

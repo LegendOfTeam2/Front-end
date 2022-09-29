@@ -186,9 +186,9 @@ export const ProfileImgDivDiv = styled.div`
 `;
 
 export const BtmProfileTextNew = styled.span`
-  line-height: ${(props) => props.theme.lineHeight.xxxxl};
+  line-height: ${(props) => props.theme.lineHeight.xxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  font-size: ${(props) => props.theme.fontSizes.xxxxl};
+  font-size: ${(props) => props.theme.fontSizes.xxl};
 `;
 
 export const BtmProfileTextSinger = styled.span`
@@ -262,24 +262,24 @@ export const DisMainPostImgDivDiv = styled.div`
   margin-top: 23px;
 `;
 export const DisMainPostImgDivNew = styled.span`
-  line-height: ${(props) => props.theme.lineHeight.xxxxl};
+  line-height: ${(props) => props.theme.lineHeight.xl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  font-size: ${(props) => props.theme.fontSizes.xxxxl};
+  font-size: ${(props) => props.theme.fontSizes.xl};
 `;
 
 export const DisMainPostImgDivMakeDiv = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 36px;
+  margin-left: 33px;
   gap: 40px;
-  margin-top: 3px;
+
 `;
 
 export const DisMainPostImgDivMake = styled.span`
   line-height: ${(props) => props.theme.lineHeight.xl};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
-  font-size: ${(props) => props.theme.fontSizes.xl};
-  margin-top: 3px;
+  font-size: ${(props) => props.theme.fontSizes.base};
+  margin-top: 2px;
   color: rgba(204, 204, 204, 1);
   &:hover {
     cursor: pointer;
