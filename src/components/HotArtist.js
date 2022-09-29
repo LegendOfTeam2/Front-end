@@ -33,9 +33,7 @@ import {
 
 const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   const follow = useFollowStore((state) => state.follow);
-
   const makeRoom = useChatStore((state) => state.makeRoom);
-
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 

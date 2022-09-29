@@ -1,4 +1,3 @@
-
 .modal {
   position: absolute;
   top: 50%;
@@ -11,7 +10,7 @@
   border: 1px solid #28ca72;
   overflow-y: scroll;
 }
-.modal::-webkit-scrollbar  {
+.modal::-webkit-scrollbar {
   display: none;
 }
 

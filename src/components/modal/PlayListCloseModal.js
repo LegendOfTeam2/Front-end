@@ -1,6 +1,5 @@
 // Packages
 import ReactModal from 'react-modal';
-import { useNavigate } from 'react-router-dom';
 import { GrClose } from 'react-icons/gr';
 
 // Elements
@@ -20,6 +19,14 @@ import usePlayerStore from '../../zustand/player';
 
 const PlayListCloseModal = ({ isOpen, onCancel, playListMemberLength }) => {
   const deletePlayList = usePlayerStore((state) => state.deletePlayList);
+  const handleClickCancel = () => {
+    onCancel();
+  };
+  const playListDelete = () => {
+    deletePlayList();
+    onCancel();
+  };
+
   const customStyles = {
     overlay: {
       position: 'fixed',
@@ -38,14 +45,6 @@ const PlayListCloseModal = ({ isOpen, onCancel, playListMemberLength }) => {
       height: '404px',
       borderRadius: '10px',
     },
-  };
-
-  const handleClickCancel = () => {
-    onCancel();
-  };
-  const playListDelete = () => {
-    deletePlayList();
-    onCancel();
   };
 
   return (

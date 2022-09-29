@@ -11,12 +11,10 @@ import useMemberStore from '../zustand/member';
 import jwt_decode from 'jwt-decode';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getCookie } from '../utils/cookie';
 
 // Elements
 import Button from '../elements/Button';
-
-// Utils
-import { getCookie } from '../utils/cookie';
 
 // Assets
 import {
@@ -33,9 +31,7 @@ import {
 
 const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
   const follow = useFollowStore((state) => state.follow);
-
   const makeRoom = useChatStore((state) => state.makeRoom);
-
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
@@ -84,7 +80,7 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
     }
   };
 
-  const ProfilPage = () => {
+  const profilPage = () => {
     navigate(`/mypage/${nickname}`);
   };
 
@@ -111,7 +107,7 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
                 : imageUrl
             }
             alt=''
-            onClick={ProfilPage}
+            onClick={profilPage}
           />
         </BtmProfileDivDivDiv>
         <BtmTextDivDivDiv>

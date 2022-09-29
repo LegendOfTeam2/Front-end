@@ -69,34 +69,6 @@ const MyInfoModify = () => {
     hashtag: tags,
   };
 
-  useEffect(() => {
-    const nickname = jwt_decode(getCookie('authorization')).sub;
-    getProfileInfo(nickname).then((res) => {
-      setNickname(res.nickname);
-      setTags(res.hashtag);
-      if (res.introduce !== null) setIntro(res.introduce);
-      if (res.imageUrl !== null) {
-        setImage(res.imageUrl);
-        setImageSrc(res.imageUrl);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-      }
-    });
-    return () => {
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-        }
-      });
-    };
-  });
-
   const deleteText = useCallback(
     (state) => {
       switch (state) {
@@ -114,43 +86,6 @@ const MyInfoModify = () => {
     },
     [nickname, intro]
   );
-
-  useEffect(() => {
-    if (nickname !== '') {
-      setView((prev) => {
-        return { ...prev, nickname: true };
-      });
-    } else {
-      setView((prev) => {
-        return { ...prev, nickname: false };
-      });
-    }
-    if (intro !== '') {
-      setView((prev) => {
-        return { ...prev, intro: true };
-      });
-    } else {
-      setView((prev) => {
-        return { ...prev, intro: false };
-      });
-    }
-  }, [nickname, intro]);
-
-  useEffect(() => {
-    if (jwt_decode(getCookie('authorization')).sub === nickname) {
-      setNicknameCheck(true);
-    } else {
-      if (nickname !== '') {
-        nicknameDupCheck({ nickname }).then((res) => {
-          if (res) {
-            setNicknameCheck(true);
-          } else {
-            setNicknameCheck(false);
-          }
-        });
-      }
-    }
-  }, [nickname]);
 
   const addTag = useCallback(
     (event) => {
@@ -221,6 +156,71 @@ const MyInfoModify = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const nickname = jwt_decode(getCookie('authorization')).sub;
+    getProfileInfo(nickname).then((res) => {
+      setNickname(res.nickname);
+      setTags(res.hashtag);
+      if (res.introduce !== null) setIntro(res.introduce);
+      if (res.imageUrl !== null) {
+        setImage(res.imageUrl);
+        setImageSrc(res.imageUrl);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    });
+    return () => {
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+        }
+      });
+    };
+  });
+
+  useEffect(() => {
+    if (nickname !== '') {
+      setView((prev) => {
+        return { ...prev, nickname: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, nickname: false };
+      });
+    }
+    if (intro !== '') {
+      setView((prev) => {
+        return { ...prev, intro: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, intro: false };
+      });
+    }
+  }, [nickname, intro]);
+
+  useEffect(() => {
+    if (jwt_decode(getCookie('authorization')).sub === nickname) {
+      setNicknameCheck(true);
+    } else {
+      if (nickname !== '') {
+        nicknameDupCheck({ nickname }).then((res) => {
+          if (res) {
+            setNicknameCheck(true);
+          } else {
+            setNicknameCheck(false);
+          }
+        });
+      }
+    }
+  }, [nickname]);
 
   return (
     <Fragment>

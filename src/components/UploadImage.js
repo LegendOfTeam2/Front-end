@@ -16,9 +16,9 @@ import {
 } from '../assets/styles/components/UploadImage.styled';
 
 const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
-  const uploadInputRef = useRef();
-
   const uploadImage = useUploadStore((state) => state.uploadImage);
+
+  const uploadInputRef = useRef();
 
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();

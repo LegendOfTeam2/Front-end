@@ -37,30 +37,22 @@ import {
 import { HeaderlargeLogo, Search } from '../assets/images/image';
 
 const Header = () => {
-  const [keyword, setKeyword] = useState('');
-  const navigate = useNavigate();
-
   const setSearchKeyword = useSearchStore((state) => state.setSearchKeyword);
-
   const signOutMember = useMemberStore((state) => state.signOutMember);
   const getMyImage = useMemberStore((state) => state.getMyImage);
   const myProfileImg = useMemberStore((state) => state.myProfileImg);
-  const myProfileImgIsLoaded = useMemberStore(
-    (state) => state.myProfileImgIsLoaded
-  );
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
   const clearPlayListMember = usePlayerStore(
     (state) => state.clearPlayListMember
   );
-  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const myProfileImgIsLoaded = useMemberStore(
+    (state) => state.myProfileImgIsLoaded
+  );
 
-  useEffect(() => {
-    if (getCookie('authorization') !== undefined) {
-      const nickname = jwt_decode(getCookie('authorization')).sub;
-      getMyImage({ nickname });
-    }
-  }, []);
+  const [keyword, setKeyword] = useState('');
+  const navigate = useNavigate();
 
   const uploadHandle = () => {
     if (getCookie('authorization') !== undefined) {
@@ -103,7 +95,7 @@ const Header = () => {
     [keyword]
   );
 
-  const ProfilPage = () => {
+  const profilPage = () => {
     if (getCookie('authorization') !== undefined) {
       const nickname = jwt_decode(getCookie('authorization')).sub;
       navigate(`/mypage/${nickname}`);
@@ -111,15 +103,24 @@ const Header = () => {
   };
 
   const goToPromotional = () => {
-    navigate(`/promotional`)
-  }
+    navigate(`/promotional`);
+  };
+
+  useEffect(() => {
+    if (getCookie('authorization') !== undefined) {
+      const nickname = jwt_decode(getCookie('authorization')).sub;
+      getMyImage({ nickname });
+    }
+  }, []);
 
   return (
     <Fragment>
       <HeaderContainerDiv>
         <HeaderContainer>
           <HeaderTopDiv>
-            <HeaderTopLeftSpan onClick={goToPromotional} >About RyhthMe</HeaderTopLeftSpan>
+            <HeaderTopLeftSpan onClick={goToPromotional}>
+              About RyhthMe
+            </HeaderTopLeftSpan>
             {getCookie('authorization') !== undefined ? (
               <HeaderTopRightSpan onClick={onHandleSingOut}>
                 로그아웃
@@ -172,7 +173,7 @@ const Header = () => {
                         : myProfileImg
                     }
                     alt='프로필'
-                    onClick={ProfilPage}
+                    onClick={profilPage}
                   ></ProfileImg>
                 ) : (
                   <Fragment />

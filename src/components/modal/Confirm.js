@@ -1,12 +1,10 @@
-// React
-
-// Redux
-
 // Package
 import { AiOutlineExclamation, AiOutlineClose } from 'react-icons/ai';
 import ReactModal from 'react-modal';
+
 // Element
 import Button from '../../elements/Button';
+
 // Assests
 import {
   CancelDiv,
