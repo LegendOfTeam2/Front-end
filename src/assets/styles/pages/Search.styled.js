@@ -51,8 +51,8 @@ export const SearchNaviTitle = styled.span`
   left: 450px;
   transform: translateY(-50%);
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  font-size: ${(props) => props.theme.fontSizes.xxxxl};
-  line-height: ${(props) => props.theme.lineHeight.xxxxl};
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.lineHeight.xl};
 `;
 export const SearchNaviGroup = styled.div`
   width: auto;
@@ -140,12 +140,12 @@ export const SeatchNoDataInfoBox = styled.div`
 `;
 export const SearchNoDataInfoNickname = styled.span`
   color: #de1b4a;
-  font-size: ${(props) => props.theme.fontSizes.xl};
+  font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
 export const SearchNoDataInfoText = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.xl};
+  font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
@@ -159,7 +159,7 @@ export const SearchNoDataNoticeBox = styled.div`
   padding: 18px 24px;
 `;
 export const SearchNoDataNoticeText = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.xl};
+  font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   color: #b4b4b4;
