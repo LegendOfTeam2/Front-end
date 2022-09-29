@@ -43,4 +43,3 @@ export const PromotionalImg = styled.img`
   width: 1000px;
   height: auto;
 `;
-
