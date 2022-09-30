@@ -46,6 +46,10 @@ const MorePage = () => {
   const singerIsLikeIsLoaded = useLikeStore(
     (state) => state.singerIsLikeIsLoaded
   );
+  const makerIsLikeIsLoaded = useLikeStore(
+    (state) => state.makerIsLikeIsLoaded
+  );
+
   const recentMakerIsLoaded = usePostStore(
     (state) => state.recentMakerIsLoaded
   );
@@ -82,7 +86,7 @@ const MorePage = () => {
       });
     } else {
       getMakerLikePost().then((res) => {
-        if (res) {
+        if (res.success) {
           getRecentMaker();
           getBestMaker();
         }
@@ -216,7 +220,7 @@ const MorePage = () => {
                   <Fragment />
                 )
               ) : category === 'new' ? (
-                singerIsLikeIsLoaded ? (
+                makerIsLikeIsLoaded ? (
                   recentMakerIsLoaded ? (
                     recentMaker.map((x) => {
                       if (
@@ -259,7 +263,7 @@ const MorePage = () => {
                 ) : (
                   <Fragment />
                 )
-              ) : singerIsLikeIsLoaded ? (
+              ) : makerIsLikeIsLoaded ? (
                 bestMakerIsLoaded ? (
                   bestMaker.map((x) => {
                     if (
