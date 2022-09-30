@@ -28,6 +28,7 @@ import { warning, info } from '../utils/toast';
 import Header from '../components/Header';
 import Post from '../components/Post';
 import PostBig from '../components/PostBig';
+import NoticeModal from '../components/modal/NoticeModal';
 
 // Elements
 import Button from '../elements/Button';
@@ -93,7 +94,7 @@ import {
   MakerMarker9,
   MakerMarker10,
 } from '../assets/images/image';
-import NoticeModal from '../components/modal/NoticeModal';
+
 
 const MyPage = () => {
   const mainPost = useMyPageStore((state) => state.mainPost);
