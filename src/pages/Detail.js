@@ -23,6 +23,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 // Utils
 import { getCookie } from '../utils/cookie';
+import {warning, info} from '../utils/toast'
 
 // Components
 import Header from '../components/Header';
@@ -137,29 +138,18 @@ const Detail = () => {
 
   const onHandelLike = () => {
     if (getCookie('authorization') === undefined) {
-      alert('로그인 후 이용해 주세요.');
-      navigate('/signin');
+      warning('로그인 후 이용해 주세요.');
     } else {
       addLike({
         postId: detailList.postId,
         position: detailList.position,
       }).then((res) => {
         if (res.success && res.data) {
-          toast.info('게시글에 좋아요를 눌렀습니다.', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 1500,
-            draggablePercent: 60,
-            hideProgressBar: true,
-          });
+          info('게시글에 좋아요를 눌렀습니다.');
           setIsLike(true);
           setCounter((prev) => prev + 1);
         } else {
-          toast.info('게시글에 좋아요를 취소했습니다.', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 1500,
-            draggablePercent: 60,
-            hideProgressBar: true,
-          });
+          info('게시글에 좋아요를 취소했습니다.');
           setIsLike(false);
           setCounter((prev) => prev - 1);
         }
@@ -173,12 +163,7 @@ const Detail = () => {
         `https://rhythme.shop/detail/${params.position}/${params.postId}`
       )
       .then(() => {
-        toast.info('URL 복사가 완료되었습니다.', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 1500,
-          draggablePercent: 60,
-          hideProgressBar: true,
-        });
+        info('URL 복사가 완료되었습니다.');
       });
   };
 

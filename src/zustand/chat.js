@@ -1,11 +1,18 @@
 // Zustand
 import create from 'zustand';
 // Utils
-import { makeRoomApi, getRoomsApi } from '../utils/apis/chat';
+import {
+  makeRoomApi,
+  getRoomsApi,
+  getChatMessagesApi,
+} from '../utils/apis/chat';
 
 const useChatStore = create((set) => ({
-  subRoomId: '',
+  subscription: [],
   rooms: [],
+  chatMessages: [],
+  chatRoomInfo: { roomId: '', nickname: '', profileImg: '' },
+  chatMessagesIsLoaded: false,
   getRoomsIsLoaded: false,
   makeRoom: async (payload) => {
     const resData = await makeRoomApi(payload)
@@ -28,8 +35,31 @@ const useChatStore = create((set) => ({
       set({ getRoomsIsLoaded: true });
     }
   },
-  setSubRoomId: (payload) => {
-    set({ subRoomId: payload });
+  getChatMessages: async (payload) => {
+    const resData = await getChatMessagesApi(payload)
+      .then((res) => res)
+      .catch((err) => console.log(err));
+
+    if (resData?.data.success) {
+      set({ chatMessages: resData.data.data });
+      set({ chatMessagesIsLoaded: true });
+
+      return resData.data;
+    }
+  },
+  setSubscription: (payload) => {
+    set((state) => {
+      return { subscription: [...state.subscription, payload] };
+    });
+  },
+  setChatRoomInfo: (payload) => {
+    set({
+      chatRoomInfo: {
+        roomId: payload.roomId,
+        nickname: payload.nickname,
+        profileImg: payload.profileImg,
+      },
+    });
   },
 }));
 

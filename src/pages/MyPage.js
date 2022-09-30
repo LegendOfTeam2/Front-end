@@ -14,7 +14,7 @@ import usePlayerStore from '../zustand/player';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import jwt_decode from 'jwt-decode';
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
@@ -22,6 +22,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 // Utils
 import { getCookie } from '../utils/cookie';
+import { warning, info } from '../utils/toast';
 
 // Components
 import Header from '../components/Header';
@@ -167,8 +168,8 @@ const MyPage = () => {
   const onHandleChat = () => {
     if (getCookie('authorization') !== undefined) {
       const sender = jwt_decode(getCookie('authorization')).sub;
+      console.log(sender, nickname);
       makeRoom({ sender, receiver: nickname }).then((res) => {
-        console.log(res);
         if (res?.success) {
           navigate('/chat');
         } else {
@@ -176,12 +177,7 @@ const MyPage = () => {
         }
       });
     } else {
-      toast.warning(`로그인 후에 이용 가능합니다.`, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        autoClose: 1500,
-        draggablePercent: 60,
-        hideProgressBar: true,
-      });
+      warning(`로그인 후에 이용 가능합니다.`);
     }
   };
 
@@ -191,30 +187,15 @@ const MyPage = () => {
         if (res.success) {
           if (res.data) {
             setIsFollow(true);
-            toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
+            info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`);
           } else {
             setIsFollow(false);
-            toast.info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`, {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
+            info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`);
           }
         }
       });
     } else {
-      toast.warning(`로그인 후에 이용 가능합니다.`, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        autoClose: 1500,
-        draggablePercent: 60,
-        hideProgressBar: true,
-      });
+      warning('로그인 후 이용해 주세요.');
     }
   };
 

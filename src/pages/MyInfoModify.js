@@ -10,11 +10,12 @@ import { useNavigate } from 'react-router-dom';
 import { GrClose } from 'react-icons/gr';
 import shortid from 'shortid';
 import jwt_decode from 'jwt-decode';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Utils
 import { getCookie, removeCookie } from '../utils/cookie';
+import { warning, info } from '../utils/toast';
 
 // Components
 import UploadImage from '../components/UploadImage';
@@ -95,7 +96,7 @@ const MyInfoModify = () => {
             setTags([...tags, event.target.value]);
             event.target.value = '';
           } else {
-            alert('중복되는 태그입니다.');
+            warning('중복되는 태그입니다.');
           }
         }
       }
@@ -107,7 +108,7 @@ const MyInfoModify = () => {
             setTags([...tags, event.target.value]);
             event.target.value = '';
           } else {
-            alert('중복되는 태그입니다.');
+            warning('중복되는 태그입니다.');
           }
         }
       }
@@ -125,20 +126,10 @@ const MyInfoModify = () => {
 
   const onHandelModify = () => {
     if (nickname === '') {
-      toast.info('닉네임을 입력해 주세요.', {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        autoClose: 1500,
-        draggablePercent: 60,
-        hideProgressBar: true,
-      });
+      info('닉네임을 입력해 주세요.');
     } else {
       if (nicknameCheck === false) {
-        toast.error('중복되는 이메일입니다 !', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 1500,
-          draggablePercent: 60,
-          hideProgressBar: true,
-        });
+        warning('중복되는 이메일입니다.');
       } else {
         putProfile(jwt_decode(getCookie('authorization')).sub, newProfile).then(
           (res) => {

@@ -13,7 +13,7 @@ import { SiBeatsbydre } from 'react-icons/si';
 import { BsFillFileEarmarkMusicFill } from 'react-icons/bs';
 import jwt_decode from 'jwt-decode';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -35,6 +35,7 @@ import Button from '../elements/Button';
 
 // Utils
 import { getCookie } from '../utils/cookie';
+import { warning } from '../utils/toast';
 
 // Essets
 import {
@@ -242,12 +243,7 @@ const WriteModify = () => {
           return { ...prev, audio: res.data[0] };
         });
       } else {
-        toast.warning('오디오 업로드에 실패했습니다.', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 1500,
-          draggablePercent: 60,
-          hideProgressBar: true,
-        });
+        warning('오디오 업로드에 실패했습니다.');
         setValues((prev) => {
           return { ...prev, audio: '' };
         });
@@ -268,12 +264,7 @@ const WriteModify = () => {
           return { ...prev, audio: res.data[0] };
         });
       } else {
-        toast.warning('오디오 업로드에 실패했습니다.', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 1500,
-          draggablePercent: 60,
-          hideProgressBar: true,
-        });
+        warning('오디오 업로드에 실패했습니다.');
         setValues((prev) => {
           return { ...prev, audio: '' };
         });
@@ -309,12 +300,7 @@ const WriteModify = () => {
             });
             event.target.value = '';
           } else {
-            toast.warning('중복되는 태그입니다.', {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
+            warning('중복되는 태그입니다.');
           }
         }
       }
@@ -331,12 +317,7 @@ const WriteModify = () => {
             });
             event.target.value = '';
           } else {
-            toast.warning('중복되는 태그입니다.', {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
+            warning('중복되는 태그입니다.');
           }
         }
       }
@@ -358,23 +339,13 @@ const WriteModify = () => {
     switch (newPosition) {
       case 'Singer': {
         if (values.position !== newPosition) {
-          toast.warning('포지션 변경은 불가능합니다.', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 1500,
-            draggablePercent: 60,
-            hideProgressBar: true,
-          });
+          warning('포지션 변경은 불가능합니다.');
         }
         break;
       }
       case 'Maker': {
         if (values.position !== newPosition) {
-          toast.warning('포지션 변경은 불가능합니다.', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 1500,
-            draggablePercent: 60,
-            hideProgressBar: true,
-          });
+          warning('포지션 변경은 불가능합니다.');
         }
         break;
       }
@@ -399,12 +370,7 @@ const WriteModify = () => {
   const modifyPostHandle = (e) => {
     e.preventDefault();
     if (values.audio === '') {
-      toast.warning('오디오를 삽입해주세요.', {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        autoClose: 1500,
-        draggablePercent: 60,
-        hideProgressBar: true,
-      });
+      warning('오디오를 삽입해주세요.');
     } else {
       putModifyWrite(modifyPost).then((res) => {
         if (res.success) {
@@ -465,7 +431,7 @@ const WriteModify = () => {
           return { ...prev, fileName: data.mediaUrl.split('-').slice(-1) };
         });
       } else {
-        alert('다시 시도 부탁드립니다.');
+        warning('다시 시도 부탁드립니다.');
         navigate(-1);
       }
     });

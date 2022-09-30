@@ -14,6 +14,9 @@ import { useMediaQuery } from 'react-responsive';
 import Button from '../elements/Button';
 import Input from '../elements/Input';
 
+// Utils
+import { warning } from '../utils/toast';
+
 // Assets
 import {
   SignInContainer,
@@ -128,9 +131,9 @@ const SignIn = () => {
     async (e) => {
       e.preventDefault();
       if (email === '') {
-        alert('계정을 입력해주세요');
+        warning('계정을 입력해주세요.');
       } else if (emailRegExp.test(email) === false) {
-        alert('이메일 형식에 맞지 않습니다');
+        warning('이메일 형식에 맞지 않습니다.');
       } else {
         signInMember({ email, password }).then((res) => {
           if (res) {

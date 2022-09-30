@@ -16,6 +16,7 @@ import Input from '../elements/Input';
 
 // Utils
 import { getCookie, removeCookie } from '../utils/cookie';
+import { warning } from '../utils/toast';
 
 // Assests
 import {
@@ -58,8 +59,7 @@ const Header = () => {
     if (getCookie('authorization') !== undefined) {
       navigate('/write');
     } else {
-      alert('로그인 후에 이용 가능합니다.');
-      navigate('/signin');
+      warning('로그인 후 이용해 주세요.');
     }
   };
 
@@ -104,6 +104,14 @@ const Header = () => {
 
   const goToPromotional = () => {
     navigate(`/promotional`);
+  };
+
+  const chatHandle = () => {
+    if (getCookie('authorization') !== undefined) {
+      navigate('/chat');
+    } else {
+      warning('로그인 후 이용해 주세요.');
+    }
   };
 
   useEffect(() => {
@@ -203,7 +211,7 @@ const Header = () => {
                     color: '#28CA7C',
                     ft_size: '12',
                   }}
-                  _onClick={() => navigate('/chat')}
+                  _onClick={chatHandle}
                   _text={'메세지'}
                 />
               </BtmDiv>

@@ -135,15 +135,26 @@ export const ChatDataRoomMessageContainer = styled.div`
   height: 600px;
   padding: 20px;
   border-bottom: 1px solid #28ca7c;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: white;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #1b1e2f;
+    border-radius: 10px;
+  }
+`;
+export const ChatDataRoomMessageBox = styled.div`
+  width: auto;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   gap: 20px;
-  overflow: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
+`
 export const ChatDataRoomInputContainer = styled.div`
   width: 100%;
   height: 173px;

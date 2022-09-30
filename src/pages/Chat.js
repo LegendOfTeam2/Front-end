@@ -1,8 +1,9 @@
 // React
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect, useRef } from 'react';
 
 // Zustand
 import useChatStore from '../zustand/chat';
+import useMemberStore from '../zustand/member';
 
 // Packages
 import SockJS from 'sockjs-client';
@@ -41,6 +42,7 @@ import {
   ChatDataRoomTextContainer,
   ChatDataRoomTextNickname,
   ChatDataRoomMessageContainer,
+  ChatDataRoomMessageBox,
   ChatDataRoomInputContainer,
   ChatDataRoomInput,
   ChatDataRoomButtonBox,
@@ -51,24 +53,41 @@ const Chat = () => {
   const sockJS = new SockJS(`http://${SERVER_URL}/ws/chat`);
   const stompClient = over(sockJS);
 
-  const nickname = jwt_decode(getCookie('authorization')).sub;
-
   const getRoomsIsLoaded = useChatStore((state) => state.getRoomsIsLoaded);
   const getRooms = useChatStore((state) => state.getRooms);
   const rooms = useChatStore((state) => state.rooms);
-  const subRoomId = useChatStore((state) => state.subRoomId);
+  const chatRoomInfo = useChatStore((state) => state.chatRoomInfo);
+  const subscription = useChatStore((state) => state.subscription);
+  const setSubscription = useChatStore((state) => state.setSubscription);
+  const chatMessages = useChatStore((state) => state.chatMessages);
+  const getChatMessages = useChatStore((state) => state.getChatMessages);
+  const chatMessagesIsLoaded = useChatStore(
+    (state) => state.chatMessagesIsLoaded
+  );
+
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
 
   const [message, setMessage] = useState('');
   const [contents, setContents] = useState([]);
 
+  const scrollRef = useRef();
+
   const navigate = useNavigate();
+
+  const scrollToBottom = () => {
+    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  };
 
   const onHandleClick = () => {
     if (message !== '' && message !== ' ') {
       const newMessage = {
         type: 'TALK',
-        roomId: subRoomId,
-        sender: nickname,
+        roomId: chatRoomInfo.roomId,
+        sender:
+          getCookie('authorization') !== undefined
+            ? jwt_decode(getCookie('authorization')).sub
+            : '',
         message,
         profileUrl: '',
         createdAt: '',
@@ -84,9 +103,12 @@ const Chat = () => {
         if (e.target.value.length > 0) {
           e.preventDefault();
           const newMessage = {
-            type: 'ENTER',
-            roomId: subRoomId,
-            sender: nickname,
+            type: 'TALK',
+            roomId: chatRoomInfo.roomId,
+            sender:
+              getCookie('authorization') !== undefined
+                ? jwt_decode(getCookie('authorization')).sub
+                : '',
             message,
             profileUrl: '',
             createdAt: '',
@@ -104,13 +126,32 @@ const Chat = () => {
 
   useEffect(() => {
     getRooms();
-    stompClient.connect({}, () => {
-      stompClient.subscribe(`/sub/chat/room/${subRoomId}`, (data) => {
-        const newMessage = JSON.parse(data.body);
-        addMessage(newMessage);
+    setContents([]);
+
+    if (subscription.indexOf(chatRoomInfo.roomId) === -1) {
+      stompClient.connect({}, () => {
+        setTimeout(
+          stompClient.subscribe(
+            `/sub/chat/room/${chatRoomInfo.roomId}`,
+            (data) => {
+              const newMessage = JSON.parse(data.body);
+              addMessage(newMessage);
+            }
+          ),
+          500
+        );
       });
-    });
-  }, [subRoomId]);
+      setSubscription(chatRoomInfo.roomId);
+      getChatMessages(chatRoomInfo.roomId);
+    } else {
+      getChatMessages(chatRoomInfo.roomId);
+    }
+  }, [chatRoomInfo.roomId]);
+
+  useEffect(() => {
+    getRooms();
+    scrollToBottom();
+  }, [chatMessages, contents]);
 
   return (
     <Fragment>
@@ -131,18 +172,23 @@ const Chat = () => {
             </ChatDataMemberTitleBox>
             <ChatDataMemberRoomBox>
               {getRoomsIsLoaded ? (
-                rooms.map((room) => {
-                  return (
-                    <ChatMember
-                      key={room.roomId}
-                      roomId={room.roomId}
-                      sender={room.sender}
-                      receiver={room.receiver}
-                      lastMessage={room.lastMessage}
-                      profileUrl={room.profileUrl}
-                    />
-                  );
-                })
+                [...rooms].length !== 0 ? (
+                  [...rooms].map((room) => {
+                    return (
+                      <ChatMember
+                        key={room.roomId}
+                        roomId={room.roomId}
+                        sender={room.sender}
+                        receiver={room.receiver}
+                        lastMessage={room.lastMessage}
+                        receiverProfileUrl={room.receiverProfileUrl}
+                        senderProfileUrl={room.senderProfileUrl}
+                      />
+                    );
+                  })
+                ) : (
+                  <Fragment />
+                )
               ) : (
                 <Fragment />
               )}
@@ -151,25 +197,63 @@ const Chat = () => {
           <ChatDataRoomContainer>
             <ChatDataRoomProfileContainer>
               <ChatDataRoomProfileBox>
-                <ChatDataRoomProfileImg></ChatDataRoomProfileImg>
+                {chatRoomInfo.profileImg !== '' ? (
+                  <ChatDataRoomProfileImg src={chatRoomInfo.profileImg} />
+                ) : (
+                  <ChatDataRoomProfileImg src={profileImgArr[random]} />
+                )}
               </ChatDataRoomProfileBox>
               <ChatDataRoomTextContainer>
-                <ChatDataRoomTextNickname>닉네임</ChatDataRoomTextNickname>
+                <ChatDataRoomTextNickname>
+                  {chatRoomInfo.nickname}
+                </ChatDataRoomTextNickname>
               </ChatDataRoomTextContainer>
             </ChatDataRoomProfileContainer>
-            <ChatDataRoomMessageContainer>
-              {contents.map((element, idx) => {
-                let messageState = false;
-                if (nickname === element.sender) messageState = true;
-                return (
-                  <Message
-                    key={idx}
-                    sender={element.sender}
-                    message={element.message}
-                    messageState={messageState}
-                  />
-                );
-              })}
+            <ChatDataRoomMessageContainer ref={scrollRef}>
+              <ChatDataRoomMessageBox>
+                {chatMessagesIsLoaded ? (
+                  [...chatMessages].map((messages, idx) => {
+                    let messageState = false;
+                    if (getCookie('authorization') !== undefined) {
+                      if (
+                        jwt_decode(getCookie('authorization')).sub ===
+                        messages.sender
+                      ) {
+                        messageState = true;
+                      }
+                    }
+                    return (
+                      <Message
+                        key={idx}
+                        sender={messages.sender}
+                        message={messages.message}
+                        messageState={messageState}
+                      />
+                    );
+                  })
+                ) : (
+                  <Fragment />
+                )}
+                {contents.map((element, idx) => {
+                  let messageState = false;
+                  if (getCookie('authorization') !== undefined) {
+                    if (
+                      jwt_decode(getCookie('authorization')).sub ===
+                      element.sender
+                    ) {
+                      messageState = true;
+                    }
+                  }
+                  return (
+                    <Message
+                      key={idx}
+                      sender={element.sender}
+                      message={element.message}
+                      messageState={messageState}
+                    />
+                  );
+                })}
+              </ChatDataRoomMessageBox>
             </ChatDataRoomMessageContainer>
             <ChatDataRoomInputContainer>
               <ChatDataRoomInput

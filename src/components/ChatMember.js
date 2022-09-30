@@ -1,5 +1,6 @@
 // Zustand
 import useChatStore from '../zustand/chat';
+import useMemberStore from '../zustand/member';
 
 // Packages
 import jwt_decode from 'jwt-decode';
@@ -17,17 +18,52 @@ import {
   ChatMemberTextNickname,
 } from '../assets/styles/components/ChatMember.styled';
 
-const ChatMember = ({ roomId, sender, receiver, lastMessage, profileUrl }) => {
-  const setSubRoomId = useChatStore((state) => state.setSubRoomId);
+const ChatMember = ({
+  roomId,
+  sender,
+  senderProfileUrl,
+  receiver,
+  receiverProfileUrl,
+  lastMessage,
+}) => {
+  const setChatRoomInfo = useChatStore((state) => state.setChatRoomInfo);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
 
   const onClickHandle = () => {
-    setSubRoomId(roomId);
+    if (receiver === jwt_decode(getCookie('authorization')).sub) {
+      setChatRoomInfo({
+        roomId: roomId,
+        nickname: sender,
+        profileImg: senderProfileUrl,
+      });
+    } else {
+      setChatRoomInfo({
+        roomId: roomId,
+        nickname: receiver,
+        profileImg: receiverProfileUrl,
+      });
+    }
   };
 
   return (
     <ChatMemberContainer onClick={onClickHandle}>
       <ChatMemberProfileContainer>
-        <ChatMemberProfileImg src={profileUrl}></ChatMemberProfileImg>
+        {receiver === jwt_decode(getCookie('authorization')).sub ? (
+          senderProfileUrl === '' ? (
+            <ChatMemberProfileImg
+              src={profileImgArr[random]}
+            ></ChatMemberProfileImg>
+          ) : (
+            <ChatMemberProfileImg src={senderProfileUrl}></ChatMemberProfileImg>
+          )
+        ) : receiverProfileUrl === '' ? (
+          <ChatMemberProfileImg
+            src={profileImgArr[random]}
+          ></ChatMemberProfileImg>
+        ) : (
+          <ChatMemberProfileImg src={receiverProfileUrl}></ChatMemberProfileImg>
+        )}
       </ChatMemberProfileContainer>
       <ChatMemberTextContainer>
         {receiver === jwt_decode(getCookie('authorization')).sub ? (
