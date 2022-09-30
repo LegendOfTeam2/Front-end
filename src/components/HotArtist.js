@@ -12,12 +12,15 @@ import jwt_decode from 'jwt-decode';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// Elements
-import Button from '../elements/Button';
-
 // Utils
 import { getCookie } from '../utils/cookie';
 import { warning, info } from '../utils/toast';
+
+// Components
+import NoticeModal from './modal/NoticeModal';
+
+// Elements
+import Button from '../elements/Button';
 
 // Assets
 import {
@@ -32,16 +35,23 @@ import {
   MainProfileimg,
 } from '../assets/styles/components/HotArtist.styled';
 
+
 const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   const follow = useFollowStore((state) => state.follow);
   const makeRoom = useChatStore((state) => state.makeRoom);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
+  const [noticeOpen ,setNoticeOpen] = useState(false)
   const [counter, setCounter] = useState(follower);
   const [followCheck, setFollowCheck] = useState(isFollow);
 
   const navigate = useNavigate();
+
+
+  const onCancel = () => {
+    setNoticeOpen(false);
+  };
 
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
@@ -72,22 +82,24 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   };
 
   const onHandleChat = () => {
-    if (getCookie('authorization') !== undefined) {
-      const sender = jwt_decode(getCookie('authorization')).sub;
-      makeRoom({ sender, receiver: nickname }).then((res) => {
-        if (res?.success) {
-          navigate('/chat');
-        } else {
-          navigate('/chat');
-        }
-      });
-    } else {
-      warning(`로그인 후에 이용 가능합니다.`);
-    }
+    // if (getCookie('authorization') !== undefined) {
+    //   const sender = jwt_decode(getCookie('authorization')).sub;
+    //   makeRoom({ sender, receiver: nickname }).then((res) => {
+    //     if (res?.success) {
+    //       navigate('/chat');
+    //     } else {
+    //       navigate('/chat');
+    //     }
+    //   });
+    // } else {
+    //   warning(`로그인 후에 이용 가능합니다.`);
+    // }
+    setNoticeOpen(true)
   };
 
   return (
     <HotArtistImgDivDiv key={nickname}>
+      <NoticeModal isOpen={noticeOpen} onCancel={onCancel}/>
       <ToastContainer />
       <BtmProfileDivDiv>
         <BtmProfileDivDivDiv>
