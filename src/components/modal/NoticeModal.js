@@ -18,7 +18,6 @@ import {
   NoticeQuestionText,
 } from '../../assets/styles/components/modal/NoticeModal.styled';
 import { WithdrawalLogo, Xbox20 } from '../../assets/images/image';
-import { useState } from 'react';
 
 
 const NoticeModal = ({isOpen , onCancel}) => {
@@ -56,7 +55,7 @@ const NoticeModal = ({isOpen , onCancel}) => {
         <img src={Xbox20} alt='Xbox' onClick={handleClickCancel} />
         </NoticeIcon>
         <NoticeLogo>
-          <NoticeLogoImg src={WithdrawalLogo} />
+          <NoticeLogoImg src={WithdrawalLogo} alt="로고"/>
         </NoticeLogo>
         <NoticeQuestionText>
             서비스 점검 중입니다.

@@ -9,6 +9,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Pages
 import Search from '../pages/Search';
+import Chat from '../pages/Chat';
 
 // Components
 import Loading from '../components/Loading';
@@ -17,6 +18,9 @@ import PlayerMain from '../components/audioplayer/PlayerMain';
 // Utils
 import { getCookie } from '../utils/cookie';
 import { useEffect } from 'react';
+
+// Shared
+import Analytics from './Analytics';
 
 // Pages -Lazy
 const Main = lazy(() => import('../pages/Main'));
@@ -30,9 +34,7 @@ const MyInfoModify = lazy(() => import('../pages/MyInfoModify'));
 const Detail = lazy(() => import('../pages/Detail'));
 const Withdrawal = lazy(() => import('../pages/Withdrawal'));
 const MorePage = lazy(() => import('../pages/MorePage'));
-const Chat = lazy(() => import('../pages/Chat'));
 const PromotionalPage = lazy(() => import('../pages/PromotionalPage'));
-const NoticeModal = lazy(() => import('../components/modal/NoticeModal'));
 
 // Utils - Lazy
 const Kakao = lazy(() => import('../utils/kakao'));
@@ -43,6 +45,8 @@ function App() {
   const changeLoginStatus = useMemberStore((state) => state.changeLoginStatus);
 
   const location = useLocation().pathname.split('/')[1];
+
+  Analytics();
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
@@ -87,10 +91,6 @@ function App() {
           path='/chat'
           element={is_login !== undefined ? <Chat /> : <Main />}
         />
-        <Route path='/test' element={<NoticeModal />} />
-        
-
-
 
         <Route path='*' element={<Main />} />
       </Routes>
