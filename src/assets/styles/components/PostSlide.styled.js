@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ProfileImgDivDiv = styled.div`
   width: 167px;
@@ -10,9 +10,8 @@ export const ProfileImgDivDiv = styled.div`
 export const Profileimg = styled.img`
   width: 167px;
   height: 167px;
-  border-radius: 19px;
   ${ProfileImgDivDiv}:hover & {
-    filter: brightness(50%);
+    filter: brightness(20%);
   }
 `;
 
@@ -27,11 +26,22 @@ export const ImgMainBtmRight = styled.div`
   }
 `;
 
-export const ImgMainSpan = styled.span`
+export const ImgMainSpan = styled.div`
+  display: flex;
+  flex-direction: column;
   color: rgba(245, 245, 245, 1);
+`;
+
+export const ImgMainSpanNickname = styled.span`
   line-height: ${(props) => props.theme.lineHeight.xs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  font-size: ${(props) => props.theme.fontSizes.sm};
+  font-size: ${(props) => props.theme.fontSizes.xs};
+`;
+
+export const ImgMainSpanTitle = styled.span`
+  line-height: ${(props) => props.theme.lineHeight.sm};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-size: ${(props) => props.theme.fontSizes.base};
 `;
 
 export const ImgTopLeft = styled.div`
@@ -44,9 +54,28 @@ export const ImgTopLeft = styled.div`
   text-overflow: ellipsis;
   color: rgba(40, 202, 124, 1);
   display: none;
+  line-height: ${(props) => props.theme.lineHeight.sm};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-size: ${(props) => props.theme.fontSizes.base};
+  ${ProfileImgDivDiv}:hover & {
+    display: block;
+    cursor: pointer;
+  }
+`;
+
+export const ImgTopBtmLeft = styled.div`
+  position: absolute;
+  top: 18%;
+  left: 8%;
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: rgba(40, 202, 124, 1);
+  display: none;
   line-height: ${(props) => props.theme.lineHeight.xs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  font-size: ${(props) => props.theme.fontSizes.sm};
+  font-size: ${(props) => props.theme.fontSizes.xs};
   ${ProfileImgDivDiv}:hover & {
     display: block;
     cursor: pointer;
@@ -86,7 +115,7 @@ export const ImgBtmLeftDiv = styled.div`
 `;
 
 export const ImgBtmLeftDivSapn = styled.span`
-  line-height: ${(props) => props.theme.lineHeight.xs};
+  line-height: ${(props) => props.theme.lineHeight.sm};
   font-weight: ${(props) => props.theme.fontWeight.Regular};
   font-size: ${(props) => props.theme.fontSizes.sm};
   color: rgba(40, 202, 124, 1);
@@ -104,13 +133,14 @@ export const ImgBtmRight = styled.div`
     cursor: pointer;
   }
 `;
+
 export const DisImgTopRight = styled.div`
   position: absolute;
   width: auto;
   top: 8%;
   right: 10%;
   display: block;
-    :hover & {
+  :hover & {
     cursor: pointer;
   }
 `;

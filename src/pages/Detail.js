@@ -1,6 +1,7 @@
 // React
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 // Zustand
 import usePlayerStore from '../zustand/player';
 import useMemberStore from '../zustand/member';
@@ -16,27 +17,18 @@ import {
 import jwt_decode from 'jwt-decode';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+// Utils
+import { getCookie } from '../utils/cookie';
+import {warning, info} from '../utils/toast'
 
 // Components
 import Header from '../components/Header';
 
-// Elements
-import Button from '../elements/Button';
-
-// Utils
-import { getCookie } from '../utils/cookie';
-
 // Assests
-import {
-  OnPlay96,
-  DisCollaboration38,
-  DisLike38,
-  Share38,
-  Putting,
-  Like38,
-  MakerWhite,
-  SingerWhite,
-} from '../assets/images/image';
 import {
   DetailBtmClickLyricsSpan,
   DetailBtmClickMoreSpan,
@@ -57,7 +49,6 @@ import {
   DetailProfileBtmFirSpan,
   DetailProfileBtmSecSpan,
   DetailProfileBtnTopDiv,
-  DetailProfileBtnTopDivBtn,
   DetailProfileDiv,
   DetailProfileImg,
   DetailProfileImgTextTop,
@@ -79,101 +70,104 @@ import {
   PositionMidRighTopRightRightTextSpan,
   PositionMidRighTopRigtTextDiv,
   PositionMidRighTopTextDiv,
+  PositionMidInfoDiv,
+  DetailHashtagContainer,
+  DetailHashTagBox,
+  DetailHashTag,
+  DetailProfileContainer,
+  DetailProfileBox,
+  DetailProfileBtnGroup,
+  DetailLyricsContainer,
+  DetailHorizonLine,
+  DetailIntroContainer,
 } from '../assets/styles/pages/Detail.styled';
+import {
+  OnPlay96,
+  DisCollaboration38,
+  DisLike38,
+  Share38,
+  Like38,
+  ShowPw38,
+  Modify,
+} from '../assets/images/image';
 
 const Detail = () => {
+  const getDetail = usePostStore((state) => state.getDetail);
+  const detailList = usePostStore((state) => state.detailList);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
+  const addPlayList = usePlayerStore((state) => state.addPlayList);
+  const postPlayList = usePlayerStore((state) => state.postPlayList);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
+  const addLike = useLikeStore((state) => state.addLike);
+  const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
+  const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
+  const detailListLoaded = usePostStore((state) => state.detailListLoaded);
+
   const [lyrics, setLyrics] = useState(false);
   const [introduction, setIntroduction] = useState(false);
   const [isLike, setIsLike] = useState(false);
-  const Params = useParams();
+  const [counter, setCounter] = useState(0);
 
-  const getDetail = usePostStore((state) => state.getDetail);
-  const detailListLoaded = usePostStore((state) => state.detailListLoaded);
-  const detailList = usePostStore((state) => state.detailList);
-  const deleteDetail = usePostStore((state) => state.deleteDetail);
-  const profileImgArr = useMemberStore((state) => state.profileImgArr);
-  const setPlaying = usePlayerStore((state) => state.setPlaying);
-  const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
-  const random = useMemberStore((state) => state.random);
-  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
-  const addPlayList = usePlayerStore((state) => state.addPlayList);
-  const addLike = useLikeStore((state) => state.addLike);
-
-  const likeCountRef = useRef();
-
+  const params = useParams();
   const navigate = useNavigate();
 
-  const deletePost = {
-    postId: detailList.postId,
-    position: detailList.position,
+  const settings = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    infinite: false,
+    centerPadding: '10px',
+    arrows: false,
+    variableWidth: true,
+    draggable: true,
   };
 
   const goToModify = () => {
-    navigate(`/ModifyWrite/${detailList.position}/${Params.postid}`);
+    navigate(`/ModifyWrite/${params.position}/${params.postId}`);
   };
 
-  const HandelLyrics = () => {
+  const handelLyrics = () => {
     setLyrics(!lyrics);
   };
 
-  const HandelMore = () => {
+  const handelMore = () => {
     setIntroduction(!introduction);
   };
 
   const onHandelLike = () => {
     if (getCookie('authorization') === undefined) {
-      alert('로그인 후 이용해 주세요.');
-      navigate('/signin');
+      warning('로그인 후 이용해 주세요.');
     } else {
       addLike({
         postId: detailList.postId,
         position: detailList.position,
       }).then((res) => {
         if (res.success && res.data) {
-          toast.info('게시글에 좋아요를 눌렀습니다.', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 1500,
-            draggablePercent: 60,
-            hideProgressBar: true,
-          });
+          info('게시글에 좋아요를 눌렀습니다.');
           setIsLike(true);
-          likeCountRef.current.innerText =
-            Number(likeCountRef.current.innerText) + 1;
+          setCounter((prev) => prev + 1);
         } else {
-          toast.info('게시글에 좋아요를 취소했습니다.', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 1500,
-            draggablePercent: 60,
-            hideProgressBar: true,
-          });
+          info('게시글에 좋아요를 취소했습니다.');
           setIsLike(false);
-          likeCountRef.current.innerText =
-            Number(likeCountRef.current.innerText) - 1;
+          setCounter((prev) => prev - 1);
         }
       });
     }
   };
 
-  useEffect(() => {
-    getDetail(Params);
-  }, []);
-
   const clip = () => {
     navigator.clipboard
       .writeText(
-        `https://rhythme.shop/detail/${Params.position}/${Params.postid}`
+        `https://rhythme.shop/detail/${params.position}/${params.postId}`
       )
       .then(() => {
-        toast.info('URL 복사가 완료되었습니다.', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 1500,
-          draggablePercent: 60,
-          hideProgressBar: true,
-        });
+        info('URL 복사가 완료되었습니다.');
       });
   };
 
-  const Play = () => {
+  const play = () => {
     viewStateChange(true);
     setPlaying(true);
     setIsAutoplay(true);
@@ -187,18 +181,60 @@ const Detail = () => {
     });
   };
 
-  const ProfilPage = () => {
+  const playMember = () => {
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    postPlayList({
+      postId: detailList.postId,
+      title: detailList.title,
+      nickname: detailList.nickname,
+      mediaUrl: detailList.mediaUrl,
+      imageUrl: detailList.imageUrl,
+      position: detailList.position,
+    });
+  };
+
+  const profilPage = () => {
     navigate(`/mypage/${detailList.nickname}`);
   };
 
-  const deleteDetailClick = () => {
-    deleteDetail(deletePost).then((res) => {
-      if (res) {
-        alert('게시글이 삭제되었습니다.');
-        navigate('/');
-      }
-    });
-  };
+  useEffect(() => {
+    if (params.position === 'Singer') {
+      getSingerLikePost().then((res) => {
+        if (res) {
+          const likePostArr = res.data.map((element) => {
+            return element.postId;
+          });
+          getDetail(params).then((res) => {
+            if (res.success) {
+              setCounter(res.data.likes);
+              if (likePostArr.indexOf(res.data.postId) > -1) {
+                setIsLike(true);
+              }
+            }
+          });
+        }
+      });
+    } else {
+      getMakerLikePost().then((res) => {
+        if (res) {
+          const likePostArr = res.data.map((element) => {
+            return element.postId;
+          });
+
+          getDetail(params).then((res) => {
+            if (res.success) {
+              setCounter(res.data.likes);
+              if (likePostArr.indexOf(res.data.postId) > -1) {
+                setIsLike(true);
+              }
+            }
+          });
+        }
+      });
+    }
+  }, []);
 
   return (
     <Fragment>
@@ -211,10 +247,127 @@ const Detail = () => {
               <DetailClickHover>
                 <MdOutlineArrowBackIosNew
                   size={36}
-                  color='rgba(180, 180, 180, 1)'
                   onClick={() => navigate(-1)}
                 />
               </DetailClickHover>
+            </DetailProfileImgTextTopDiv>
+            <DetailProfileBtnTopDiv />
+          </DetailTopDiv>
+          <PositionAllDiv>
+            <PositionMarkerDiv>
+              <PositionMarkerSpan>{detailList.position}</PositionMarkerSpan>
+            </PositionMarkerDiv>
+            <PositionMidDiv>
+              <PositionMidInfoDiv>
+                <PositionMidLeftImgDiv>
+                  <PositionMidLeftImg
+                    src={
+                      detailList.imageUrl === null
+                        ? profileImgArr[random]
+                        : detailList.imageUrl === ''
+                        ? profileImgArr[random]
+                        : detailList.imageUrl
+                    }
+                    alt='앨범커버'
+                  />
+                </PositionMidLeftImgDiv>
+                <PositionMidRightDiv>
+                  <PositionMidRighTopTextDiv>
+                    <PositionMidRighTopLeftTextDiv>
+                      {detailList.title}
+                    </PositionMidRighTopLeftTextDiv>
+                  </PositionMidRighTopTextDiv>
+                  <PositionMidMidTextDiv>
+                    <PositionMidMidLeftTextDiv>
+                      {detailList.nickname}
+                    </PositionMidMidLeftTextDiv>
+                    <PositionMidMidRightTextDiv>
+                      <DetailClickHover>
+                        {getCookie('authorization') !== undefined ? (
+                          <img
+                            src={OnPlay96}
+                            alt='플레이 버튼'
+                            onClick={playMember}
+                          />
+                        ) : (
+                          <img
+                            src={OnPlay96}
+                            alt='플레이 버튼'
+                            onClick={play}
+                          />
+                        )}
+                      </DetailClickHover>
+                    </PositionMidMidRightTextDiv>
+                  </PositionMidMidTextDiv>
+                  <PositionMidRighTopRigtTextDiv>
+                    <PositionMidRighTopRightLeftTextSpan>
+                      등록일:
+                    </PositionMidRighTopRightLeftTextSpan>
+                    <PositionMidRighTopRightRightTextSpan>
+                      {detailListLoaded ? (
+                        detailList.createdAt.substr(0, 11)
+                      ) : (
+                        <Fragment />
+                      )}
+                    </PositionMidRighTopRightRightTextSpan>
+                  </PositionMidRighTopRigtTextDiv>
+                  <DetailProfileBtmDiv>
+                    <DetailProfileBtmFirDiv>
+                      {isLike ? (
+                        <DetailClickHover>
+                          <img
+                            src={Like38}
+                            onClick={onHandelLike}
+                            alt='좋아요'
+                          />
+                        </DetailClickHover>
+                      ) : (
+                        <DetailClickHover>
+                          <img
+                            src={DisLike38}
+                            onClick={onHandelLike}
+                            alt='싫어요'
+                          />
+                        </DetailClickHover>
+                      )}
+                      <DetailProfileBtmFirSpan>
+                        {counter}
+                      </DetailProfileBtmFirSpan>
+                    </DetailProfileBtmFirDiv>
+                    <DetailProfileBtmFirDiv onClick={clip}>
+                      <DetailClickHover>
+                        <img src={Share38} backgrond='white' alt='공유하기' />
+                      </DetailClickHover>
+                      <DetailProfileBtmSecSpan>
+                        공유하기
+                      </DetailProfileBtmSecSpan>
+                    </DetailProfileBtmFirDiv>
+                  </DetailProfileBtmDiv>
+                </PositionMidRightDiv>
+              </PositionMidInfoDiv>
+              <DetailHashtagContainer>
+                <Slider {...settings}>
+                  {detailListLoaded ? (
+                    detailList.tags === [] ? (
+                      <Fragment />
+                    ) : (
+                      detailList.tags.reverse().map((x, idx) => {
+                        return (
+                          <DetailHashTagBox key={idx}>
+                            <DetailHashTag># {x}</DetailHashTag>
+                          </DetailHashTagBox>
+                        );
+                      })
+                    )
+                  ) : (
+                    <Fragment />
+                  )}
+                </Slider>
+              </DetailHashtagContainer>
+            </PositionMidDiv>
+          </PositionAllDiv>
+          <DetailProfileContainer>
+            <DetailProfileBox>
               <DetailProfileDiv>
                 <DetailProfileImg
                   src={
@@ -225,130 +378,32 @@ const Detail = () => {
                       : detailList.memberImageUrl
                   }
                   alt='프로필'
-                  onClick={ProfilPage}
                 />
               </DetailProfileDiv>
-
               <DetailProfileImgTextTop>
                 {detailList.nickname}
               </DetailProfileImgTextTop>
-            </DetailProfileImgTextTopDiv>
-            <DetailProfileBtnTopDiv>
+            </DetailProfileBox>
+            <DetailProfileBtnGroup>
+              <DetailProfileBtmFirDiv>
+                <DetailClickHover onClick={profilPage}>
+                  <img src={ShowPw38} backgrond='white' alt='아티스트' />
+                </DetailClickHover>
+                <DetailProfileBtmSecSpan>아티스트 보기</DetailProfileBtmSecSpan>
+              </DetailProfileBtmFirDiv>
               {getCookie('authorization') !== undefined ? (
                 jwt_decode(getCookie('authorization')).sub ===
                 detailList.nickname ? (
-                  <DetailProfileBtnTopDivBtn>
-                    <Button
-                      _style={{
-                        width: '122px',
-                        height: '45px',
-                        bg_color: '#28CA7C',
-                        bd_radius: '11px',
-                        color: 'rgba(255, 255, 255, 1)',
-                        ft_size: '12',
-                      }}
-                      _text={'게시글 수정'}
-                      _onClick={goToModify}
-                    />
-                    <Button
-                      _style={{
-                        width: '122px',
-                        height: '45px',
-                        bg_color: '#cc0000',
-                        bd_radius: '11px',
-                        color: 'rgba(255, 255, 255, 1)',
-                        ft_size: '12',
-                      }}
-                      _text={'게시글 삭제'}
-                      _onClick={deleteDetailClick}
-                    />
-                  </DetailProfileBtnTopDivBtn>
-                ) : (
-                  <Button
-                    _style={{
-                      width: '122px',
-                      height: '45px',
-                      bg_color: '#28CA7C',
-                      bd_radius: '11px',
-                      color: 'rgba(255, 255, 255, 1)',
-                      ft_size: '12',
-                    }}
-                    _text={'메세지'}
-                    _onClick={() => navigate('/chat')}
-                  />
-                )
-              ) : (
-                <Fragment></Fragment>
-              )}
-            </DetailProfileBtnTopDiv>
-          </DetailTopDiv>
-          <PositionAllDiv>
-            <PositionMarkerDiv>
-              <PositionMarkerSpan>
-                {detailList.position}
-              </PositionMarkerSpan>
-            </PositionMarkerDiv>
-            <PositionMidDiv>
-              <PositionMidLeftImgDiv>
-                <PositionMidLeftImg
-                  src={
-                    detailList.imageUrl === null
-                      ? profileImgArr[random]
-                      : detailList.imageUrl === ''
-                      ? profileImgArr[random]
-                      : detailList.imageUrl
-                  }
-                  alt='앨범커버'
-                />
-              </PositionMidLeftImgDiv>
-              <PositionMidRightDiv>
-                <PositionMidRighTopTextDiv>
-                  <PositionMidRighTopLeftTextDiv>
-                    {detailList.title}
-                  </PositionMidRighTopLeftTextDiv>
-                  <PositionMidRighTopRigtTextDiv>
-                    <PositionMidRighTopRightLeftTextSpan>
-                      등록일:
-                    </PositionMidRighTopRightLeftTextSpan>
-                    <PositionMidRighTopRightRightTextSpan>
-                      {detailListLoaded ? (
-                        detailList.createdAt.substr(0, 11)
-                      ) : (
-                        <></>
-                      )}
-                    </PositionMidRighTopRightRightTextSpan>
-                  </PositionMidRighTopRigtTextDiv>
-                </PositionMidRighTopTextDiv>
-                <PositionMidMidTextDiv>
-                  <PositionMidMidLeftTextDiv>
-                    {detailList.nickname}
-                  </PositionMidMidLeftTextDiv>
-                  <PositionMidMidRightTextDiv>
-                    <DetailClickHover>
-                      <img src={OnPlay96} alt='플레이 버튼' onClick={Play} />
-                    </DetailClickHover>
-                  </PositionMidMidRightTextDiv>
-                </PositionMidMidTextDiv>
-                <DetailProfileBtmDiv>
                   <DetailProfileBtmFirDiv>
-                    {isLike ? (
-                      <DetailClickHover>
-                        <img src={Like38} onClick={onHandelLike} alt='좋아요' />
-                      </DetailClickHover>
-                    ) : (
-                      <DetailClickHover>
-                        <img
-                          src={DisLike38}
-                          onClick={onHandelLike}
-                          alt='싫어요'
-                        />
-                      </DetailClickHover>
-                    )}
-                    <DetailProfileBtmFirSpan ref={likeCountRef}>
-                      {detailList.likes}
-                    </DetailProfileBtmFirSpan>
+                    <DetailClickHover onClick={goToModify}>
+                      <img src={Modify} backgrond='white' alt='게시글 수정' />
+                    </DetailClickHover>
+                    <DetailProfileBtmSecSpan>
+                      게시글 수정하기
+                    </DetailProfileBtmSecSpan>
                   </DetailProfileBtmFirDiv>
-                  {detailList.collaborate ? (
+                ) : detailListLoaded ? (
+                  detailList.collaborate ? (
                     <DetailProfileBtmFirDiv>
                       <DetailClickHover>
                         <img
@@ -358,89 +413,116 @@ const Detail = () => {
                         />
                       </DetailClickHover>
 
-                      <DetailProfileBtmSecSpan>콜라보</DetailProfileBtmSecSpan>
+                      <DetailProfileBtmSecSpan>
+                        콜라보 요청하기
+                      </DetailProfileBtmSecSpan>
                     </DetailProfileBtmFirDiv>
                   ) : (
-                    <></>
-                  )}
-                  <DetailProfileBtmFirDiv onClick={clip}>
-                    <DetailClickHover>
-                      <img src={Share38} backgrond='white' alt='공유하기' />
-                    </DetailClickHover>
-                    <DetailProfileBtmSecSpan>공유하기</DetailProfileBtmSecSpan>
-                  </DetailProfileBtmFirDiv>
+                    <Fragment />
+                  )
+                ) : (
+                  <Fragment />
+                )
+              ) : detailListLoaded ? (
+                detailList.collaborate ? (
                   <DetailProfileBtmFirDiv>
                     <DetailClickHover>
-                      <img src={Putting} backgrond='white' alt='담기' />
+                      <img
+                        src={DisCollaboration38}
+                        backgrond='white'
+                        alt='콜라보'
+                      />
                     </DetailClickHover>
-                    <DetailProfileBtmSecSpan>담기</DetailProfileBtmSecSpan>
+
+                    <DetailProfileBtmSecSpan>
+                      콜라보 요청하기
+                    </DetailProfileBtmSecSpan>
                   </DetailProfileBtmFirDiv>
-                </DetailProfileBtmDiv>
-              </PositionMidRightDiv>
-            </PositionMidDiv>
-          </PositionAllDiv>
-
-          <DetailTopLyrics>가사</DetailTopLyrics>
-
-          <DetailBtmLyricsDivDiv lyrics={lyrics}>
-            <DetailBtmLyricsDivSpan>{detailList.lyrics}</DetailBtmLyricsDivSpan>
-          </DetailBtmLyricsDivDiv>
-          <DetailBtmLyricsDivDivDiv>
-            {detailListLoaded ? (
-              detailList.lyrics.length > 65 ? (
-                <DetailBtmClickLyricsSpan onClick={HandelLyrics}>
-                  {lyrics ? (
-                    <>
-                      <DetailBtmLyricsSpan>접기</DetailBtmLyricsSpan>
-                      <MdOutlineKeyboardArrowUp size={40} />
-                    </>
-                  ) : (
-                    <>
-                      <DetailBtmLyricsSpan>펼치기</DetailBtmLyricsSpan>
-                      <MdOutlineKeyboardArrowDown size={40} />
-                    </>
-                  )}
-                </DetailBtmClickLyricsSpan>
+                ) : (
+                  <Fragment />
+                )
               ) : (
-                <></>
-              )
-            ) : (
-              <></>
-            )}
-          </DetailBtmLyricsDivDivDiv>
-          <DetailTopLyrics>소개글</DetailTopLyrics>
-          <DetailBtmMoreDiv>
-            <DetailBtmMoreDivDiv introduction={introduction}>
-              <DetailBtmMoreDivSpan>{detailList.content}</DetailBtmMoreDivSpan>
-            </DetailBtmMoreDivDiv>
-          </DetailBtmMoreDiv>
-          <DetailBtmMoreDivDivDiv>
-            {detailListLoaded ? (
-              detailList.content.length > 65 ? (
-                <DetailBtmClickMoreSpan onClick={HandelMore}>
-                  {introduction ? (
-                    <>
-                      <DetailBtmMoreSpan>접기</DetailBtmMoreSpan>
-                      <MdOutlineKeyboardArrowUp size={40} />
-                    </>
+                <Fragment />
+              )}
+            </DetailProfileBtnGroup>
+          </DetailProfileContainer>
+          {detailListLoaded ? (
+            detailList.lyrics.length !== 0 ? (
+              <DetailLyricsContainer>
+                <DetailTopLyrics>가사</DetailTopLyrics>
+                <DetailHorizonLine />
+                <DetailBtmLyricsDivDiv lyrics={lyrics}>
+                  <DetailBtmLyricsDivSpan>
+                    {detailList.lyrics}
+                  </DetailBtmLyricsDivSpan>
+                </DetailBtmLyricsDivDiv>
+                <DetailBtmLyricsDivDivDiv>
+                  {detailListLoaded ? (
+                    detailList.lyrics.length > 65 ? (
+                      <DetailBtmClickLyricsSpan onClick={handelLyrics}>
+                        {lyrics ? (
+                          <Fragment>
+                            <DetailBtmLyricsSpan>접기</DetailBtmLyricsSpan>
+                            <MdOutlineKeyboardArrowUp size={40} />
+                          </Fragment>
+                        ) : (
+                          <Fragment>
+                            <DetailBtmLyricsSpan>펼치기</DetailBtmLyricsSpan>
+                            <MdOutlineKeyboardArrowDown size={40} />
+                          </Fragment>
+                        )}
+                      </DetailBtmClickLyricsSpan>
+                    ) : (
+                      <Fragment />
+                    )
                   ) : (
-                    <>
-                      <DetailBtmMoreSpan>펼치기</DetailBtmMoreSpan>
-                      <MdOutlineKeyboardArrowDown size={40} />
-                    </>
+                    <Fragment />
                   )}
-                </DetailBtmClickMoreSpan>
-              ) : (
-                <></>
-              )
+                </DetailBtmLyricsDivDivDiv>
+              </DetailLyricsContainer>
             ) : (
-              <></>
-            )}
-          </DetailBtmMoreDivDivDiv>
+              <Fragment />
+            )
+          ) : (
+            <Fragment />
+          )}
+          <DetailIntroContainer>
+            <DetailTopLyrics>소개글</DetailTopLyrics>
+            <DetailHorizonLine />
+            <DetailBtmMoreDiv>
+              <DetailBtmMoreDivDiv introduction={introduction}>
+                <DetailBtmMoreDivSpan>
+                  {detailList.content}
+                </DetailBtmMoreDivSpan>
+              </DetailBtmMoreDivDiv>
+            </DetailBtmMoreDiv>
+            <DetailBtmMoreDivDivDiv>
+              {detailListLoaded ? (
+                detailList.content.length > 65 ? (
+                  <DetailBtmClickMoreSpan onClick={handelMore}>
+                    {introduction ? (
+                      <Fragment>
+                        <DetailBtmMoreSpan>접기</DetailBtmMoreSpan>
+                        <MdOutlineKeyboardArrowUp size={40} />
+                      </Fragment>
+                    ) : (
+                      <Fragment>
+                        <DetailBtmMoreSpan>펼치기</DetailBtmMoreSpan>
+                        <MdOutlineKeyboardArrowDown size={40} />
+                      </Fragment>
+                    )}
+                  </DetailBtmClickMoreSpan>
+                ) : (
+                  <Fragment />
+                )
+              ) : (
+                <Fragment />
+              )}
+            </DetailBtmMoreDivDivDiv>
+          </DetailIntroContainer>
         </DetailContainer>
       </DetailContainerDiv>
     </Fragment>
   );
 };
-
 export default Detail;

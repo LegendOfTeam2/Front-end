@@ -1,35 +1,33 @@
 import styled from 'styled-components';
 
 export const MyImgDivDiv = styled.div`
-  width: 164.5px;
-  height: 164.5px;
+  width: 220px;
+  height: 220px;
   display: flex;
   position: relative;
-
 `;
 
 export const PostimgDivDiv = styled.div`
-  width: 164.5px;
-  height: 164.5px;
+  width: 220px;
+  height: 220px;
   display: flex;
   position: relative;
 `;
 
 export const Myimg = styled.img`
-  width: 164.5px;
-  height: 164.5px;
-  border-radius: 19px;
-
+  width: 220px;
+  height: 220px;
   ${MyImgDivDiv}:hover & {
-    filter: brightness(50%);
+    filter: brightness(20%);
   }
 `;
 
 export const ImgMyBtmRight = styled.div`
   position: absolute;
+  display: flex;
+  flex-direction: column;
   top: 7%;
   left: 7%;
-  display: block;
   ${MyImgDivDiv}:hover & {
     display: none;
     cursor: pointer;
@@ -42,6 +40,24 @@ export const MyImgTopLeft = styled.div`
   white-space: nowrap;
   text-overflow: ellipsis;
   top: 7%;
+  left: 8%;
+  color: rgba(40, 202, 124, 1);
+  display: none;
+  line-height: ${(props) => props.theme.lineHeight.xs};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-size: ${(props) => props.theme.fontSizes.sm};
+  ${MyImgDivDiv}:hover & {
+    display: block;
+    cursor: pointer;
+  }
+`;
+export const MyImgTopBotmLeft = styled.div`
+  position: absolute;
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  top: 18%;
   left: 8%;
   color: rgba(40, 202, 124, 1);
   display: none;
@@ -94,7 +110,7 @@ export const MyImgBtmLeftspan = styled.span`
 
 export const MyImgBtmRight = styled.div`
   position: absolute;
-  bottom: 5%;
+  bottom: 2%;
   right: 6%;
   display: none;
   ${MyImgDivDiv}:hover & {
@@ -105,6 +121,17 @@ export const MyImgBtmRight = styled.div`
 export const ImgNotSlideSpan = styled.span`
   color: #ffffff;
   text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+  line-height: ${(props) => props.theme.lineHeight.xs};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-size: ${(props) => props.theme.fontSizes.sm};
+`;
+export const ImgNotTopSlideSpan = styled.span`
+  color: #ffffff;
+  text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100px;
+  text-overflow: ellipsis;
   line-height: ${(props) => props.theme.lineHeight.xs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.sm};

@@ -1,19 +1,15 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const HotArtistImgDivDiv = styled.div`
   width: 167px;
-  display: 167px;
   position: relative;
   margin-top: 24px;
-  
 `;
 
 export const BtmProfileDivDiv = styled.div`
   width: 167px;
   height: 170px;
-  border: 1px solid #cccccc;
-  border-radius: 8px;
-  background-color: #F9F9F9;
+  border: 1px solid #28ca7c;
   display: flex;
   flex-direction: column;
 `;
@@ -29,6 +25,7 @@ export const MainProfileimg = styled.img`
   width: 63px;
   height: 63px;
   border-radius: 50%;
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.2));
   &:hover {
     cursor: pointer;
   }
@@ -46,12 +43,11 @@ export const BtmTextDivSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.lg};
 `;
 
-
 export const BtmTextDivDivSmDiv = styled.div`
   width: auto;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 `;
 
 export const BtmTextDivSmSpan = styled.span`
@@ -66,4 +62,6 @@ export const BtmBunDiv = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 4px;
+  display: flex;
+  gap: 10px;
 `;

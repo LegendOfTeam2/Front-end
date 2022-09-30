@@ -1,5 +1,6 @@
 // Packages
 import { Cookies } from 'react-cookie';
+// Utils
 import moment from 'moment';
 
 const cookies = new Cookies();

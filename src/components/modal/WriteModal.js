@@ -13,40 +13,40 @@ import {
   WriteModalQuestionText,
   WriteModalBtnGroup,
   WriteModalLogo,
-  WriteModalLogoImg
+  WriteModalLogoImg,
 } from '../../assets/styles/components/modal/WriteModal.styled';
 import { Exclamation } from '../../assets/images/image';
-
-const customStyles = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(20, 20, 20, 0.75)',
-  },
-  content: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '522px',
-    height: '404px',
-    borderRadius: '10px',
-  },
-};
 
 const WriteModal = ({ isOpen, onCancel }) => {
   const navigate = useNavigate();
   const handleClickCancel = () => {
     onCancel();
   };
+
+  const customStyles = {
+    overlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(20, 20, 20, 0.75)',
+    },
+    content: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '522px',
+      height: '404px',
+      borderRadius: '10px',
+    },
+  };
   return (
     <ReactModal isOpen={isOpen} style={customStyles}>
       <WriteModalContainer>
         <WriteModalIcon onClick={handleClickCancel}>
-          <GrClose className='icon'></GrClose>
+          <GrClose className='icon' />
         </WriteModalIcon>
         <WriteModalLogo>
           <WriteModalLogoImg src={Exclamation} />
@@ -57,23 +57,6 @@ const WriteModal = ({ isOpen, onCancel }) => {
           정말 삭제하시겠습니까?
         </WriteModalQuestionText>
         <WriteModalBtnGroup>
-          <Button
-            _type={'button'}
-            _text={'삭제하기'}
-            _style={{
-              width: '109px',
-              line_height: '20',
-              font: '14',
-              pd_top: '20px',
-              pd_bottom: '20px',
-              bg_color: 'black',
-              color: 'white',
-              height: 'auto',
-              bd_radius: '10px',
-              ft_weight: '800',
-            }}
-            _onClick={() => navigate('/')}
-          />
           <Button
             _type={'button'}
             _text={'취소하기'}
@@ -92,6 +75,23 @@ const WriteModal = ({ isOpen, onCancel }) => {
               ft_weight: '800',
             }}
             _onClick={handleClickCancel}
+          />
+          <Button
+            _type={'button'}
+            _text={'삭제하기'}
+            _style={{
+              width: '109px',
+              line_height: '20',
+              font: '14',
+              pd_top: '20px',
+              pd_bottom: '20px',
+              bg_color: '#de1b4a',
+              color: 'white',
+              height: 'auto',
+              bd_radius: '10px',
+              ft_weight: '800',
+            }}
+            _onClick={() => navigate(-1)}
           />
         </WriteModalBtnGroup>
       </WriteModalContainer>

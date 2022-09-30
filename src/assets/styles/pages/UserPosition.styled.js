@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const UserContainer = styled.div`
   width: 100%;
@@ -24,7 +24,6 @@ export const LogoDiv = styled.div`
   height: auto;
   display: flex;
   justify-content: center;
-  
 `;
 
 export const LogoDivDiv = styled.div`

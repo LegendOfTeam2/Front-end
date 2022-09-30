@@ -15,7 +15,7 @@ export const BackgroundCover = styled.div`
   z-index: -1;
 `;
 export const SearchBox = styled.div`
-  width: 1024px;
+  width: 976px;
   height: auto;
   margin-top: 246px;
   z-index: -1;
@@ -34,10 +34,10 @@ export const SearchNaviIconBox = styled.div`
   top: 50%;
   left: 37px;
   transform: translateY(-50%);
+  color: #cecece;
   .icon {
-    width: 35px;
-    height: 35px;
-    color: rgba(40, 202, 124, 1);
+    width: 36px;
+    height: 36px;
   }
   &:hover {
     cursor: pointer;
@@ -51,8 +51,8 @@ export const SearchNaviTitle = styled.span`
   left: 450px;
   transform: translateY(-50%);
   font-weight: ${(props) => props.theme.fontWeight.Bold};
-  font-size: ${(props) => props.theme.fontSizes.xxxxl};
-  line-height: ${(props) => props.theme.lineHeight.xxxxl};
+  font-size: ${(props) => props.theme.fontSizes.xl};
+  line-height: ${(props) => props.theme.lineHeight.xl};
 `;
 export const SearchNaviGroup = styled.div`
   width: auto;
@@ -64,6 +64,16 @@ export const SearchNaviGroup = styled.div`
   color: #b4b4b4;
 `;
 export const SearchNavi = styled.div`
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-size: ${(props) => props.theme.fontSizes.base};
+  line-height: ${(props) => props.theme.lineHeight.base};
+  padding: 0 27px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+export const SearchNaviSelect = styled.div`
+  color: #28ca7c;
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.base};
@@ -103,9 +113,8 @@ export const SearchDataContainer = styled.div`
   margin-top: 138px;
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 32px;
   justify-content: flex-start;
-  padding-left: 25px;
 `;
 export const SearchNoDataContainer = styled.div`
   width: 100%;
@@ -131,12 +140,12 @@ export const SeatchNoDataInfoBox = styled.div`
 `;
 export const SearchNoDataInfoNickname = styled.span`
   color: #de1b4a;
-  font-size: ${(props) => props.theme.fontSizes.xl};
+  font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
 export const SearchNoDataInfoText = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.xl};
+  font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
@@ -150,7 +159,7 @@ export const SearchNoDataNoticeBox = styled.div`
   padding: 18px 24px;
 `;
 export const SearchNoDataNoticeText = styled.span`
-  font-size: ${(props) => props.theme.fontSizes.xl};
+  font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   color: #b4b4b4;

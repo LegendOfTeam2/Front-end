@@ -13,7 +13,7 @@ import {
   WriteModalQuestionText,
   WriteModalBtnGroup,
   WriteModalLogo,
-  WriteModalLogoImg
+  WriteModalLogoImg,
 } from '../../assets/styles/components/modal/WriteModal.styled';
 import { Exclamation } from '../../assets/images/image';
 
@@ -46,7 +46,7 @@ const WriteModifyModal = ({ isOpen, onCancel }) => {
     <ReactModal isOpen={isOpen} style={customStyles}>
       <WriteModalContainer>
         <WriteModalIcon onClick={handleClickCancel}>
-          <GrClose className='icon'></GrClose>
+          <GrClose className='icon' />
         </WriteModalIcon>
         <WriteModalLogo>
           <WriteModalLogoImg src={Exclamation} />
@@ -57,23 +57,6 @@ const WriteModifyModal = ({ isOpen, onCancel }) => {
           정말 삭제하시겠습니까?
         </WriteModalQuestionText>
         <WriteModalBtnGroup>
-          <Button
-            _type={'button'}
-            _text={'삭제가기'}
-            _style={{
-              width: '109px',
-              line_height: '20',
-              font: '14',
-              pd_top: '20px',
-              pd_bottom: '20px',
-              bg_color: 'black',
-              color: 'white',
-              height: 'auto',
-              bd_radius: '10px',
-              ft_weight: '800',
-            }}
-            _onClick={() => navigate(-1)}
-          />
           <Button
             _type={'button'}
             _text={'취소하기'}
@@ -92,6 +75,23 @@ const WriteModifyModal = ({ isOpen, onCancel }) => {
               ft_weight: '800',
             }}
             _onClick={handleClickCancel}
+          />
+          <Button
+            _type={'button'}
+            _text={'삭제하기'}
+            _style={{
+              width: '109px',
+              line_height: '20',
+              font: '14',
+              pd_top: '20px',
+              pd_bottom: '20px',
+              bg_color: '#de1b4a',
+              color: 'white',
+              height: 'auto',
+              bd_radius: '10px',
+              ft_weight: '800',
+            }}
+            _onClick={() => navigate(-1)}
           />
         </WriteModalBtnGroup>
       </WriteModalContainer>

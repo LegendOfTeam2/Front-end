@@ -41,13 +41,50 @@ import albumCover_3 from './albumcover/albumCover_3.jpg';
 import GooglePhoto from './GooglePhoto.png';
 import KakaoTalkPhoto from './KakaoTalkPhoto.png';
 import ShowPw from './ShowPw.svg';
+import ShowPw38 from './ShowPw38.svg';
 import HidePw from './HidePw.svg';
 import Xbox20 from './Xbox20.svg';
 import SingerMarker from './SingerMarker.svg';
 import MakerMarke from './MakerMarke.svg';
 import SingerWhite from './SingerWhite.svg';
 import MakerWhite from './MakerWhite.svg';
-
+import DisPlayListIcon from './DisPlayListIcon.svg';
+import PlayListIcon from './PlayListIcon.svg';
+import MainBanner from './MainBanner.svg';
+import MainBannerMini from './MainBannerMini.svg';
+import RightArrow from './RightArrow.png';
+import LeftArrow from './LeftArrow.png';
+import DisCollaboration from './DisCollaboration.svg';
+import DisCollaboration40 from './DisCollaboration40.svg';
+import WhiteCollaborate from './WhiteCollaborate.svg';
+import WhiteCollaborate24 from './WhiteCollaborate24.svg';
+import AboutSong from './AboutSong.svg';
+import Modify from './Modify.svg';
+import Success from './Success.svg';
+import ListCollaborateWhite from './ListCollaborateWhite.svg';
+import LikeWhite from './LikeWhite.svg';
+import MakerMarker1 from './positionMarker/MakerMarker1.svg';
+import MakerMarker2 from './positionMarker/MakerMarker2.svg';
+import MakerMarker3 from './positionMarker/MakerMarker3.svg';
+import MakerMarker4 from './positionMarker/MakerMarker4.svg';
+import MakerMarker5 from './positionMarker/MakerMarker5.svg';
+import MakerMarker6 from './positionMarker/MakerMarker6.svg';
+import MakerMarker7 from './positionMarker/MakerMarker7.svg';
+import MakerMarker8 from './positionMarker/MakerMarker8.svg';
+import MakerMarker9 from './positionMarker/MakerMarker9.svg';
+import MakerMarker10 from './positionMarker/MakerMarker10.svg';
+import SingerMarker1 from './positionMarker/SingerMarker1.png';
+import SingerMarker2 from './positionMarker/SingerMarker2.png';
+import SingerMarker3 from './positionMarker/SingerMarker3.png';
+import SingerMarker4 from './positionMarker/SingerMarker4.png';
+import SingerMarker5 from './positionMarker/SingerMarker5.png';
+import SingerMarker6 from './positionMarker/SingerMarker6.png';
+import SingerMarker7 from './positionMarker/SingerMarker7.png';
+import SingerMarker8 from './positionMarker/SingerMarker8.png';
+import SingerMarker9 from './positionMarker/SingerMarker9.png';
+import SingerMarker10 from './positionMarker/SingerMarker10.png';
+import Promotional from './Promotional.png';
+import AlbumCover from './AlbumCover.jpeg';
 
 export {
   albumCover_1,
@@ -98,5 +135,43 @@ export {
   SingerMarker,
   MakerMarke,
   MakerWhite,
-  SingerWhite
+  SingerWhite,
+  DisPlayListIcon,
+  PlayListIcon,
+  MainBanner,
+  RightArrow,
+  LeftArrow,
+  DisCollaboration,
+  DisCollaboration40,
+  WhiteCollaborate,
+  WhiteCollaborate24,
+  AboutSong,
+  ShowPw38,
+  Modify,
+  Success,
+  ListCollaborateWhite,
+  LikeWhite,
+  MakerMarker1,
+  MakerMarker2,
+  MakerMarker3,
+  MakerMarker4,
+  MakerMarker5,
+  MakerMarker6,
+  MakerMarker7,
+  MakerMarker8,
+  MakerMarker9,
+  MakerMarker10,
+  SingerMarker1,
+  SingerMarker2,
+  SingerMarker3,
+  SingerMarker4,
+  SingerMarker5,
+  SingerMarker6,
+  SingerMarker7,
+  SingerMarker8,
+  SingerMarker9,
+  SingerMarker10,
+  Promotional,
+  MainBannerMini,
+  AlbumCover
 };

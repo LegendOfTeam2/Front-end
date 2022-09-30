@@ -10,9 +10,10 @@ export const ModifyContainer = styled.div`
 export const ModifyBox = styled.div`
   width: 1024px;
   height: auto;
+  margin-bottom: 10px;
 `;
 export const ModifyNaviContainer = styled.div`
-  margin-top: 137px;
+  margin-top: 218px;
   border-top: 1px solid #e7e7e7;
   border-bottom: 1px solid #e7e7e7;
   width: 100%;
@@ -152,4 +153,3 @@ export const ModifyMemberDeleteText = styled.span`
     color: rgba(222, 27, 74, 1);
   }
 `;
-

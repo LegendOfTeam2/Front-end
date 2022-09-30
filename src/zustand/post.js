@@ -32,10 +32,10 @@ const usePostStore = create((set) => ({
   bestSingerIsLoaded: false,
   bestSinger: [],
 
-  PowerArtistLoaded: false,
-  PowerArtist: [],
+  powerArtistLoaded: false,
+  powerArtist: [],
 
-  artistIsFollowIsLoaded:false,
+  artistIsFollowIsLoaded: false,
   artistIsFollow: [],
 
   detailListLoaded: false,
@@ -45,6 +45,7 @@ const usePostStore = create((set) => ({
     const resData = await addPostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
+
     return resData.data;
   },
   getFollowerList: async (payload) => {
@@ -52,14 +53,14 @@ const usePostStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
-      set({ artistIsFollowIsLoaded: resData.data.success });
+      set({ artistIsFollowIsLoaded: true });
       set((state) => {
         const followerIdList = resData.data.data.map((element) => {
           return element.nickname;
-        })
-        return {artistIsFollow: followerIdList};
+        });
+        return { artistIsFollow: followerIdList };
       });
-      return resData.data.success;
+      return resData.data;
     }
   },
   getBestSong: async (payload) => {
@@ -118,8 +119,8 @@ const usePostStore = create((set) => ({
       .catch((err) => console.log(err));
 
     if (resData?.data.success) {
-      set({ PowerArtist: resData.data.data });
-      set({ PowerArtistLoaded: true });
+      set({ powerArtist: resData.data.data });
+      set({ powerArtistLoaded: true });
     }
   },
   getDetail: async (payload) => {
@@ -146,6 +147,9 @@ const usePostStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
     return resData.data.success;
+  },
+  clearArtistIsFollow: () => {
+    set({ artistIsFollow: [] });
   },
 }));
 

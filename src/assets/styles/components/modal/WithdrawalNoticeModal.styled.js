@@ -46,7 +46,7 @@ export const NoticeModalLogo = styled.div`
   top: 33px;
   left: 50%;
   transform: translateX(-50%);
-`
+`;
 export const NoticeModalLogoImg = styled.img`
   background-image: url(${(props) => props.src});
   background-repeat: no-repeat;
@@ -54,4 +54,4 @@ export const NoticeModalLogoImg = styled.img`
   background-size: cover;
   width: 180px;
   height: 111px;
-`
+`;

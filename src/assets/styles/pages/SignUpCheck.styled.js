@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 
+export const BackgroudColor = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1b1e2f;
+  z-index: -2;
+`;
 export const UpContainer = styled.div`
   width: 100%;
   height: auto;
@@ -27,6 +36,7 @@ export const UpInBox = styled.div`
 `;
 export const UpInIcon = styled.div`
   position: absolute;
+  opacity: 0.3;
   top: 26px;
   right: 26px;
   width: auto;
@@ -40,9 +50,9 @@ export const UpInIcon = styled.div`
   }
   @media ${(props) => props.theme.device.desktopL} {
     .icon-cancel {
-    width: 20px;
-    height: 20px;
-  }
+      width: 20px;
+      height: 20px;
+    }
   }
 `;
 export const UpLogoDiv = styled.div`
@@ -63,7 +73,7 @@ export const UpLogoDivDiv = styled.div`
 export const UpLogoImg = styled.img`
   width: auto;
   height: auto;
-`
+`;
 export const UpTopTextDiv = styled.div`
   width: 100%;
   height: auto;
@@ -121,39 +131,3 @@ export const UpTbmBtmDivDiv = styled.div`
     margin-bottom: 60px;
   }
 `;
-// export const Googleicon = styled.div`
-//   display: flex;
-//   position: relative;
-//   top: 25%;
-//   .icon-google {
-//     width: 30px;
-//     height: 30px;
-//     color: rgba(255, 255, 255, 1);
-//     position: absolute;
-//     left: 35.5%;
-//   }
-//   @media ${(props) => props.theme.device.desktopL} {
-//     .icon-google {
-//       width: 25px;
-//       height: 25px;
-//     }
-//   }
-// `;
-// export const Kakaoicon = styled.div`
-//   display: flex;
-//   position: relative;
-//   top: 22%;
-//   .icon-kakao {
-//     width: 40px;
-//     height: 35px;
-//     color: #959595;
-//     position: absolute;
-//     left: 34%;
-//   }
-//   @media ${(props) => props.theme.device.desktopL} {
-//     .icon-kakao {
-//       width: 35px;
-//       height: 30px;
-//     }
-//   }
-// `;

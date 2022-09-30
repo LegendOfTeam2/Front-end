@@ -1,8 +1,9 @@
 // React
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, Fragment } from 'react';
 
 // Zustand
 import useMemberStore from '../zustand/member';
+import usePlayerStore from '../zustand/player';
 
 // Package
 import { GrClose } from 'react-icons/gr';
@@ -12,6 +13,9 @@ import { useMediaQuery } from 'react-responsive';
 // Element
 import Button from '../elements/Button';
 import Input from '../elements/Input';
+
+// Utils
+import { warning } from '../utils/toast';
 
 // Assets
 import {
@@ -46,15 +50,16 @@ import {
   SignInBoxSocialBoxSocialIcon,
   SignInBoxCover,
   SignInBoxIcon,
-  SignInBoxIntroTopSpanSpan,
   SignInBoxIntroTopRegularSpan,
   SignInBoxIntroTopBoldSpan,
+  BackgroudColor,
 } from '../assets/styles/pages/SignIn.styled';
 import {
   GooglePhoto,
   KakaoTalkPhoto,
   SignInBackground,
   SignInBackgroundSm,
+  Xbox20,
 } from '../assets/images/image';
 
 const SignIn = () => {
@@ -63,11 +68,16 @@ const SignIn = () => {
   const KAKAO_REDIRECT_URI = 'https://rhythme.shop/kakao/callback';
   const GOOGLE_REDIRECT_URI = 'https://rhythme.shop/google/callback';
 
+  const getPlayList = usePlayerStore((state) => state.getPlayList);
+  const setPlaying = usePlayerStore((state) => state.setPlaying);
+  const viewStateChange = usePlayerStore((state) => state.viewStateChange);
+  const setCurrentSongMember = usePlayerStore(
+    (state) => state.setCurrentSongMember
+  );
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const emailIconRef = useRef();
-  const passwordIconRef = useRef();
+  const [view, setView] = useState({ email: false, password: false });
 
   const emailRegExp =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -79,10 +89,24 @@ const SignIn = () => {
   });
 
   useEffect(() => {
-    if (email !== '') emailIconRef.current.style.display = 'block';
-    else emailIconRef.current.style.display = 'none';
-    if (password !== '') passwordIconRef.current.style.display = 'block';
-    else passwordIconRef.current.style.display = 'none';
+    if (email !== '') {
+      setView((prev) => {
+        return { ...prev, email: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, email: false };
+      });
+    }
+    if (password !== '') {
+      setView((prev) => {
+        return { ...prev, password: true };
+      });
+    } else {
+      setView((prev) => {
+        return { ...prev, password: false };
+      });
+    }
   }, [email, password]);
 
   const deleteText = useCallback(
@@ -107,12 +131,24 @@ const SignIn = () => {
     async (e) => {
       e.preventDefault();
       if (email === '') {
-        alert('계정을 입력해주세요');
+        warning('계정을 입력해주세요.');
       } else if (emailRegExp.test(email) === false) {
-        alert('이메일 형식에 맞지 않습니다');
+        warning('이메일 형식에 맞지 않습니다.');
       } else {
         signInMember({ email, password }).then((res) => {
           if (res) {
+            getPlayList().then((res) => {
+              if (res.success) {
+                if (res.data.length > 0) {
+                  const firstSong = [...res.data].sort(
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                  )[0];
+                  setCurrentSongMember(firstSong);
+                  setPlaying(true);
+                  viewStateChange(true);
+                }
+              }
+            });
             navigate('/');
           } else {
             alert(
@@ -126,260 +162,271 @@ const SignIn = () => {
   );
 
   return (
-    <SignInContainer>
-      <SignInBox>
-        <SignInBoxMain>
-          <SignInBoxIntroContainer>
-            <SignInBoxIntroTop>
-              <SignInBoxIntroTopRegularSpan>
-                아티스트님,
-              </SignInBoxIntroTopRegularSpan>
-              <br />
-              <SignInBoxIntroTopBoldSpan>어서오세요!</SignInBoxIntroTopBoldSpan>
-            </SignInBoxIntroTop>
-            <SignInBoxIntroBottom>
-              리드미에서 여러분의 재능을 마음껏 뽐내 주세요
-            </SignInBoxIntroBottom>
-          </SignInBoxIntroContainer>
-          <SignInBoxForm onSubmit={(e) => signInAccount(e)}>
-            <SignInBoxInputContainer>
-              <SignInBoxInputGroup>
-                <SignInBoxInputGroupTitle>아이디</SignInBoxInputGroupTitle>
-                <SignInboxInputGroupData>
-                  <SignUpDataInputGroupIcon
-                    onClick={() => deleteText('email')}
-                    ref={emailIconRef}
-                  >
-                    <GrClose className='icon-cancel'></GrClose>
-                  </SignUpDataInputGroupIcon>
+    <Fragment>
+      <BackgroudColor />
+      <SignInContainer>
+        <SignInBox>
+          <SignInBoxMain>
+            <SignInBoxIntroContainer>
+              <SignInBoxIntroTop>
+                <SignInBoxIntroTopRegularSpan>
+                  아티스트님,
+                </SignInBoxIntroTopRegularSpan>
+                <br />
+                <SignInBoxIntroTopBoldSpan>
+                  어서오세요!
+                </SignInBoxIntroTopBoldSpan>
+              </SignInBoxIntroTop>
+              <SignInBoxIntroBottom>
+                리드미에서 여러분의 재능을 마음껏 뽐내 주세요
+              </SignInBoxIntroBottom>
+            </SignInBoxIntroContainer>
+            <SignInBoxForm onSubmit={(e) => signInAccount(e)}>
+              <SignInBoxInputContainer>
+                <SignInBoxInputGroup>
+                  <SignInBoxInputGroupTitle>아이디</SignInBoxInputGroupTitle>
+                  <SignInboxInputGroupData>
+                    {view.email ? (
+                      <SignUpDataInputGroupIcon
+                        onClick={() => deleteText('email')}
+                      >
+                        <img src={Xbox20} alt='Xbox' className='icon-cancel' />
+                      </SignUpDataInputGroupIcon>
+                    ) : (
+                      <Fragment />
+                    )}
+                    {isSmallScreen ? (
+                      <Input
+                        _type={'text'}
+                        _placeholder={'아이디를 입력해 주세요'}
+                        _value={email}
+                        _onChange={(event) => setEmail(event.target.value)}
+                        _autoComplete={'username'}
+                        _style={{
+                          height: 'auto',
+                          ft_size: '14',
+                          pd_top: '15px',
+                          pd_bottom: '15px',
+                          pd_left: '19px',
+                          pd_right: '40px',
+                          bd_radius: '10px',
+                          bd_px: '1px',
+                          bd_color: '#d9d9d9',
+                        }}
+                      />
+                    ) : (
+                      <Input
+                        _type={'text'}
+                        _placeholder={'아이디를 입력해 주세요'}
+                        _value={email}
+                        _onChange={(event) => setEmail(event.target.value)}
+                        _autoComplete={'username'}
+                        _style={{
+                          height: 'auto',
+                          ft_size: '14',
+                          pd_top: '20px',
+                          pd_bottom: '20px',
+                          pd_left: '19px',
+                          pd_right: '40px',
+                          bd_radius: '10px',
+                          bd_px: '1px',
+                          bd_color: '#d9d9d9',
+                        }}
+                      />
+                    )}
+                  </SignInboxInputGroupData>
+                </SignInBoxInputGroup>
+                <SignInBoxInputGroup>
+                  <SignInBoxInputGroupTitle>비밀번호</SignInBoxInputGroupTitle>
+                  <SignInboxInputGroupData>
+                    {view.password ? (
+                      <SignUpDataInputGroupIcon
+                        onClick={() => deleteText('password')}
+                      >
+                        <img src={Xbox20} alt='Xbox' className='icon-cancel' />
+                      </SignUpDataInputGroupIcon>
+                    ) : (
+                      <Fragment />
+                    )}
+                    {isSmallScreen ? (
+                      <Input
+                        _type={'password'}
+                        _placeholder={'비밀번호를 입력해 주세요.'}
+                        _value={password}
+                        _onChange={(event) => setPassword(event.target.value)}
+                        _style={{
+                          height: 'auto',
+                          ft_size: '14',
+                          pd_top: '15px',
+                          pd_bottom: '15px',
+                          pd_left: '19px',
+                          pd_right: '40px',
+                          bd_radius: '10px',
+                          bd_px: '1px',
+                          bd_color: '#d9d9d9',
+                        }}
+                      />
+                    ) : (
+                      <Input
+                        _type={'password'}
+                        _placeholder={'비밀번호를 입력해 주세요.'}
+                        _value={password}
+                        _onChange={(event) => setPassword(event.target.value)}
+                        _style={{
+                          height: 'auto',
+                          ft_size: '14',
+                          pd_top: '20px',
+                          pd_bottom: '20px',
+                          pd_left: '19px',
+                          pd_right: '40px',
+                          bd_radius: '10px',
+                          bd_px: '1px',
+                          bd_color: '#d9d9d9',
+                        }}
+                      />
+                    )}
+                  </SignInboxInputGroupData>
+                </SignInBoxInputGroup>
+              </SignInBoxInputContainer>
+              <SignInBoxButtonContainer>
+                <SignInBoxButtonBox>
+                  {isSmallScreen ? (
+                    <Button
+                      _type={'submit'}
+                      _text={'로그인'}
+                      _style={{
+                        color: 'white',
+                        bg_color: '#28CA7C',
+                        width: '100%',
+                        height: 'auto',
+                        pd_top: '10px',
+                        pd_bottom: '11px',
+                        ft_size: '20',
+                        line_height: '28',
+                        ft_weight: '800',
+                        bd_radius: '10px',
+                      }}
+                    />
+                  ) : (
+                    <Button
+                      _type={'submit'}
+                      _text={'로그인'}
+                      _style={{
+                        color: 'white',
+                        bg_color: '#28CA7C',
+                        width: '100%',
+                        height: 'auto',
+                        pd_top: '15px',
+                        pd_bottom: '16px',
+                        ft_size: '20',
+                        line_height: '28',
+                        ft_weight: '800',
+                        bd_radius: '10px',
+                      }}
+                    />
+                  )}
+                </SignInBoxButtonBox>
+              </SignInBoxButtonContainer>
+            </SignInBoxForm>
+            <SignInBoxDetailContainer>
+              <SignInBoxDetailBox>
+                <SignInBoxDetailAutoSignIn>
                   {isSmallScreen ? (
                     <Input
-                      _type={'text'}
-                      _placeholder={'아이디를 입력해 주세요'}
-                      _value={email}
-                      _onChange={(event) => setEmail(event.target.value)}
-                      _autoComplete={'username'}
+                      _type={'checkbox'}
                       _style={{
-                        height: 'auto',
-                        ft_size: '14',
-                        pd_top: '15px',
-                        pd_bottom: '15px',
-                        pd_left: '19px',
-                        pd_right: '40px',
-                        bd_radius: '10px',
+                        width: '13px',
+                        height: '13px',
                         bd_px: '1px',
+                        bd_radius: '3px',
                         bd_color: '#d9d9d9',
                       }}
                     />
                   ) : (
                     <Input
-                      _type={'text'}
-                      _placeholder={'아이디를 입력해 주세요'}
-                      _value={email}
-                      _onChange={(event) => setEmail(event.target.value)}
-                      _autoComplete={'username'}
+                      _type={'checkbox'}
                       _style={{
-                        height: 'auto',
-                        ft_size: '14',
-                        pd_top: '20px',
-                        pd_bottom: '20px',
-                        pd_left: '19px',
-                        pd_right: '40px',
-                        bd_radius: '10px',
+                        width: '18px',
+                        height: '18px',
                         bd_px: '1px',
+                        bd_radius: '3px',
                         bd_color: '#d9d9d9',
                       }}
                     />
                   )}
-                </SignInboxInputGroupData>
-              </SignInBoxInputGroup>
-              <SignInBoxInputGroup>
-                <SignInBoxInputGroupTitle>비밀번호</SignInBoxInputGroupTitle>
-                <SignInboxInputGroupData>
-                  <SignUpDataInputGroupIcon
-                    onClick={() => deleteText('password')}
-                    ref={passwordIconRef}
+                  <SignInBoxDetailAutoSignInText>
+                    로그인 유지
+                  </SignInBoxDetailAutoSignInText>
+                </SignInBoxDetailAutoSignIn>
+                <SignInBoxDetailFind>
+                  <SignInBoxDetailFindText cursor={'pointer'}>
+                    아이디 찾기
+                  </SignInBoxDetailFindText>
+                  <SignInBoxDetailFindText>|</SignInBoxDetailFindText>
+                  <SignInBoxDetailFindText cursor={'pointer'}>
+                    비밀번호 찾기
+                  </SignInBoxDetailFindText>
+                </SignInBoxDetailFind>
+              </SignInBoxDetailBox>
+            </SignInBoxDetailContainer>
+            <SignInBoxSignUpContainer>
+              <SignInBoxSignUpBox>
+                <SignInBoxSignUpQuestion>
+                  <SignInBoxSignUpQuestionText>
+                    회원이 아니신가요?
+                  </SignInBoxSignUpQuestionText>
+                  <SignInBoxSignUpQuestionText
+                    onClick={() => navigate('/signupcheck')}
+                    color={'#000000'}
                   >
-                    <GrClose className='icon-cancel'></GrClose>
-                  </SignUpDataInputGroupIcon>
-                  {isSmallScreen ? (
-                    <Input
-                      _type={'password'}
-                      _placeholder={'비밀번호를 입력해 주세요.'}
-                      _value={password}
-                      _onChange={(event) => setPassword(event.target.value)}
-                      _style={{
-                        height: 'auto',
-                        ft_size: '14',
-                        pd_top: '15px',
-                        pd_bottom: '15px',
-                        pd_left: '19px',
-                        pd_right: '40px',
-                        bd_radius: '10px',
-                        bd_px: '1px',
-                        bd_color: '#d9d9d9',
-                      }}
+                    회원가입하기
+                  </SignInBoxSignUpQuestionText>
+                </SignInBoxSignUpQuestion>
+              </SignInBoxSignUpBox>
+            </SignInBoxSignUpContainer>
+            <SignInBoxSocialContainer>
+              <SignInBoxSocialBox>
+                <SignInBoxSocialBoxTitle>
+                  SNS계정으로 간편하게 로그인하세요.
+                </SignInBoxSocialBoxTitle>
+                <SignInBoxSocialBoxSocialGroup>
+                  <SignInBoxSocialBoxSocialIcon
+                    onClick={() => {
+                      window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+                    }}
+                  >
+                    <img
+                      src={KakaoTalkPhoto}
+                      alt='루프있을때'
+                      className='icon-kakao'
                     />
-                  ) : (
-                    <Input
-                      _type={'password'}
-                      _placeholder={'비밀번호를 입력해 주세요.'}
-                      _value={password}
-                      _onChange={(event) => setPassword(event.target.value)}
-                      _style={{
-                        height: 'auto',
-                        ft_size: '14',
-                        pd_top: '20px',
-                        pd_bottom: '20px',
-                        pd_left: '19px',
-                        pd_right: '40px',
-                        bd_radius: '10px',
-                        bd_px: '1px',
-                        bd_color: '#d9d9d9',
-                      }}
+                  </SignInBoxSocialBoxSocialIcon>
+                  <SignInBoxSocialBoxSocialIcon
+                    onClick={() => {
+                      window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email%20profile%20openid&access_type=offline`;
+                    }}
+                  >
+                    <img
+                      src={GooglePhoto}
+                      alt='루프있을때'
+                      className='icon-google'
                     />
-                  )}
-                </SignInboxInputGroupData>
-              </SignInBoxInputGroup>
-            </SignInBoxInputContainer>
-            <SignInBoxButtonContainer>
-              <SignInBoxButtonBox>
-                {isSmallScreen ? (
-                  <Button
-                    _type={'submit'}
-                    _text={'로그인'}
-                    _style={{
-                      color: 'white',
-                      bg_color: '#28CA7C',
-                      width: '100%',
-                      height: 'auto',
-                      pd_top: '10px',
-                      pd_bottom: '11px',
-                      ft_size: '20',
-                      line_height: '28',
-                      ft_weight: '800',
-                      bd_radius: '10px',
-                    }}
-                  />
-                ) : (
-                  <Button
-                    _type={'submit'}
-                    _text={'로그인'}
-                    _style={{
-                      color: 'white',
-                      bg_color: '#28CA7C',
-                      width: '100%',
-                      height: 'auto',
-                      pd_top: '15px',
-                      pd_bottom: '16px',
-                      ft_size: '20',
-                      line_height: '28',
-                      ft_weight: '800',
-                      bd_radius: '10px',
-                    }}
-                  />
-                )}
-              </SignInBoxButtonBox>
-            </SignInBoxButtonContainer>
-          </SignInBoxForm>
-          <SignInBoxDetailContainer>
-            <SignInBoxDetailBox>
-              <SignInBoxDetailAutoSignIn>
-                {isSmallScreen ? (
-                  <Input
-                    _type={'checkbox'}
-                    _style={{
-                      width: '13px',
-                      height: '13px',
-                      bd_px: '1px',
-                      bd_radius: '3px',
-                      bd_color: '#d9d9d9',
-                    }}
-                  />
-                ) : (
-                  <Input
-                    _type={'checkbox'}
-                    _style={{
-                      width: '18px',
-                      height: '18px',
-                      bd_px: '1px',
-                      bd_radius: '3px',
-                      bd_color: '#d9d9d9',
-                    }}
-                  />
-                )}
-                <SignInBoxDetailAutoSignInText>
-                  로그인 유지
-                </SignInBoxDetailAutoSignInText>
-              </SignInBoxDetailAutoSignIn>
-              <SignInBoxDetailFind>
-                <SignInBoxDetailFindText cursor={'pointer'}>
-                  아이디 찾기
-                </SignInBoxDetailFindText>
-                <SignInBoxDetailFindText>|</SignInBoxDetailFindText>
-                <SignInBoxDetailFindText cursor={'pointer'}>
-                  비밀번호 찾기
-                </SignInBoxDetailFindText>
-              </SignInBoxDetailFind>
-            </SignInBoxDetailBox>
-          </SignInBoxDetailContainer>
-          <SignInBoxSignUpContainer>
-            <SignInBoxSignUpBox>
-              <SignInBoxSignUpQuestion>
-                <SignInBoxSignUpQuestionText>
-                  회원이 아니신가요?
-                </SignInBoxSignUpQuestionText>
-                <SignInBoxSignUpQuestionText
-                  onClick={() => navigate('/signupcheck')}
-                  color={'#000000'}
-                >
-                  회원가입하기
-                </SignInBoxSignUpQuestionText>
-              </SignInBoxSignUpQuestion>
-            </SignInBoxSignUpBox>
-          </SignInBoxSignUpContainer>
-          <SignInBoxSocialContainer>
-            <SignInBoxSocialBox>
-              <SignInBoxSocialBoxTitle>
-                SNS계정으로 간편하게 로그인하세요.
-              </SignInBoxSocialBoxTitle>
-              <SignInBoxSocialBoxSocialGroup>
-                <SignInBoxSocialBoxSocialIcon
-                  onClick={() => {
-                    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
-                  }}
-                >
-                  <img
-                    src={KakaoTalkPhoto}
-                    alt='루프있을때'
-                    className='icon-kakao'
-                  />
-                </SignInBoxSocialBoxSocialIcon>
-                <SignInBoxSocialBoxSocialIcon
-                  onClick={() => {
-                    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email%20profile%20openid&access_type=offline`;
-                  }}
-                >
-                  <img
-                    src={GooglePhoto}
-                    alt='루프있을때'
-                    className='icon-google'
-                  />
-                </SignInBoxSocialBoxSocialIcon>
-              </SignInBoxSocialBoxSocialGroup>
-            </SignInBoxSocialBox>
-          </SignInBoxSocialContainer>
-        </SignInBoxMain>
-        <SignInBoxCover
-          bg_img_lg={SignInBackground}
-          bg_img_sm={SignInBackgroundSm}
-        >
-          <SignInBoxIcon onClick={() => navigate('/')}>
-            <GrClose color='red' className='icon-cancel'></GrClose>
-          </SignInBoxIcon>
-        </SignInBoxCover>
-      </SignInBox>
-    </SignInContainer>
+                  </SignInBoxSocialBoxSocialIcon>
+                </SignInBoxSocialBoxSocialGroup>
+              </SignInBoxSocialBox>
+            </SignInBoxSocialContainer>
+          </SignInBoxMain>
+          <SignInBoxCover
+            bg_img_lg={SignInBackground}
+            bg_img_sm={SignInBackgroundSm}
+          >
+            <SignInBoxIcon onClick={() => navigate('/')}>
+              <GrClose color='red' className='icon-cancel' />
+            </SignInBoxIcon>
+          </SignInBoxCover>
+        </SignInBox>
+      </SignInContainer>
+    </Fragment>
   );
 };
 

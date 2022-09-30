@@ -1,5 +1,5 @@
 // React
-import { useState, useRef, memo } from 'react';
+import { useState, memo } from 'react';
 
 // Zustand
 import usePlayerStore from '../zustand/player';
@@ -8,38 +8,41 @@ import useLikeStore from '../zustand/like';
 
 // Packages
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Utils
 import { getCookie } from '../utils/cookie';
+import { warning, info } from '../utils/toast';
 
 // Assets
 import {
   BigImgMyBtmRight,
   BigImgNotSlideSpan,
+  BigImgNotSlideTitleSpan,
   BigMyimg,
   BigMyImgBtmLeft,
   BigMyImgBtmLeftDiv,
   BigMyImgBtmLeftspan,
   BigMyImgBtmRight,
   BigMyImgDivDiv,
+  BigMyImgTopBtmLeft,
   BigMyImgTopLeft,
   BigMyImgTopRight,
   DisBigMyImgTopRight,
-} from '../assets/styles/components/PsotBig.styled';
+} from '../assets/styles/components/PostBig.styled';
 import {
-  Collaboration44,
+  DisCollaboration40,
   DisLike40,
   Like40,
   OnPlay60,
+  WhiteCollaborate,
 } from '../assets/images/image';
 
 const PostBig = ({
   postId,
   position,
   title,
-  likeCount,
   collaborate,
   imageUrl,
   mediaUrl,
@@ -50,6 +53,7 @@ const PostBig = ({
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
+  const postPlayList = usePlayerStore((state) => state.postPlayList);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
   const addLike = useLikeStore((state) => state.addLike);
@@ -58,11 +62,24 @@ const PostBig = ({
 
   const navigate = useNavigate();
 
-  const Play = () => {
+  const play = () => {
     viewStateChange(true);
     setPlaying(true);
     setIsAutoplay(true);
     addPlayList({ postId, title, nickname, mediaUrl, imageUrl, position });
+  };
+  const playMember = () => {
+    viewStateChange(true);
+    setPlaying(true);
+    setIsAutoplay(true);
+    postPlayList({
+      postId,
+      title,
+      nickname,
+      mediaUrl,
+      imageUrl,
+      position,
+    });
   };
 
   const goToDetail = () => {
@@ -75,27 +92,16 @@ const PostBig = ({
     }
   };
 
-  const LikeClick = () => {
+  const likeClick = () => {
     if (getCookie('authorization') === undefined) {
-      alert('로그인후 이용해주세요');
-      navigate('/signin');
+      warning('로그인 후 이용해 주세요.');
     } else {
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
-          toast.info('게시글에 좋아요를 눌렀습니다.', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 1500,
-            draggablePercent: 60,
-            hideProgressBar: true,
-          });
+          info('게시글에 좋아요를 눌렀습니다.');
           setIsLike(true);
         } else {
-          toast.info('게시글에 좋아요를 취소했습니다.', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 1500,
-            draggablePercent: 60,
-            hideProgressBar: true,
-          });
+          info('게시글에 좋아요를 취소했습니다.');
           setIsLike(false);
         }
       });
@@ -116,28 +122,46 @@ const PostBig = ({
       />
       <ToastContainer />
       <BigImgMyBtmRight>
+        <BigImgNotSlideTitleSpan>{title}</BigImgNotSlideTitleSpan>
         <BigImgNotSlideSpan>{nickname.slice(0, 9)}</BigImgNotSlideSpan>
       </BigImgMyBtmRight>
       <BigMyImgTopLeft onClick={goToDetail}>{title}</BigMyImgTopLeft>
+      <BigMyImgTopBtmLeft onClick={goToDetail}>
+        {nickname.slice(0, 9)}
+      </BigMyImgTopBtmLeft>
       <DisBigMyImgTopRight>
-        {collaborate ? <img src={Collaboration44} alt='콜라보' /> : <></>}
+        {collaborate ? (
+          <img src={DisCollaboration40} alt='콜라보' />
+        ) : (
+          <img src={WhiteCollaborate} alt='콜라보' />
+        )}
       </DisBigMyImgTopRight>
       <BigMyImgTopRight>
-        {collaborate ? <img src={Collaboration44} alt='콜라보' /> : <></>}
+        {collaborate ? (
+          <img src={DisCollaboration40} alt='콜라보' />
+        ) : (
+          <img src={WhiteCollaborate} alt='콜라보' />
+        )}
       </BigMyImgTopRight>
       <BigMyImgBtmLeft>
         <BigMyImgBtmLeftDiv>
           {isLike ? (
-            <img src={Like40} alt='좋아요 상태' onClick={LikeClick} />
+            <img src={Like40} alt='좋아요 상태' onClick={likeClick} />
           ) : (
-            <img src={DisLike40} alt='좋아요 안한 상태' onClick={LikeClick} />
+            <img src={DisLike40} alt='좋아요 안한 상태' onClick={likeClick} />
           )}
           <BigMyImgBtmLeftspan>좋아요</BigMyImgBtmLeftspan>
         </BigMyImgBtmLeftDiv>
       </BigMyImgBtmLeft>
-      <BigMyImgBtmRight onClick={Play}>
-        <img src={OnPlay60} alt='플레이 버튼' />
-      </BigMyImgBtmRight>
+      {getCookie('authorization') !== undefined ? (
+        <BigMyImgBtmRight onClick={playMember}>
+          <img src={OnPlay60} alt='플레이 버튼' />
+        </BigMyImgBtmRight>
+      ) : (
+        <BigMyImgBtmRight onClick={play}>
+          <img src={OnPlay60} alt='플레이 버튼' />
+        </BigMyImgBtmRight>
+      )}
     </BigMyImgDivDiv>
   );
 };

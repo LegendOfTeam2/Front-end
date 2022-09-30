@@ -1,5 +1,5 @@
 // Element
-import Button from "../elements/Button";
+import Button from '../elements/Button';
 
 // Assets
 import {
@@ -14,14 +14,14 @@ import {
   TopTextSpan,
   UserContainer,
   UserInBox,
-} from "../assets/styles/pages/UserPosition.styled";
+} from '../assets/styles/pages/UserPosition.styled';
 
 const UserPosition = () => {
   return (
     <UserContainer>
       <UserInBox>
         <LogoDiv>
-          <LogoDivDiv></LogoDivDiv>
+          <LogoDivDiv />
         </LogoDiv>
         <TopTextDiv>
           <TopTextSpan>리드미에서</TopTextSpan>
@@ -38,31 +38,31 @@ const UserPosition = () => {
           <div>
             <Button
               _style={{
-                width: "348px",
-                height: "60px",
-                bg_color: "rgba(255, 255, 255, 1)",
-                bd_radius: "10px",
-                color: "rgba(0, 0, 0, 1)",
-                ft_weight: "500",
-                ft_size: "18",
-                bd_px: "1.5px",
+                width: '348px',
+                height: '60px',
+                bg_color: 'rgba(255, 255, 255, 1)',
+                bd_radius: '10px',
+                color: 'rgba(0, 0, 0, 1)',
+                ft_weight: '500',
+                ft_size: '18',
+                bd_px: '1.5px',
               }}
-              _text={"싱어"}
+              _text={'싱어'}
             />
           </div>
           <div>
             <Button
               _style={{
-                width: "348px",
-                height: "60px",
-                bg_color: "rgba(255, 255, 255, 1)",
-                bd_radius: "10px",
-                color: "rgba(0, 0, 0, 1)",
-                ft_weight: "500",
-                ft_size: "18",
-                bd_px: "1.5px",
+                width: '348px',
+                height: '60px',
+                bg_color: 'rgba(255, 255, 255, 1)',
+                bd_radius: '10px',
+                color: 'rgba(0, 0, 0, 1)',
+                ft_weight: '500',
+                ft_size: '18',
+                bd_px: '1.5px',
               }}
-              _text={"메이커"}
+              _text={'메이커'}
             />
           </div>
         </TopBtmDiv>

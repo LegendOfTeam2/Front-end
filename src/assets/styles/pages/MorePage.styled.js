@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const MoreContainerDiv = styled.div`
   width: 100%;
@@ -8,7 +8,7 @@ export const MoreContainerDiv = styled.div`
   z-index: -1;
   margin: 0;
   padding: 0;
-  top: 90.5px;
+  top: 125.5px;
   z-index: -1;
 `;
 
@@ -65,6 +65,15 @@ export const MoreBtmDataDiv = styled.span`
   line-height: ${(props) => props.theme.lineHeight.base};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   margin-top: 21px;
+`;
+
+export const MoreBtmDataDivSelect = styled.span`
+  font-size: ${(props) => props.theme.fontSizes.base};
+  line-height: ${(props) => props.theme.lineHeight.base};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  margin-top: 21px;
+  border-top: rgba(40, 202, 124, 1);
+  color: rgba(40, 202, 124, 1);
 `;
 
 export const MoreBtmImgDiv = styled.div`

@@ -1,47 +1,49 @@
 // Zustand
-import create from "zustand";
+import create from 'zustand';
 
 // Utils
 import {
-  getProfilPostApi,
+  getProfileInfoApi,
   getUploadPostApi,
   getLikePostApi,
-  getPlayListPostApi,
-  putProfileApi
-} from "../utils/apis/mypage";
+  putProfileApi,
+} from '../utils/apis/mypage';
 
 const useMyPageStore = create((set) => ({
-  profilPosteIsLoaded: false,
-  profilPost: [],
-  pofilUploadPostIsLoaded: false,
-  pofilUploadPost: [],
+  profileInfoIsLoaded: false,
+  profileInfo: [],
+  uploadPostIsLoaded: false,
+  uploadPost: [],
   likePostIsLoaded: false,
   likePost: [],
-  playListPostIsLoaded: false,
-  playListPost: [],
-
-  getProfilPost: async (payload) => {
-    const resData = await getProfilPostApi(payload)
+  mainPost: [],
+  getProfileInfo: async (payload) => {
+    const resData = await getProfileInfoApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
-      set({ profilPost: resData.data.data });
-      set({ profilPosteIsLoaded: resData.data.success });
+      set({ profileInfo: resData.data.data });
+      set({ profileInfoIsLoaded: resData.data.success });
 
       return resData.data.data;
     }
   },
-
   getUploadPost: async (payload) => {
     const resData = await getUploadPostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
-      set({ pofilUploadPost: resData.data.data });
-      set({ pofilUploadPostIsLoaded: resData.data.success });
+      set({ uploadPost: [...resData.data.data] });
+      set({ uploadPostIsLoaded: resData.data.success });
+      set((state) => {
+        const sortedPostArr = [...resData.data.data].sort(
+          (a, b) => b.likeCount - a.likeCount
+        );
+        return { mainPost: sortedPostArr };
+      });
+      return resData.data;
     }
   },
-
   getLikePost: async (payload) => {
     const resData = await getLikePostApi(payload)
       .then((res) => res)
@@ -51,24 +53,13 @@ const useMyPageStore = create((set) => ({
       set({ likePostIsLoaded: resData.data.success });
     }
   },
-
-  getPlayListPost: async (payload) => {
-    const resData = await getPlayListPostApi(payload)
-      .then((res) => res)
-      .catch((err) => console.log(err));
-    if (resData?.data.success) {
-      set({ playListPost: resData.data.data });
-      set({ playListPostIsLoaded: resData.data.success });
-    }
-  },
   putProfile: async (nickname, paylaod) => {
     const resData = await putProfileApi(nickname, paylaod)
       .then((res) => res.data)
       .catch((err) => console.log(err));
 
-    console.log(resData);
     return resData.success;
-  }
+  },
 }));
 
 export default useMyPageStore;

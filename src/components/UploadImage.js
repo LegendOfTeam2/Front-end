@@ -1,11 +1,14 @@
 // React
-import { useState, useRef, memo } from 'react';
+import { useRef, memo } from 'react';
 
 // Zustand
 import useUploadStore from '../zustand/upload';
 
 // Packages
 import { GrAdd } from 'react-icons/gr';
+
+// Utils
+import { warning } from '../utils/toast';
 
 // Assests
 import {
@@ -16,10 +19,9 @@ import {
 } from '../assets/styles/components/UploadImage.styled';
 
 const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
-  const uploadBoxRef = useRef();
-  const uploadInputRef = useRef();
-
   const uploadImage = useUploadStore((state) => state.uploadImage);
+
+  const uploadInputRef = useRef();
 
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -43,7 +45,7 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
       if (res.success) {
         setFile(res.data[0]);
       } else {
-        alert('이미지 업로드에 실패했습니다.');
+        warning('이미지 업로드에 실패했습니다.');
         setFileSrc('');
         setFile('');
       }
@@ -60,7 +62,7 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
       if (res.success) {
         setFile(res.data[0]);
       } else {
-        alert('이미지 업로드에 실패했습니다.');
+        warning('이미지 업로드에 실패했습니다.');
         setFileSrc('');
         setFile('');
       }
@@ -82,10 +84,9 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
       onClick={uploadHandle}
       onDrop={(e) => onDropHandle(e)}
       onDragOver={(e) => onDragOverHandle(e)}
-      ref={uploadBoxRef}
     >
       <UploadImageIcon>
-        <GrAdd className='icon'></GrAdd>
+        <GrAdd className='icon' />
       </UploadImageIcon>
       <UploadImageText>{text}</UploadImageText>
       <UploadImageInput

@@ -1,7 +1,24 @@
-import { Fragment, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+// React
+import { Fragment, useEffect, useState } from 'react';
+
+// Zustand
+import useLikeStore from '../zustand/like';
+import usePostStore from '../zustand/post';
+
+// Packages
+import { useParams } from 'react-router-dom';
+
+// Utils
+import { getCookie } from '../utils/cookie';
+
+// Components
+import Post from '../components/Post';
+import Header from '../components/Header';
+
+// Assests
 import {
   MoreBtmDataDiv,
+  MoreBtmDataDivSelect,
   MoreBtmImgDiv,
   MoreBtmTextDiv,
   MoreBtmTextDivDiv,
@@ -9,81 +26,56 @@ import {
   MoreContainerDiv,
   MoreTopDiv,
   MoreTopSpan,
-} from "../assets/styles/pages/MorePage.styled";
-import Header from "../components/Header";
-import PostBig from "../components/PostBig";
-import useLikeStore from "../zustand/like";
-import usePostStore from "../zustand/post";
+} from '../assets/styles/pages/MorePage.styled';
 
 const MorePage = () => {
-  const { position, ctg } = useParams();
-  const leftRef = useRef();
-  const rightRef = useRef();
-
-  const [recent, setRecent] = useState(false);
-  const [best, setBest] = useState(false);
-  const [category, setCategory] = useState(ctg);
-
   const getRecentMaker = usePostStore((state) => state.getRecentMaker);
   const getRecentSinger = usePostStore((state) => state.getRecentSinger);
   const getBestMaker = usePostStore((state) => state.getBestMaker);
   const getBestSinger = usePostStore((state) => state.getBestSinger);
-
-  const recentSingerIsLoaded = usePostStore(
-    (state) => state.recentSingerIsLoaded
-  );
   const recentSinger = usePostStore((state) => state.recentSinger);
-  const bestSingerIsLoaded = usePostStore((state) => state.bestSingerIsLoaded);
   const bestSinger = usePostStore((state) => state.bestSinger);
-
+  const recentMaker = usePostStore((state) => state.recentMaker);
+  const bestMaker = usePostStore((state) => state.bestMaker);
+  const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
+  const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
+  const singerIsLike = useLikeStore((state) => state.singerIsLike);
+  const makerIsLike = useLikeStore((state) => state.makerIsLike);
+  const bestSingerIsLoaded = usePostStore((state) => state.bestSingerIsLoaded);
+  const bestMakerIsLoaded = usePostStore((state) => state.bestMakerIsLoaded);
+  const singerIsLikeIsLoaded = useLikeStore(
+    (state) => state.singerIsLikeIsLoaded
+  );
   const recentMakerIsLoaded = usePostStore(
     (state) => state.recentMakerIsLoaded
   );
-  const recentMaker = usePostStore((state) => state.recentMaker);
-  const bestMakerIsLoaded = usePostStore((state) => state.bestMakerIsLoaded);
-  const bestMaker = usePostStore((state) => state.bestMaker);
+  const recentSingerIsLoaded = usePostStore(
+    (state) => state.recentSingerIsLoaded
+  );
 
-  const getSingerLikePost = useLikeStore((state) => state.getSingerLikePost);
-  const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
+  const { position, ctg } = useParams();
+
+  const [category, setCategory] = useState(ctg);
 
   const categoryHandle = (state) => {
     switch (state) {
-      case "new": {
-        leftRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
-        rightRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
-        leftRef.current.style.color = "rgba(40, 202, 124, 1)";
-        rightRef.current.style.color = "rgba(180, 180, 180, 1)";
-        setCategory("new");
+      case 'new': {
+        setCategory('new');
         break;
       }
-      case "popular": {
-        leftRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
-        rightRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
-        leftRef.current.style.color = "rgba(180, 180, 180, 1)";
-        rightRef.current.style.color = "rgba(40, 202, 124, 1)";
-        setCategory("popular");
+      case 'popular': {
+        setCategory('popular');
         break;
       }
       default:
         break;
     }
   };
-  useEffect(() => {
-    if (category === "new") {
-      leftRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
-      leftRef.current.style.color = "rgba(40, 202, 124, 1)";
-      rightRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
-    } else {
-      rightRef.current.style.borderTopColor = "rgba(40, 202, 124, 1)";
-      rightRef.current.style.color = "rgba(40, 202, 124, 1)";
-      leftRef.current.style.borderTopColor = "rgba(180, 180, 180, 1)";
-    }
-  }, []);
 
   useEffect(() => {
-    if (position === "singer") {
+    if (position === 'singer') {
       getSingerLikePost().then((res) => {
-        if (res) {
+        if (res.success) {
           getRecentSinger();
           getBestSinger();
         }
@@ -100,11 +92,11 @@ const MorePage = () => {
 
   return (
     <Fragment>
-      <Header></Header>
+      <Header />
       <MoreContainerDiv>
         <MoreContainer>
           <MoreTopDiv>
-            {position === "singer" ? (
+            {position === 'singer' ? (
               <MoreTopSpan>싱어</MoreTopSpan>
             ) : (
               <MoreTopSpan>메이커</MoreTopSpan>
@@ -112,23 +104,209 @@ const MorePage = () => {
           </MoreTopDiv>
 
           <MoreBtmTextDiv>
-            <MoreBtmTextDivDiv ref={leftRef}>
-              <MoreBtmDataDiv onClick={() => categoryHandle("new")}>
-                최신
-              </MoreBtmDataDiv>
-            </MoreBtmTextDivDiv>
-            <MoreBtmTextDivDiv ref={rightRef}>
-              <MoreBtmDataDiv onClick={() => categoryHandle("popular")}>
-                인기
-              </MoreBtmDataDiv>
-            </MoreBtmTextDivDiv>
+            {category === 'new' ? (
+              <Fragment>
+                <MoreBtmTextDivDiv onClick={() => categoryHandle('new')}>
+                  <MoreBtmDataDivSelect>최신</MoreBtmDataDivSelect>
+                </MoreBtmTextDivDiv>
+                <MoreBtmTextDivDiv onClick={() => categoryHandle('popular')}>
+                  <MoreBtmDataDiv>인기</MoreBtmDataDiv>
+                </MoreBtmTextDivDiv>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <MoreBtmTextDivDiv onClick={() => categoryHandle('new')}>
+                  <MoreBtmDataDiv>최신</MoreBtmDataDiv>
+                </MoreBtmTextDivDiv>
+                <MoreBtmTextDivDiv onClick={() => categoryHandle('popular')}>
+                  <MoreBtmDataDivSelect>인기</MoreBtmDataDivSelect>
+                </MoreBtmTextDivDiv>
+              </Fragment>
+            )}
           </MoreBtmTextDiv>
           <MoreBtmImgDiv>
-            {position === "singer" ? (
-              category === "new" ? (
+            {getCookie('authorization') !== undefined ? (
+              position === 'singer' ? (
+                category === 'new' ? (
+                  singerIsLikeIsLoaded ? (
+                    recentSingerIsLoaded ? (
+                      recentSinger.map((x) => {
+                        if (
+                          [...singerIsLike, ...makerIsLike].indexOf(x.postId) >
+                          -1
+                        ) {
+                          return (
+                            <Post
+                              key={x.postId}
+                              imageUrl={x.imageUrl.imageUrl}
+                              likeCount={x.likeCount}
+                              nickname={x.nickname}
+                              title={x.title}
+                              collaborate={x.collaborate}
+                              mediaUrl={x.mediaUrl.mediaUrl}
+                              postId={x.postId}
+                              position={x.position}
+                              likeState={true}
+                            />
+                          );
+                        } else {
+                          return (
+                            <Post
+                              key={x.postId}
+                              imageUrl={x.imageUrl.imageUrl}
+                              likeCount={x.likeCount}
+                              nickname={x.nickname}
+                              title={x.title}
+                              collaborate={x.collaborate}
+                              mediaUrl={x.mediaUrl.mediaUrl}
+                              postId={x.postId}
+                              position={x.position}
+                              likeState={false}
+                            />
+                          );
+                        }
+                      })
+                    ) : (
+                      <Fragment />
+                    )
+                  ) : (
+                    <Fragment />
+                  )
+                ) : recentSingerIsLoaded ? (
+                  bestSingerIsLoaded ? (
+                    bestSinger.map((x) => {
+                      if (
+                        [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
+                      ) {
+                        return (
+                          <Post
+                            key={x.postId}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likeCount={x.likeCount}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={true}
+                          />
+                        );
+                      } else {
+                        return (
+                          <Post
+                            key={x.postId}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likeCount={x.likeCount}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={false}
+                          />
+                        );
+                      }
+                    })
+                  ) : (
+                    <Fragment />
+                  )
+                ) : (
+                  <Fragment />
+                )
+              ) : category === 'new' ? (
+                singerIsLikeIsLoaded ? (
+                  recentMakerIsLoaded ? (
+                    recentMaker.map((x) => {
+                      if (
+                        [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
+                      ) {
+                        return (
+                          <Post
+                            key={x.postId}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likeCount={x.likeCount}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={true}
+                          />
+                        );
+                      } else {
+                        return (
+                          <Post
+                            key={x.postId}
+                            imageUrl={x.imageUrl.imageUrl}
+                            likeCount={x.likeCount}
+                            nickname={x.nickname}
+                            title={x.title}
+                            collaborate={x.collaborate}
+                            mediaUrl={x.mediaUrl.mediaUrl}
+                            postId={x.postId}
+                            position={x.position}
+                            likeState={false}
+                          />
+                        );
+                      }
+                    })
+                  ) : (
+                    <Fragment />
+                  )
+                ) : (
+                  <Fragment />
+                )
+              ) : singerIsLikeIsLoaded ? (
+                bestMakerIsLoaded ? (
+                  bestMaker.map((x) => {
+                    if (
+                      [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
+                    ) {
+                      return (
+                        <Post
+                          key={x.postId}
+                          imageUrl={x.imageUrl.imageUrl}
+                          likeCount={x.likeCount}
+                          nickname={x.nickname}
+                          title={x.title}
+                          collaborate={x.collaborate}
+                          mediaUrl={x.mediaUrl.mediaUrl}
+                          postId={x.postId}
+                          position={x.position}
+                          likeState={true}
+                        />
+                      );
+                    } else {
+                      return (
+                        <Post
+                          key={x.postId}
+                          imageUrl={x.imageUrl.imageUrl}
+                          likeCount={x.likeCount}
+                          nickname={x.nickname}
+                          title={x.title}
+                          collaborate={x.collaborate}
+                          mediaUrl={x.mediaUrl.mediaUrl}
+                          postId={x.postId}
+                          position={x.position}
+                          likeState={false}
+                        />
+                      );
+                    }
+                  })
+                ) : (
+                  <Fragment />
+                )
+              ) : (
+                <Fragment />
+              )
+            ) : position === 'singer' ? (
+              category === 'new' ? (
                 recentSingerIsLoaded ? (
                   recentSinger.map((x) => (
-                    <PostBig
+                    <Post
                       key={x.postId}
                       imageUrl={x.imageUrl.imageUrl}
                       likeCount={x.likeCount}
@@ -141,11 +319,11 @@ const MorePage = () => {
                     />
                   ))
                 ) : (
-                  <Fragment></Fragment>
+                  <Fragment />
                 )
               ) : bestSingerIsLoaded ? (
                 bestSinger.map((x) => (
-                  <PostBig
+                  <Post
                     key={x.postId}
                     imageUrl={x.imageUrl.imageUrl}
                     likeCount={x.likeCount}
@@ -158,12 +336,12 @@ const MorePage = () => {
                   />
                 ))
               ) : (
-                <Fragment></Fragment>
+                <Fragment />
               )
-            ) : category === "new" ? (
+            ) : category === 'new' ? (
               recentMakerIsLoaded ? (
                 recentMaker.map((x) => (
-                  <PostBig
+                  <Post
                     key={x.postId}
                     imageUrl={x.imageUrl.imageUrl}
                     likeCount={x.likeCount}
@@ -176,13 +354,12 @@ const MorePage = () => {
                   />
                 ))
               ) : (
-                <Fragment></Fragment>
+                <Fragment />
               )
             ) : bestMakerIsLoaded ? (
               bestMaker.map((x) => (
-                <PostBig
+                <Post
                   key={x.postId}
-                  k
                   imageUrl={x.imageUrl.imageUrl}
                   likeCount={x.likeCount}
                   nickname={x.nickname}
@@ -194,7 +371,7 @@ const MorePage = () => {
                 />
               ))
             ) : (
-              <Fragment></Fragment>
+              <Fragment />
             )}
           </MoreBtmImgDiv>
         </MoreContainer>
