@@ -101,6 +101,10 @@ const Main = () => {
   const singerIsLikeIsLoaded = useLikeStore(
     (state) => state.singerIsLikeIsLoaded
   );
+  const makerIsLikeIsLoaded = useLikeStore(
+    (state) => state.makerIsLikeIsLoaded
+  );
+  
 
   const isSmallScreen = useMediaQuery({
     query: '(max-width: 1920px)',
@@ -738,7 +742,7 @@ const Main = () => {
             )}
 
             {getCookie('authorization') !== undefined ? (
-              singerIsLikeIsLoaded ? (
+              makerIsLikeIsLoaded ? (
                 recentMakerIsLoaded ? (
                   recentMaker.length < 5 ? (
                     <DisMainPostImgDivImgDiv>
@@ -873,7 +877,7 @@ const Main = () => {
               <Fragment />
             )}
             {getCookie('authorization') !== undefined ? (
-              singerIsLikeIsLoaded ? (
+              makerIsLikeIsLoaded ? (
                 bestMakerIsLoaded ? (
                   bestMaker.length < 5 ? (
                     <DisMainPostImgDivImgDiv>
