@@ -204,7 +204,7 @@ const Main = () => {
           {bestSongIsLoaded ? (
             <MainImgDiv>
               {bestSong.map((x) => (
-                <MainImgDivDiv key={x.postId} onClick= {() => gotoProfilPage(x.nickname)}>
+                <MainImgDivDiv key={x.postId}>
                   <MainImgDivImg
                     img={
                       x.imageUrl.imageUrl === null
@@ -218,7 +218,7 @@ const Main = () => {
                   <MainImgDivDivBtmDiv>
                     리드미에서 가장 많이 재생된 아티스트 추천!
                   </MainImgDivDivBtmDiv>
-                  <MainImgDivBtmImgDiv>
+                  <MainImgDivBtmImgDiv onClick= {() => gotoProfilPage(x.nickname)}>
                     <MainImgDivBtmImg
                       src={x.profileImage}
                       alt='프로필 이미지'
