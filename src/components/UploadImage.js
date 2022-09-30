@@ -7,6 +7,9 @@ import useUploadStore from '../zustand/upload';
 // Packages
 import { GrAdd } from 'react-icons/gr';
 
+// Utils
+import { warning } from '../utils/toast';
+
 // Assests
 import {
   UploadImageContainer,
@@ -42,7 +45,7 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
       if (res.success) {
         setFile(res.data[0]);
       } else {
-        alert('이미지 업로드에 실패했습니다.');
+        warning('이미지 업로드에 실패했습니다.');
         setFileSrc('');
         setFile('');
       }
@@ -59,7 +62,7 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
       if (res.success) {
         setFile(res.data[0]);
       } else {
-        alert('이미지 업로드에 실패했습니다.');
+        warning('이미지 업로드에 실패했습니다.');
         setFileSrc('');
         setFile('');
       }

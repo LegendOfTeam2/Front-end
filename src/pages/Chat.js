@@ -149,6 +149,7 @@ const Chat = () => {
   }, [chatRoomInfo.roomId]);
 
   useEffect(() => {
+    getRooms();
     scrollToBottom();
   }, [chatMessages, contents]);
 
@@ -171,19 +172,23 @@ const Chat = () => {
             </ChatDataMemberTitleBox>
             <ChatDataMemberRoomBox>
               {getRoomsIsLoaded ? (
-                rooms.map((room) => {
-                  return (
-                    <ChatMember
-                      key={room.roomId}
-                      roomId={room.roomId}
-                      sender={room.sender}
-                      receiver={room.receiver}
-                      lastMessage={room.lastMessage}
-                      receiverProfileUrl={room.receiverProfileUrl}
-                      senderProfileUrl={room.senderProfileUrl}
-                    />
-                  );
-                })
+                [...rooms].length !== 0 ? (
+                  [...rooms].map((room) => {
+                    return (
+                      <ChatMember
+                        key={room.roomId}
+                        roomId={room.roomId}
+                        sender={room.sender}
+                        receiver={room.receiver}
+                        lastMessage={room.lastMessage}
+                        receiverProfileUrl={room.receiverProfileUrl}
+                        senderProfileUrl={room.senderProfileUrl}
+                      />
+                    );
+                  })
+                ) : (
+                  <Fragment />
+                )
               ) : (
                 <Fragment />
               )}
@@ -207,14 +212,15 @@ const Chat = () => {
             <ChatDataRoomMessageContainer ref={scrollRef}>
               <ChatDataRoomMessageBox>
                 {chatMessagesIsLoaded ? (
-                  chatMessages.map((messages, idx) => {
+                  [...chatMessages].map((messages, idx) => {
                     let messageState = false;
                     if (getCookie('authorization') !== undefined) {
                       if (
                         jwt_decode(getCookie('authorization')).sub ===
                         messages.sender
-                      )
+                      ) {
                         messageState = true;
+                      }
                     }
                     return (
                       <Message
@@ -234,8 +240,9 @@ const Chat = () => {
                     if (
                       jwt_decode(getCookie('authorization')).sub ===
                       element.sender
-                    )
+                    ) {
                       messageState = true;
+                    }
                   }
                   return (
                     <Message

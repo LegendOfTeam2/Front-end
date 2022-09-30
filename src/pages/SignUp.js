@@ -9,8 +9,11 @@ import { GrClose } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import shortid from 'shortid';
 import { debounce } from 'lodash';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+// Utils
+import { warning } from '../utils/toast';
 
 // Components
 import HashTagWithIcon from '../components/HashTagWithIcon';
@@ -229,12 +232,7 @@ const SignUp = () => {
             });
             event.target.value = '';
           } else {
-            toast.warning(`중복되는 태그입니다.`, {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
+            warning('중복되는 태그입니다.');
           }
         }
       }
@@ -251,12 +249,7 @@ const SignUp = () => {
             });
             event.target.value = '';
           } else {
-            toast.warning(`중복되는 태그입니다.`, {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
+            warning('중복되는 태그입니다.');
           }
         }
       }
@@ -352,11 +345,11 @@ const SignUp = () => {
     } else {
       if (!validCheck.passwordValid) {
         passwordRef.current.focus();
-        alert('유효하지 않은 패스워드입니다.');
+        warning('유효하지 않은 패스워드입니다.');
       } else {
         if (values.password !== values.passwordCheck) {
           passwordCheckRef.current.focus();
-          alert('패스워드가 일치하지 않습니다.');
+          warning('패스워드가 일치하지 않습니다.');
         } else {
           if (!validCheck.nicknameDupCheck) {
             nicknameRef.current.focus();

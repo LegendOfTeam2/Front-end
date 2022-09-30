@@ -7,12 +7,13 @@ import useMemberStore from '../../zustand/member';
 
 // Packages
 import ReactModal from 'react-modal';
-import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 // Utils
 import { getCookie } from '../../utils/cookie';
+import { info } from '../../utils/toast';
 
 // Assets
 import {
@@ -87,8 +88,6 @@ const PlayListModal = ({ ModalList }) => {
       border: '1px solid #28ca72',
       overflow: 'auto',
     },
-  
-
   };
 
   const clip = () => {
@@ -97,12 +96,7 @@ const PlayListModal = ({ ModalList }) => {
         `https://rhythme.shop/detail/${ModalList.position}/${ModalList.postId}`
       )
       .then(() => {
-        toast.info('URL 복사가 완료되었습니다.', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 1500,
-          draggablePercent: 60,
-          hideProgressBar: true,
-        });
+        info('URL 복사가 완료되었습니다.');
       });
   };
 
@@ -164,9 +158,14 @@ const PlayListModal = ({ ModalList }) => {
 
     //           <ListModalProfileNickname>
     <Fragment>
+      <ToastContainer />
       {/* <div className='background' /> */}
       {/* <ReactModal isOpen={playListModalState} className='modal'> */}
-      <ReactModal isOpen={playListModalState} style={customStyles} className='box'>
+      <ReactModal
+        isOpen={playListModalState}
+        style={customStyles}
+        className='box'
+      >
         {ModalList !== undefined ? (
           <ListModalContainer>
             <XboxDiv onClick={playListClose}>

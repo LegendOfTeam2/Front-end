@@ -9,7 +9,7 @@ import useMemberStore from '../zustand/member';
 
 // Packages
 import jwt_decode from 'jwt-decode';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Elements
@@ -17,6 +17,7 @@ import Button from '../elements/Button';
 
 // Utils
 import { getCookie } from '../utils/cookie';
+import { warning, info } from '../utils/toast';
 
 // Assets
 import {
@@ -45,40 +46,24 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
       if (jwt_decode(getCookie('authorization')).sub === nickname) {
-        toast.warning('자기 자신은 팔로우 할 수 없습니다.', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 1500,
-          draggablePercent: 60,
-          hideProgressBar: true,
-        });
+        warning('자기 자신은 팔로우 할 수 없습니다.');
       } else {
         follow(nickname).then((res) => {
           if (res.success) {
             if (res.data) {
               setFollowCheck(true);
-              toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {
-                position: toast.POSITION.BOTTOM_RIGHT,
-                autoClose: 1500,
-                draggablePercent: 60,
-                hideProgressBar: true,
-              });
+              info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`);
               setCounter((prev) => parseInt(prev) + 1);
             } else {
               setFollowCheck(false);
-              toast.info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`, {
-                position: toast.POSITION.BOTTOM_RIGHT,
-                autoClose: 1500,
-                draggablePercent: 60,
-                hideProgressBar: true,
-              });
+              info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`);
               setCounter((prev) => parseInt(prev) - 1);
             }
           }
         });
       }
     } else {
-      alert('로그인 후에 이용 가능합니다.');
-      navigate('/signin');
+      warning(`로그인 후에 이용 가능합니다.`);
     }
   };
 
@@ -86,12 +71,18 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
     navigate(`/mypage/${nickname}`);
   };
 
-  const onHandleChatRoom = () => {
+  const onHandleChat = () => {
     if (getCookie('authorization') !== undefined) {
-      makeRoom({ nickname, profileUrl: 'test', userId: 1 });
+      const sender = jwt_decode(getCookie('authorization')).sub;
+      makeRoom({ sender, receiver: nickname }).then((res) => {
+        if (res?.success) {
+          navigate('/chat');
+        } else {
+          navigate('/chat');
+        }
+      });
     } else {
-      alert('로그인 후에 이용 가능합니다.');
-      navigate('/signin');
+      warning(`로그인 후에 이용 가능합니다.`);
     }
   };
 
@@ -156,7 +147,7 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
             />
           )}
           <Button
-            _onClick={onHandleChatRoom}
+            _onClick={onHandleChat}
             _style={{
               width: '66px',
               height: '31px',

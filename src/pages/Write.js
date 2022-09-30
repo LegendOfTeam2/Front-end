@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useMediaQuery } from 'react-responsive';
 import shortid from 'shortid';
@@ -33,6 +33,7 @@ import Button from '../elements/Button';
 
 // Utils
 import { getCookie } from '../utils/cookie';
+import { warning } from '../utils/toast';
 
 // Essets
 import {
@@ -207,12 +208,7 @@ const Write = () => {
           return { ...prev, audio: res.data[0] };
         });
       } else {
-        toast.warning(`오디오 업로드에 실패했습니다.`, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 1500,
-          draggablePercent: 60,
-          hideProgressBar: true,
-        });
+        warning(`오디오 업로드에 실패했습니다.`);
         setValues((prev) => {
           return { ...prev, audio: '' };
         });
@@ -233,12 +229,7 @@ const Write = () => {
           return { ...prev, audio: res.data[0] };
         });
       } else {
-        toast.warning(`오디오 업로드에 실패했습니다.`, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 1500,
-          draggablePercent: 60,
-          hideProgressBar: true,
-        });
+        warning(`오디오 업로드에 실패했습니다.`);
         setValues((prev) => {
           return { ...prev, audio: '' };
         });
@@ -274,12 +265,7 @@ const Write = () => {
             });
             event.target.value = '';
           } else {
-            toast.warning(`중복되는 태그입니다.`, {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
+            warning(`중복되는 태그입니다.`);
           }
         }
       }
@@ -296,12 +282,7 @@ const Write = () => {
             });
             event.target.value = '';
           } else {
-            toast.warning(`중복되는 태그입니다.`, {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
+            warning(`중복되는 태그입니다.`);
           }
         }
       }
@@ -352,31 +333,16 @@ const Write = () => {
     e.preventDefault();
 
     if (values.audio === '') {
-      toast.warning(`오디오를 삽입해주세요.`, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        autoClose: 1500,
-        draggablePercent: 60,
-        hideProgressBar: true,
-      });
+      warning(`오디오를 삽입해주세요.`);
     } else {
       if (values.position === 'none') {
-        toast.warning(`포지션을 선택해주세요.`, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 1500,
-          draggablePercent: 60,
-          hideProgressBar: true,
-        });
+        warning(`포지션을 선택해주세요.`);
       } else {
         addPost(newPost).then((res) => {
           if (res.success) {
             navigate('/');
           } else {
-            toast.warning(`업로드에 실패했습니다.`, {
-              position: toast.POSITION.BOTTOM_RIGHT,
-              autoClose: 1500,
-              draggablePercent: 60,
-              hideProgressBar: true,
-            });
+            warning(`업로드에 실패했습니다.`);
           }
         });
       }

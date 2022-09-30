@@ -9,9 +9,12 @@ import useMemberStore from '../zustand/member';
 
 // Packages
 import jwt_decode from 'jwt-decode';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCookie } from '../utils/cookie';
+
+// Utils
+import { warning, info } from '../utils/toast';
 
 // Elements
 import Button from '../elements/Button';
@@ -43,40 +46,24 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
       if (jwt_decode(getCookie('authorization')).sub === nickname) {
-        toast.warning('자기 자신은 팔로우 할 수 없습니다.', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 1500,
-          draggablePercent: 60,
-          hideProgressBar: true,
-        });
+        warning('자기 자신은 팔로우 할 수 없습니다.')
       } else {
         follow(nickname).then((res) => {
           if (res.success) {
             if (res.data) {
               setFollowCheck(true);
-              toast.info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`, {
-                position: toast.POSITION.BOTTOM_RIGHT,
-                autoClose: 1500,
-                draggablePercent: 60,
-                hideProgressBar: true,
-              });
+              info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`);
               setCounter((prev) => parseInt(prev) + 1);
             } else {
               setFollowCheck(false);
-              toast.info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`, {
-                position: toast.POSITION.BOTTOM_RIGHT,
-                autoClose: 1500,
-                draggablePercent: 60,
-                hideProgressBar: true,
-              });
+              info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`);
               setCounter((prev) => parseInt(prev) - 1);
             }
           }
         });
       }
     } else {
-      alert('로그인 후에 이용 가능합니다.');
-      navigate('/signin');
+      warning('로그인 후에 이용 가능합니다.');
     }
   };
 
@@ -88,8 +75,7 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
     if (getCookie('authorization') !== undefined) {
       makeRoom({ nickname, profileUrl: 'test', userId: 1 });
     } else {
-      alert('로그인 후에 이용 가능합니다.');
-      navigate('/signin');
+      warning('로그인 후에 이용 가능합니다.');
     }
   };
 

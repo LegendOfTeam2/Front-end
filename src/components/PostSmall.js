@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 
 // Utils
 import { getCookie } from '../utils/cookie';
+import { warning, info } from '../utils/toast';
 
 // Assets
 import {
@@ -83,25 +84,14 @@ const PostSmall = ({
 
   const likeClick = () => {
     if (getCookie('authorization') === undefined) {
-      alert('로그인 후 이용해 주세요.');
-      navigate('/signin');
+      warning('로그인 후 이용해 주세요.');
     } else {
       addLike({ postId, position }).then((res) => {
         if (res.success && res.data) {
-          toast.info('게시글에 좋아요를 눌렀습니다.', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 1500,
-            draggablePercent: 60,
-            hideProgressBar: true,
-          });
+          info('게시글에 좋아요를 눌렀습니다.');
           setIsLike(true);
         } else {
-          toast.info('게시글에 좋아요를 취소했습니다.', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-            autoClose: 1500,
-            draggablePercent: 60,
-            hideProgressBar: true,
-          });
+          info('게시글에 좋아요를 취소했습니다.');
           setIsLike(false);
         }
       });
