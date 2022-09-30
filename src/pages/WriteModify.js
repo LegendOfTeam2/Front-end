@@ -367,17 +367,24 @@ const WriteModify = () => {
     }
   };
 
-  const modifyPostHandle = (e) => {
-    e.preventDefault();
-    if (values.audio === '') {
-      warning('오디오를 삽입해주세요.');
+  const modifyPostHandle = () => {
+    if (values.title === '') {
+      warning(`작업물의 제목을 작성해주세요.`);
     } else {
-      putModifyWrite(modifyPost).then((res) => {
-        if (res.success) {
-          setLocation(-1);
-          onHandleSuccessModal();
+      if (values.intro === '') {
+        warning(`작업물 설명을 작성해주세요.`);
+      } else {
+        if (values.audio === '') {
+          warning('오디오를 삽입해주세요.');
+        } else {
+          putModifyWrite(modifyPost).then((res) => {
+            if (res.success) {
+              setLocation(-1);
+              onHandleSuccessModal();
+            }
+          });
         }
-      });
+      }
     }
   };
 
@@ -527,7 +534,7 @@ const WriteModify = () => {
               ),
             }[values.position]
           }
-          <WriteForm id='write' onSubmit={(e) => modifyPostHandle(e)}>
+          <WriteForm id='write'>
             <WriteInputContainer>
               {view.title ? (
                 <WriteInputIcon onClick={() => deleteText('title')}>
@@ -764,7 +771,7 @@ const WriteModify = () => {
             <Fragment>
               <WriteButtonContainer>
                 <Button
-                  _type={'submit'}
+                  _type={'button'}
                   _text={'게시글 수정'}
                   _style={{
                     bd_radius: '5px',
@@ -775,7 +782,7 @@ const WriteModify = () => {
                     ft_size: '12',
                     line_height: '18',
                   }}
-                  _form={'write'}
+                  _onClick={modifyPostHandle}
                 />
               </WriteButtonContainer>
               <WriteButtonDeleteContainer>
