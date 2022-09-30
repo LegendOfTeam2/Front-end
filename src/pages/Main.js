@@ -101,6 +101,10 @@ const Main = () => {
   const singerIsLikeIsLoaded = useLikeStore(
     (state) => state.singerIsLikeIsLoaded
   );
+  const makerIsLikeIsLoaded = useLikeStore(
+    (state) => state.makerIsLikeIsLoaded
+  );
+  
 
   const isSmallScreen = useMediaQuery({
     query: '(max-width: 1920px)',
@@ -150,6 +154,12 @@ const Main = () => {
     });
   };
 
+  const gotoProfilPage = (nickname) => {
+    if (bestSongIsLoaded) {
+      navigate(`/mypage/${nickname}`); 
+    }
+  };
+
   const goToSinger = (category) => {
     navigate(`/morepage/singer/${category}`);
   };
@@ -188,6 +198,8 @@ const Main = () => {
     }
   }, []);
 
+  console.log(bestSong);
+
   return (
     <Fragment>
       <Header />
@@ -210,7 +222,7 @@ const Main = () => {
                   <MainImgDivDivBtmDiv>
                     리드미에서 가장 많이 재생된 아티스트 추천!
                   </MainImgDivDivBtmDiv>
-                  <MainImgDivBtmImgDiv>
+                  <MainImgDivBtmImgDiv onClick= {() => gotoProfilPage(x.nickname)}>
                     <MainImgDivBtmImg
                       src={x.profileImage}
                       alt='프로필 이미지'
@@ -730,7 +742,7 @@ const Main = () => {
             )}
 
             {getCookie('authorization') !== undefined ? (
-              singerIsLikeIsLoaded ? (
+              makerIsLikeIsLoaded ? (
                 recentMakerIsLoaded ? (
                   recentMaker.length < 5 ? (
                     <DisMainPostImgDivImgDiv>
@@ -865,7 +877,7 @@ const Main = () => {
               <Fragment />
             )}
             {getCookie('authorization') !== undefined ? (
-              singerIsLikeIsLoaded ? (
+              makerIsLikeIsLoaded ? (
                 bestMakerIsLoaded ? (
                   bestMaker.length < 5 ? (
                     <DisMainPostImgDivImgDiv>

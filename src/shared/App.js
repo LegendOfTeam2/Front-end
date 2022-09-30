@@ -101,7 +101,7 @@ function App() {
       location === 'mypage' ? (
         <PlayerMain />
       ) : (
-        <Fragment></Fragment>
+        <Fragment />
       )}
     </Suspense>
   );
