@@ -150,6 +150,12 @@ const Main = () => {
     });
   };
 
+  const gotoProfilPage = (nickname) => {
+    if (bestSongIsLoaded) {
+      navigate(`/mypage/${nickname}`); 
+    }
+  };
+
   const goToSinger = (category) => {
     navigate(`/morepage/singer/${category}`);
   };
@@ -188,6 +194,8 @@ const Main = () => {
     }
   }, []);
 
+  console.log(bestSong);
+
   return (
     <Fragment>
       <Header />
@@ -196,7 +204,7 @@ const Main = () => {
           {bestSongIsLoaded ? (
             <MainImgDiv>
               {bestSong.map((x) => (
-                <MainImgDivDiv key={x.postId}>
+                <MainImgDivDiv key={x.postId} onClick= {() => gotoProfilPage(x.nickname)}>
                   <MainImgDivImg
                     img={
                       x.imageUrl.imageUrl === null
