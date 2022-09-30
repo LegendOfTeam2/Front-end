@@ -28,6 +28,7 @@ import { warning, info } from '../utils/toast';
 import Header from '../components/Header';
 import Post from '../components/Post';
 import PostBig from '../components/PostBig';
+import NoticeModal from '../components/modal/NoticeModal';
 
 // Elements
 import Button from '../elements/Button';
@@ -94,6 +95,7 @@ import {
   MakerMarker10,
 } from '../assets/images/image';
 
+
 const MyPage = () => {
   const mainPost = useMyPageStore((state) => state.mainPost);
   const getProfileInfo = useMyPageStore((state) => state.getProfileInfo);
@@ -129,6 +131,7 @@ const MyPage = () => {
   );
 
   const [category, setCategory] = useState('upload');
+  const [noticeOpen ,setNoticeOpen] = useState(false)
   const [isFollow, setIsFollow] = useState(false);
   const [isSingerMarker, setSingerMarker] = useState();
   const [isMakerMarker, setMakerMarker] = useState();
@@ -144,6 +147,10 @@ const MyPage = () => {
     arrows: false,
     variableWidth: true,
     draggable: true,
+  };
+
+  const onCancel = () => {
+    setNoticeOpen(false);
   };
 
   const onHandleCategory = (state) => {
@@ -166,19 +173,19 @@ const MyPage = () => {
   };
 
   const onHandleChat = () => {
-    if (getCookie('authorization') !== undefined) {
-      const sender = jwt_decode(getCookie('authorization')).sub;
-      console.log(sender, nickname);
-      makeRoom({ sender, receiver: nickname }).then((res) => {
-        if (res?.success) {
-          navigate('/chat');
-        } else {
-          navigate('/chat');
-        }
-      });
-    } else {
-      warning(`로그인 후에 이용 가능합니다.`);
-    }
+    // if (getCookie('authorization') !== undefined) {
+    //   const sender = jwt_decode(getCookie('authorization')).sub;
+    //   makeRoom({ sender, receiver: nickname }).then((res) => {
+    //     if (res?.success) {
+    //       navigate('/chat');
+    //     } else {
+    //       navigate('/chat');
+    //     }
+    //   });
+    // } else {
+    //   warning(`로그인 후에 이용 가능합니다.`);
+    // }
+    setNoticeOpen(true)
   };
 
   const onHandleFollow = () => {
@@ -307,6 +314,7 @@ const MyPage = () => {
   return (
     <Fragment>
       <Header />
+      <NoticeModal isOpen={noticeOpen} onCancel={onCancel}/>
       <ToastContainer />
       <MyContainerDiv>
         <MyContainer>

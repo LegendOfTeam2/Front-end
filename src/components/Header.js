@@ -36,6 +36,7 @@ import {
   SearchIconDiv,
 } from '../assets/styles/components/Header.styled';
 import { HeaderlargeLogo, Search } from '../assets/images/image';
+import NoticeModal from './modal/NoticeModal';
 
 const Header = () => {
   const setSearchKeyword = useSearchStore((state) => state.setSearchKeyword);
@@ -52,6 +53,7 @@ const Header = () => {
     (state) => state.myProfileImgIsLoaded
   );
 
+  const [noticeOpen ,setNoticeOpen] = useState(false)
   const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
 
@@ -107,11 +109,16 @@ const Header = () => {
   };
 
   const chatHandle = () => {
-    if (getCookie('authorization') !== undefined) {
-      navigate('/chat');
-    } else {
-      warning('로그인 후 이용해 주세요.');
-    }
+    // if (getCookie('authorization') !== undefined) {
+    //   navigate('/chat');
+    // } else {
+    //   warning('로그인 후 이용해 주세요.');
+    // }
+    setNoticeOpen(true)
+  };
+
+  const onCancel = () => {
+    setNoticeOpen(false);
   };
 
   useEffect(() => {
@@ -123,6 +130,7 @@ const Header = () => {
 
   return (
     <Fragment>
+      <NoticeModal isOpen={noticeOpen} onCancel={onCancel}/>
       <HeaderContainerDiv>
         <HeaderContainer>
           <HeaderTopDiv>
