@@ -9,7 +9,7 @@ import { getCookie } from '../../cookie';
 const SERVER_IP = process.env.REACT_APP_REST_API_IP;
 
 const api_auth = axios.create({
-  baseURL: `http://${SERVER_IP}`,
+  baseURL: `https://${SERVER_IP}`,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
   },
