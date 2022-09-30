@@ -16,6 +16,9 @@ import { getCookie } from '../utils/cookie';
 // Utils
 import { warning, info } from '../utils/toast';
 
+// Components
+import NoticeModal from './modal/NoticeModal';
+
 // Elements
 import Button from '../elements/Button';
 
@@ -32,16 +35,23 @@ import {
   MainProfileimg,
 } from '../assets/styles/components/HotArtistBig.styled';
 
+
 const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
   const follow = useFollowStore((state) => state.follow);
   const makeRoom = useChatStore((state) => state.makeRoom);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
+  const [noticeOpen ,setNoticeOpen] = useState(false)
   const [counter, setCounter] = useState(follower);
   const [followCheck, setFollowCheck] = useState(isFollow);
 
   const navigate = useNavigate();
+
+
+  const onCancel = () => {
+    setNoticeOpen(false);
+  };
 
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
@@ -72,15 +82,17 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
   };
 
   const onHandleChatRoom = () => {
-    if (getCookie('authorization') !== undefined) {
-      makeRoom({ nickname, profileUrl: 'test', userId: 1 });
-    } else {
-      warning('로그인 후에 이용 가능합니다.');
-    }
+    // if (getCookie('authorization') !== undefined) {
+    //   makeRoom({ nickname, profileUrl: 'test', userId: 1 });
+    // } else {
+    //   warning('로그인 후에 이용 가능합니다.');
+    // }
+    setNoticeOpen(true)
   };
 
   return (
     <HotArtistImgDivDiv key={nickname}>
+      <NoticeModal isOpen={noticeOpen} onCancel={onCancel}/>
       <ToastContainer />
       <BtmProfileDivDiv>
         <BtmProfileDivDivDiv>
