@@ -32,9 +32,6 @@ export const MainImgDivDiv = styled.div`
   width: 100%;
   display: flex;
   position: relative;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 export const MainImgDivDivDiv = styled.div`
   position: absolute;
@@ -71,6 +68,9 @@ export const MainImgDivBtmImgDiv = styled.div`
   position: absolute;
   bottom: 10%;
   left: 24%;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const MainImgDivDivBtmDiv = styled.div`
