@@ -1,16 +1,23 @@
-import { Fragment, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
 const Analytics = () => {
-  const pathName = window.location.pathname;
+  const location = useLocation();
+  const [initialized, setInitialized] = useState(false);
+
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      ReactGA.initialize('G-J6HZZ0W1SF');
-      ReactGA.set({ page: pathName });
-      ReactGA.pageview(pathName);
+    if (!window.location.href.includes('localhost')) {
+      ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID);
     }
-  }, [pathName]);
-  return <></>;
+    setInitialized(true);
+  }, []);
+
+  useEffect(() => {
+    if (initialized) {
+      ReactGA.pageview(location.pathname + location.search);
+    }
+  }, [initialized, location]);
 };
 
 export default Analytics;

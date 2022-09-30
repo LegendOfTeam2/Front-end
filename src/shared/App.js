@@ -46,6 +46,8 @@ function App() {
 
   const location = useLocation().pathname.split('/')[1];
 
+  Analytics();
+
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
       changeLoginStatus(true);
@@ -56,7 +58,6 @@ function App() {
 
   return (
     <Suspense fallback={<Loading />}>
-      <Analytics />
       <Routes>
         <Route path='/' exact='true' element={<Main />} />
         <Route path='/mypage/:nickname' element={<MyPage />} />
