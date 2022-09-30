@@ -3,7 +3,7 @@ import axios from 'axios';
 const SERVER_IP = process.env.REACT_APP_REST_API_IP;
 
 const api_refresh = axios.create({
-  baseURL: `https://${SERVER_IP}`,
+  baseURL: `http://${SERVER_IP}`,
   headers: {
     'content-type': 'application/json;charset=UTF-8',
   },
