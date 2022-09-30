@@ -10,7 +10,6 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 // Pages
 import Search from '../pages/Search';
 import Chat from '../pages/Chat';
-import Error from '../pages/error';
 
 // Components
 import Loading from '../components/Loading';
