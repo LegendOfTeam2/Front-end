@@ -198,8 +198,6 @@ const Main = () => {
     }
   }, []);
 
-  console.log(bestSong);
-
   return (
     <Fragment>
       <Header />
