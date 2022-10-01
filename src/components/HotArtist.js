@@ -56,7 +56,7 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
       if (jwt_decode(getCookie('authorization')).sub === nickname) {
-        warning('자기 자신은 팔로우 할 수 없습니다.');
+        alert('자기 자신은 팔로우 할 수 없습니다.');
       } else {
         follow(nickname).then((res) => {
           if (res.success) {
@@ -73,7 +73,7 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
         });
       }
     } else {
-      warning(`로그인 후에 이용 가능합니다.`);
+      alert(`로그인 후에 이용 가능합니다.`);
     }
   };
 
