@@ -45,7 +45,6 @@ import {
   PlayContainerOut,
   PlayContainerOutDiv,
   PlayContainerOutImg,
-  PlayContainerOutLongBar,
   SingerSpan,
   Timer,
   TimerDiv,
@@ -215,7 +214,7 @@ function PlayerMain() {
     }
   };
 
-  const ClickMuted = () => {
+  const clickMuted = () => {
     if (!ismuted) {
       setIsMuted(true);
     }
@@ -314,7 +313,9 @@ function PlayerMain() {
             (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
           )[0];
           setCurrentSongMember(firstSong);
-          viewStateChange(true);
+          viewStateChange(false);
+          setPlaying(false);
+          audioRef.current.pause();
         }
       }
     });
@@ -424,18 +425,17 @@ function PlayerMain() {
   ]);
 
   useEffect(() => {
-    // const audio = audioRef.current;
+    const audio = audioRef.current;
     if (viewState) {
       if (playing) {
         setPlaying(true);
-        // audio.play();
+        audio.play();
       } else {
         setPlaying(false);
-        // audio.pause();
+        audio.pause();
       }
     }
   }, [viewState, playing, setPlaying, setIsAutoplay]);
-
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
@@ -717,7 +717,7 @@ function PlayerMain() {
                 </BtnContainer>
                 <VolumeolumeDiv>
                   <AllVolumeolumeDiv>
-                    <VolumeolumeDivDiv onClick={ClickMuted}>
+                    <VolumeolumeDivDiv onClick={clickMuted}>
                       {ismuted ? (
                         <img src={MutedAll} alt='음소거' />
                       ) : (

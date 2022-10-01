@@ -6,9 +6,6 @@ export const UploadImageContainer = styled.div`
   position: relative;
   border: 1px solid #28ca72;
   border-radius: 10px;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 export const UploadImageIcon = styled.div`
   position: absolute;
@@ -26,11 +23,16 @@ export const UploadImageIcon = styled.div`
 export const UploadImageText = styled.span`
   position: absolute;
   z-index: 1;
-  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
   font-size: ${(props) => props.theme.fontSizes.sm};
   top: 60%;
   left: 50%;
   transform: translateX(-50%);
+  color: #28ca7c;
+  &:hover {
+    cursor: pointer;
+    color: black;
+  }
 `;
 export const UploadImageInput = styled.input`
   display: none;
