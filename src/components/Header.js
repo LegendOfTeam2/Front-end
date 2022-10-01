@@ -61,7 +61,7 @@ const Header = () => {
     if (getCookie('authorization') !== undefined) {
       navigate('/write');
     } else {
-      warning('로그인 후 이용해 주세요.');
+      alert('로그인 후 이용해 주세요.');
     }
   };
 
@@ -69,7 +69,6 @@ const Header = () => {
     signOutMember({
       nickname: jwt_decode(getCookie('authorization')).sub,
     });
-    console.log('logout');
     removeCookie('authorization');
     window.sessionStorage.setItem('refresh-token', '');
     clearPlayListMember();

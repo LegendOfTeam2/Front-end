@@ -329,22 +329,28 @@ const Write = () => {
     }
   };
 
-  const addPostHandle = (e) => {
-    e.preventDefault();
-
-    if (values.audio === '') {
-      warning(`오디오를 삽입해주세요.`);
+  const addPostHandle = () => {
+    if (values.title === '') {
+      warning(`작업물의 제목을 작성해주세요.`);
     } else {
-      if (values.position === 'none') {
-        warning(`포지션을 선택해주세요.`);
+      if (values.intro === '') {
+        warning(`작업물 설명을 작성해주세요.`);
       } else {
-        addPost(newPost).then((res) => {
-          if (res.success) {
-            navigate('/');
+        if (values.audio === '') {
+          warning(`오디오를 삽입해주세요.`);
+        } else {
+          if (values.position === 'none') {
+            warning(`포지션을 선택해주세요.`);
           } else {
-            warning(`업로드에 실패했습니다.`);
+            addPost(newPost).then((res) => {
+              if (res.success) {
+                navigate('/');
+              } else {
+                warning(`업로드에 실패했습니다.`);
+              }
+            });
           }
-        });
+        }
       }
     }
   };
@@ -459,7 +465,7 @@ const Write = () => {
               ),
             }[values.position]
           }
-          <WriteForm id='write' onSubmit={(e) => addPostHandle(e)}>
+          <WriteForm id='write'>
             <WriteInputContainer>
               {view.title ? (
                 <WriteInputIcon onClick={() => deleteText('title')}>
@@ -656,7 +662,7 @@ const Write = () => {
           <WriteButtonContainer>
             {isSmallScreen ? (
               <Button
-                _type={'submit'}
+                _type={'button'}
                 _text={'업로드'}
                 _style={{
                   bd_radius: '5px',
@@ -667,11 +673,11 @@ const Write = () => {
                   ft_size: '12',
                   line_height: '18',
                 }}
-                _form={'write'}
+                _onClick={addPostHandle}
               />
             ) : (
               <Button
-                _type={'submit'}
+                _type={'button'}
                 _text={'업로드'}
                 _style={{
                   bd_radius: '5px',
@@ -682,7 +688,7 @@ const Write = () => {
                   ft_size: '12',
                   line_height: '18',
                 }}
-                _form={'write'}
+                _onClick={addPostHandle}
               />
             )}
           </WriteButtonContainer>
