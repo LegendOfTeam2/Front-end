@@ -1,5 +1,5 @@
 # RhythMe
-<img height="250" src="https://user-images.githubusercontent.com/108949232/190432270-6ae11497-694c-4648-9ece-4eaa8fa7aa05.jpeg" alt="메인로고" width=1200 height=1000 ></img>
+<img height="400" src="https://user-images.githubusercontent.com/108949232/190432270-6ae11497-694c-4648-9ece-4eaa8fa7aa05.jpeg" alt="메인로고" width=1200 height=1000 ></img>
 > **_배고픈 음악인을 위한 사이트_** 🧑🏿‍🎤🧑‍🎤<br/><br/>
 > **개발기간: 2022.08.26 ~ 2022.10.07**
 
