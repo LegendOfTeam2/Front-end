@@ -69,7 +69,6 @@ const Header = () => {
     signOutMember({
       nickname: jwt_decode(getCookie('authorization')).sub,
     });
-    console.log('logout');
     removeCookie('authorization');
     window.sessionStorage.setItem('refresh-token', '');
     clearPlayListMember();
