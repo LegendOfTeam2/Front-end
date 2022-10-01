@@ -436,6 +436,7 @@ function PlayerMain() {
     }
   }, [viewState, playing, setPlaying, setIsAutoplay]);
 
+
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
       if (playListMemberIsLoaded) {
