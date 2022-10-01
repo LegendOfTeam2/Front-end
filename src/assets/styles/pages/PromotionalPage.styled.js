@@ -13,6 +13,19 @@ export const PromotionalDiv = styled.div`
   width: auto;
   height: auto;
   margin-top: 120px;
+  display: flex;
+  position: relative;
+`;
+
+export const PromotionalDivBtn = styled.div`
+  width: 200px;
+  height: 100px;
+  bottom: 340px;
+  right: 400px;
+  position: absolute;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const PromotionalImg = styled.img`

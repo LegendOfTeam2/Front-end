@@ -7,6 +7,7 @@ import usePostStore from '../zustand/post';
 
 // Packages
 import { GrClose, GrAdd } from 'react-icons/gr';
+import { TbDragDrop } from 'react-icons/tb';
 import { ImHeadphones } from 'react-icons/im';
 import { GiMicrophone } from 'react-icons/gi';
 import { SiBeatsbydre } from 'react-icons/si';
@@ -665,7 +666,7 @@ const WriteModify = () => {
                 onDragOver={(e) => onDragOverHandle(e)}
               >
                 <WriteAudioIcon>
-                  <GrAdd className='icon' />
+                  <TbDragDrop className='icon' />
                 </WriteAudioIcon>
                 <WriteAudioText>오디오 삽입하기</WriteAudioText>
                 <WriteAudioInput

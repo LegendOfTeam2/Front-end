@@ -10,6 +10,7 @@ import { GrClose, GrAdd } from 'react-icons/gr';
 import { ImHeadphones } from 'react-icons/im';
 import { GiMicrophone } from 'react-icons/gi';
 import { SiBeatsbydre } from 'react-icons/si';
+import { TbDragDrop } from 'react-icons/tb';
 import { BsFillFileEarmarkMusicFill } from 'react-icons/bs';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
@@ -591,14 +592,15 @@ const Write = () => {
             </WriteImageTextContainer>
             <WriteAudioContainer>
               <WriteAudioBox
-                onClick={uploadHandle}
                 onDrop={(e) => onDropHandle(e)}
                 onDragOver={(e) => onDragOverHandle(e)}
               >
                 <WriteAudioIcon>
-                  <GrAdd className='icon' />
+                  <TbDragDrop className='icon' />
                 </WriteAudioIcon>
-                <WriteAudioText>오디오 삽입하기</WriteAudioText>
+                <WriteAudioText onClick={uploadHandle}>
+                  오디오 삽입하기
+                </WriteAudioText>
                 <WriteAudioInput
                   type={'file'}
                   accept={'audio/*'}
