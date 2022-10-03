@@ -144,8 +144,8 @@ const SignIn = () => {
                     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
                   )[0];
                   setCurrentSongMember(firstSong);
-                  setPlaying(true);
-                  viewStateChange(true);
+                  setPlaying(false);
+                  viewStateChange(false);
                 }
               }
             });
