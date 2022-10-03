@@ -8,6 +8,7 @@ import useMemberStore from '../zustand/member';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Pages
+import Main from '../pages/Main';
 import Search from '../pages/Search';
 import Chat from '../pages/Chat';
 
@@ -16,6 +17,8 @@ import Loading from '../components/Loading';
 import PlayerMain from '../components/audioplayer/PlayerMain';
 
 // Utils
+import Kakao from '../utils/kakao';
+import Google from '../utils/google';
 import { getCookie } from '../utils/cookie';
 import { useEffect } from 'react';
 
@@ -23,7 +26,6 @@ import { useEffect } from 'react';
 import Analytics from './Analytics';
 
 // Pages -Lazy
-const Main = lazy(() => import('../pages/Main'));
 const SignIn = lazy(() => import('../pages/SignIn'));
 const SignUp = lazy(() => import('../pages/SignUp'));
 const MyPage = lazy(() => import('../pages/MyPage'));
@@ -35,10 +37,6 @@ const Detail = lazy(() => import('../pages/Detail'));
 const Withdrawal = lazy(() => import('../pages/Withdrawal'));
 const MorePage = lazy(() => import('../pages/MorePage'));
 const PromotionalPage = lazy(() => import('../pages/PromotionalPage'));
-
-// Utils - Lazy
-const Kakao = lazy(() => import('../utils/kakao'));
-const Google = lazy(() => import('../utils/google'));
 
 function App() {
   const is_login = getCookie('authorization');
