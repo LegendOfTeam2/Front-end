@@ -8,6 +8,7 @@ import {
   getLikePostApi,
   putProfileApi,
 } from '../utils/apis/mypage';
+import createToken from '../utils/token';
 
 const useMyPageStore = create((set) => ({
   profileInfoIsLoaded: false,
@@ -53,12 +54,18 @@ const useMyPageStore = create((set) => ({
       set({ likePostIsLoaded: resData.data.success });
     }
   },
-  putProfile: async (nickname, paylaod) => {
-    const resData = await putProfileApi(nickname, paylaod)
-      .then((res) => res.data)
+  putProfile: async (paylaod) => {
+    const resData = await putProfileApi(paylaod)
+      .then((res) => res)
       .catch((err) => console.log(err));
 
-    return resData.success;
+    if (resData?.data.success) {
+      createToken(
+        resData.headers['authorization'].split(' ')[1],
+        resData.headers['refresh-token']
+      );
+      return resData.data;
+    }
   },
 }));
 

@@ -10,7 +10,7 @@ import {
   signInMemberApi,
   kakaoAuthApi,
   googleAuthApi,
-  getMyImageApi
+  getMyImageApi,
 } from '../utils/apis/member';
 
 // Assets
@@ -64,18 +64,8 @@ const useMemberStore = create((set) => ({
       return resData.data.success;
     }
   },
-  signOutMember: async (payload) => {
-    // const resData = await signOutMemberApi(payload)
-    //   .then((res) => res)
-    //   .catch((err) => console.log(err));
-
-    // if (resData?.data.success) {
-      // removeCookie('authorization');
-      // window.sessionStorage.setItem('refresh-token', '');
-      // set({ is_login: false });
-      // return resData.data.success;
-    // }
-
+  signOutMember: () => {
+    set({ is_login: false });
   },
   kakaoAuth: async (code) => {
     const resData = await kakaoAuthApi(code)
@@ -110,9 +100,9 @@ const useMemberStore = create((set) => ({
       .then((res) => res)
       .catch((err) => console.log(err));
 
-    if(resData?.data.success) {
-      set({myProfileImg: resData.data.data.imgUrl});
-      set({myProfileImgIsLoaded: resData.data.success});
+    if (resData?.data.success) {
+      set({ myProfileImg: resData.data.data.imgUrl });
+      set({ myProfileImgIsLoaded: resData.data.success });
     }
   },
 }));

@@ -96,7 +96,7 @@ const Header = () => {
     [keyword]
   );
 
-  const profilPage = () => {
+  const profilePage = () => {
     if (getCookie('authorization') !== undefined) {
       const nickname = jwt_decode(getCookie('authorization')).sub;
       navigate(`/mypage/${nickname}`);
@@ -188,7 +188,7 @@ const Header = () => {
                         : myProfileImg
                     }
                     alt='프로필'
-                    onClick={profilPage}
+                    onClick={profilePage}
                   ></ProfileImg>
                 ) : (
                   <Fragment />

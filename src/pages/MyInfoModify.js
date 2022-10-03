@@ -51,7 +51,6 @@ const MyInfoModify = () => {
   const nicknameDupCheck = useMemberStore((state) => state.nicknameDupCheck);
   const putProfile = useMyPageStore((state) => state.putProfile);
   const getProfileInfo = useMyPageStore((state) => state.getProfileInfo);
-  const signOutMember = useMemberStore((state) => state.signOutMember);
 
   const [nickname, setNickname] = useState('');
   const [nicknameCheck, setNicknameCheck] = useState('');
@@ -129,21 +128,13 @@ const MyInfoModify = () => {
       info('닉네임을 입력해 주세요.');
     } else {
       if (nicknameCheck === false) {
-        warning('중복되는 이메일입니다.');
+        warning('중복되는 닉네임입니다.');
       } else {
-        putProfile(jwt_decode(getCookie('authorization')).sub, newProfile).then(
-          (res) => {
-            if (res) {
-              signOutMember({
-                nickname: jwt_decode(getCookie('authorization')).sub,
-              });
-              removeCookie('authorization');
-              window.sessionStorage.setItem('refresh-token', '');
-              alert('다시 로그인 부탁드립니다.');
-              navigate('/');
-            }
+        putProfile(newProfile).then((res) => {
+          if (res.success) {
+            navigate('/');
           }
-        );
+        });
       }
     }
   };
