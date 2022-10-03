@@ -22,19 +22,6 @@ import { useEffect } from 'react';
 // Shared
 import Analytics from './Analytics';
 
-// import Main from '../pages/Main';
-// import SignIn from '../pages/SignIn'
-// import SignUp from '../pages/SignUp'
-// import MyPage from '../pages/MyPage'
-// import Write from '../pages/Write'
-// import WriteModify from '../pages/WriteModify'
-// import SignUpCheck from '../pages/SignUpCheck'
-// import MyInfoModify from '../pages/MyInfoModify'
-// import Detail from '../pages/Detail'
-// import Withdrawal from '../pages/Withdrawal'
-// import MorePage from '../pages/MorePage'
-// import PromotionalPage from '../pages/PromotionalPage'
-
 // Pages -Lazy
 const Main = lazy(() => import('../pages/Main'));
 const SignIn = lazy(() => import('../pages/SignIn'));
