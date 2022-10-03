@@ -28,7 +28,6 @@ import {
   Show,
   PlayListIcon,
   DisPlayListIcon,
-  AlbumCover,
   HeaderlargeLogo,
 } from '../../assets/images/image';
 import {

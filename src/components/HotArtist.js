@@ -35,19 +35,17 @@ import {
   MainProfileimg,
 } from '../assets/styles/components/HotArtist.styled';
 
-
 const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   const follow = useFollowStore((state) => state.follow);
   const makeRoom = useChatStore((state) => state.makeRoom);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
-  const [noticeOpen ,setNoticeOpen] = useState(false)
+  const [noticeOpen, setNoticeOpen] = useState(false);
   const [counter, setCounter] = useState(follower);
   const [followCheck, setFollowCheck] = useState(isFollow);
 
   const navigate = useNavigate();
-
 
   const onCancel = () => {
     setNoticeOpen(false);
@@ -103,7 +101,7 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
 
   return (
     <HotArtistImgDivDiv key={nickname}>
-      <NoticeModal isOpen={noticeOpen} onCancel={onCancel}/>
+      <NoticeModal isOpen={noticeOpen} onCancel={onCancel} />
       <ToastContainer />
       <BtmProfileDivDiv>
         <BtmProfileDivDivDiv>
