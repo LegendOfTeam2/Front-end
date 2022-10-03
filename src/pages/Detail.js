@@ -378,6 +378,7 @@ const Detail = () => {
                       : detailList.memberImageUrl
                   }
                   alt='프로필'
+                  onClick={profilPage}
                 />
               </DetailProfileDiv>
               <DetailProfileImgTextTop>

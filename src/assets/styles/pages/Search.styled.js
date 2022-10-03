@@ -17,7 +17,7 @@ export const BackgroundCover = styled.div`
 export const SearchBox = styled.div`
   width: 976px;
   height: auto;
-  margin-top: 246px;
+  margin-top: 216px;
   z-index: -1;
   position: absolute;
 `;

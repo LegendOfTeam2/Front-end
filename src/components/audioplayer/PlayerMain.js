@@ -97,7 +97,7 @@ function PlayerMain() {
     setPercentage(e.target.value);
   };
 
-  const callback = () => {
+  const randomHandle = () => {
     const random = Math.floor(Math.random() * playList.length);
     if (playList[random].postId !== currentSong.postId) {
       setCurrentSong(playList[random]);
@@ -114,7 +114,7 @@ function PlayerMain() {
     }
   };
 
-  const callbackMember = () => {
+  const randomHandleMember = () => {
     if (playListMemberIsLoaded) {
       const random = Math.floor(Math.random() * playListMember.length);
       if (playListMember[random].postId !== currentSongMember.postId) {
@@ -444,7 +444,7 @@ function PlayerMain() {
 
         if (audioEnd) {
           if (isRandom) {
-            callbackMember();
+            randomHandleMember();
           } else {
             skipNext();
           }
@@ -454,7 +454,7 @@ function PlayerMain() {
       const audioEnd = audioRef.current.ended;
       if (audioEnd) {
         if (isRandom) {
-          callback();
+          randomHandle();
         } else {
           skipNext();
         }
@@ -644,7 +644,7 @@ function PlayerMain() {
                 <BtnContainer>
                   {getCookie('authorization') !== undefined ? (
                     playListMemberIsLoaded ? (
-                      playListMember.length > 2 ? (
+                      playListMember.length > 1 ? (
                         <IconImgHover onClick={RandomPlay}>
                           {isRandom ? (
                             <img src={RandomIcon} alt='랜덤' />
@@ -660,7 +660,7 @@ function PlayerMain() {
                     ) : (
                       <Fragment />
                     )
-                  ) : playList.length > 2 ? (
+                  ) : playList.length > 1 ? (
                     <IconImgHover onClick={RandomPlay}>
                       {isRandom ? (
                         <img src={RandomIcon} alt='랜덤' />
