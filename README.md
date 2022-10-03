@@ -1,15 +1,9 @@
 # RhythMe
-<<<<<<< HEAD
 
-<img height="400" src="https://user-images.githubusercontent.com/108949232/190432270-6ae11497-694c-4648-9ece-4eaa8fa7aa05.jpeg" alt="메인로고" width=1200 height=1000 ></img>
-
-> **_배고픈 음악인을 위한 사이트_** 🧑🏿‍🎤🧑‍🎤<br/><br/> > **개발기간: 2022.08.26 ~
-> 2022.10.07**
-=======
 <img height="400" src="https://user-images.githubusercontent.com/108949232/190432270-6ae11497-694c-4648-9ece-4eaa8fa7aa05.jpeg" alt="메인로고" width=1200 height=1000 ></img>
 > **_배고픈 음악인을 위한 사이트_** 🧑🏿‍🎤🧑‍🎤<br/><br/>
 > **개발기간: 2022.08.26 ~ 2022.10.07**
->>>>>>> 3299019eedbde1f33d280f2527cabb595d13d3d9
+
 
 <br/>
 

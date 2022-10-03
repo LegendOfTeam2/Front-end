@@ -22,24 +22,24 @@ import Search from './Search.svg';
 import DisMakerMarke from './DisMakerMarke.svg';
 import DisSingerMarker from './DisSingerMarker.svg';
 import Share38 from './Share38.svg';
-import Putting from './Putting.png';
+import Putting from './Putting.webp';
 import Like38 from './Like38.svg';
-import ErrorLogo from './ErrorLogo.png';
-import SignInBackground from './SignInBackground.png';
-import SignInBackgroundSm from './SignInBackgroundSm.png';
-import WithdrawalLogo from './WithdrawalLogo.png';
-import Exclamation from './Exclamation.png';
-import WelcomeMsg from './WelcomeMsg.png';
+import ErrorLogo from './ErrorLogo.webp';
+import SignInBackground from './SignInBackground.webp';
+import SignInBackgroundSm from './SignInBackgroundSm.webp';
+import WithdrawalLogo from './WithdrawalLogo.webp';
+import Exclamation from './Exclamation.webp';
+import WelcomeMsg from './WelcomeMsg.webp';
 import Collaborate from './Collaborate.svg';
 import Hide from './Hide.svg';
 import Show from './Show.svg';
 import Like24 from './Like24.svg';
 import Like40 from './Like40.svg';
-import albumCover_1 from './albumcover/albumCover_1.jpg';
-import albumCover_2 from './albumcover/albumCover_2.jpg';
-import albumCover_3 from './albumcover/albumCover_3.jpg';
-import GooglePhoto from './GooglePhoto.png';
-import KakaoTalkPhoto from './KakaoTalkPhoto.png';
+import albumCover_1 from './albumcover/albumCover_1.webp';
+import albumCover_2 from './albumcover/albumCover_2.webp';
+import albumCover_3 from './albumcover/albumCover_3.webp';
+import GooglePhoto from './GooglePhoto.webp';
+import KakaoTalkPhoto from './KakaoTalkPhoto.webp';
 import ShowPw from './ShowPw.svg';
 import ShowPw38 from './ShowPw38.svg';
 import HidePw from './HidePw.svg';
@@ -52,8 +52,8 @@ import DisPlayListIcon from './DisPlayListIcon.svg';
 import PlayListIcon from './PlayListIcon.svg';
 import MainBanner from './MainBanner.svg';
 import MainBannerMini from './MainBannerMini.svg';
-import RightArrow from './RightArrow.png';
-import LeftArrow from './LeftArrow.png';
+import RightArrow from './RightArrow.webp';
+import LeftArrow from './LeftArrow.webp';
 import DisCollaboration from './DisCollaboration.svg';
 import DisCollaboration40 from './DisCollaboration40.svg';
 import WhiteCollaborate from './WhiteCollaborate.svg';
@@ -73,18 +73,18 @@ import MakerMarker7 from './positionMarker/MakerMarker7.svg';
 import MakerMarker8 from './positionMarker/MakerMarker8.svg';
 import MakerMarker9 from './positionMarker/MakerMarker9.svg';
 import MakerMarker10 from './positionMarker/MakerMarker10.svg';
-import SingerMarker1 from './positionMarker/SingerMarker1.png';
-import SingerMarker2 from './positionMarker/SingerMarker2.png';
-import SingerMarker3 from './positionMarker/SingerMarker3.png';
-import SingerMarker4 from './positionMarker/SingerMarker4.png';
-import SingerMarker5 from './positionMarker/SingerMarker5.png';
-import SingerMarker6 from './positionMarker/SingerMarker6.png';
-import SingerMarker7 from './positionMarker/SingerMarker7.png';
-import SingerMarker8 from './positionMarker/SingerMarker8.png';
-import SingerMarker9 from './positionMarker/SingerMarker9.png';
-import SingerMarker10 from './positionMarker/SingerMarker10.png';
+import SingerMarker1 from './positionMarker/SingerMarker1.webp';
+import SingerMarker2 from './positionMarker/SingerMarker2.webp';
+import SingerMarker3 from './positionMarker/SingerMarker3.webp';
+import SingerMarker4 from './positionMarker/SingerMarker4.webp';
+import SingerMarker5 from './positionMarker/SingerMarker5.webp';
+import SingerMarker6 from './positionMarker/SingerMarker6.webp';
+import SingerMarker7 from './positionMarker/SingerMarker7.webp';
+import SingerMarker8 from './positionMarker/SingerMarker8.webp';
+import SingerMarker9 from './positionMarker/SingerMarker9.webp';
+import SingerMarker10 from './positionMarker/SingerMarker10.webp';
 import Promotional from './Promotional.png';
-import AlbumCover from './AlbumCover.jpeg';
+import AlbumCover from './AlbumCover.webp';
 
 export {
   albumCover_1,
@@ -173,5 +173,5 @@ export {
   SingerMarker10,
   Promotional,
   MainBannerMini,
-  AlbumCover
+  AlbumCover,
 };
