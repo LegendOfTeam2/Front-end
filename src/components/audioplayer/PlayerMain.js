@@ -28,7 +28,7 @@ import {
   Show,
   PlayListIcon,
   DisPlayListIcon,
-  AlbumCover,
+  HeaderlargeLogo,
 } from '../../assets/images/image';
 import {
   AllBtnContainer,
@@ -598,7 +598,7 @@ function PlayerMain() {
                       <MidDiv>
                         <div>
                           <ImgCover
-                            src={AlbumCover}
+                            src={HeaderlargeLogo}
                             alt='재생목록이 비어 있을때'
                           />
                         </div>
@@ -633,7 +633,7 @@ function PlayerMain() {
                 ) : (
                   <MidDiv>
                     <div>
-                      <ImgCover src={AlbumCover} alt='재생목록이 비어 있을때' />
+                      <ImgCover src={HeaderlargeLogo} alt='재생목록이 비어 있을때' />
                     </div>
                     <IntroduceDiv>
                       <TitleSapn>재생목록이 비어 있어요~</TitleSapn>
