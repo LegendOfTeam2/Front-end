@@ -13,7 +13,7 @@ const api_media = axios.create({
   },
 });
 const api_media_auth = axios.create({
-  baseURL: `http://${SERVER_IP}`,
+  baseURL: `https://${SERVER_IP}`,
   headers: {
     'content-type': 'multipart/form-data',
   },
