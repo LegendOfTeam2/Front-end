@@ -116,9 +116,13 @@ const PlayList = () => {
                   : `곡 ${playList.length}`}
               </PlayListTopRightSpan>
             </PlayListTopDiv>
-            <PlayListTopRihtRightSpan onClick={playListCloseModalOpen}>
-              전체 삭제
-            </PlayListTopRihtRightSpan>
+            {getCookie('authorization') !== undefined ? (
+              <PlayListTopRihtRightSpan onClick={playListCloseModalOpen}>
+                전체 삭제
+              </PlayListTopRihtRightSpan>
+            ) : (
+              <></>
+            )}
           </PlayListMidALlDiv>
           <PlayListMidDiv>
             <PlayListMidDivDiv>

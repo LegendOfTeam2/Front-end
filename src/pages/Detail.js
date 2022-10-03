@@ -20,10 +20,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import shortid from 'shortid';
 
 // Utils
 import { getCookie } from '../utils/cookie';
-import {warning, info} from '../utils/toast'
+import { warning, info } from '../utils/toast';
 
 // Components
 import Header from '../components/Header';
@@ -351,9 +352,9 @@ const Detail = () => {
                     detailList.tags === [] ? (
                       <Fragment />
                     ) : (
-                      detailList.tags.reverse().map((x, idx) => {
+                      detailList.tags.reverse().map((x) => {
                         return (
-                          <DetailHashTagBox key={idx}>
+                          <DetailHashTagBox key={shortid.generate()}>
                             <DetailHashTag># {x}</DetailHashTag>
                           </DetailHashTagBox>
                         );
@@ -378,6 +379,7 @@ const Detail = () => {
                       : detailList.memberImageUrl
                   }
                   alt='프로필'
+                  onClick={profilPage}
                 />
               </DetailProfileDiv>
               <DetailProfileImgTextTop>
