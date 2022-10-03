@@ -457,9 +457,6 @@ export const WriteAudioBox = styled.div`
   position: relative;
   border: 1px solid #28ca72;
   border-radius: 10px;
-  &:hover {
-    cursor: pointer;
-  }
   @media ${(props) => props.theme.device.desktopL} {
     width: 186px;
     height: 80px;
@@ -481,11 +478,18 @@ export const WriteAudioIcon = styled.div`
 export const WriteAudioText = styled.span`
   position: absolute;
   z-index: 1;
-  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  font-weight: ${(props) => props.theme.fontWeight.medium};
   font-size: ${(props) => props.theme.fontSizes.sm};
   top: 60%;
   left: 50%;
   transform: translateX(-50%);
+  /* color: #418FDF; */
+  color: #28ca7c;
+  margin-top: 5px;
+  &:hover {
+    cursor: pointer;
+    color: black;
+  }
 `;
 export const WriteAudioInput = styled.input`
   display: none;

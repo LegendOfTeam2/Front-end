@@ -134,7 +134,7 @@ const Header = () => {
         <HeaderContainer>
           <HeaderTopDiv>
             <HeaderTopLeftSpan onClick={goToPromotional}>
-              About RyhthMe
+              About RythMe
             </HeaderTopLeftSpan>
             {getCookie('authorization') !== undefined ? (
               <HeaderTopRightSpan onClick={onHandleSingOut}>

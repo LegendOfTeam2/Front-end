@@ -65,7 +65,7 @@ function Player({ percentage = 0, onChange }) {
         type='range'
         value={position}
         ref={rangeRef}
-        step='0.01'
+        step={0.01}
         onChange={onChange}
       />
     </SliderContainer>

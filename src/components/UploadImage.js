@@ -5,8 +5,8 @@ import { useRef, memo } from 'react';
 import useUploadStore from '../zustand/upload';
 
 // Packages
-import { GrAdd } from 'react-icons/gr';
 import imageCompression from 'browser-image-compression';
+import { TbDragDrop } from 'react-icons/tb';
 
 // Utils
 import { warning } from '../utils/toast';
@@ -122,14 +122,13 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
     <UploadImageContainer
       width={width}
       height={height}
-      onClick={uploadHandle}
-      onDrop={(e) => handleDragImageConvert(e)}
+      onDrop={(e) => onDropHandle(e)}
       onDragOver={(e) => onDragOverHandle(e)}
     >
       <UploadImageIcon>
-        <GrAdd className='icon' />
+        <TbDragDrop className='icon' />
       </UploadImageIcon>
-      <UploadImageText>{text}</UploadImageText>
+      <UploadImageText onClick={uploadHandle}>{text}</UploadImageText>
       <UploadImageInput
         type={'file'}
         accept={'image/*'}
