@@ -5,6 +5,7 @@ import { useRef, memo } from 'react';
 import useUploadStore from '../zustand/upload';
 
 // Packages
+import imageCompression from 'browser-image-compression';
 import { TbDragDrop } from 'react-icons/tb';
 
 // Utils
@@ -34,13 +35,27 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
     });
   };
 
-  const onUploadImage = (e) => {
-    if (!e.target.files) {
-      return;
-    }
+  const handleImageConvert = async (e) => {
+    const imageFile = e.target.files[0];
+
+    const options = {
+      maxSizeMB: 0.5,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+
+    const compressedFile = await imageCompression(imageFile, options); // Blob 생성자로 return
+
+    onUploadImage(compressedFile);
+  };
+  const onUploadImage = (compressedFile) => {
+    // Blob을 서버에 전달하기 위한 File로 변환
+    const file = new File([compressedFile], 'image.png', {
+      type: 'image/png',
+    });
 
     const formData = new FormData();
-    formData.append('imgUrl', e.target.files[0]);
+    formData.append('imgUrl', file);
     uploadImage(formData).then((res) => {
       if (res.success) {
         setFile(res.data[0]);
@@ -51,13 +66,30 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
       }
     });
   };
-  const onDropHandle = (e) => {
+  const handleDropImageConvert = async (e) => {
     e.preventDefault();
 
-    encodeFileToBase64(e.dataTransfer.files[0]);
+    const imageFile = e.dataTransfer.files[0];
+
+    encodeFileToBase64(imageFile);
+    const options = {
+      maxSizeMB: 0.5,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+
+    const compressedFile = await imageCompression(imageFile, options);
+
+    onDropHandle(compressedFile);
+  };
+  const onDropHandle = (compressedFile) => {
+    // Blob을 서버에 전달하기 위한 File로 변환
+    const file = new File([compressedFile], 'image.png', {
+      type: 'image/png',
+    });
 
     const formData = new FormData();
-    formData.append('imgUrl', e.dataTransfer.files[0]);
+    formData.append('imgUrl', file);
     uploadImage(formData).then((res) => {
       if (res.success) {
         setFile(res.data[0]);
@@ -81,7 +113,7 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
     <UploadImageContainer
       width={width}
       height={height}
-      onDrop={(e) => onDropHandle(e)}
+      onDrop={(e) => handleDropImageConvert(e)}
       onDragOver={(e) => onDragOverHandle(e)}
     >
       <UploadImageIcon>
@@ -92,7 +124,7 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
         type={'file'}
         accept={'image/*'}
         onChange={(e) => {
-          onUploadImage(e);
+          handleImageConvert(e);
           encodeFileToBase64(e.target.files[0]);
         }}
         ref={uploadInputRef}

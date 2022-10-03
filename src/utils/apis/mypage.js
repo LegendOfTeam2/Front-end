@@ -13,6 +13,6 @@ export const getLikePostApi = (nickname, page) => {
 export const getPlayListPostApi = (nickname) => {
   return api_basic.get(`/post/playlist/${nickname}`);
 };
-export const putProfileApi = (nickname, payload) => {
-  return api_auth.put(`/profile/${nickname}`, payload);
+export const putProfileApi = (payload) => {
+  return api_auth.put(`/auth/profile`, payload);
 };
