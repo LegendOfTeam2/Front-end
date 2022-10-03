@@ -80,23 +80,23 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   };
 
   const onHandleChat = () => {
-    // setNoticeOpen(true)
-    if (getCookie('authorization') !== undefined) {
-      const sender = jwt_decode(getCookie('authorization')).sub;
-      if (sender !== nickname) {
-        makeRoom({ sender, receiver: nickname }).then((res) => {
-          if (res?.success) {
-            navigate('/chat');
-          } else {
-            navigate('/chat');
-          }
-        });
-      } else {
-        navigate('/chat');
-      }
-    } else {
-      warning(`로그인 후에 이용 가능합니다.`);
-    }
+    setNoticeOpen(true)
+    // if (getCookie('authorization') !== undefined) {
+    //   const sender = jwt_decode(getCookie('authorization')).sub;
+    //   if (sender !== nickname) {
+    //     makeRoom({ sender, receiver: nickname }).then((res) => {
+    //       if (res?.success) {
+    //         navigate('/chat');
+    //       } else {
+    //         navigate('/chat');
+    //       }
+    //     });
+    //   } else {
+    //     navigate('/chat');
+    //   }
+    // } else {
+    //   warning(`로그인 후에 이용 가능합니다.`);
+    // }
   };
 
   return (
