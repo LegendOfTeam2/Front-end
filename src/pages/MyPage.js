@@ -193,10 +193,10 @@ const MyPage = () => {
         if (res.success) {
           if (res.data) {
             setIsFollow(true);
-            info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`);
+            info(`${nickname}님을 팔로우 하였습니다.`);
           } else {
             setIsFollow(false);
-            info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`);
+            info(`${nickname}님 팔로우를 취소하였습니다.`);
           }
         }
       });
@@ -343,9 +343,7 @@ const MyPage = () => {
                   <MyRightTopDiv>
                     <MyRightTopDivSpanDiv>
                       <MyRightTopDivSpan>
-                        {profileInfoIsLoaded
-                          ? profileInfo.nickname.slice(0, 9)
-                          : ''}
+                        {profileInfoIsLoaded ? profileInfo.nickname : ''}
                       </MyRightTopDivSpan>
                     </MyRightTopDivSpanDiv>
                     <MyRightTopBtmDiv>

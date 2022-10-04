@@ -150,6 +150,7 @@ export const ChatDataRoomMessageContainer = styled.div`
 export const ChatDataRoomMessageBox = styled.div`
   width: auto;
   height: auto;
+  min-height: 559px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

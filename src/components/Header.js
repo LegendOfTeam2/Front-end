@@ -61,7 +61,7 @@ const Header = () => {
     if (getCookie('authorization') !== undefined) {
       navigate('/write');
     } else {
-      alert('로그인 후 이용해 주세요.');
+      warning('로그인 후 이용해 주세요.');
     }
   };
 
@@ -108,12 +108,12 @@ const Header = () => {
   };
 
   const chatHandle = () => {
-    // if (getCookie('authorization') !== undefined) {
-    //   navigate('/chat');
-    // } else {
-    //   warning('로그인 후 이용해 주세요.');
-    // }
-    setNoticeOpen(true)
+    if (getCookie('authorization') !== undefined) {
+      navigate('/chat');
+    } else {
+      warning('로그인 후 이용해 주세요.');
+    }
+    // setNoticeOpen(true);
   };
 
   const onCancel = () => {

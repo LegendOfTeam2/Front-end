@@ -9,6 +9,8 @@ import useLikeStore from '../zustand/like';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Utils
 import { getCookie } from '../utils/cookie';
@@ -61,6 +63,7 @@ const ProfileSlider = ({ postList, name, position, ctg }) => {
 
   return (
     <Fragment>
+      <ToastContainer />
       <ProfileContainerDiv>
         <ProfileContainer>
           <ProfileImgDiv>
