@@ -7,7 +7,7 @@ export const DetailContainerDiv = styled.div`
   position: absolute;
   margin: 0;
   padding: 0;
-  top: 136.5px;
+  top: 193px;
   z-index: -1;
 `;
 export const DetailContainer = styled.div`

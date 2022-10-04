@@ -84,7 +84,6 @@ import SingerMarker8 from './positionMarker/SingerMarker8.webp';
 import SingerMarker9 from './positionMarker/SingerMarker9.webp';
 import SingerMarker10 from './positionMarker/SingerMarker10.webp';
 import Promotional from './Promotional.png';
-import AlbumCover from './AlbumCover.webp';
 
 export {
   albumCover_1,
@@ -172,6 +171,5 @@ export {
   SingerMarker9,
   SingerMarker10,
   Promotional,
-  MainBannerMini,
-  AlbumCover,
+  MainBannerMini
 };

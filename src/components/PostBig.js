@@ -123,11 +123,11 @@ const PostBig = ({
       <ToastContainer />
       <BigImgMyBtmRight>
         <BigImgNotSlideTitleSpan>{title}</BigImgNotSlideTitleSpan>
-        <BigImgNotSlideSpan>{nickname.slice(0, 9)}</BigImgNotSlideSpan>
+        <BigImgNotSlideSpan>{nickname}</BigImgNotSlideSpan>
       </BigImgMyBtmRight>
       <BigMyImgTopLeft onClick={goToDetail}>{title}</BigMyImgTopLeft>
       <BigMyImgTopBtmLeft onClick={goToDetail}>
-        {nickname.slice(0, 9)}
+        {nickname}
       </BigMyImgTopBtmLeft>
       <DisBigMyImgTopRight>
         {collaborate ? (
