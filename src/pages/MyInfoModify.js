@@ -132,7 +132,7 @@ const MyInfoModify = () => {
       } else {
         putProfile(newProfile).then((res) => {
           if (res.success) {
-            navigate('/');
+            navigate(`/mypage/${res.data.nickname}`);
           }
         });
       }

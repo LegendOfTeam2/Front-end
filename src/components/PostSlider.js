@@ -8,8 +8,6 @@ import useMemberStore from '../zustand/member';
 
 // Packages
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { warning, info } from '../utils/toast';
 
 // Utils
@@ -113,7 +111,6 @@ const PostSlider = ({
   };
   return (
     <ProfileImgDivDiv key={postId}>
-      <ToastContainer />
       <Profileimg
         src={
           imageUrl === null
@@ -126,12 +123,12 @@ const PostSlider = ({
       />
       <ImgMainBtmRight>
         <ImgMainSpan>
-          <ImgMainSpanTitle>{title.slice(0, 9)}</ImgMainSpanTitle>
-          <ImgMainSpanNickname>{nickname.slice(0, 9)}</ImgMainSpanNickname>
+          <ImgMainSpanTitle>{title}</ImgMainSpanTitle>
+          <ImgMainSpanNickname>{nickname}</ImgMainSpanNickname>
         </ImgMainSpan>
       </ImgMainBtmRight>
       <ImgTopLeft onClick={goToDetail}>{title}</ImgTopLeft>
-      <ImgTopBtmLeft onClick={goToDetail}>{nickname.slice(0, 9)}</ImgTopBtmLeft>
+      <ImgTopBtmLeft onClick={goToDetail}>{nickname}</ImgTopBtmLeft>
 
       <DisImgTopRight>
         {collaborate ? (

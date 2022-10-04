@@ -1,3 +1,6 @@
+// React
+import { memo } from 'react';
+
 // Zustand
 import useChatStore from '../zustand/chat';
 import useMemberStore from '../zustand/member';
@@ -26,7 +29,9 @@ const ChatMember = ({
   receiverProfileUrl,
   lastMessage,
 }) => {
+  // const chatRoomInfo = useChatStore((state) => state.chatRoomInfo);
   const setChatRoomInfo = useChatStore((state) => state.setChatRoomInfo);
+  // const unSetSubscription = useChatStore((state) => state.unSetSubscription);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
@@ -47,7 +52,7 @@ const ChatMember = ({
   };
 
   return (
-    <ChatMemberContainer onClick={onClickHandle}>
+    <ChatMemberContainer onClick={() => onClickHandle()}>
       <ChatMemberProfileContainer>
         {receiver === jwt_decode(getCookie('authorization')).sub ? (
           senderProfileUrl === '' ? (
