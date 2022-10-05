@@ -9,12 +9,13 @@ import {
 } from '../utils/apis/like';
 
 interface LikeState {
-  singerIsLikeIsLoaded? :any
-  singerIsLike? : any
-  makerIsLikeIsLoaded? : any
-  makerIsLike? : any
-  addLike : (payload : any) => any
+  singerIsLikeIsLoaded :any
+  singerIsLike : any
+  makerIsLikeIsLoaded : any
+  makerIsLike : any
   getSingerLikePost : any
+  getMakerLikePost : any
+  addLike : (payload : any) => any
 }
 
 const useLikeStore = create<LikeState>((set) => ({

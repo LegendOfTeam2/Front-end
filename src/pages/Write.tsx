@@ -7,28 +7,26 @@ import usePostStore from '../zustand/post';
 
 // Packages
 import { GrClose, GrAdd } from 'react-icons/gr';
-import { TbDragDrop } from 'react-icons/tb';
 import { ImHeadphones } from 'react-icons/im';
 import { GiMicrophone } from 'react-icons/gi';
 import { SiBeatsbydre } from 'react-icons/si';
+import { TbDragDrop } from 'react-icons/tb';
 import { BsFillFileEarmarkMusicFill } from 'react-icons/bs';
-import jwt_decode from 'jwt-decode';
-import { useNavigate, useParams } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useMediaQuery } from 'react-responsive';
-import { debounce } from 'lodash';
 import shortid from 'shortid';
+import { debounce } from 'lodash';
 
 // Components
 import UploadImage from '../components/UploadImage';
 import HashTagWithIcon from '../components/HashTagWithIcon';
-import WriteModifyModal from '../components/modal/WriteModifyModal';
-import WriteDeleteModal from '../components/modal/WriteDeleteModal';
-import SuccessModal from '../components/modal/SuccessModal';
+import WriteModal from '../components/modal/WriteModal';
 
 // Elements
 import Input from '../elements/Input';
@@ -84,15 +82,12 @@ import {
   WriteHashTag,
   WriteHashTagBox,
   WriteButtonContainer,
-  WriteButtonDeleteContainer,
 } from '../assets/styles/pages/Write.styled';
 import { Xbox20 } from '../assets/images/image';
 
-const WriteModify = () => {
+const Write = () => {
   const uploadAudio = useUploadStore((state) => state.uploadAudio);
-  const getDetail = usePostStore((state) => state.getDetail);
-  const putModifyWrite = usePostStore((state) => state.putModifyWrite);
-  const deleteDetail = usePostStore((state) => state.deleteDetail);
+  const addPost = usePostStore((state) => state.addPost);
 
   const [values, setValues] = useState({
     title: '',
@@ -114,14 +109,10 @@ const WriteModify = () => {
     fileName: '',
     fileSize: '',
   });
-  const [cancelIsOpen, setCancelIsOpen] = useState(false);
-  const [deleteIsOpen, setDeleteIsOpen] = useState(false);
-  const [successIsOpen, setSuccessIsOpen] = useState(false);
-  const [location, setLocation] = useState(null);
+  const [isOpen, setOpen] = useState(false);
 
-  const uploadInputRef = useRef();
+  const uploadInputRef: any = useRef();
 
-  const params = useParams();
   const navigate = useNavigate();
 
   const isSmallScreen = useMediaQuery({
@@ -137,12 +128,11 @@ const WriteModify = () => {
     draggable: true,
   };
 
-  const modifyPost = {
-    postId: params.postId,
+  const newPost = {
     position: values.position,
     title: values.title,
     content: values.intro,
-    nickname: jwt_decode(getCookie('authorization')).sub,
+    nickname: jwt_decode<JwtPayload>(getCookie('authorization')).sub,
     lyrics: values.lyrics,
     imageUrl: values.image,
     mediaUrl: values.audio,
@@ -150,39 +140,27 @@ const WriteModify = () => {
     collaborate: values.collaborate,
   };
 
-  const deletePost = {
-    postId: params.postId,
-    position: values.position,
-  };
-
-  const onHandleCancelModal = () => {
-    setCancelIsOpen(true);
-  };
-
-  const onHandleDeleteModal = () => {
-    setDeleteIsOpen(true);
-  };
-
-  const onHandleSuccessModal = () => {
-    setSuccessIsOpen(true);
+  const onHandleModal = () => {
+    setOpen(true);
   };
 
   const onCancel = () => {
-    setDeleteIsOpen(false);
-    setCancelIsOpen(false);
+    setOpen(false);
   };
 
-  const onDeleteDetail = () => {
-    deleteDetail(deletePost).then((res) => {
-      if (res) {
-        onCancel();
-        setLocation('/');
-        onHandleSuccessModal();
-      }
+  const setImage = (image: any) => {
+    setValues((prev) => {
+      return { ...prev, image };
     });
   };
 
-  const deleteText = (state) => {
+  const setImageSrc = (imageSrc: any) => {
+    setValues((prev) => {
+      return { ...prev, imageSrc };
+    });
+  };
+
+  const deleteText = (state: any) => {
     switch (state) {
       case 'title': {
         setValues((prev) => {
@@ -207,19 +185,7 @@ const WriteModify = () => {
     }
   };
 
-  const setImage = (image) => {
-    setValues((prev) => {
-      return { ...prev, image };
-    });
-  };
-
-  const setImageSrc = (imageSrc) => {
-    setValues((prev) => {
-      return { ...prev, imageSrc };
-    });
-  };
-
-  const addPreview = (fileBlob) => {
+  const addPreview: any = (fileBlob: any) => {
     const fileName = fileBlob.name;
     const fileSize = String((parseInt(fileBlob.size) / 1024 / 1024).toFixed(2));
     setAudioPreview((prev) => {
@@ -230,20 +196,20 @@ const WriteModify = () => {
     });
   };
 
-  const onUploadAudio = (e) => {
+  const onUploadAudio = (e: any) => {
     if (!e.target.files) {
       return;
     }
 
     const formData = new FormData();
     formData.append('mediaUrl', e.target.files[0]);
-    uploadAudio(formData).then((res) => {
+    uploadAudio(formData).then((res: any) => {
       if (res.success) {
         setValues((prev) => {
           return { ...prev, audio: res.data[0] };
         });
       } else {
-        warning('오디오 업로드에 실패했습니다.');
+        warning(`오디오 업로드에 실패했습니다.`);
         setValues((prev) => {
           return { ...prev, audio: '' };
         });
@@ -251,7 +217,7 @@ const WriteModify = () => {
     });
   };
 
-  const onDropHandle = (e) => {
+  const onDropHandle = (e: any) => {
     e.preventDefault();
 
     const audioFile = e.dataTransfer.files[0].type;
@@ -265,7 +231,7 @@ const WriteModify = () => {
       addPreview(e.dataTransfer.files[0]);
       const formData = new FormData();
       formData.append('mediaUrl', e.dataTransfer.files[0]);
-      uploadAudio(formData).then((res) => {
+      uploadAudio(formData).then((res: any) => {
         if (res.success) {
           setValues((prev) => {
             return { ...prev, audio: res.data[0] };
@@ -282,7 +248,7 @@ const WriteModify = () => {
     }
   };
 
-  const onDragOverHandle = (e) => {
+  const onDragOverHandle = (e: any) => {
     e.preventDefault();
   };
 
@@ -305,29 +271,29 @@ const WriteModify = () => {
             values.tags.findIndex((tag) => tag === event.target.value) === -1
           ) {
             const newTag = event.target.value;
-            setValues((prev) => {
+            setValues((prev: any) => {
               return { ...prev, tags: [...prev.tags, newTag] };
             });
             event.target.value = '';
           } else {
-            warning('중복되는 태그입니다.');
+            warning(`중복되는 태그입니다.`);
           }
         }
       }
 
-      if (event.key === 9) {
+      if (event.key === 'Tab') {
         event.preventDefault();
         if (event.target.value.length > 0) {
           if (
             values.tags.findIndex((tag) => tag === event.target.value) === -1
           ) {
             const newTag = event.target.value;
-            setValues((prev) => {
+            setValues((prev: any) => {
               return { ...prev, tags: [...prev.tags, newTag] };
             });
             event.target.value = '';
           } else {
-            warning('중복되는 태그입니다.');
+            warning(`중복되는 태그입니다.`);
           }
         }
       }
@@ -336,32 +302,29 @@ const WriteModify = () => {
   );
 
   const removeTag = useCallback(
-    (removedTag) => {
+    (removedTag: any) => {
       const newTags = values.tags.filter((tag) => tag !== removedTag);
       setValues((prev) => {
-        return { ...prev, tags: newTags };
+        return { ...prev, tags: newTags.reverse() };
       });
     },
     [values.tags]
   );
 
-  const onHandlePostionAlert = (newPosition) => {
-    switch (newPosition) {
-      case 'Singer': {
-        if (values.position !== newPosition) {
-          warning('포지션 변경은 불가능합니다.');
-        }
+  const choosePostion = (position: any) => {
+    switch (position) {
+      case 'Singer':
+        setValues((prev) => {
+          return { ...prev, position: 'Singer' };
+        });
         break;
-      }
-      case 'Maker': {
-        if (values.position !== newPosition) {
-          warning('포지션 변경은 불가능합니다.');
-        }
+      case 'Maker':
+        setValues((prev) => {
+          return { ...prev, position: 'Maker' };
+        });
         break;
-      }
-      default: {
+      default:
         break;
-      }
     }
   };
 
@@ -377,7 +340,7 @@ const WriteModify = () => {
     }
   };
 
-  const modifyPostHandle = () => {
+  const addPostHandle = () => {
     if (values.title === '') {
       warning(`작업물의 제목을 작성해주세요.`);
     } else {
@@ -385,14 +348,19 @@ const WriteModify = () => {
         warning(`작업물 설명을 작성해주세요.`);
       } else {
         if (values.audio === '') {
-          warning('오디오를 삽입해주세요.');
+          warning(`오디오를 삽입해주세요.`);
         } else {
-          putModifyWrite(modifyPost).then((res) => {
-            if (res.success) {
-              setLocation(-1);
-              onHandleSuccessModal();
-            }
-          });
+          if (values.position === 'none') {
+            warning(`포지션을 선택해주세요.`);
+          } else {
+            addPost(newPost).then((res: any) => {
+              if (res.success) {
+                navigate('/');
+              } else {
+                warning(`업로드에 실패했습니다.`);
+              }
+            });
+          }
         }
       }
     }
@@ -428,45 +396,13 @@ const WriteModify = () => {
     }
   }, [values.title, values.lyrics, values.intro]);
 
-  useEffect(() => {
-    getDetail(params).then((res) => {
-      if (res.success) {
-        const data = res.data;
-        setValues({
-          title: data.title,
-          lyrics: data.lyrics,
-          intro: data.content,
-          image: data.imageUrl,
-          imageSrc: data.imageUrl,
-          audio: data.mediaUrl,
-          collaborate: data.collaborate,
-          position: data.position,
-          tags: data.tags,
-        });
-
-        setAudioPreview((prev) => {
-          return { ...prev, fileName: data.mediaUrl.split('-').slice(-1) };
-        });
-      } else {
-        warning('다시 시도 부탁드립니다.');
-        navigate(-1);
-      }
-    });
-  }, []);
-
   return (
     <Fragment>
+      <WriteModal isOpen={isOpen} onCancel={onCancel} />
       <ToastContainer />
-      <WriteModifyModal isOpen={cancelIsOpen} onCancel={onCancel} />
-      <WriteDeleteModal
-        isOpen={deleteIsOpen}
-        onCancel={onCancel}
-        onDeleteDetail={onDeleteDetail}
-      />
-      <SuccessModal isOpen={successIsOpen} location={location} />
       <WriteContainer>
         <WriteBox>
-          <WriteIconContainer onClick={onHandleCancelModal}>
+          <WriteIconContainer onClick={onHandleModal}>
             <GrClose color='#cecece' />
           </WriteIconContainer>
           {values.collaborate ? (
@@ -488,13 +424,13 @@ const WriteModify = () => {
             {
               none: (
                 <Fragment>
-                  <WriteSingerContainer>
+                  <WriteSingerContainer onClick={() => choosePostion('Singer')}>
                     <WriteSingerIcon>
                       <GiMicrophone className='icon' />
                     </WriteSingerIcon>
                     <WriteSingerText>싱어</WriteSingerText>
                   </WriteSingerContainer>
-                  <WriteMakerContainer>
+                  <WriteMakerContainer onClick={() => choosePostion('Maker')}>
                     <WriteMakerIcon>
                       <SiBeatsbydre className='icon' />
                     </WriteMakerIcon>
@@ -505,16 +441,14 @@ const WriteModify = () => {
               Singer: (
                 <Fragment>
                   <WriteSingerContainerSelected
-                    onClick={() => onHandlePostionAlert('Singer')}
+                    onClick={() => choosePostion('Singer')}
                   >
                     <WriteSingerIcon>
                       <GiMicrophone className='icon' color='white' />
                     </WriteSingerIcon>
                     <WriteSingerTextSelected>싱어</WriteSingerTextSelected>
                   </WriteSingerContainerSelected>
-                  <WriteMakerContainer
-                    onClick={() => onHandlePostionAlert('Maker')}
-                  >
+                  <WriteMakerContainer onClick={() => choosePostion('Maker')}>
                     <WriteMakerIcon>
                       <SiBeatsbydre className='icon' />
                     </WriteMakerIcon>
@@ -524,16 +458,14 @@ const WriteModify = () => {
               ),
               Maker: (
                 <Fragment>
-                  <WriteSingerContainer
-                    onClick={() => onHandlePostionAlert('Singer')}
-                  >
+                  <WriteSingerContainer onClick={() => choosePostion('Singer')}>
                     <WriteSingerIcon>
                       <GiMicrophone className='icon' />
                     </WriteSingerIcon>
                     <WriteSingerText>싱어</WriteSingerText>
                   </WriteSingerContainer>
                   <WriteMakerContainerSelected
-                    onClick={() => onHandlePostionAlert('Maker')}
+                    onClick={() => choosePostion('Maker')}
                   >
                     <WriteMakerIcon>
                       <SiBeatsbydre className='icon' color='white' />
@@ -548,7 +480,7 @@ const WriteModify = () => {
             <WriteInputContainer>
               {view.title ? (
                 <WriteInputIcon onClick={() => deleteText('title')}>
-                  <img src={Xbox20} alt='Xbox' className='icon' />
+                  <img src={Xbox20} alt='Xbox' className='icon-cancel' />
                 </WriteInputIcon>
               ) : (
                 <Fragment />
@@ -557,7 +489,7 @@ const WriteModify = () => {
                 <Input
                   _type={'text'}
                   _value={values.title}
-                  _onChange={(e) =>
+                  _onChange={(e: any) =>
                     setValues((prev) => {
                       return { ...prev, title: e.target.value };
                     })
@@ -576,12 +508,17 @@ const WriteModify = () => {
                     bd_radius: '10px',
                     bd_color: '#28CA72',
                   }}
+                  _ref={null}
+                  _onKeyUp={null}
+                  _onKeyDown={null}
+                  _minLength={null}
+                  _autoComplete={null}
                 />
               ) : (
                 <Input
                   _type={'text'}
                   _value={values.title}
-                  _onChange={(e) =>
+                  _onChange={(e: any) =>
                     setValues((prev) => {
                       return { ...prev, title: e.target.value };
                     })
@@ -600,6 +537,11 @@ const WriteModify = () => {
                     bd_radius: '10px',
                     bd_color: '#28CA72',
                   }}
+                  _ref={null}
+                  _onKeyUp={null}
+                  _onKeyDown={null}
+                  _minLength={null}
+                  _autoComplete={null}
                 />
               )}
             </WriteInputContainer>
@@ -665,23 +607,24 @@ const WriteModify = () => {
                   }
                   maxLength={20000}
                   required
-                ></WriteTextArea>
+                />
               </WriteTextBox>
             </WriteImageTextContainer>
             <WriteAudioContainer>
               <WriteAudioBox
-                onClick={uploadHandle}
                 onDrop={(e) => onDropHandle(e)}
                 onDragOver={(e) => onDragOverHandle(e)}
               >
                 <WriteAudioIcon>
                   <TbDragDrop className='icon' />
                 </WriteAudioIcon>
-                <WriteAudioText>오디오 삽입하기</WriteAudioText>
+                <WriteAudioText onClick={uploadHandle}>
+                  오디오 삽입하기
+                </WriteAudioText>
                 <WriteAudioInput
                   type={'file'}
                   accept={'audio/*'}
-                  onChange={(e) => {
+                  onChange={(e: any) => {
                     onUploadAudio(e);
                     addPreview(e.target.files[0]);
                   }}
@@ -738,87 +681,45 @@ const WriteModify = () => {
               </WriteHashTagBox>
             </WriteHashTagContainer>
           </WriteForm>
-          {isSmallScreen ? (
-            <Fragment>
-              <WriteButtonContainer>
-                <Button
-                  _type={'button'}
-                  _text={'게시글 수정'}
-                  _style={{
-                    bd_radius: '5px',
-                    width: '104px',
-                    height: '34px',
-                    bg_color: '#28ca7c',
-                    ft_weight: '800',
-                    ft_size: '12',
-                    line_height: '18',
-                  }}
-                  _onClick={modifyPostHandle}
-                />
-              </WriteButtonContainer>
-              <WriteButtonDeleteContainer>
-                <Button
-                  _type={'button'}
-                  _text={'게시글 삭제하기'}
-                  _style={{
-                    bd_radius: '5px',
-                    width: '139px',
-                    height: '34px',
-                    bg_color: '#ffffff',
-                    bd_px: '1px',
-                    bd_color: '#b4b4b4',
-                    ft_weight: '800',
-                    ft_size: '12',
-                    line_height: '18',
-                    color: '#b4b4b4',
-                  }}
-                  _onClick={onHandleDeleteModal}
-                />
-              </WriteButtonDeleteContainer>
-            </Fragment>
-          ) : (
-            <Fragment>
-              <WriteButtonContainer>
-                <Button
-                  _type={'button'}
-                  _text={'게시글 수정'}
-                  _style={{
-                    bd_radius: '5px',
-                    width: '124px',
-                    height: '44px',
-                    bg_color: '#28ca7c',
-                    ft_weight: '800',
-                    ft_size: '12',
-                    line_height: '18',
-                  }}
-                  _onClick={modifyPostHandle}
-                />
-              </WriteButtonContainer>
-              <WriteButtonDeleteContainer>
-                <Button
-                  _type={'button'}
-                  _text={'게시글 삭제하기'}
-                  _style={{
-                    bd_radius: '5px',
-                    width: '159px',
-                    height: '44px',
-                    bg_color: '#ffffff',
-                    bd_px: '1px',
-                    bd_color: '#b4b4b4',
-                    ft_weight: '800',
-                    ft_size: '12',
-                    line_height: '18',
-                    color: '#b4b4b4',
-                  }}
-                  _onClick={onHandleDeleteModal}
-                />
-              </WriteButtonDeleteContainer>
-            </Fragment>
-          )}
+          <WriteButtonContainer>
+            {isSmallScreen ? (
+              <Button
+                _type={'button'}
+                _text={'업로드'}
+                _style={{
+                  bd_radius: '5px',
+                  width: '104px',
+                  height: '34px',
+                  bg_color: 'black',
+                  ft_weight: '800',
+                  ft_size: '12',
+                  line_height: '18',
+                }}
+                _onClick={addPostHandle}
+                _ref={null}
+              />
+            ) : (
+              <Button
+                _type={'button'}
+                _text={'업로드'}
+                _style={{
+                  bd_radius: '5px',
+                  width: '124px',
+                  height: '44px',
+                  bg_color: 'black',
+                  ft_weight: '800',
+                  ft_size: '12',
+                  line_height: '18',
+                }}
+                _onClick={addPostHandle}
+                _ref={null}
+              />
+            )}
+          </WriteButtonContainer>
         </WriteBox>
       </WriteContainer>
     </Fragment>
   );
 };
 
-export default WriteModify;
+export default Write;

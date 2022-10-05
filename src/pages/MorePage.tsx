@@ -61,7 +61,7 @@ const MorePage = () => {
 
   const [category, setCategory] = useState(ctg);
 
-  const categoryHandle = (state) => {
+  const categoryHandle = (state: any) => {
     switch (state) {
       case 'new': {
         setCategory('new');
@@ -78,14 +78,14 @@ const MorePage = () => {
 
   useEffect(() => {
     if (position === 'singer') {
-      getSingerLikePost().then((res) => {
+      getSingerLikePost().then((res: any) => {
         if (res.success) {
           getRecentSinger();
           getBestSinger();
         }
       });
     } else {
-      getMakerLikePost().then((res) => {
+      getMakerLikePost().then((res: any) => {
         if (res.success) {
           getRecentMaker();
           getBestMaker();
@@ -134,7 +134,7 @@ const MorePage = () => {
                 category === 'new' ? (
                   singerIsLikeIsLoaded ? (
                     recentSingerIsLoaded ? (
-                      recentSinger.map((x) => {
+                      recentSinger.map((x: any) => {
                         if (
                           [...singerIsLike, ...makerIsLike].indexOf(x.postId) >
                           -1
@@ -143,7 +143,6 @@ const MorePage = () => {
                             <Post
                               key={x.postId}
                               imageUrl={x.imageUrl.imageUrl}
-                              likeCount={x.likeCount}
                               nickname={x.nickname}
                               title={x.title}
                               collaborate={x.collaborate}
@@ -158,7 +157,6 @@ const MorePage = () => {
                             <Post
                               key={x.postId}
                               imageUrl={x.imageUrl.imageUrl}
-                              likeCount={x.likeCount}
                               nickname={x.nickname}
                               title={x.title}
                               collaborate={x.collaborate}
@@ -178,7 +176,7 @@ const MorePage = () => {
                   )
                 ) : recentSingerIsLoaded ? (
                   bestSingerIsLoaded ? (
-                    bestSinger.map((x) => {
+                    bestSinger.map((x: any) => {
                       if (
                         [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
                       ) {
@@ -186,7 +184,6 @@ const MorePage = () => {
                           <Post
                             key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
-                            likeCount={x.likeCount}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -201,7 +198,6 @@ const MorePage = () => {
                           <Post
                             key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
-                            likeCount={x.likeCount}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -222,7 +218,7 @@ const MorePage = () => {
               ) : category === 'new' ? (
                 makerIsLikeIsLoaded ? (
                   recentMakerIsLoaded ? (
-                    recentMaker.map((x) => {
+                    recentMaker.map((x: any) => {
                       if (
                         [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
                       ) {
@@ -230,7 +226,6 @@ const MorePage = () => {
                           <Post
                             key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
-                            likeCount={x.likeCount}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -245,7 +240,6 @@ const MorePage = () => {
                           <Post
                             key={x.postId}
                             imageUrl={x.imageUrl.imageUrl}
-                            likeCount={x.likeCount}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -265,7 +259,7 @@ const MorePage = () => {
                 )
               ) : makerIsLikeIsLoaded ? (
                 bestMakerIsLoaded ? (
-                  bestMaker.map((x) => {
+                  bestMaker.map((x: any) => {
                     if (
                       [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
                     ) {
@@ -273,7 +267,6 @@ const MorePage = () => {
                         <Post
                           key={x.postId}
                           imageUrl={x.imageUrl.imageUrl}
-                          likeCount={x.likeCount}
                           nickname={x.nickname}
                           title={x.title}
                           collaborate={x.collaborate}
@@ -288,7 +281,6 @@ const MorePage = () => {
                         <Post
                           key={x.postId}
                           imageUrl={x.imageUrl.imageUrl}
-                          likeCount={x.likeCount}
                           nickname={x.nickname}
                           title={x.title}
                           collaborate={x.collaborate}
@@ -309,34 +301,34 @@ const MorePage = () => {
             ) : position === 'singer' ? (
               category === 'new' ? (
                 recentSingerIsLoaded ? (
-                  recentSinger.map((x) => (
+                  recentSinger.map((x: any) => (
                     <Post
                       key={x.postId}
                       imageUrl={x.imageUrl.imageUrl}
-                      likeCount={x.likeCount}
                       nickname={x.nickname}
                       title={x.title}
                       collaborate={x.collaborate}
                       mediaUrl={x.mediaUrl.mediaUrl}
                       postId={x.postId}
                       position={x.position}
+                      likeState={false}
                     />
                   ))
                 ) : (
                   <Fragment />
                 )
               ) : bestSingerIsLoaded ? (
-                bestSinger.map((x) => (
+                bestSinger.map((x: any) => (
                   <Post
                     key={x.postId}
                     imageUrl={x.imageUrl.imageUrl}
-                    likeCount={x.likeCount}
                     nickname={x.nickname}
                     title={x.title}
                     collaborate={x.collaborate}
                     mediaUrl={x.mediaUrl.mediaUrl}
                     postId={x.postId}
                     position={x.position}
+                    likeState={false}
                   />
                 ))
               ) : (
@@ -344,34 +336,34 @@ const MorePage = () => {
               )
             ) : category === 'new' ? (
               recentMakerIsLoaded ? (
-                recentMaker.map((x) => (
+                recentMaker.map((x: any) => (
                   <Post
                     key={x.postId}
                     imageUrl={x.imageUrl.imageUrl}
-                    likeCount={x.likeCount}
                     nickname={x.nickname}
                     title={x.title}
                     collaborate={x.collaborate}
                     mediaUrl={x.mediaUrl.mediaUrl}
                     postId={x.postId}
                     position={x.position}
+                    likeState={false}
                   />
                 ))
               ) : (
                 <Fragment />
               )
             ) : bestMakerIsLoaded ? (
-              bestMaker.map((x) => (
+              bestMaker.map((x: any) => (
                 <Post
                   key={x.postId}
                   imageUrl={x.imageUrl.imageUrl}
-                  likeCount={x.likeCount}
                   nickname={x.nickname}
                   title={x.title}
                   collaborate={x.collaborate}
                   mediaUrl={x.mediaUrl.mediaUrl}
                   postId={x.postId}
                   position={x.position}
+                  likeState={false}
                 />
               ))
             ) : (

@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+interface StyledProps {
+  cursor: any;
+  bg_img_lg: any;
+  bg_img_sm: any;
+}
+
 export const BackgroudColor = styled.div`
   position: fixed;
   top: 0;
@@ -192,7 +198,7 @@ export const SignInBoxDetailFind = styled.span`
     gap: 16px;
   }
 `;
-export const SignInBoxDetailFindText = styled.span`
+export const SignInBoxDetailFindText: any = styled.span<StyledProps>`
   font-size: ${(props) => props.theme.fontSizes.xs};
   line-height: ${(props) => props.theme.lineHeight.xxs};
   color: #a3a3a3;
@@ -306,7 +312,7 @@ export const SignInBoxSocialBoxSocialIcon = styled.div`
   width: auto;
   height: auto;
 `;
-export const SignInBoxCover = styled.div`
+export const SignInBoxCover: any = styled.div<StyledProps>`
   position: relative;
   width: 491px;
   height: auto;

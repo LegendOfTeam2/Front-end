@@ -76,6 +76,8 @@ const SignUpCheck = () => {
                   _onClick={() => {
                     window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
                   }}
+                  _type={null}
+                  _ref={null}
                 />
               ) : (
                 <Button
@@ -92,6 +94,8 @@ const SignUpCheck = () => {
                   _onClick={() => {
                     window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
                   }}
+                  _type={null}
+                  _ref={null}
                 />
               )}
             </div>
@@ -111,6 +115,8 @@ const SignUpCheck = () => {
                   _onClick={() => {
                     window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email%20profile%20openid&access_type=offline`;
                   }}
+                  _type={null}
+                  _ref={null}
                 />
               ) : (
                 <Button
@@ -127,6 +133,8 @@ const SignUpCheck = () => {
                   _onClick={() => {
                     window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email%20profile%20openid&access_type=offline`;
                   }}
+                  _type={null}
+                  _ref={null}
                 />
               )}
             </div>
@@ -148,6 +156,8 @@ const SignUpCheck = () => {
                 }}
                 _text={'이메일로 가입하기'}
                 _onClick={() => navigate('/signup')}
+                _type={null}
+                _ref={null}
               />
             </UpTbmBtmDivDiv>
           </UpTbmBtmDiv>

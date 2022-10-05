@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 interface StyledProps {
-  lyrics : any
-  introduction : any
-  }
+  lyrics: any;
+  introduction: any;
+}
 
 export const DetailContainerDiv = styled.div`
   width: 100%;
@@ -308,7 +308,7 @@ export const DetailBtmLyricsDiv = styled.div`
   height: auto;
 `;
 
-export const DetailBtmLyricsDivDiv = styled.div<StyledProps>`
+export const DetailBtmLyricsDivDiv: any = styled.div<StyledProps>`
   width: 379px;
   height: ${(props) => (props.lyrics ? 'auto' : '200px')};
   overflow: hidden;
@@ -364,7 +364,7 @@ export const DetailBtmMoreDiv = styled.div`
   height: auto;
 `;
 
-export const DetailBtmMoreDivDiv = styled.div<StyledProps>`
+export const DetailBtmMoreDivDiv: any = styled.div<StyledProps>`
   width: 379px;
   height: ${(props) => (props.introduction ? 'auto' : '200px')};
   overflow: hidden;

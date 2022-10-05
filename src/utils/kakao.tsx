@@ -1,5 +1,5 @@
 // React
-import { useEffect, Fragment } from 'react';
+import { useEffect } from 'react';
 
 // Zustand
 import useMemberStore from '../zustand/member';
@@ -12,14 +12,14 @@ import { useNavigate } from 'react-router-dom';
 
 const Kakao = () => {
   const navigate = useNavigate();
-  const kakaoAuth = useMemberStore((state) => state.kakaoAuth);
+  const kakaoAuth  = useMemberStore((state) => state.kakaoAuth);
   const authorization_code = new URL(window.location.href).searchParams.get(
     'code'
   );
 
   useEffect(() => {
-    const fetchCode = (code) => {
-      kakaoAuth(code).then((res) => {
+    const fetchCode  = (code : any) => {
+      kakaoAuth(code).then((res : any) => {
         if (res) {
           navigate('/');
         }

@@ -40,8 +40,8 @@ const Withdrawal = () => {
   const [isOpenConfirm, setOpenConfirm] = useState(false);
   const [isOpenNotice, setOpenNotice] = useState(false);
 
-  const emailIconRef = useRef();
-  const passwordIconRef = useRef();
+  const emailIconRef: any = useRef();
+  const passwordIconRef: any = useRef();
 
   const navigate = useNavigate();
 
@@ -59,7 +59,7 @@ const Withdrawal = () => {
   };
 
   const deleteText = useCallback(
-    (state) => {
+    (state: any) => {
       switch (state) {
         case 'email': {
           setEmail('');
@@ -90,7 +90,7 @@ const Withdrawal = () => {
         onCancel={onCancelConfirmModal}
         onChange={onChangeModal}
       />
-      <WithdrawalNoticeModal isOpen={isOpenNotice} />
+      <WithdrawalNoticeModal isOpen={isOpenNotice} onCancel={null} />
       <Header />
       <WithdrawalContainer>
         <WithdrawalBox>
@@ -129,7 +129,7 @@ const Withdrawal = () => {
                 <Input
                   _type={'text'}
                   _value={email}
-                  _onChange={(e) => setEmail(e.target.value)}
+                  _onChange={(e: any) => setEmail(e.target.value)}
                   _placeholder={'이메일을 입력해 주세요.'}
                   _style={{
                     width: '100%',
@@ -142,6 +142,12 @@ const Withdrawal = () => {
                     line_height: '29',
                     bg_color: 'transparent',
                   }}
+                  _ref={null}
+                  _onKeyUp={null}
+                  _onKeyDown={null}
+                  _minLength={null}
+                  _maxLength={null}
+                  _autoComplete={null}
                 />
               </WithdrawalInputDataBox>
             </WithdrawalInputBox>
@@ -159,7 +165,7 @@ const Withdrawal = () => {
                 <Input
                   _type={'password'}
                   _value={password}
-                  _onChange={(e) => setPassword(e.target.value)}
+                  _onChange={(e: any) => setPassword(e.target.value)}
                   _placeholder={'비빌번호를 입력해 주세요.'}
                   _style={{
                     width: '100%',
@@ -172,6 +178,12 @@ const Withdrawal = () => {
                     line_height: '29',
                     bg_color: 'transparent',
                   }}
+                  _ref={null}
+                  _onKeyUp={null}
+                  _onKeyDown={null}
+                  _minLength={null}
+                  _maxLength={null}
+                  _autoComplete={null}
                 />
               </WithdrawalInputDataBox>
             </WithdrawalInputBox>

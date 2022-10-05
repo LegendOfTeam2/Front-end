@@ -14,7 +14,7 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowUp,
 } from 'react-icons/md';
-import jwt_decode from 'jwt-decode';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Slider from 'react-slick';
@@ -107,15 +107,15 @@ const Detail = () => {
   const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
   const detailListLoaded = usePostStore((state) => state.detailListLoaded);
 
-  const [lyrics, setLyrics] : any = useState(false);
-  const [introduction, setIntroduction] : any = useState(false);
-  const [isLike, setIsLike] : any = useState(false);
-  const [counter, setCounter] : any = useState(0);
+  const [lyrics, setLyrics] = useState(false);
+  const [introduction, setIntroduction] = useState(false);
+  const [isLike, setIsLike] = useState(false);
+  const [counter, setCounter] = useState(0);
 
-  const params : any = useParams();
-  const navigate : any = useNavigate();
+  const params = useParams();
+  const navigate = useNavigate();
 
-  const settings : any = {
+  const settings = {
     slidesToShow: 1,
     slidesToScroll: 1,
     infinite: false,
@@ -125,26 +125,26 @@ const Detail = () => {
     draggable: true,
   };
 
-  const goToModify : any = () => {
+  const goToModify = () => {
     navigate(`/ModifyWrite/${params.position}/${params.postId}`);
   };
 
-  const handelLyrics : any = () => {
+  const handelLyrics = () => {
     setLyrics(!lyrics);
   };
 
-  const handelMore : any = () => {
+  const handelMore = () => {
     setIntroduction(!introduction);
   };
 
-  const onHandelLike : any = () => {
+  const onHandelLike = () => {
     if (getCookie('authorization') === undefined) {
       warning('로그인 후 이용해 주세요.');
     } else {
       addLike({
         postId: detailList.postId,
         position: detailList.position,
-      }).then((res) => {
+      }).then((res: any) => {
         if (res.success && res.data) {
           info('게시글에 좋아요를 눌렀습니다.');
           setIsLike(true);
@@ -158,7 +158,7 @@ const Detail = () => {
     }
   };
 
-  const clip : any = () => {
+  const clip = () => {
     navigator.clipboard
       .writeText(
         `https://rhythme.shop/detail/${params.position}/${params.postId}`
@@ -168,7 +168,7 @@ const Detail = () => {
       });
   };
 
-  const play : any = () => {
+  const play = () => {
     viewStateChange(true);
     setPlaying(true);
     setIsAutoplay(true);
@@ -182,7 +182,7 @@ const Detail = () => {
     });
   };
 
-  const playMember : any = () => {
+  const playMember = () => {
     viewStateChange(true);
     setPlaying(true);
     setIsAutoplay(true);
@@ -196,18 +196,18 @@ const Detail = () => {
     });
   };
 
-  const profilPage : any = () => {
+  const profilPage = () => {
     navigate(`/mypage/${detailList.nickname}`);
   };
 
   useEffect(() => {
     if (params.position === 'Singer') {
-      getSingerLikePost().then((res) => {
+      getSingerLikePost().then((res: any) => {
         if (res) {
-          const likePostArr = res.data.map((element) => {
+          const likePostArr = res.data.map((element: any) => {
             return element.postId;
           });
-          getDetail(params).then((res) => {
+          getDetail(params).then((res: any) => {
             if (res.success) {
               setCounter(res.data.likes);
               if (likePostArr.indexOf(res.data.postId) > -1) {
@@ -218,13 +218,13 @@ const Detail = () => {
         }
       });
     } else {
-      getMakerLikePost().then((res) => {
+      getMakerLikePost().then((res: any) => {
         if (res) {
-          const likePostArr = res.data.map((element) => {
+          const likePostArr = res.data.map((element: any) => {
             return element.postId;
           });
 
-          getDetail(params).then((res) => {
+          getDetail(params).then((res: any) => {
             if (res.success) {
               setCounter(res.data.likes);
               if (likePostArr.indexOf(res.data.postId) > -1) {
@@ -337,7 +337,7 @@ const Detail = () => {
                     </DetailProfileBtmFirDiv>
                     <DetailProfileBtmFirDiv onClick={clip}>
                       <DetailClickHover>
-                        <img src={Share38} backgrond='white' alt='공유하기' />
+                        <img src={Share38} alt='공유하기' />
                       </DetailClickHover>
                       <DetailProfileBtmSecSpan>
                         공유하기
@@ -352,7 +352,7 @@ const Detail = () => {
                     detailList.tags === [] ? (
                       <Fragment />
                     ) : (
-                      detailList.tags.reverse().map((x) => {
+                      detailList.tags.reverse().map((x: any) => {
                         return (
                           <DetailHashTagBox key={shortid.generate()}>
                             <DetailHashTag># {x}</DetailHashTag>
@@ -389,16 +389,16 @@ const Detail = () => {
             <DetailProfileBtnGroup>
               <DetailProfileBtmFirDiv>
                 <DetailClickHover onClick={profilPage}>
-                  <img src={ShowPw38} backgrond='white' alt='아티스트' />
+                  <img src={ShowPw38} alt='아티스트' />
                 </DetailClickHover>
                 <DetailProfileBtmSecSpan>아티스트 보기</DetailProfileBtmSecSpan>
               </DetailProfileBtmFirDiv>
               {getCookie('authorization') !== undefined ? (
-                jwt_decode(getCookie('authorization')).sub ===
+                jwt_decode<JwtPayload>(getCookie('authorization')).sub ===
                 detailList.nickname ? (
                   <DetailProfileBtmFirDiv>
                     <DetailClickHover onClick={goToModify}>
-                      <img src={Modify} backgrond='white' alt='게시글 수정' />
+                      <img src={Modify} alt='게시글 수정' />
                     </DetailClickHover>
                     <DetailProfileBtmSecSpan>
                       게시글 수정하기
@@ -408,11 +408,7 @@ const Detail = () => {
                   detailList.collaborate ? (
                     <DetailProfileBtmFirDiv>
                       <DetailClickHover>
-                        <img
-                          src={DisCollaboration38}
-                          backgrond='white'
-                          alt='콜라보'
-                        />
+                        <img src={DisCollaboration38} alt='콜라보' />
                       </DetailClickHover>
 
                       <DetailProfileBtmSecSpan>
@@ -429,11 +425,7 @@ const Detail = () => {
                 detailList.collaborate ? (
                   <DetailProfileBtmFirDiv>
                     <DetailClickHover>
-                      <img
-                        src={DisCollaboration38}
-                        backgrond='white'
-                        alt='콜라보'
-                      />
+                      <img src={DisCollaboration38} alt='콜라보' />
                     </DetailClickHover>
 
                     <DetailProfileBtmSecSpan>
@@ -453,7 +445,7 @@ const Detail = () => {
               <DetailLyricsContainer>
                 <DetailTopLyrics>가사</DetailTopLyrics>
                 <DetailHorizonLine />
-                <DetailBtmLyricsDivDiv lyrics ={lyrics}>
+                <DetailBtmLyricsDivDiv lyrics={lyrics}>
                   <DetailBtmLyricsDivSpan>
                     {detailList.lyrics}
                   </DetailBtmLyricsDivSpan>

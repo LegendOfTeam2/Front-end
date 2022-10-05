@@ -4,7 +4,20 @@ import create from 'zustand';
 // Utils
 import { searchKeywordApi } from '../utils/apis/search';
 
-const useSearchStore = create((set) => ({
+interface SearchState {
+  keyword: any,
+  singerSearchIsLoaded: any,
+  makerSearchIsLoaded: any,
+  memberSearchIsLoaded: any,
+  singerSearchList: any,
+  makerSearchList: any,
+  memberSearchList: any,
+  resetList: any
+  setSearchKeyword : (keyword : any) => any
+  searchKeyword : (keyword : any , position : any) => any
+}
+
+const useSearchStore = create<SearchState>((set) => ({
   keyword: '',
   singerSearchIsLoaded: false,
   makerSearchIsLoaded: false,
@@ -12,9 +25,11 @@ const useSearchStore = create((set) => ({
   singerSearchList: [],
   makerSearchList: [],
   memberSearchList: [],
+
   setSearchKeyword: (keyword) => {
     set({ keyword: keyword });
   },
+
   searchKeyword: async (keyword, position) => {
     const resData = await searchKeywordApi(keyword, position)
       .then((res) => res)

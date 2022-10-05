@@ -48,6 +48,9 @@ const UserPosition = () => {
                 bd_px: '1.5px',
               }}
               _text={'싱어'}
+              _type={null}
+              _onClick={null}
+              _ref={null}
             />
           </div>
           <div>
@@ -63,6 +66,9 @@ const UserPosition = () => {
                 bd_px: '1.5px',
               }}
               _text={'메이커'}
+              _type={null}
+              _onClick={null}
+              _ref={null}
             />
           </div>
         </TopBtmDiv>

@@ -16,7 +16,37 @@ import {
   deleteDetailApi,
 } from '../utils/apis/post';
 
-const usePostStore = create((set) => ({
+interface PostState {
+  bestSongIsLoaded: any;
+  bestSong: any;
+  recentMakerIsLoaded: any;
+  recentMaker: any;
+  recentSingerIsLoaded: any;
+  recentSinger: any;
+  bestMakerIsLoaded: any;
+  bestMaker: any;
+  bestSingerIsLoaded: any;
+  bestSinger: any;
+  powerArtistLoaded: any;
+  powerArtist: any;
+  artistIsFollowIsLoaded: any;
+  artistIsFollow: any;
+  detailListLoaded: any;
+  detailList: any;
+  addPost: (payload: any) => any;
+  getFollowerList: (payload: any) => any;
+  getBestSong: (payload: any) => any;
+  getRecentMaker: (payload: any) => any;
+  getRecentSinger: (payload: any) => any;
+  getBestMaker: (payload: any) => any;
+  getPowerArtist: (payload: any) => any;
+  getBestSinger: (payload: any) => any;
+  getDetail: (payload: any) => any;
+  putModifyWrite: (payload: any) => any;
+  deleteDetail: (payload: any) => any;
+}
+
+const usePostStore = create<PostState>((set) => ({
   bestSongIsLoaded: false,
   bestSong: [],
 
@@ -42,20 +72,20 @@ const usePostStore = create((set) => ({
   detailList: [],
 
   addPost: async (payload) => {
-    const resData = await addPostApi(payload)
+    const resData: any = await addPostApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
 
     return resData.data;
   },
-  getFollowerList: async (payload) => {
-    const resData = await getFollowerListApi(payload)
+  getFollowerList: async () => {
+    const resData : any = await getFollowerListApi()
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
       set({ artistIsFollowIsLoaded: true });
       set((state) => {
-        const followerIdList = resData.data.data.map((element) => {
+        const followerIdList = resData.data.data.map((element : any) => {
           return element.nickname;
         });
         return { artistIsFollow: followerIdList };
@@ -136,13 +166,13 @@ const usePostStore = create((set) => ({
     }
   },
   putModifyWrite: async (payload) => {
-    const resData = await putModifyWriteApi(payload)
+    const resData : any = await putModifyWriteApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
     return resData.data;
   },
   deleteDetail: async (payload) => {
-    const resData = await deleteDetailApi(payload.postId, payload.position)
+    const resData : any = await deleteDetailApi(payload.postId, payload.position)
       .then((res) => res)
       .catch((err) => console.log(err));
     return resData.data.success;
