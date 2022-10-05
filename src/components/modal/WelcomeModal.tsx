@@ -19,14 +19,19 @@ import {
 } from '../../assets/styles/components/modal/WelcomeModal.styled';
 import { WelcomeMsg } from '../../assets/images/image';
 
-const WelcomeModal = ({ isOpen, nickname }) => {
+interface WelcomeModalProps {
+  isOpen : any;
+  nickname : any;
+}
+
+function WelcomeModal({ isOpen, nickname } : WelcomeModalProps) {
   const navigate = useNavigate();
 
   const handleClickCancel = () => {
     navigate('/signin');
   };
 
-  const customStyles = {
+  const customStyles : any = {
     overlay: {
       position: 'fixed',
       top: 0,
@@ -53,7 +58,7 @@ const WelcomeModal = ({ isOpen, nickname }) => {
         <WlInBox>
           <Topicon>
             <div>
-              <img src={WelcomeMsg} backgrond='white' alt='환영합니다' />
+              <img src={WelcomeMsg} alt='환영합니다' />
             </div>
           </Topicon>
           <TextDiv>
@@ -65,6 +70,7 @@ const WelcomeModal = ({ isOpen, nickname }) => {
           <WlDiv>
             <div>
               <Button
+                _type={'button'}
                 _style={{
                   width: '528px',
                   height: '60px',
@@ -76,6 +82,7 @@ const WelcomeModal = ({ isOpen, nickname }) => {
                 }}
                 _text={'로그인 하러가기'}
                 _onClick={handleClickCancel}
+                _ref={null}
               />
             </div>
           </WlDiv>

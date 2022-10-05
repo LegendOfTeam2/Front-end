@@ -19,12 +19,17 @@ import {
   CfWlDivDiv,
 } from '../../assets/styles/components/modal/Confirm.styled';
 
-const Confirm = ({ isOpen, onCancel }) => {
+interface ConfirmProps {
+  isOpen: any;
+  onCancel: any;
+}
+
+function Confirm({ isOpen, onCancel }: ConfirmProps) {
   const handleClickCancel = () => {
     onCancel();
   };
 
-  const customStyles = {
+  const customStyles: any = {
     overlay: {
       position: 'fixed',
       top: 0,
@@ -74,6 +79,7 @@ const Confirm = ({ isOpen, onCancel }) => {
           <CfWlDiv>
             <CfWlDivDiv>
               <Button
+                _type={'button'}
                 _style={{
                   width: '109px',
                   height: '60px',
@@ -84,9 +90,12 @@ const Confirm = ({ isOpen, onCancel }) => {
                   ft_weight: '700',
                 }}
                 _text={'삭제하기'}
+                _onClick={null}
+                _ref={null}
               />
 
               <Button
+                _type={'button'}
                 _style={{
                   width: '109px',
                   height: '60px',
@@ -98,6 +107,7 @@ const Confirm = ({ isOpen, onCancel }) => {
                 }}
                 _text={'취소하기'}
                 _onClick={handleClickCancel}
+                _ref={null}
               />
             </CfWlDivDiv>
           </CfWlDiv>

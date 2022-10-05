@@ -5,12 +5,6 @@ import ReactModal from 'react-modal';
 
 // Assets
 import {
-  WriteModalContainer,
-  WriteModalIcon,
-  WriteModalQuestionText,
-  WriteModalBtnGroup,
-  WriteModalLogo,
-  WriteModalLogoImg,
   NoticeContainer,
   NoticeIcon,
   NoticeLogo,
@@ -19,14 +13,18 @@ import {
 } from '../../assets/styles/components/modal/NoticeModal.styled';
 import { WithdrawalLogo, Xbox20 } from '../../assets/images/image';
 
+interface NoticeModalProps {
+  isOpen : any;
+  onCancel : any;
+}
 
-const NoticeModal = ({isOpen , onCancel}) => {
+function NoticeModal({isOpen , onCancel} : NoticeModalProps) {
 
   const handleClickCancel = () => {
     onCancel();
   };
 
-  const customStyles = {
+  const customStyles : any = {
     overlay: {
       position: 'fixed',
       top: 0,

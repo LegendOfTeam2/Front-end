@@ -34,7 +34,7 @@ import {
 } from '../assets/styles/components/PlayList.styled';
 import { Xbox20 } from '../assets/images/image';
 
-const PlayList = () => {
+function PlayList() {
   const playListState = usePlayerStore((state) => state.playListState);
   const playListMember = usePlayerStore((state) => state.playListMember);
   const singerIsLike = useLikeStore((state) => state.singerIsLike);
@@ -51,7 +51,7 @@ const PlayList = () => {
   );
 
   const [isOpen, setOpen] = useState(false);
-  const [modalList, setModalList] = useState();
+  const [modalList, setModalList] : any = useState();
 
   const xboxClick = () => {
     playListStateChange(false);
@@ -65,9 +65,9 @@ const PlayList = () => {
     setOpen(false);
   };
 
-  const listModalOpen = (postId) => {
-    const filterListMember = playListMember.filter((x) => x.postId === postId);
-    const fillterList = playList.filter((x) => x.postId === postId);
+  const listModalOpen = (postId : any) => {
+    const filterListMember = playListMember.filter((x : any) => x.postId === postId);
+    const fillterList = playList.filter((x : any) => x.postId === postId);
 
     if (getCookie('authorization') !== undefined) {
       setModalList({
@@ -144,7 +144,7 @@ const PlayList = () => {
           <BtmAllDiv>
             {getCookie('authorization') !== undefined ? (
               singerIsLikeIsLoaded ? (
-                playListMember.map((x, idx) => {
+                playListMember.map((x : any, idx : any) => {
                   if (
                     [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
                   ) {
@@ -171,12 +171,13 @@ const PlayList = () => {
                 <Fragment />
               )
             ) : (
-              playList.map((x, idx) => {
+              playList.map((x : any, idx : any) => {
                 return (
                   <PlayListSong
                     key={idx}
                     data={x}
                     listModalOpen={listModalOpen}
+                    likeState={null}
                   />
                 );
               })

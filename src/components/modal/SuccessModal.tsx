@@ -15,10 +15,15 @@ import {
 } from '../../assets/styles/components/modal/WriteModal.styled';
 import { Success } from '../../assets/images/image';
 
-const SuccessModal = ({ isOpen, location }) => {
+interface SuccessModalProps {
+  isOpen: any;
+  location: any;
+}
+
+function SuccessModal({ isOpen, location }: SuccessModalProps) {
   const navigate = useNavigate();
 
-  const customStyles = {
+  const customStyles: any = {
     overlay: {
       position: 'fixed',
       top: 0,
@@ -61,6 +66,7 @@ const SuccessModal = ({ isOpen, location }) => {
               ft_weight: '800',
             }}
             _onClick={() => navigate(location)}
+            _ref={null}
           />
         </WriteModalBtnGroup>
       </WriteModalContainer>

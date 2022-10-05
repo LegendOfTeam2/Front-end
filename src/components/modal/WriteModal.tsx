@@ -1,5 +1,6 @@
 // Packages
 import ReactModal from 'react-modal';
+import { useNavigate } from 'react-router-dom';
 import { GrClose } from 'react-icons/gr';
 
 // Elements
@@ -16,12 +17,18 @@ import {
 } from '../../assets/styles/components/modal/WriteModal.styled';
 import { Exclamation } from '../../assets/images/image';
 
-const WriteDeleteModal = ({ isOpen, onCancel, onDeleteDetail }) => {
+interface WriteModalProps {
+  isOpen: any;
+  onCancel: any;
+}
+
+function WriteModal({ isOpen, onCancel } : WriteModalProps) {
+  const navigate = useNavigate();
   const handleClickCancel = () => {
     onCancel();
   };
 
-  const customStyles = {
+  const customStyles : any = {
     overlay: {
       position: 'fixed',
       top: 0,
@@ -50,9 +57,9 @@ const WriteDeleteModal = ({ isOpen, onCancel, onDeleteDetail }) => {
           <WriteModalLogoImg src={Exclamation} />
         </WriteModalLogo>
         <WriteModalQuestionText>
-          게시된 모든 내용이 삭제됩니다.
+          지금까지 입력하신 모든 정보가 삭제됩니다.
           <br />
-          삭제하시겠습니까?
+          정말 삭제하시겠습니까?
         </WriteModalQuestionText>
         <WriteModalBtnGroup>
           <Button
@@ -73,6 +80,7 @@ const WriteDeleteModal = ({ isOpen, onCancel, onDeleteDetail }) => {
               ft_weight: '800',
             }}
             _onClick={handleClickCancel}
+            _ref={null}
           />
           <Button
             _type={'button'}
@@ -89,7 +97,8 @@ const WriteDeleteModal = ({ isOpen, onCancel, onDeleteDetail }) => {
               bd_radius: '10px',
               ft_weight: '800',
             }}
-            _onClick={onDeleteDetail}
+            _onClick={() => navigate(-1)}
+            _ref={null}
           />
         </WriteModalBtnGroup>
       </WriteModalContainer>
@@ -97,4 +106,4 @@ const WriteDeleteModal = ({ isOpen, onCancel, onDeleteDetail }) => {
   );
 };
 
-export default WriteDeleteModal;
+export default WriteModal;

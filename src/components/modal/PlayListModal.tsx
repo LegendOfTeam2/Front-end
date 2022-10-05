@@ -42,7 +42,11 @@ import {
 import '../../assets/styles/components/modal/PlayListModal.css';
 import { Share38, Xbox20 } from '../../assets/images/image';
 
-const PlayListModal = ({ ModalList }) => {
+interface PlayListModalProps {
+  ModalList: any;
+}
+
+function PlayListModal({ ModalList }: PlayListModalProps) {
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
   const playListStateChange = usePlayerStore(
@@ -67,7 +71,7 @@ const PlayListModal = ({ ModalList }) => {
     playListModalHandle();
   };
 
-  const customStyles = {
+  const customStyles: any = {
     overlay: {
       position: 'fixed',
       top: isSmallScreen ? '130px' : '0',

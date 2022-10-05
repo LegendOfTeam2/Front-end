@@ -11,7 +11,12 @@ import {
   TagBoxIcon,
 } from '../assets/styles/components/HashTagWithIcon.styled';
 
-const HashTagWithIcon = ({ tag, removeTag }) => {
+interface HashTagWithIconProps {
+  tag : any;
+  removeTag : any;
+}
+
+function HashTagWithIcon({ tag, removeTag } : HashTagWithIconProps) {
   return (
     <TagBox>
       <TagBoxText>#</TagBoxText>

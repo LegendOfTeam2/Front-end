@@ -1,0 +1,111 @@
+// Packages
+import ReactModal from 'react-modal';
+
+// Elements
+import Button from '../../elements/Button';
+
+// Assets
+import {
+  ConfirmModalContainer,
+  ConfirmModalIcon,
+  ConfirmModalLogo,
+  ConfirmModalLogoImg,
+  ConfirmModalQuestionText,
+  ConfirmModalBtnGroup,
+} from '../../assets/styles/components/modal/WithdrawalConfirmModal.styled';
+import { WithdrawalLogo, Xbox20 } from '../../assets/images/image';
+
+interface WithdrawalConfirmModalProps {
+  isOpen : any;
+  onCancel : any;
+  onChange : any;
+}
+
+function WithdrawalConfirmModal({ isOpen, onCancel, onChange } : WithdrawalConfirmModalProps) {
+  const handelClickChange = () => {
+    onChange();
+  };
+  const handleClickCancel = () => {
+    onCancel();
+  };
+
+  const customStyles : any = {
+    overlay: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(20, 20, 20, 0.75)',
+    },
+    content: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '522px',
+      height: '404px',
+      borderRadius: '10px',
+      zIndex: 99,
+    },
+  };
+  return (
+    <ReactModal isOpen={isOpen} style={customStyles}>
+      <ConfirmModalContainer>
+        <ConfirmModalIcon onClick={handleClickCancel}>
+          <img src={Xbox20} alt='Xbox' className='icon' />
+        </ConfirmModalIcon>
+        <ConfirmModalLogo>
+          <ConfirmModalLogoImg src={WithdrawalLogo} />
+        </ConfirmModalLogo>
+        <ConfirmModalQuestionText>
+          지금까지 공유한 모든 데이터가 삭제됩니다.
+          <br />
+          정말 탈퇴하시겠습니까?
+        </ConfirmModalQuestionText>
+        <ConfirmModalBtnGroup>
+          <Button
+            _type={'button'}
+            _text={'탈퇴하기'}
+            _style={{
+              width: '109px',
+              line_height: '20',
+              font: '14',
+              pd_top: '20px',
+              pd_bottom: '20px',
+              bg_color: '#DE1B4A',
+              color: 'white',
+              height: 'auto',
+              bd_radius: '10px',
+              ft_weight: '800',
+            }}
+            _onClick={handelClickChange}
+            _ref={null}
+          />
+          <Button
+            _type={'button'}
+            _text={'취소하기'}
+            _style={{
+              width: '109px',
+              line_height: '20',
+              font: '14',
+              pd_top: '20px',
+              pd_bottom: '20px',
+              bg_color: '#ffffff',
+              color: '#b4b4b4',
+              height: 'auto',
+              bd_radius: '10px',
+              bd_px: '#b4b4b4',
+              bd_color: '#b4b4b4',
+              ft_weight: '800',
+            }}
+            _onClick={handleClickCancel}
+            _ref={null}
+          />
+        </ConfirmModalBtnGroup>
+      </ConfirmModalContainer>
+    </ReactModal>
+  );
+};
+
+export default WithdrawalConfirmModal;
