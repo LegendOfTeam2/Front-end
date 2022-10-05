@@ -21,6 +21,7 @@ interface ChatState {
   makeRoom: (payload: any) => any;
   getPrevChatMessages: (payload: any) => any;
   setChatMessages: (payload: any) => any;
+  clearChatMessages : any;
   setSubscription: (payload: any) => any;
   unSetSubscription: (payload: any) => any;
   setChatRoomInfo: (payload: any) => any;

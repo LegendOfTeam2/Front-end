@@ -57,7 +57,7 @@ function App() {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
-        <Route path='/' exact='true' element={<Main />} />
+        <Route path='/' element={<Main />} />
         <Route path='/mypage/:nickname' element={<MyPage />} />
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signup' element={<SignUp />} />
