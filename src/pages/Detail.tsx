@@ -107,7 +107,7 @@ const Detail = () => {
   const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
   const detailListLoaded = usePostStore((state) => state.detailListLoaded);
 
-  const [lyrics, setLyrics] = useState(false);
+  const [lyrics, setLyrics] : any = useState(false);
   const [introduction, setIntroduction] = useState(false);
   const [isLike, setIsLike] = useState(false);
   const [counter, setCounter] = useState(0);
@@ -453,7 +453,7 @@ const Detail = () => {
               <DetailLyricsContainer>
                 <DetailTopLyrics>가사</DetailTopLyrics>
                 <DetailHorizonLine />
-                <DetailBtmLyricsDivDiv lyrics={lyrics}>
+                <DetailBtmLyricsDivDiv lyrics ={lyrics}>
                   <DetailBtmLyricsDivSpan>
                     {detailList.lyrics}
                   </DetailBtmLyricsDivSpan>

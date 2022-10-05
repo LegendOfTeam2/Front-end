@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const DetailContainerDiv = styled.div`
+export const DetailContainerDiv : any  = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -10,7 +10,7 @@ export const DetailContainerDiv = styled.div`
   top: 193px;
   z-index: -1;
 `;
-export const DetailContainer = styled.div`
+export const DetailContainer : any = styled.div`
   width: 904px;
   height: auto;
   margin-top: 40px;
@@ -18,7 +18,7 @@ export const DetailContainer = styled.div`
   flex-direction: column;
 `;
 
-export const DetailProfileImgTextTopDiv = styled.div`
+export const DetailProfileImgTextTopDiv : any = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -27,12 +27,12 @@ export const DetailProfileImgTextTopDiv = styled.div`
   gap: 35px;
 `;
 
-export const DetailProfileDiv = styled.div`
+export const DetailProfileDiv : any = styled.div`
   width: 56px;
   height: 56px;
 `;
 
-export const DetailProfileImg = styled.img`
+export const DetailProfileImg : any = styled.img`
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -41,7 +41,7 @@ export const DetailProfileImg = styled.img`
   }
 `;
 
-export const DetailTopDiv = styled.div`
+export const DetailTopDiv : any = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -50,26 +50,26 @@ export const DetailTopDiv = styled.div`
   padding-bottom: 12px;
 `;
 
-export const DetailProfileImgTextTop = styled.span`
+export const DetailProfileImgTextTop : any = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xl};
   line-height: ${(props) => props.theme.lineHeight.xl};
   font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
 `;
 
-export const DetailProfileBtnTopDiv = styled.div`
+export const DetailProfileBtnTopDiv : any = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
 `;
 
-export const DetailProfileBtnTopDivBtn = styled.div`
+export const DetailProfileBtnTopDivBtn : any = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   gap: 19px;
 `;
 
-export const DetailProfileMidleTopDiv = styled.div`
+export const DetailProfileMidleTopDiv : any = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -78,7 +78,7 @@ export const DetailProfileMidleTopDiv = styled.div`
   margin-bottom: 12px;
 `;
 
-export const PositionAllDiv = styled.div`
+export const PositionAllDiv : any = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -87,7 +87,7 @@ export const PositionAllDiv = styled.div`
   margin-top: 46px;
 `;
 
-export const DetailProfileContainer = styled.div`
+export const DetailProfileContainer : any = styled.div`
   width: 100%;
   height: 115px;
   border: 1px solid #28ca7c;
@@ -95,7 +95,7 @@ export const DetailProfileContainer = styled.div`
   position: relative;
 `;
 
-export const DetailProfileBox = styled.div`
+export const DetailProfileBox : any = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
@@ -107,12 +107,12 @@ export const DetailProfileBox = styled.div`
   transform: translateY(-50%);
 `;
 
-export const DetailProfileBtnVertical = styled.span`
+export const DetailProfileBtnVertical : any = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   color: #28ca7c;
 `;
 
-export const DetailProfileBtnGroup = styled.div`
+export const DetailProfileBtnGroup : any = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
@@ -124,7 +124,7 @@ export const DetailProfileBtnGroup = styled.div`
   transform: translateY(-50%);
 `;
 
-export const PositionMarkerDiv = styled.div`
+export const PositionMarkerDiv : any = styled.div`
   width: 90px;
   height: 40px;
   display: flex;
@@ -134,14 +134,14 @@ export const PositionMarkerDiv = styled.div`
   border-radius: 25px;
 `;
 
-export const PositionMarkerSpan = styled.div`
+export const PositionMarkerSpan : any = styled.div`
   font-size: ${(props) => props.theme.fontSizes.xl};
   line-height: ${(props) => props.theme.lineHeight.xl};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   color: #28ca7c;
 `;
 
-export const PositionMidDiv = styled.div`
+export const PositionMidDiv : any = styled.div`
   width: 904px;
   height: 381px;
   border: 1px solid #28ca7c;
@@ -150,14 +150,14 @@ export const PositionMidDiv = styled.div`
   align-items: center;
 `;
 
-export const PositionMidInfoDiv = styled.div`
+export const PositionMidInfoDiv : any = styled.div`
   width: 100%;
   height: 235px;
   display: flex;
   gap: 35px;
 `;
 
-export const PositionMidLeftImgDiv = styled.div`
+export const PositionMidLeftImgDiv : any = styled.div`
   width: 202px;
   height: 202px;
   float: left;
@@ -165,12 +165,12 @@ export const PositionMidLeftImgDiv = styled.div`
   margin-left: 26px;
 `;
 
-export const PositionMidLeftImg = styled.img`
+export const PositionMidLeftImg : any = styled.img`
   width: 202px;
   height: 202px;
 `;
 
-export const PositionMidRightDiv = styled.div`
+export const PositionMidRightDiv : any = styled.div`
   margin-top: 33px;
   width: auto;
   flex: 1;
@@ -179,7 +179,7 @@ export const PositionMidRightDiv = styled.div`
   position: relative;
 `;
 
-export const PositionMidRighTopTextDiv = styled.div`
+export const PositionMidRighTopTextDiv : any = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -188,41 +188,41 @@ export const PositionMidRighTopTextDiv = styled.div`
   margin-bottom: 5px;
 `;
 
-export const PositionMidRighTopLeftTextDiv = styled.div`
+export const PositionMidRighTopLeftTextDiv : any = styled.div`
   max-width: 450px;
   font-size: ${(props) => props.theme.fontSizes.xxxxl};
   line-height: ${(props) => props.theme.lineHeight.xxxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
 
-export const PositionMidRighTopRigtTextDiv = styled.div`
+export const PositionMidRighTopRigtTextDiv : any = styled.div`
   width: auto;
   height: auto;
   display: flex;
   gap: 12px;
   align-items: end;
 `;
-export const PositionMidRighTopRightLeftTextSpan = styled.span`
+export const PositionMidRighTopRightLeftTextSpan : any = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xl};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   color: rgba(180, 180, 180, 1);
 `;
-export const PositionMidRighTopRightRightTextSpan = styled.span`
+export const PositionMidRighTopRightRightTextSpan : any = styled.span`
   font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   color: rgba(180, 180, 180, 1);
 `;
 
-export const PositionMidMidTextDiv = styled.div`
+export const PositionMidMidTextDiv : any = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
 
-export const PositionMidMidLeftTextDiv = styled.div`
+export const PositionMidMidLeftTextDiv : any = styled.div`
   width: auto;
   height: auto;
   font-size: ${(props) => props.theme.fontSizes.xl};
@@ -231,7 +231,7 @@ export const PositionMidMidLeftTextDiv = styled.div`
   color: rgba(180, 180, 180, 1);
 `;
 
-export const PositionMidMidRightTextDiv = styled.div`
+export const PositionMidMidRightTextDiv : any = styled.div`
   width: auto;
   height: auto;
   position: absolute;
@@ -239,7 +239,7 @@ export const PositionMidMidRightTextDiv = styled.div`
   top: 0px;
 `;
 
-export const DetailProfileBtmDiv = styled.div`
+export const DetailProfileBtmDiv : any = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -249,7 +249,7 @@ export const DetailProfileBtmDiv = styled.div`
   position: absolute;
 `;
 
-export const DetailProfileBtmFirDiv = styled.div`
+export const DetailProfileBtmFirDiv : any = styled.div`
   width: auto;
   height: auto;
   display: flex;
@@ -258,7 +258,7 @@ export const DetailProfileBtmFirDiv = styled.div`
   gap: 10px;
 `;
 
-export const DetailProfileBtmFirSpan = styled.span`
+export const DetailProfileBtmFirSpan : any = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xl};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
@@ -266,7 +266,7 @@ export const DetailProfileBtmFirSpan = styled.span`
   margin-top: 4px;
 `;
 
-export const DetailProfileBtmSecSpan = styled.span`
+export const DetailProfileBtmSecSpan : any = styled.span`
   font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
@@ -274,7 +274,7 @@ export const DetailProfileBtmSecSpan = styled.span`
   padding-bottom: 3px;
 `;
 
-export const DetailIntroContainer = styled.div`
+export const DetailIntroContainer : any = styled.div`
   margin-top: 45px;
   width: auto;
   height: auto;
@@ -285,7 +285,7 @@ export const DetailIntroContainer = styled.div`
   margin-bottom: 180px;
 `;
 
-export const DetailTopLyrics = styled.div`
+export const DetailTopLyrics : any = styled.div`
   font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.xxxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
@@ -293,17 +293,17 @@ export const DetailTopLyrics = styled.div`
   padding: 16px 74px;
 `;
 
-export const DetailHorizonLine = styled.div`
+export const DetailHorizonLine : any = styled.div`
   border-top: 1px solid #28ca7c;
   width: 98%;
 `;
 
-export const DetailBtmLyricsDiv = styled.div`
+export const DetailBtmLyricsDiv : any = styled.div`
   width: 100%;
   height: auto;
 `;
 
-export const DetailBtmLyricsDivDiv = styled.div`
+export const DetailBtmLyricsDivDiv : any = styled.div`
   width: 379px;
   height: ${(props) => (props.lyrics ? 'auto' : '200px')};
   overflow: hidden;
