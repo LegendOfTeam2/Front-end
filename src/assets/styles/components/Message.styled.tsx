@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const MessageContainer = styled.div`
+export const MessageContainer : any = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -8,7 +8,7 @@ export const MessageContainer = styled.div`
   align-items: flex-end;
   gap: 5px;
 `;
-export const MessageBoxSenderBox = styled.div`
+export const MessageBoxSenderBox : any = styled.div`
   width: auto;
   max-width: 70%;
   height: auto;
@@ -17,7 +17,7 @@ export const MessageBoxSenderBox = styled.div`
   border-radius: 8px;
   padding: 8px;
 `;
-export const MessageBoxSenderText = styled.span`
+export const MessageBoxSenderText : any = styled.span`
   width: auto;
   height: auto;
   white-space: pre-wrap;
@@ -25,7 +25,7 @@ export const MessageBoxSenderText = styled.span`
   line-height: ${(props) => props.theme.lineHeight.base};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
-export const MessageBoxReceiverBox = styled.div`
+export const MessageBoxReceiverBox : any = styled.div`
   width: auto;
   max-width: 70%;
   height: auto;
@@ -34,7 +34,7 @@ export const MessageBoxReceiverBox = styled.div`
   border-radius: 8px;
   padding: 8px;
 `;
-export const MessageBoxReceiverText = styled.span`
+export const MessageBoxReceiverText : any = styled.span`
   width: auto;
   height: auto;
   white-space: pre-wrap;
@@ -42,7 +42,7 @@ export const MessageBoxReceiverText = styled.span`
   line-height: ${(props) => props.theme.lineHeight.base};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
-export const MessageBoxTime = styled.div`
+export const MessageBoxTime : any = styled.div`
   font-size: ${(props) => props.theme.fontSizes.xs};
   line-height: ${(props) => props.theme.lineHeight.xs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};

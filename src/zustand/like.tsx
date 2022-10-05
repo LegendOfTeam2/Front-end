@@ -10,7 +10,7 @@ import {
 
 interface LikeState {
   singerIsLikeIsLoaded :any
-  singerIsLike : any | undefined
+  singerIsLike : any
   makerIsLikeIsLoaded : any
   makerIsLike : any
   addLike : (payload : any) => any

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const TagBox = styled.div`
+export const TagBox : any = styled.div`
   display: flex;
   align-items: center;
   border-radius: 50px;
@@ -13,12 +13,12 @@ export const TagBox = styled.div`
     padding-bottom: 2px;
   }
 `;
-export const TagBoxText = styled.span`
+export const TagBoxText : any = styled.span`
   line-height: ${(props) => props.theme.lineHeight.base};
   font-size: ${(props) => props.theme.fontSizes.base};
   margin: 3px;
 `;
-export const TagBoxIcon = styled.div`
+export const TagBoxIcon : any = styled.div`
   width: auto;
   height: auto;
   margin-left: 6px;
