@@ -1,5 +1,6 @@
 // Packages
 import ReactModal from 'react-modal';
+import { useNavigate } from 'react-router-dom';
 import { GrClose } from 'react-icons/gr';
 
 // Elements
@@ -15,19 +16,19 @@ import {
   WriteModalLogoImg,
 } from '../../assets/styles/components/modal/WriteModal.styled';
 import { Exclamation } from '../../assets/images/image';
-import usePlayerStore from '../../zustand/player';
 
-const PlayListCloseModal = ({ isOpen, onCancel, playListMemberLength }) => {
-  const deletePlayList = usePlayerStore((state) => state.deletePlayList);
+interface WriteModifyModalProps {
+  isOpen: any;
+  onCancel: any;
+}
+
+function WriteModifyModal({ isOpen, onCancel } : WriteModifyModalProps) {
+  const navigate = useNavigate();
   const handleClickCancel = () => {
     onCancel();
   };
-  const playListDelete = () => {
-    deletePlayList();
-    onCancel();
-  };
 
-  const customStyles = {
+  const customStyles : any = {
     overlay: {
       position: 'fixed',
       top: 0,
@@ -57,26 +58,11 @@ const PlayListCloseModal = ({ isOpen, onCancel, playListMemberLength }) => {
           <WriteModalLogoImg src={Exclamation} />
         </WriteModalLogo>
         <WriteModalQuestionText>
-          선택한 {playListMemberLength} 곡을 삭제하시겠습니까?
+          지금까지 입력하신 모든 정보가 삭제됩니다.
+          <br />
+          정말 삭제하시겠습니까?
         </WriteModalQuestionText>
         <WriteModalBtnGroup>
-          <Button
-            _type={'button'}
-            _text={'삭제하기'}
-            _style={{
-              width: '109px',
-              line_height: '20',
-              font: '14',
-              pd_top: '20px',
-              pd_bottom: '20px',
-              bg_color: 'black',
-              color: 'white',
-              height: 'auto',
-              bd_radius: '10px',
-              ft_weight: '800',
-            }}
-            _onClick={playListDelete}
-          />
           <Button
             _type={'button'}
             _text={'취소하기'}
@@ -95,6 +81,25 @@ const PlayListCloseModal = ({ isOpen, onCancel, playListMemberLength }) => {
               ft_weight: '800',
             }}
             _onClick={handleClickCancel}
+            _ref={null}
+          />
+          <Button
+            _type={'button'}
+            _text={'삭제하기'}
+            _style={{
+              width: '109px',
+              line_height: '20',
+              font: '14',
+              pd_top: '20px',
+              pd_bottom: '20px',
+              bg_color: '#de1b4a',
+              color: 'white',
+              height: 'auto',
+              bd_radius: '10px',
+              ft_weight: '800',
+            }}
+            _onClick={() => navigate(-1)}
+            _ref={null}
           />
         </WriteModalBtnGroup>
       </WriteModalContainer>
@@ -102,4 +107,4 @@ const PlayListCloseModal = ({ isOpen, onCancel, playListMemberLength }) => {
   );
 };
 
-export default PlayListCloseModal;
+export default WriteModifyModal;

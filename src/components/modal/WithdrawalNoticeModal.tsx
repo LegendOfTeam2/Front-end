@@ -17,14 +17,22 @@ import {
 } from '../../assets/styles/components/modal/WithdrawalNoticeModal.styled';
 import { ErrorLogo } from '../../assets/images/image';
 
-const WithdrawalNoticeModal = ({ isOpen, onCancel }) => {
+interface WithdrawalNoticeModalProps {
+  isOpen: any;
+  onCancel: any;
+}
+
+function WithdrawalNoticeModal({
+  isOpen,
+  onCancel,
+}: WithdrawalNoticeModalProps) {
   const navigate = useNavigate();
 
   const handleClickCancel = () => {
     onCancel();
   };
 
-  const customStyles = {
+  const customStyles: any = {
     overlay: {
       position: 'fixed',
       top: 0,
@@ -74,6 +82,7 @@ const WithdrawalNoticeModal = ({ isOpen, onCancel }) => {
               ft_weight: '800',
             }}
             _onClick={() => navigate('/')}
+            _ref={null}
           />
         </NoticeModalBtnGroup>
       </NoticeModalContainer>

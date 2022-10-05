@@ -38,6 +38,18 @@ import {
   OnPlay60,
   WhiteCollaborate,
 } from '../assets/images/image';
+import { analytics } from 'googleapis/build/src/apis/analytics';
+
+interface PostBigProps {
+  postId : any;
+  position : any;
+  title : any;
+  collaborate : any;
+  imageUrl : any;
+  mediaUrl : any;
+  nickname : any;
+  likeState : any;
+}
 
 const PostBig = ({
   postId,
@@ -48,7 +60,7 @@ const PostBig = ({
   mediaUrl,
   nickname,
   likeState,
-}) => {
+} : PostBigProps) => {
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
@@ -96,7 +108,7 @@ const PostBig = ({
     if (getCookie('authorization') === undefined) {
       warning('로그인 후 이용해 주세요.');
     } else {
-      addLike({ postId, position }).then((res) => {
+      addLike({ postId, position }).then((res : any) => {
         if (res.success && res.data) {
           info('게시글에 좋아요를 눌렀습니다.');
           setIsLike(true);

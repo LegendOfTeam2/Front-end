@@ -252,7 +252,6 @@ function Chat() {
                       return (
                         <Message
                           key={idx}
-                          sender={message.sender}
                           message={message.message}
                           createdAt={date}
                           messageState={messageState}
@@ -279,7 +278,6 @@ function Chat() {
                       return (
                         <Message
                           key={idx}
-                          sender={message.sender}
                           message={message.message}
                           createdAt={date}
                           messageState={messageState}
@@ -312,7 +310,7 @@ function Chat() {
                       bd_radius: '8px',
                       ft_weight: '800',
                     }}
-                    _ref={''}
+                    _ref={null}
                   />
                 </ChatDataRoomButtonBox>
               </ChatDataRoomInputContainer>

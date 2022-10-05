@@ -6,7 +6,7 @@ import useChatStore from '../zustand/chat';
 import useMemberStore from '../zustand/member';
 
 // Packages
-import jwt_decode from 'jwt-decode';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 
 // Utils
 import { getCookie } from '../utils/cookie';
@@ -21,20 +21,29 @@ import {
   ChatMemberTextNickname,
 } from '../assets/styles/components/ChatMember.styled';
 
-const ChatMember = ({
+interface ChatMemberProps {
+  roomId : any;
+  sender : any;
+  senderProfileUrl : any;
+  receiver : any;
+  receiverProfileUrl : any;
+  lastMessage : any;
+}
+
+function ChatMember({
   roomId,
   sender,
   senderProfileUrl,
   receiver,
   receiverProfileUrl,
   lastMessage,
-}) => {
+} : ChatMemberProps) {
   const setChatRoomInfo = useChatStore((state) => state.setChatRoomInfo);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
   const onClickHandle = () => {
-    if (receiver === jwt_decode(getCookie('authorization')).sub) {
+    if (receiver === jwt_decode<JwtPayload>(getCookie('authorization')).sub) {
       setChatRoomInfo({
         roomId: roomId,
         nickname: sender,
@@ -52,7 +61,7 @@ const ChatMember = ({
   return (
     <ChatMemberContainer>
       <ChatMemberProfileContainer>
-        {receiver === jwt_decode(getCookie('authorization')).sub ? (
+        {receiver === jwt_decode<JwtPayload>(getCookie('authorization')).sub ? (
           senderProfileUrl === '' ? (
             <ChatMemberProfileImg
               src={profileImgArr[random]}
@@ -77,7 +86,7 @@ const ChatMember = ({
         )}
       </ChatMemberProfileContainer>
       <ChatMemberTextContainer>
-        {receiver === jwt_decode(getCookie('authorization')).sub ? (
+        {receiver === jwt_decode<JwtPayload>(getCookie('authorization')).sub ? (
           <ChatMemberTextNickname onClick={() => onClickHandle()}>
             {sender}
           </ChatMemberTextNickname>

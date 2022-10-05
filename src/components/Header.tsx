@@ -8,7 +8,7 @@ import usePlayerStore from '../zustand/player';
 
 // Packages
 import { useNavigate } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 
 // Elements
 import Button from '../elements/Button';
@@ -38,7 +38,7 @@ import {
 import { HeaderlargeLogo, Search } from '../assets/images/image';
 import NoticeModal from './modal/NoticeModal';
 
-const Header = () => {
+function Header() {
   const setSearchKeyword = useSearchStore((state) => state.setSearchKeyword);
   const signOutMember = useMemberStore((state) => state.signOutMember);
   const getMyImage = useMemberStore((state) => state.getMyImage);
@@ -53,7 +53,7 @@ const Header = () => {
     (state) => state.myProfileImgIsLoaded
   );
 
-  const [noticeOpen ,setNoticeOpen] = useState(false)
+  const [noticeOpen, setNoticeOpen] = useState(false);
   const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
 
@@ -67,14 +67,14 @@ const Header = () => {
 
   const onHandleSingOut = () => {
     signOutMember({
-      nickname: jwt_decode(getCookie('authorization')).sub,
+      nickname: jwt_decode<JwtPayload>(getCookie('authorization')).sub,
     });
     removeCookie('authorization');
     window.sessionStorage.setItem('refresh-token', '');
     clearPlayListMember();
     setPlaying(false);
     alert('로그아웃 되었습니다.');
-    window.location = '/';
+    window.location.href = '/';
   };
 
   const onClickSearch = useCallback(() => {
@@ -84,7 +84,7 @@ const Header = () => {
   }, [keyword]);
 
   const onKeyUpSearch = useCallback(
-    (e) => {
+    (e: any) => {
       if (e.key === 'Enter') {
         if (e.target.value.length > 0) {
           window.sessionStorage.setItem('keyword', keyword);
@@ -98,7 +98,7 @@ const Header = () => {
 
   const profilePage = () => {
     if (getCookie('authorization') !== undefined) {
-      const nickname = jwt_decode(getCookie('authorization')).sub;
+      const nickname = jwt_decode<JwtPayload>(getCookie('authorization')).sub;
       navigate(`/mypage/${nickname}`);
     }
   };
@@ -121,14 +121,14 @@ const Header = () => {
 
   useEffect(() => {
     if (getCookie('authorization') !== undefined) {
-      const nickname = jwt_decode(getCookie('authorization')).sub;
+      const nickname = jwt_decode<JwtPayload>(getCookie('authorization')).sub;
       getMyImage({ nickname });
     }
   }, []);
 
   return (
     <Fragment>
-      <NoticeModal isOpen={noticeOpen} onCancel={onCancel}/>
+      <NoticeModal isOpen={noticeOpen} onCancel={onCancel} />
       <HeaderContainerDiv>
         <HeaderContainer>
           <HeaderTopDiv>
@@ -148,17 +148,18 @@ const Header = () => {
           <HeaderDiv>
             <LeftDiv>
               <LogoDiv onClick={() => navigate('/')}>
-                <img src={HeaderlargeLogo} backgrond='white' alt='로고이미지' />
+                <img src={HeaderlargeLogo} alt='로고이미지' />
               </LogoDiv>
 
               <SearchDiv>
                 <SearchIconDiv onClick={onClickSearch}>
-                  <img src={Search} backgrond='white' alt='검색' />
+                  <img src={Search} alt='검색' />
                 </SearchIconDiv>
                 <Input
+                  _type={'text'}
                   _value={keyword}
-                  _onChange={(e) => setKeyword(e.target.value)}
-                  _onKeyUp={(e) => onKeyUpSearch(e)}
+                  _onChange={(e: any) => setKeyword(e.target.value)}
+                  _onKeyUp={(e: any) => onKeyUpSearch(e)}
                   _style={{
                     width: '100%',
                     height: '36px',
@@ -170,6 +171,11 @@ const Header = () => {
                     color: 'rgba(255, 255, 255, 1)',
                   }}
                   _placeholder={'검색어를 입력해 주세요...'}
+                  _onKeyDown={null}
+                  _minLength={null}
+                  _maxLength={null}
+                  _autoComplete={null}
+                  _ref={null}
                 />
               </SearchDiv>
             </LeftDiv>
@@ -195,6 +201,7 @@ const Header = () => {
               </ProfileDiv>
               <BtmDiv>
                 <Button
+                  _type={'button'}
                   _style={{
                     width: '90px',
                     height: '42px',
@@ -205,8 +212,10 @@ const Header = () => {
                   }}
                   _text={'업로드'}
                   _onClick={uploadHandle}
+                  _ref={null}
                 />
                 <Button
+                  _type={'button'}
                   _style={{
                     width: '90px',
                     height: '42 px',
@@ -219,6 +228,7 @@ const Header = () => {
                   }}
                   _onClick={chatHandle}
                   _text={'메세지'}
+                  _ref={null}
                 />
               </BtmDiv>
             </RightDiv>

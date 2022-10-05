@@ -19,15 +19,29 @@ import {
   UploadImageInput,
 } from '../assets/styles/components/UploadImage.styled';
 
-const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
+interface UploadImageProps {
+  setFile: any;
+  setFileSrc: any;
+  width: any;
+  height: any;
+  text: any;
+}
+
+const UploadImage = ({
+  setFile,
+  setFileSrc,
+  width,
+  height,
+  text,
+}: UploadImageProps) => {
   const uploadImage = useUploadStore((state) => state.uploadImage);
 
-  const uploadInputRef = useRef();
+  const uploadInputRef : any = useRef();
 
-  const encodeFileToBase64 = (fileBlob) => {
+  const encodeFileToBase64 = (fileBlob : any) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
+    return new Promise((resolve : any) => {
       reader.onload = () => {
         setFileSrc(reader.result);
         resolve();
@@ -35,7 +49,7 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
     });
   };
 
-  const handleImageConvert = async (e) => {
+  const handleImageConvert = async (e : any) => {
     const imageFile = e.target.files[0];
 
     const options = {
@@ -48,14 +62,14 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
 
     onUploadImage(compressedFile);
   };
-  const onUploadImage = (compressedFile) => {
+  const onUploadImage = (compressedFile : any) => {
     const file = new File([compressedFile], 'image.png', {
       type: 'image/png',
     });
 
     const formData = new FormData();
     formData.append('imgUrl', file);
-    uploadImage(formData).then((res) => {
+    uploadImage(formData).then((res : any) => {
       if (res.success) {
         setFile(res.data[0]);
       } else {
@@ -65,7 +79,7 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
       }
     });
   };
-  const handleDropImageConvert = async (e) => {
+  const handleDropImageConvert = async (e : any) => {
     e.preventDefault();
 
     const imageFileType = e.dataTransfer.files[0].type;
@@ -94,14 +108,14 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
     }
   };
 
-  const onDropHandle = (compressedFile) => {
+  const onDropHandle = (compressedFile : any) => {
     const file = new File([compressedFile], 'image.png', {
       type: 'image/png',
     });
 
     const formData = new FormData();
     formData.append('imgUrl', file);
-    uploadImage(formData).then((res) => {
+    uploadImage(formData).then((res : any) => {
       if (res.success) {
         setFile(res.data[0]);
       } else {
@@ -112,7 +126,7 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
     });
   };
 
-  const onDragOverHandle = (e) => {
+  const onDragOverHandle = (e : any) => {
     e.preventDefault();
   };
 
@@ -124,8 +138,8 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
     <UploadImageContainer
       width={width}
       height={height}
-      onDrop={(e) => handleDropImageConvert(e)}
-      onDragOver={(e) => onDragOverHandle(e)}
+      onDrop={(e : any) => handleDropImageConvert(e)}
+      onDragOver={(e : any) => onDragOverHandle(e)}
     >
       <UploadImageIcon>
         <TbDragDrop className='icon' />
@@ -134,7 +148,7 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
       <UploadImageInput
         type={'file'}
         accept={'image/*'}
-        onChange={(e) => {
+        onChange={(e : any) => {
           handleImageConvert(e);
           encodeFileToBase64(e.target.files[0]);
         }}
