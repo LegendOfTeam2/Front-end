@@ -1,7 +1,15 @@
 // Style
 import { StyledButton } from '../assets/styles/elements/Button.styled';
 
-const Button = ({ _type, _text, _style, _onClick, _form, _ref }) => {
+interface ButtonProps {
+  _type: any,
+  _text: any,
+  _style: any,
+  _onClick: any,
+  _ref: any
+}
+
+function Button({ _type, _text, _style, _onClick, _ref } : ButtonProps) {
   return (
     <StyledButton
       type={_type}
@@ -23,9 +31,7 @@ const Button = ({ _type, _text, _style, _onClick, _form, _ref }) => {
       bd_radius={_style?.bd_radius}
       bd_px={_style?.bd_px}
       bd_color={_style?.bd_color}
-      position={_style?.position}
       line_height={_style.line_height}
-      form={_form}
       ref={_ref}
     >
       {_text}
