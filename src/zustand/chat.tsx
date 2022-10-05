@@ -9,7 +9,7 @@ import {
   getChatMessagesApi,
 } from '../utils/apis/chat';
 
-interface FollowState {
+interface ChatState {
   subscription: any
   rooms: any
   chatMessages: any
@@ -21,12 +21,13 @@ interface FollowState {
   makeRoom: (payload: any) => any;
   getPrevChatMessages: (payload: any) => any;
   setChatMessages: (payload: any) => any;
+  clearChatMessages : any;
   setSubscription: (payload: any) => any;
   unSetSubscription: (payload: any) => any;
   setChatRoomInfo: (payload: any) => any;
 }
 
-const useChatStore = create<FollowState>()(
+const useChatStore = create<ChatState>()(
   devtools(
     (set) => ({
       subscription: [],
