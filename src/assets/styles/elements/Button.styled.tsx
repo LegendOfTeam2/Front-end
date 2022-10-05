@@ -1,6 +1,27 @@
 import styled from 'styled-components';
 
-export const StyledButton = styled.button`
+interface StyledButtonProps {
+  width : any
+  height : any
+  ft_size : any
+  ft_weight : any
+  bg_color : any
+  color : any
+  mg_top : any
+  mg_bottom : any
+  mg_left : any
+  mg_right : any
+  pd_top : any
+  pd_bottom : any
+  pd_left : any
+  pd_right : any
+  bd_radius : any
+  bd_px : any
+  bd_color : any
+  line_height : any
+}
+
+export const StyledButton = styled.button<StyledButtonProps>`
   width: ${(props) => (props.width ? props.width : '160px')};
   height: ${(props) => (props.height ? props.height : '44px')};
   font-size: ${(props) => (props.ft_size ? (props.ft_size) / 16 : 1)}rem;

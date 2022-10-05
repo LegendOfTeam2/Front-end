@@ -8,7 +8,7 @@ import useMemberStore from '../zustand/member';
 // Packages
 import SockJS from 'sockjs-client';
 import { over } from 'stompjs';
-import jwt_decode from 'jwt-decode';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -50,42 +50,42 @@ import {
   ChatDataRoomButtonBox,
 } from '../assets/styles/pages/Chat.styled';
 
-const Chat = () => {
-  const SERVER_URL = process.env.REACT_APP_REST_API_IP;
-  const sockJS = new SockJS(`https://${SERVER_URL}/ws/chat`);
-  const stompClient = over(sockJS);
+function Chat() {
+  const SERVER_URL : any = process.env.REACT_APP_REST_API_IP;
+  const sockJS : any = new SockJS(`https://${SERVER_URL}/ws/chat`);
+  const stompClient : any = over(sockJS);
 
-  const getRoomsIsLoaded = useChatStore((state) => state.getRoomsIsLoaded);
-  const getRooms = useChatStore((state) => state.getRooms);
-  const rooms = useChatStore((state) => state.rooms);
-  const chatRoomInfo = useChatStore((state) => state.chatRoomInfo);
-  const subscription = useChatStore((state) => state.subscription);
-  const setSubscription = useChatStore((state) => state.setSubscription);
-  const chatMessages = useChatStore((state) => state.chatMessages);
-  const setChatMessages = useChatStore((state) => state.setChatMessages);
-  const clearChatMessages = useChatStore((state) => state.clearChatMessages);
-  const prevChatMessages = useChatStore((state) => state.prevChatMessages);
-  const getPrevChatMessages = useChatStore(
+  const getRoomsIsLoaded : any = useChatStore((state) => state.getRoomsIsLoaded);
+  const getRooms : any = useChatStore((state) => state.getRooms);
+  const rooms : any = useChatStore((state) => state.rooms);
+  const chatRoomInfo : any = useChatStore((state) => state.chatRoomInfo);
+  const subscription : any = useChatStore((state) => state.subscription);
+  const setSubscription : any = useChatStore((state) => state.setSubscription);
+  const chatMessages : any = useChatStore((state) => state.chatMessages);
+  const setChatMessages : any = useChatStore((state) => state.setChatMessages);
+  const clearChatMessages : any = useChatStore((state) => state.clearChatMessages);
+  const prevChatMessages : any = useChatStore((state) => state.prevChatMessages);
+  const getPrevChatMessages : any = useChatStore(
     (state) => state.getPrevChatMessages
   );
-  const prevChatMessagesIsLoaded = useChatStore(
+  const prevChatMessagesIsLoaded : any = useChatStore(
     (state) => state.prevChatMessagesIsLoaded
   );
 
-  const profileImgArr = useMemberStore((state) => state.profileImgArr);
-  const random = useMemberStore((state) => state.random);
+  const profileImgArr : any = useMemberStore((state) => state.profileImgArr);
+  const random : any = useMemberStore((state) => state.random);
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] : any = useState('');
 
-  const scrollRef = useRef();
+  const scrollRef : any = useRef();
 
-  const navigate = useNavigate();
+  const navigate : any = useNavigate();
 
-  const scrollToBottom = () => {
+  const scrollToBottom : any = () => {
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   };
 
-  const connectionStateCheck = (callback) => {
+  const connectionStateCheck : any = (callback : any) => {
     setTimeout(() => {
       if (sockJS.readyState === 1) {
         callback();
@@ -95,14 +95,14 @@ const Chat = () => {
     }, 1);
   };
 
-  const onHandleClick = useCallback(() => {
+  const onHandleClick : any = useCallback(() => {
     if (message !== '' && message !== ' ') {
       const newMessage = {
         type: 'TALK',
         roomId: chatRoomInfo.roomId,
         sender:
           getCookie('authorization') !== undefined
-            ? jwt_decode(getCookie('authorization')).sub
+            ? jwt_decode<JwtPayload>(getCookie('authorization')).sub
             : '',
         message,
         profileUrl: '',
@@ -115,7 +115,7 @@ const Chat = () => {
     }
   }, [message]);
 
-  const onHandleEnter = useCallback(
+  const onHandleEnter : any = useCallback(
     debounce((e) => {
       if (e.key === 'Enter') {
         if (!e.shiftKey) {
@@ -126,7 +126,7 @@ const Chat = () => {
               roomId: chatRoomInfo.roomId,
               sender:
                 getCookie('authorization') !== undefined
-                  ? jwt_decode(getCookie('authorization')).sub
+                  ? jwt_decode<JwtPayload>(getCookie('authorization')).sub
                   : '',
               message,
               profileUrl: '',
@@ -147,7 +147,7 @@ const Chat = () => {
     [message]
   );
 
-  const addMessage = (message) => {
+  const addMessage : any = (message : any) => {
     setChatMessages(message);
   };
 
@@ -159,7 +159,7 @@ const Chat = () => {
       stompClient.connect({}, () => {
         stompClient.subscribe(
           `/sub/chat/room/${chatRoomInfo.roomId}`,
-          (data) => {
+          (data : any) => {
             addMessage(JSON.parse(data.body));
           }
         );
@@ -237,11 +237,11 @@ const Chat = () => {
               {chatRoomInfo.roomId !== '' ? (
                 <ChatDataRoomMessageBox>
                   {prevChatMessagesIsLoaded ? (
-                    [...prevChatMessages].map((message, idx) => {
+                    [...prevChatMessages].map((message : any, idx : any) => {
                       let messageState = false;
                       if (getCookie('authorization') !== undefined) {
                         if (
-                          jwt_decode(getCookie('authorization')).sub ===
+                          jwt_decode<JwtPayload>(getCookie('authorization')).sub ===
                           message.sender
                         ) {
                           messageState = true;
@@ -262,11 +262,11 @@ const Chat = () => {
                   ) : (
                     <Fragment />
                   )}
-                  {[...chatMessages].map((message, idx) => {
+                  {[...chatMessages].map((message : any, idx : any) => {
                     let messageState = false;
                     if (getCookie('authorization') !== undefined) {
                       if (
-                        jwt_decode(getCookie('authorization')).sub ===
+                        jwt_decode<JwtPayload>(getCookie('authorization')).sub ===
                         message.sender
                       ) {
                         messageState = true;
@@ -312,6 +312,7 @@ const Chat = () => {
                       bd_radius: '8px',
                       ft_weight: '800',
                     }}
+                    _ref={''}
                   />
                 </ChatDataRoomButtonBox>
               </ChatDataRoomInputContainer>
