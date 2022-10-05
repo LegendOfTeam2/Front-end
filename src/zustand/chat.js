@@ -15,8 +15,9 @@ const useChatStore = create(
       subscription: [],
       rooms: [],
       chatMessages: [],
+      prevChatMessages: [],
       chatRoomInfo: { roomId: '', nickname: '', profileImg: '' },
-      chatMessagesIsLoaded: false,
+      prevChatMessagesIsLoaded: false,
       getRoomsIsLoaded: false,
       makeRoom: async (payload) => {
         const resData = await makeRoomApi(payload)
@@ -39,17 +40,25 @@ const useChatStore = create(
           set({ getRoomsIsLoaded: true });
         }
       },
-      getChatMessages: async (payload) => {
+      getPrevChatMessages: async (payload) => {
         const resData = await getChatMessagesApi(payload)
           .then((res) => res)
           .catch((err) => console.log(err));
 
         if (resData?.data.success) {
-          set({ chatMessages: resData.data.data });
-          set({ chatMessagesIsLoaded: true });
+          set({ prevChatMessages: resData.data.data });
+          set({ prevChatMessagesIsLoaded: true });
 
           return resData.data;
         }
+      },
+      setChatMessages: (payload) => {
+        set((state) => {
+          return { chatMessages: [...state.chatMessages, payload] };
+        });
+      },
+      clearChatMessages: () => {
+        set({ chatMessages: [] });
       },
       setSubscription: (payload) => {
         set((state) => {

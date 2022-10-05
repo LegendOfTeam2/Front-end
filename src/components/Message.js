@@ -1,3 +1,6 @@
+// React
+import { Fragment, memo } from 'react';
+
 // Assets
 import {
   MessageContainer,
@@ -5,22 +8,29 @@ import {
   MessageBoxSenderText,
   MessageBoxReceiverBox,
   MessageBoxReceiverText,
+  MessageBoxTime,
 } from '../assets/styles/components/Message.styled';
 
-const Message = ({ message, messageState }) => {
+const Message = ({ message, messageState, createdAt }) => {
   return (
     <MessageContainer justifyContent={messageState ? 'flex-end' : 'flex-start'}>
       {messageState ? (
-        <MessageBoxSenderBox>
-          <MessageBoxSenderText>{message}</MessageBoxSenderText>
-        </MessageBoxSenderBox>
+        <Fragment>
+          <MessageBoxTime>{createdAt}</MessageBoxTime>
+          <MessageBoxSenderBox>
+            <MessageBoxSenderText>{message}</MessageBoxSenderText>
+          </MessageBoxSenderBox>
+        </Fragment>
       ) : (
-        <MessageBoxReceiverBox>
-          <MessageBoxReceiverText>{message}</MessageBoxReceiverText>
-        </MessageBoxReceiverBox>
+        <Fragment>
+          <MessageBoxReceiverBox>
+            <MessageBoxReceiverText>{message}</MessageBoxReceiverText>
+          </MessageBoxReceiverBox>
+          <MessageBoxTime>{createdAt}</MessageBoxTime>
+        </Fragment>
       )}
     </MessageContainer>
   );
 };
 
-export default Message;
+export default memo(Message);

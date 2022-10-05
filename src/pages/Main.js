@@ -199,7 +199,6 @@ const Main = () => {
       });
     }
   }, []);
-
   return (
     <Fragment>
       <ToastContainer />

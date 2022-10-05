@@ -2,9 +2,7 @@
 import axios from 'axios';
 
 // Utils
-// import createToken from '../../token';
 import { getCookie } from '../../cookie';
-// import { refreshTokenApi } from '../refresh';
 
 const SERVER_IP = process.env.REACT_APP_REST_API_IP;
 
