@@ -633,7 +633,10 @@ function PlayerMain() {
                 ) : (
                   <MidDiv>
                     <div>
-                      <ImgCover src={HeaderlargeLogo} alt='재생목록이 비어 있을때' />
+                      <ImgCover
+                        src={HeaderlargeLogo}
+                        alt='재생목록이 비어 있을때'
+                      />
                     </div>
                     <IntroduceDiv>
                       <TitleSapn>재생목록이 비어 있어요~</TitleSapn>

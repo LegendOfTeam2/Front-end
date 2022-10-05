@@ -1,3 +1,6 @@
+// React
+import { memo } from 'react';
+
 // Assets
 import {
   MessageContainer,
@@ -23,4 +26,4 @@ const Message = ({ message, messageState }) => {
   );
 };
 
-export default Message;
+export default memo(Message);

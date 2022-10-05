@@ -50,7 +50,7 @@ import {
 
 const Chat = () => {
   const SERVER_URL = process.env.REACT_APP_REST_API_IP;
-  const sockJS = new SockJS(`http://${SERVER_URL}/ws/chat`);
+  const sockJS = new SockJS(`https://${SERVER_URL}/ws/chat`);
   const stompClient = over(sockJS);
 
   const getRoomsIsLoaded = useChatStore((state) => state.getRoomsIsLoaded);
@@ -60,16 +60,20 @@ const Chat = () => {
   const subscription = useChatStore((state) => state.subscription);
   const setSubscription = useChatStore((state) => state.setSubscription);
   const chatMessages = useChatStore((state) => state.chatMessages);
-  const getChatMessages = useChatStore((state) => state.getChatMessages);
-  const chatMessagesIsLoaded = useChatStore(
-    (state) => state.chatMessagesIsLoaded
+  const setChatMessages = useChatStore((state) => state.setChatMessages);
+  const clearChatMessages = useChatStore((state) => state.clearChatMessages);
+  const prevChatMessages = useChatStore((state) => state.prevChatMessages);
+  const getPrevChatMessages = useChatStore(
+    (state) => state.getPrevChatMessages
+  );
+  const prevChatMessagesIsLoaded = useChatStore(
+    (state) => state.prevChatMessagesIsLoaded
   );
 
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
   const [message, setMessage] = useState('');
-  const [contents, setContents] = useState([]);
 
   const scrollRef = useRef();
 
@@ -88,7 +92,7 @@ const Chat = () => {
       }
     }, 1);
   };
-  
+
   const onHandleClick = () => {
     if (message !== '' && message !== ' ') {
       const newMessage = {
@@ -138,35 +142,35 @@ const Chat = () => {
     }
   };
 
-  const addMessage = (message, roomId) => {
-    setContents((prev) => [...prev, message]);
+  const addMessage = (message) => {
+    setChatMessages(message);
   };
 
   useEffect(() => {
     getRooms();
-    setContents([]);
+    clearChatMessages();
 
     if (subscription.indexOf(chatRoomInfo.roomId) === -1) {
       stompClient.connect({}, () => {
         stompClient.subscribe(
           `/sub/chat/room/${chatRoomInfo.roomId}`,
           (data) => {
-            const newMessage = JSON.parse(data.body);
-
-            addMessage(newMessage, chatRoomInfo.roomId);
+            addMessage(JSON.parse(data.body));
           }
         );
       });
       setSubscription(chatRoomInfo.roomId);
-      getChatMessages(chatRoomInfo.roomId);
+      getPrevChatMessages(chatRoomInfo.roomId);
     } else {
-      getChatMessages(chatRoomInfo.roomId);
+      if (chatRoomInfo.roomId !== '') {
+        getPrevChatMessages(chatRoomInfo.roomId);
+      }
     }
-  }, [chatRoomInfo.roomId]);
+  }, [chatRoomInfo]);
 
   useEffect(() => {
     scrollToBottom();
-  }, [chatMessages, contents]);
+  }, [prevChatMessages, chatMessages]);
 
   return (
     <Fragment>
@@ -227,13 +231,13 @@ const Chat = () => {
             <ChatDataRoomMessageContainer ref={scrollRef}>
               {chatRoomInfo.roomId !== '' ? (
                 <ChatDataRoomMessageBox>
-                  {chatMessagesIsLoaded ? (
-                    [...chatMessages].map((messages, idx) => {
+                  {prevChatMessagesIsLoaded ? (
+                    [...prevChatMessages].map((message, idx) => {
                       let messageState = false;
                       if (getCookie('authorization') !== undefined) {
                         if (
                           jwt_decode(getCookie('authorization')).sub ===
-                          messages.sender
+                          message.sender
                         ) {
                           messageState = true;
                         }
@@ -241,8 +245,8 @@ const Chat = () => {
                       return (
                         <Message
                           key={idx}
-                          sender={messages.sender}
-                          message={messages.message}
+                          sender={message.sender}
+                          message={message.message}
                           messageState={messageState}
                         />
                       );
@@ -250,22 +254,22 @@ const Chat = () => {
                   ) : (
                     <Fragment />
                   )}
-                  {contents.map((messages, idx) => {
+                  {[...chatMessages].map((message, idx) => {
                     let messageState = false;
                     if (getCookie('authorization') !== undefined) {
                       if (
                         jwt_decode(getCookie('authorization')).sub ===
-                        messages.sender
+                        message.sender
                       ) {
                         messageState = true;
                       }
                     }
-                    if (messages.roomId === chatRoomInfo.roomId) {
+                    if (message.roomId === chatRoomInfo.roomId) {
                       return (
                         <Message
                           key={idx}
-                          sender={messages.sender}
-                          message={messages.message}
+                          sender={message.sender}
+                          message={message.message}
                           messageState={messageState}
                         />
                       );

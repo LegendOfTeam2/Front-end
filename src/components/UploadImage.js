@@ -69,19 +69,33 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
   const handleDropImageConvert = async (e) => {
     e.preventDefault();
 
-    const imageFile = e.dataTransfer.files[0];
+    const imageFileType = e.dataTransfer.files[0].type;
+    console.log(imageFileType);
+    if (
+      imageFileType === 'image/png' ||
+      imageFileType === 'image/jpg' ||
+      imageFileType === 'image/jpeg' ||
+      imageFileType === 'image/JPG' ||
+      imageFileType === 'image/JPEG' ||
+      imageFileType === 'image/PNG'
+    ) {
+      const imageFile = e.dataTransfer.files[0];
 
-    encodeFileToBase64(imageFile);
-    const options = {
-      maxSizeMB: 0.5,
-      maxWidthOrHeight: 1920,
-      useWebWorker: true,
-    };
+      encodeFileToBase64(imageFile);
+      const options = {
+        maxSizeMB: 0.5,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+      };
 
-    const compressedFile = await imageCompression(imageFile, options);
+      const compressedFile = await imageCompression(imageFile, options);
 
-    onDropHandle(compressedFile);
+      onDropHandle(compressedFile);
+    } else {
+      alert('이미지 파일을 넣어주세요!');
+    }
   };
+
   const onDropHandle = (compressedFile) => {
     // Blob을 서버에 전달하기 위한 File로 변환
     const file = new File([compressedFile], 'image.png', {

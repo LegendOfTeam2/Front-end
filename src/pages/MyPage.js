@@ -430,8 +430,8 @@ const MyPage = () => {
                         <MyRightTopButDivNotMember>
                           <Button
                             _style={{
-                              width: '261px',
-                              height: '45px',
+                              width: '280px',
+                              height: '42px',
                               bg_color: '#28CA7C',
                               bd_radius: '10px',
                               color: 'rgba(255, 255, 255, 1)',

@@ -88,7 +88,6 @@ import {
 } from '../assets/styles/pages/Write.styled';
 import { Xbox20 } from '../assets/images/image';
 
-
 const WriteModify = () => {
   const uploadAudio = useUploadStore((state) => state.uploadAudio);
   const getDetail = usePostStore((state) => state.getDetail);
@@ -255,22 +254,32 @@ const WriteModify = () => {
   const onDropHandle = (e) => {
     e.preventDefault();
 
-    addPreview(e.dataTransfer.files[0]);
+    const audioFile = e.dataTransfer.files[0].type;
 
-    const formData = new FormData();
-    formData.append('mediaUrl', e.dataTransfer.files[0]);
-    uploadAudio(formData).then((res) => {
-      if (res.success) {
-        setValues((prev) => {
-          return { ...prev, audio: res.data[0] };
-        });
-      } else {
-        warning('오디오 업로드에 실패했습니다.');
-        setValues((prev) => {
-          return { ...prev, audio: '' };
-        });
-      }
-    });
+    if (
+      audioFile === 'audio/mpeg' ||
+      audioFile === 'audio/x-m4a' ||
+      audioFile === 'audio/wav' ||
+      audioFile === 'audio/ogg'
+    ) {
+      addPreview(e.dataTransfer.files[0]);
+      const formData = new FormData();
+      formData.append('mediaUrl', e.dataTransfer.files[0]);
+      uploadAudio(formData).then((res) => {
+        if (res.success) {
+          setValues((prev) => {
+            return { ...prev, audio: res.data[0] };
+          });
+        } else {
+          warning(`오디오 업로드에 실패했습니다.`);
+          setValues((prev) => {
+            return { ...prev, audio: '' };
+          });
+        }
+      });
+    } else {
+      alert('오디오 파일을 넣어주세요!!');
+    }
   };
 
   const onDragOverHandle = (e) => {

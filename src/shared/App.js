@@ -10,7 +10,6 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 // Pages
 import Main from '../pages/Main';
 import Search from '../pages/Search';
-import Chat from '../pages/Chat';
 
 // Components
 import Loading from '../components/Loading';
@@ -34,6 +33,7 @@ const WriteModify = lazy(() => import('../pages/WriteModify'));
 const SignUpCheck = lazy(() => import('../pages/SignUpCheck'));
 const MyInfoModify = lazy(() => import('../pages/MyInfoModify'));
 const Detail = lazy(() => import('../pages/Detail'));
+const Chat = lazy(() => import('../pages/Chat'));
 const Withdrawal = lazy(() => import('../pages/Withdrawal'));
 const MorePage = lazy(() => import('../pages/MorePage'));
 const PromotionalPage = lazy(() => import('../pages/PromotionalPage'));

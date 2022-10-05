@@ -33,7 +33,7 @@ const ChatMember = ({
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
-  const onClickHandle = () => {
+  const onClickHandle = () => {    
     if (receiver === jwt_decode(getCookie('authorization')).sub) {
       setChatRoomInfo({
         roomId: roomId,
@@ -80,4 +80,4 @@ const ChatMember = ({
   );
 };
 
-export default ChatMember;
+export default memo(ChatMember);
