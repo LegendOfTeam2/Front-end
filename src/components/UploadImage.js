@@ -44,12 +44,11 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
       useWebWorker: true,
     };
 
-    const compressedFile = await imageCompression(imageFile, options); // Blob 생성자로 return
+    const compressedFile = await imageCompression(imageFile, options);
 
     onUploadImage(compressedFile);
   };
   const onUploadImage = (compressedFile) => {
-    // Blob을 서버에 전달하기 위한 File로 변환
     const file = new File([compressedFile], 'image.png', {
       type: 'image/png',
     });
@@ -70,7 +69,6 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
     e.preventDefault();
 
     const imageFileType = e.dataTransfer.files[0].type;
-    console.log(imageFileType);
     if (
       imageFileType === 'image/png' ||
       imageFileType === 'image/jpg' ||
@@ -97,7 +95,6 @@ const UploadImage = ({ setFile, setFileSrc, width, height, text }) => {
   };
 
   const onDropHandle = (compressedFile) => {
-    // Blob을 서버에 전달하기 위한 File로 변환
     const file = new File([compressedFile], 'image.png', {
       type: 'image/png',
     });

@@ -113,7 +113,6 @@ const Header = () => {
     } else {
       warning('로그인 후 이용해 주세요.');
     }
-    // setNoticeOpen(true);
   };
 
   const onCancel = () => {

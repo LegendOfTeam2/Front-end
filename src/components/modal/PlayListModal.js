@@ -109,58 +109,8 @@ const PlayListModal = ({ ModalList }) => {
   };
 
   return (
-    // <ReactModal isOpen={playListModalState} style={customStyles}>
-    //   {ModalList !== undefined ? (
-    //     <ListModalContainer>
-    //       <XboxDiv onClick={playListClose}>
-    //         <img src={Xbox20} alt='Xbox' />
-    //       </XboxDiv>
-    //       <ListModalTopDiv>
-    //         <ListModalTitleSpan>{ModalList.title}</ListModalTitleSpan>
-    //         <ListModalNicknameSpan>{ModalList.nickname}</ListModalNicknameSpan>
-    //       </ListModalTopDiv>
-    //       <ListModalImgDiv>
-    //         <ListModalImg
-    //           src={
-    //             ModalList.imageUrl === null
-    //               ? profileImgArr[random]
-    //               : ModalList.imageUrl === ''
-    //               ? profileImgArr[random]
-    //               : ModalList.imageUrl
-    //           }
-    //           alt='리스트 이미지'
-    //         />
-    //       </ListModalImgDiv>
-    //       <ListModalMidDiv>
-    //         <ListModalMidDivDiv>
-    //           <ListModalMidDivSpan>소개글</ListModalMidDivSpan>
-    //         </ListModalMidDivDiv>
-    //       </ListModalMidDiv>
-    //       <ListModalLyrics>
-    //         <ListModalLyricsSpan>{ModalList.lyrics}</ListModalLyricsSpan>
-    //       </ListModalLyrics>
-    //       <ListModalProfileDiv>
-    //         <ListModalProfileDivDiv>
-    //           {getCookie('authorization') !== undefined ? (
-    //             <ListModalProfileImg
-    //               src={
-    //                 ModalList.memberImageUrl === null
-    //                   ? profileImgArr[random]
-    //                   : ModalList.memberImageUrl === ''
-    //                   ? profileImgArr[random]
-    //                   : ModalList.memberImageUrl
-    //               }
-    //               alt='프로필 이미지'
-    //             />
-    //           ) : (
-    //             <></>
-    //           )}
-
-    //           <ListModalProfileNickname>
     <Fragment>
       <ToastContainer />
-      {/* <div className='background' /> */}
-      {/* <ReactModal isOpen={playListModalState} className='modal'> */}
       <ReactModal
         isOpen={playListModalState}
         style={customStyles}
