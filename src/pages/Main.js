@@ -13,6 +13,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Utils
 import { getCookie } from '../utils/cookie';
@@ -199,6 +201,7 @@ const Main = () => {
   }, []);
   return (
     <Fragment>
+      <ToastContainer />
       <Header />
       <MainContainerDiv>
         <MainContainer>

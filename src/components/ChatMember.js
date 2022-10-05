@@ -1,3 +1,6 @@
+// React
+import { memo } from 'react';
+
 // Zustand
 import useChatStore from '../zustand/chat';
 import useMemberStore from '../zustand/member';
@@ -47,7 +50,7 @@ const ChatMember = ({
   };
 
   return (
-    <ChatMemberContainer onClick={onClickHandle}>
+    <ChatMemberContainer onClick={() => onClickHandle()}>
       <ChatMemberProfileContainer>
         {receiver === jwt_decode(getCookie('authorization')).sub ? (
           senderProfileUrl === '' ? (

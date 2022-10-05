@@ -35,19 +35,17 @@ import {
   MainProfileimg,
 } from '../assets/styles/components/HotArtist.styled';
 
-
 const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   const follow = useFollowStore((state) => state.follow);
   const makeRoom = useChatStore((state) => state.makeRoom);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
-  const [noticeOpen ,setNoticeOpen] = useState(false)
+  const [noticeOpen, setNoticeOpen] = useState(false);
   const [counter, setCounter] = useState(follower);
   const [followCheck, setFollowCheck] = useState(isFollow);
 
   const navigate = useNavigate();
-
 
   const onCancel = () => {
     setNoticeOpen(false);
@@ -56,24 +54,24 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
       if (jwt_decode(getCookie('authorization')).sub === nickname) {
-        alert('자기 자신은 팔로우 할 수 없습니다.');
+        warning('자기 자신은 팔로우 할 수 없습니다.');
       } else {
         follow(nickname).then((res) => {
           if (res.success) {
             if (res.data) {
               setFollowCheck(true);
-              info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`);
+              info(`${nickname}님을 팔로우 하였습니다.`);
               setCounter((prev) => parseInt(prev) + 1);
             } else {
               setFollowCheck(false);
-              info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`);
+              info(`${nickname}님 팔로우를 취소하였습니다.`);
               setCounter((prev) => parseInt(prev) - 1);
             }
           }
         });
       }
     } else {
-      alert(`로그인 후에 이용 가능합니다.`);
+      warning(`로그인 후에 이용 가능합니다.`);
     }
   };
 
@@ -82,28 +80,27 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   };
 
   const onHandleChat = () => {
-    setNoticeOpen(true)
-    // if (getCookie('authorization') !== undefined) {
-    //   const sender = jwt_decode(getCookie('authorization')).sub;
-    //   if (sender !== nickname) {
-    //     makeRoom({ sender, receiver: nickname }).then((res) => {
-    //       if (res?.success) {
-    //         navigate('/chat');
-    //       } else {
-    //         navigate('/chat');
-    //       }
-    //     });
-    //   } else {
-    //     navigate('/chat');
-    //   }
-    // } else {
-    //   warning(`로그인 후에 이용 가능합니다.`);
-    // }
+    if (getCookie('authorization') !== undefined) {
+      const sender = jwt_decode(getCookie('authorization')).sub;
+      if (sender !== nickname) {
+        makeRoom({ sender, receiver: nickname }).then((res) => {
+          if (res?.success) {
+            navigate('/chat');
+          } else {
+            navigate('/chat');
+          }
+        });
+      } else {
+        navigate('/chat');
+      }
+    } else {
+      warning(`로그인 후에 이용 가능합니다.`);
+    }
   };
 
   return (
     <HotArtistImgDivDiv key={nickname}>
-      <NoticeModal isOpen={noticeOpen} onCancel={onCancel}/>
+      <NoticeModal isOpen={noticeOpen} onCancel={onCancel} />
       <ToastContainer />
       <BtmProfileDivDiv>
         <BtmProfileDivDivDiv>
@@ -120,7 +117,7 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
           />
         </BtmProfileDivDivDiv>
         <BtmTextDivDivDiv>
-          <BtmTextDivSpan>{nickname.slice(0, 9)}</BtmTextDivSpan>
+          <BtmTextDivSpan>{nickname}</BtmTextDivSpan>
         </BtmTextDivDivDiv>
         <BtmTextDivDivSmDiv>
           <BtmTextDivSmSpan style={{ color: '#28CA7C' }}>

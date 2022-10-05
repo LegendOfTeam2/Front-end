@@ -121,11 +121,11 @@ const Post = ({
       />
       <ToastContainer />
       <ImgMyBtmRight>
-        <ImgNotTopSlideSpan>{title.slice(0, 9)}</ImgNotTopSlideSpan>
-        <ImgNotSlideSpan>{nickname.slice(0, 9)}</ImgNotSlideSpan>
+        <ImgNotTopSlideSpan>{title}</ImgNotTopSlideSpan>
+        <ImgNotSlideSpan>{nickname}</ImgNotSlideSpan>
       </ImgMyBtmRight>
       <MyImgTopLeft onClick={goToDetail}>{title}</MyImgTopLeft>
-      <MyImgTopBotmLeft>{nickname.slice(0, 9)}</MyImgTopBotmLeft>
+      <MyImgTopBotmLeft>{nickname}</MyImgTopBotmLeft>
       <DisMyImgTopRight>
         {collaborate ? (
           <img src={DisCollaboration} alt='콜라보' />

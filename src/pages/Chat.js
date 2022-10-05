@@ -50,7 +50,7 @@ import {
 
 const Chat = () => {
   const SERVER_URL = process.env.REACT_APP_REST_API_IP;
-  const sockJS = new SockJS(`http://${SERVER_URL}/ws/chat`);
+  const sockJS = new SockJS(`https://${SERVER_URL}/ws/chat`);
   const stompClient = over(sockJS);
 
   const getRoomsIsLoaded = useChatStore((state) => state.getRoomsIsLoaded);
@@ -79,6 +79,16 @@ const Chat = () => {
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   };
 
+  const connectionStateCheck = (callback) => {
+    setTimeout(() => {
+      if (sockJS.readyState === 1) {
+        callback();
+      } else {
+        connectionStateCheck(callback);
+      }
+    }, 1);
+  };
+  
   const onHandleClick = () => {
     if (message !== '' && message !== ' ') {
       const newMessage = {
@@ -92,7 +102,9 @@ const Chat = () => {
         profileUrl: '',
         createdAt: '',
       };
-      stompClient.send(`/pub/chat/message`, {}, JSON.stringify(newMessage));
+      connectionStateCheck(() => {
+        stompClient.send(`/pub/chat/message`, {}, JSON.stringify(newMessage));
+      });
       setMessage('');
     }
   };
@@ -113,14 +125,20 @@ const Chat = () => {
             profileUrl: '',
             createdAt: '',
           };
-          stompClient.send(`/pub/chat/message`, {}, JSON.stringify(newMessage));
+          connectionStateCheck(() => {
+            stompClient.send(
+              `/pub/chat/message`,
+              {},
+              JSON.stringify(newMessage)
+            );
+          });
           setMessage('');
         }
       }
     }
   };
 
-  const addMessage = (message) => {
+  const addMessage = (message, roomId) => {
     setContents((prev) => [...prev, message]);
   };
 
@@ -130,15 +148,13 @@ const Chat = () => {
 
     if (subscription.indexOf(chatRoomInfo.roomId) === -1) {
       stompClient.connect({}, () => {
-        setTimeout(
-          stompClient.subscribe(
-            `/sub/chat/room/${chatRoomInfo.roomId}`,
-            (data) => {
-              const newMessage = JSON.parse(data.body);
-              addMessage(newMessage);
-            }
-          ),
-          500
+        stompClient.subscribe(
+          `/sub/chat/room/${chatRoomInfo.roomId}`,
+          (data) => {
+            const newMessage = JSON.parse(data.body);
+
+            addMessage(newMessage, chatRoomInfo.roomId);
+          }
         );
       });
       setSubscription(chatRoomInfo.roomId);
@@ -149,7 +165,6 @@ const Chat = () => {
   }, [chatRoomInfo.roomId]);
 
   useEffect(() => {
-    getRooms();
     scrollToBottom();
   }, [chatMessages, contents]);
 
@@ -172,8 +187,8 @@ const Chat = () => {
             </ChatDataMemberTitleBox>
             <ChatDataMemberRoomBox>
               {getRoomsIsLoaded ? (
-                [...rooms].length !== 0 ? (
-                  [...rooms].map((room) => {
+                rooms.length !== 0 ? (
+                  [...rooms].reverse().map((room) => {
                     return (
                       <ChatMember
                         key={room.roomId}
@@ -210,9 +225,32 @@ const Chat = () => {
               </ChatDataRoomTextContainer>
             </ChatDataRoomProfileContainer>
             <ChatDataRoomMessageContainer ref={scrollRef}>
-              <ChatDataRoomMessageBox>
-                {chatMessagesIsLoaded ? (
-                  [...chatMessages].map((messages, idx) => {
+              {chatRoomInfo.roomId !== '' ? (
+                <ChatDataRoomMessageBox>
+                  {chatMessagesIsLoaded ? (
+                    [...chatMessages].map((messages, idx) => {
+                      let messageState = false;
+                      if (getCookie('authorization') !== undefined) {
+                        if (
+                          jwt_decode(getCookie('authorization')).sub ===
+                          messages.sender
+                        ) {
+                          messageState = true;
+                        }
+                      }
+                      return (
+                        <Message
+                          key={idx}
+                          sender={messages.sender}
+                          message={messages.message}
+                          messageState={messageState}
+                        />
+                      );
+                    })
+                  ) : (
+                    <Fragment />
+                  )}
+                  {contents.map((messages, idx) => {
                     let messageState = false;
                     if (getCookie('authorization') !== undefined) {
                       if (
@@ -222,61 +260,48 @@ const Chat = () => {
                         messageState = true;
                       }
                     }
-                    return (
-                      <Message
-                        key={idx}
-                        sender={messages.sender}
-                        message={messages.message}
-                        messageState={messageState}
-                      />
-                    );
-                  })
-                ) : (
-                  <Fragment />
-                )}
-                {contents.map((element, idx) => {
-                  let messageState = false;
-                  if (getCookie('authorization') !== undefined) {
-                    if (
-                      jwt_decode(getCookie('authorization')).sub ===
-                      element.sender
-                    ) {
-                      messageState = true;
+                    if (messages.roomId === chatRoomInfo.roomId) {
+                      return (
+                        <Message
+                          key={idx}
+                          sender={messages.sender}
+                          message={messages.message}
+                          messageState={messageState}
+                        />
+                      );
                     }
-                  }
-                  return (
-                    <Message
-                      key={idx}
-                      sender={element.sender}
-                      message={element.message}
-                      messageState={messageState}
-                    />
-                  );
-                })}
-              </ChatDataRoomMessageBox>
+                  })}
+                </ChatDataRoomMessageBox>
+              ) : (
+                <Fragment />
+              )}
             </ChatDataRoomMessageContainer>
-            <ChatDataRoomInputContainer>
-              <ChatDataRoomInput
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={(e) => onHandleEnter(e)}
-              ></ChatDataRoomInput>
-              <ChatDataRoomButtonBox>
-                <Button
-                  _text={'전송'}
-                  _type={'button'}
-                  _onClick={onHandleClick}
-                  _style={{
-                    width: '140px',
-                    height: '158px',
-                    color: 'white',
-                    bg_color: '#28ca7c',
-                    bd_radius: '8px',
-                    ft_weight: '800',
-                  }}
-                />
-              </ChatDataRoomButtonBox>
-            </ChatDataRoomInputContainer>
+            {chatRoomInfo.roomId !== '' ? (
+              <ChatDataRoomInputContainer>
+                <ChatDataRoomInput
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyDown={(e) => onHandleEnter(e)}
+                ></ChatDataRoomInput>
+                <ChatDataRoomButtonBox>
+                  <Button
+                    _text={'전송'}
+                    _type={'button'}
+                    _onClick={onHandleClick}
+                    _style={{
+                      width: '140px',
+                      height: '158px',
+                      color: 'white',
+                      bg_color: '#28ca7c',
+                      bd_radius: '8px',
+                      ft_weight: '800',
+                    }}
+                  />
+                </ChatDataRoomButtonBox>
+              </ChatDataRoomInputContainer>
+            ) : (
+              <Fragment />
+            )}
           </ChatDataRoomContainer>
         </ChatDataContainer>
       </ChatContainer>

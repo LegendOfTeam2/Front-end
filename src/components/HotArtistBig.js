@@ -56,24 +56,24 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
       if (jwt_decode(getCookie('authorization')).sub === nickname) {
-        alert('자기 자신은 팔로우 할 수 없습니다.')
+        warning('자기 자신은 팔로우 할 수 없습니다.')
       } else {
         follow(nickname).then((res) => {
           if (res.success) {
             if (res.data) {
               setFollowCheck(true);
-              info(`${nickname.slice(0, 9)}님을 팔로우 하였습니다.`);
+              info(`${nickname}님을 팔로우 하였습니다.`);
               setCounter((prev) => parseInt(prev) + 1);
             } else {
               setFollowCheck(false);
-              info(`${nickname.slice(0, 9)}님 팔로우를 취소하였습니다.`);
+              info(`${nickname}님 팔로우를 취소하였습니다.`);
               setCounter((prev) => parseInt(prev) - 1);
             }
           }
         });
       }
     } else {
-      alert('로그인 후에 이용 가능합니다.');
+      warning('로그인 후에 이용 가능합니다.');
     }
   };
 
@@ -82,12 +82,11 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
   };
 
   const onHandleChatRoom = () => {
-    // if (getCookie('authorization') !== undefined) {
-    //   makeRoom({ nickname, profileUrl: 'test', userId: 1 });
-    // } else {
-    //   warning('로그인 후에 이용 가능합니다.');
-    // }
-    setNoticeOpen(true)
+    if (getCookie('authorization') !== undefined) {
+      makeRoom({ nickname, profileUrl: 'test', userId: 1 });
+    } else {
+      warning('로그인 후에 이용 가능합니다.');
+    }
   };
 
   return (
@@ -109,7 +108,7 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
           />
         </BtmProfileDivDivDiv>
         <BtmTextDivDivDiv>
-          <BtmTextDivSpan>{nickname.slice(0, 9)}</BtmTextDivSpan>
+          <BtmTextDivSpan>{nickname}</BtmTextDivSpan>
         </BtmTextDivDivDiv>
         <BtmTextDivDivSmDiv>
           <BtmTextDivSmSpan style={{ color: '#28CA7C' }}>
