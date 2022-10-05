@@ -80,7 +80,6 @@ const HotArtist = ({ nickname, follower, imageUrl, isFollow }) => {
   };
 
   const onHandleChat = () => {
-    // setNoticeOpen(true)
     if (getCookie('authorization') !== undefined) {
       const sender = jwt_decode(getCookie('authorization')).sub;
       if (sender !== nickname) {
