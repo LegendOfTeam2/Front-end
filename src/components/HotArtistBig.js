@@ -82,12 +82,11 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
   };
 
   const onHandleChatRoom = () => {
-    // if (getCookie('authorization') !== undefined) {
-    //   makeRoom({ nickname, profileUrl: 'test', userId: 1 });
-    // } else {
-    //   warning('로그인 후에 이용 가능합니다.');
-    // }
-    setNoticeOpen(true)
+    if (getCookie('authorization') !== undefined) {
+      makeRoom({ nickname, profileUrl: 'test', userId: 1 });
+    } else {
+      warning('로그인 후에 이용 가능합니다.');
+    }
   };
 
   return (

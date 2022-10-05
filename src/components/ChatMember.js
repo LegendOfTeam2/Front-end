@@ -29,9 +29,7 @@ const ChatMember = ({
   receiverProfileUrl,
   lastMessage,
 }) => {
-  // const chatRoomInfo = useChatStore((state) => state.chatRoomInfo);
   const setChatRoomInfo = useChatStore((state) => state.setChatRoomInfo);
-  // const unSetSubscription = useChatStore((state) => state.unSetSubscription);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
