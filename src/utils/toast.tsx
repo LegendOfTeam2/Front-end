@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-export const warning = (message) => {
+export const warning = (message : any) => {
   toast.warning(message, {
     position: toast.POSITION.BOTTOM_LEFT,
     autoClose: 1500,
@@ -8,7 +8,7 @@ export const warning = (message) => {
     hideProgressBar: true,
   });
 }
-export const info = (message)  => {
+export const info = (message : any)  => {
   toast.info(message, {
     position: toast.POSITION.BOTTOM_LEFT,
     autoClose: 1500,

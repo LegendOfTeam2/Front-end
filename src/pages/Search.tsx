@@ -80,7 +80,7 @@ const Search = () => {
 
   const navigate = useNavigate();
 
-  const onHandleSearchCategory = (category) => {
+  const onHandleSearchCategory = (category: any) => {
     switch (category) {
       case 'Singer': {
         setCategory('Singer');
@@ -103,9 +103,9 @@ const Search = () => {
   useEffect(() => {
     if (keyword !== '') {
       if (getCookie('authorization') !== undefined) {
-        getSingerLikePost().then((res) => {
+        getSingerLikePost().then((res: any) => {
           if (res.success) {
-            getMakerLikePost().then((res) => {
+            getMakerLikePost().then((res: any) => {
               if (res.success) {
                 searchKeyword(keyword, 'Singer');
                 searchKeyword(keyword, 'Maker');
@@ -113,7 +113,7 @@ const Search = () => {
             });
           }
         });
-        getFollowerList().then((res) => {
+        getFollowerList().then((res: any) => {
           if (res.success) {
             searchKeyword(keyword, 'Member');
           }
@@ -126,9 +126,9 @@ const Search = () => {
     } else {
       const keyword = window.sessionStorage.getItem('keyword');
       if (getCookie('authorization') !== undefined) {
-        getSingerLikePost().then((res) => {
+        getSingerLikePost().then((res: any) => {
           if (res.success) {
-            getMakerLikePost().then((res) => {
+            getMakerLikePost().then((res: any) => {
               if (res.success) {
                 searchKeyword(keyword, 'Singer');
                 searchKeyword(keyword, 'Maker');
@@ -136,7 +136,7 @@ const Search = () => {
             });
           }
         });
-        getFollowerList().then((res) => {
+        getFollowerList().then((res: any) => {
           if (res.success) {
             searchKeyword(keyword, 'Member');
           }
@@ -331,7 +331,7 @@ const Search = () => {
                   singerSearchIsLoaded ? (
                     singerSearchList.length !== 0 ? (
                       <SearchDataContainer>
-                        {singerSearchList.map((singer) => {
+                        {singerSearchList.map((singer: any) => {
                           if (
                             [...singerIsLike, ...makerIsLike].indexOf(
                               singer.postId
@@ -341,7 +341,6 @@ const Search = () => {
                               <Post
                                 key={singer.postId}
                                 postId={singer.postId}
-                                likeCount={singer.makerlikeCnt}
                                 imageUrl={singer.imageUrl}
                                 mediaUrl={singer.mediaUrl}
                                 nickname={singer.nickname}
@@ -356,7 +355,6 @@ const Search = () => {
                               <Post
                                 key={singer.postId}
                                 postId={singer.postId}
-                                likeCount={singer.makerlikeCnt}
                                 imageUrl={singer.imageUrl}
                                 mediaUrl={singer.mediaUrl}
                                 nickname={singer.nickname}
@@ -407,12 +405,11 @@ const Search = () => {
               ) : singerSearchIsLoaded ? (
                 singerSearchList.length !== 0 ? (
                   <SearchDataContainer>
-                    {singerSearchList.map((singer) => {
+                    {singerSearchList.map((singer: any) => {
                       return (
                         <Post
                           key={singer.postId}
                           postId={singer.postId}
-                          likeCount={singer.makerlikeCnt}
                           imageUrl={singer.imageUrl}
                           mediaUrl={singer.mediaUrl}
                           nickname={singer.nickname}
@@ -462,7 +459,7 @@ const Search = () => {
                   makerSearchIsLoaded ? (
                     makerSearchList.length !== 0 ? (
                       <SearchDataContainer>
-                        {makerSearchList.map((maker) => {
+                        {makerSearchList.map((maker: any) => {
                           if (
                             [...singerIsLike, ...makerIsLike].indexOf(
                               maker.postId
@@ -472,7 +469,6 @@ const Search = () => {
                               <Post
                                 key={maker.postId}
                                 postId={maker.postId}
-                                likeCount={maker.makerlikeCnt}
                                 imageUrl={maker.imageUrl}
                                 mediaUrl={maker.mediaUrl}
                                 nickname={maker.nickname}
@@ -487,7 +483,6 @@ const Search = () => {
                               <Post
                                 key={maker.postId}
                                 postId={maker.postId}
-                                likeCount={maker.makerlikeCnt}
                                 imageUrl={maker.imageUrl}
                                 mediaUrl={maker.mediaUrl}
                                 nickname={maker.nickname}
@@ -538,18 +533,18 @@ const Search = () => {
               ) : makerSearchIsLoaded ? (
                 makerSearchList.length !== 0 ? (
                   <SearchDataContainer>
-                    {makerSearchList.map((maker) => {
+                    {makerSearchList.map((maker: any) => {
                       return (
                         <Post
                           key={maker.postId}
                           postId={maker.postId}
-                          likeCount={maker.makerlikeCnt}
                           imageUrl={maker.imageUrl}
                           mediaUrl={maker.mediaUrl}
                           nickname={maker.nickname}
                           collaborate={maker.collaborate}
                           title={maker.title}
                           position={'Maker'}
+                          likeState={false}
                         />
                       );
                     })}
@@ -592,7 +587,7 @@ const Search = () => {
                   memberSearchIsLoaded ? (
                     memberSearchList.length !== 0 ? (
                       <SearchDataContainer>
-                        {memberSearchList.map((member, idx) => {
+                        {memberSearchList.map((member: any, idx: any) => {
                           if (artistIsFollow.indexOf(member.nickname) < 0) {
                             return (
                               <HotArtistBig
@@ -664,7 +659,7 @@ const Search = () => {
               ) : memberSearchIsLoaded ? (
                 memberSearchList.length !== 0 ? (
                   <SearchDataContainer>
-                    {memberSearchList.map((member, idx) => {
+                    {memberSearchList.map((member: any, idx: any) => {
                       return (
                         <HotArtistBig
                           key={idx}
@@ -673,6 +668,7 @@ const Search = () => {
                           follower={member.follower
                             .toString()
                             .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                          isFollow={null}
                         />
                       );
                     })}

@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface StyledProps {
+  img: any;
+}
+
 export const MainContainerDiv = styled.div`
   width: 100%;
   display: flex;
@@ -46,7 +50,7 @@ export const MainImgDivDivDiv = styled.div`
     line-height: ${(props) => props.theme.lineHeight.xxxl};
     font-weight: ${(props) => props.theme.fontWeight.Bold};
   }
-  text-shadow: 2px 2px 2px gray; 
+  text-shadow: 2px 2px 2px gray;
 `;
 
 export const MainImgDivBtmImg = styled.img`
@@ -86,7 +90,7 @@ export const MainImgDivDivBtmDiv = styled.div`
     line-height: ${(props) => props.theme.lineHeight.xxxl};
     font-weight: ${(props) => props.theme.fontWeight.Bold};
   }
-  text-shadow: 2px 2px 2px gray; 
+  text-shadow: 2px 2px 2px gray;
 `;
 
 export const MainImgDivBtmSpanDiv = styled.div`
@@ -108,7 +112,7 @@ export const MainImgDivTopSpan = styled.span`
     line-height: ${(props) => props.theme.lineHeight.xxxl};
     font-weight: ${(props) => props.theme.fontWeight.Medium};
   }
-  text-shadow: 2px 2px 2px gray; 
+  text-shadow: 2px 2px 2px gray;
 `;
 
 export const MainImgDivBtmSpan = styled.span`
@@ -121,7 +125,7 @@ export const MainImgDivBtmSpan = styled.span`
     font-weight: ${(props) => props.theme.fontWeight.Medium};
   }
   color: rgba(255, 255, 255, 1);
-  text-shadow: 2px 2px 2px gray; 
+  text-shadow: 2px 2px 2px gray;
 `;
 
 export const MainImgDivBtnDiv = styled.div`
@@ -132,7 +136,7 @@ export const MainImgDivBtnDiv = styled.div`
     cursor: pointer;
   }
 `;
-export const MainImgDivImg = styled.div`
+export const MainImgDivImg: any = styled.div<StyledProps>`
   width: 100%;
   height: 472px;
   opacity: 0.5;
@@ -279,7 +283,6 @@ export const DisMainPostImgDivMakeDiv = styled.div`
   flex-direction: row;
   margin-left: 33px;
   gap: 40px;
-
 `;
 
 export const DisMainPostImgDivMake = styled.span`

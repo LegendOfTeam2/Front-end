@@ -9,7 +9,7 @@ import useMemberStore from '../zustand/member';
 import { useNavigate } from 'react-router-dom';
 import { GrClose } from 'react-icons/gr';
 import shortid from 'shortid';
-import jwt_decode from 'jwt-decode';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -53,9 +53,9 @@ const MyInfoModify = () => {
   const getProfileInfo = useMyPageStore((state) => state.getProfileInfo);
 
   const [nickname, setNickname] = useState('');
-  const [nicknameCheck, setNicknameCheck] = useState('');
+  const [nicknameCheck, setNicknameCheck]: any = useState('');
   const [view, setView] = useState({ nickname: false, intro: false });
-  const [tags, setTags] = useState([]);
+  const [tags, setTags]: any = useState([]);
   const [intro, setIntro] = useState('');
   const [image, setImage] = useState('');
   const [imageSrc, setImageSrc] = useState('');
@@ -70,7 +70,7 @@ const MyInfoModify = () => {
   };
 
   const deleteText = useCallback(
-    (state) => {
+    (state: any) => {
       switch (state) {
         case 'nickname': {
           setNickname('');
@@ -88,10 +88,10 @@ const MyInfoModify = () => {
   );
 
   const addTag = useCallback(
-    (event) => {
+    (event: any) => {
       if (event.key === 'Enter') {
         if (event.target.value.length > 0) {
-          if (tags.findIndex((tag) => tag === event.target.value) === -1) {
+          if (tags.findIndex((tag: any) => tag === event.target.value) === -1) {
             setTags([...tags, event.target.value]);
             event.target.value = '';
           } else {
@@ -103,7 +103,7 @@ const MyInfoModify = () => {
       if (event.keyCode === 9) {
         event.preventDefault();
         if (event.target.value.length > 0) {
-          if (tags.findIndex((tag) => tag === event.target.value) === -1) {
+          if (tags.findIndex((tag: any) => tag === event.target.value) === -1) {
             setTags([...tags, event.target.value]);
             event.target.value = '';
           } else {
@@ -116,8 +116,8 @@ const MyInfoModify = () => {
   );
 
   const removeTag = useCallback(
-    (removedTag) => {
-      const newTags = tags.filter((tag) => tag !== removedTag);
+    (removedTag: any) => {
+      const newTags = tags.filter((tag: any) => tag !== removedTag);
       setTags(newTags);
     },
     [tags]
@@ -130,7 +130,7 @@ const MyInfoModify = () => {
       if (nicknameCheck === false) {
         warning('중복되는 닉네임입니다.');
       } else {
-        putProfile(newProfile).then((res) => {
+        putProfile(newProfile).then((res: any) => {
           if (res.success) {
             navigate(`/mypage/${res.data.nickname}`);
           }
@@ -140,8 +140,8 @@ const MyInfoModify = () => {
   };
 
   useEffect(() => {
-    const nickname = jwt_decode(getCookie('authorization')).sub;
-    getProfileInfo(nickname).then((res) => {
+    const nickname = jwt_decode<JwtPayload>(getCookie('authorization')).sub;
+    getProfileInfo(nickname).then((res: any) => {
       setNickname(res.nickname);
       setTags(res.hashtag);
       if (res.introduce !== null) setIntro(res.introduce);
@@ -189,11 +189,11 @@ const MyInfoModify = () => {
   }, [nickname, intro]);
 
   useEffect(() => {
-    if (jwt_decode(getCookie('authorization')).sub === nickname) {
+    if (jwt_decode<JwtPayload>(getCookie('authorization')).sub === nickname) {
       setNicknameCheck(true);
     } else {
       if (nickname !== '') {
-        nicknameDupCheck({ nickname }).then((res) => {
+        nicknameDupCheck({ nickname }).then((res: any) => {
           if (res) {
             setNicknameCheck(true);
           } else {
@@ -247,7 +247,7 @@ const MyInfoModify = () => {
                 <Input
                   _type={'text'}
                   _value={nickname}
-                  _onChange={(e) => setNickname(e.target.value)}
+                  _onChange={(e: any) => setNickname(e.target.value)}
                   _placeholder={'닉네임을 입력해 주세요.'}
                   _style={{
                     width: '100%',
@@ -260,6 +260,12 @@ const MyInfoModify = () => {
                     line_height: '29',
                     bg_color: 'transparent',
                   }}
+                  _ref={null}
+                  _onKeyUp={null}
+                  _onKeyDown={null}
+                  _minLength={null}
+                  _maxLength={null}
+                  _autoComplete={null}
                 />
               </ModifyInputDataBox>
             </ModifyInputBox>
@@ -277,7 +283,7 @@ const MyInfoModify = () => {
                   <Fragment />
                 ) : (
                   <ModifyHashTagBox>
-                    {tags.map((tag) => {
+                    {tags.map((tag: any) => {
                       return (
                         <HashTagWithIcon
                           key={shortid.generate()}
@@ -305,7 +311,7 @@ const MyInfoModify = () => {
                 <Input
                   _type={'text'}
                   _value={intro}
-                  _onChange={(e) => setIntro(e.target.value)}
+                  _onChange={(e: any) => setIntro(e.target.value)}
                   _placeholder={'자신을 소개하는 글을 작성해 주세요.'}
                   _style={{
                     width: '100%',
@@ -318,6 +324,12 @@ const MyInfoModify = () => {
                     line_height: '29',
                     bg_color: 'transparent',
                   }}
+                  _ref={null}
+                  _onKeyUp={null}
+                  _onKeyDown={null}
+                  _minLength={null}
+                  _maxLength={null}
+                  _autoComplete={null}
                 />
               </ModifyInputDataBox>
             </ModifyInputBox>

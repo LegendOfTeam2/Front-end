@@ -4,7 +4,11 @@ import create from 'zustand';
 // Utils
 import { followApi } from '../utils/apis/follow';
 
-const useFollowStore = create((set) => ({
+interface FollowState {
+  follow: (payload: any) => any;
+}
+
+const useFollowStore = create<FollowState>((set) => ({
   follow: async (payload) => {
     const resData = await followApi(payload)
       .then((res) => res)

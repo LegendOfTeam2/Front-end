@@ -10,7 +10,21 @@ import {
 } from '../utils/apis/mypage';
 import createToken from '../utils/token';
 
-const useMyPageStore = create((set) => ({
+interface MyPageState {
+  profileInfoIsLoaded: any;
+  profileInfo: any;
+  uploadPostIsLoaded: any;
+  uploadPost: any;
+  likePostIsLoaded: any;
+  likePost: any;
+  mainPost: any;
+  getProfileInfo: (payload: any) => any;
+  getUploadPost: (payload: any) => any;
+  getLikePost: (payload: any) => any;
+  putProfile: (payload: any) => any;
+}
+
+const useMyPageStore = create<MyPageState>((set) => ({
   profileInfoIsLoaded: false,
   profileInfo: [],
   uploadPostIsLoaded: false,

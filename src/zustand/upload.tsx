@@ -4,16 +4,21 @@ import create from 'zustand';
 // Utils
 import { uploadImageApi, uploadAudioApi } from '../utils/apis/upload';
 
-const useUploadStore = create((set) => ({
+interface UploadState {
+  uploadImage : (payload : any) => any
+  uploadAudio : (payload : any) => any
+}
+
+const useUploadStore = create<UploadState>((set) => ({
   uploadImage: async (payload) => {
-    const resData = await uploadImageApi(payload)
+    const resData : any = await uploadImageApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
 
     return resData.data;
   },
   uploadAudio: async (payload) => {
-    const resData = await uploadAudioApi(payload)
+    const resData : any = await uploadAudioApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
     return resData.data;

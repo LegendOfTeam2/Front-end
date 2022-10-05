@@ -16,7 +16,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import jwt_decode from 'jwt-decode';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -132,8 +132,8 @@ const MyPage = () => {
   const [category, setCategory] = useState('upload');
   const [noticeOpen, setNoticeOpen] = useState(false);
   const [isFollow, setIsFollow] = useState(false);
-  const [isSingerMarker, setSingerMarker] = useState();
-  const [isMakerMarker, setMakerMarker] = useState();
+  const [isSingerMarker, setSingerMarker]: any = useState();
+  const [isMakerMarker, setMakerMarker]: any = useState();
 
   const { nickname } = useParams();
   const navigate = useNavigate();
@@ -152,7 +152,7 @@ const MyPage = () => {
     setNoticeOpen(false);
   };
 
-  const onHandleCategory = (state) => {
+  const onHandleCategory = (state: any) => {
     switch (state) {
       case 'upload': {
         setCategory('upload');
@@ -173,8 +173,8 @@ const MyPage = () => {
 
   const onHandleChat = () => {
     if (getCookie('authorization') !== undefined) {
-      const sender = jwt_decode(getCookie('authorization')).sub;
-      makeRoom({ sender, receiver: nickname }).then((res) => {
+      const sender = jwt_decode<JwtPayload>(getCookie('authorization')).sub;
+      makeRoom({ sender, receiver: nickname }).then((res: any) => {
         if (res?.success) {
           navigate('/chat');
         } else {
@@ -188,7 +188,7 @@ const MyPage = () => {
 
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
-      follow(nickname).then((res) => {
+      follow(nickname).then((res: any) => {
         if (res.success) {
           if (res.data) {
             setIsFollow(true);
@@ -206,9 +206,9 @@ const MyPage = () => {
 
   useEffect(() => {
     playListModalHandle(false);
-    getFollowerList().then((res) => {
+    getFollowerList().then((res: any) => {
       if (res.success) {
-        const tempFollowerArr = res.data.map((element) => {
+        const tempFollowerArr = res.data.map((element: any) => {
           return element.nickname;
         });
         if (tempFollowerArr.indexOf(nickname) !== -1) setIsFollow(true);
@@ -220,9 +220,9 @@ const MyPage = () => {
   useEffect(() => {
     if (category === 'upload') {
       if (getCookie('authorization') !== undefined) {
-        getSingerLikePost().then((res) => {
+        getSingerLikePost().then((res: any) => {
           if (res.success) {
-            getMakerLikePost().then((res) => {
+            getMakerLikePost().then((res: any) => {
               if (res.success) {
                 getUploadPost(nickname);
               }
@@ -372,7 +372,7 @@ const MyPage = () => {
                     )}
                   </MyBadgeContainer>
                   {getCookie('authorization') !== undefined ? (
-                    jwt_decode(getCookie('authorization')).sub !==
+                    jwt_decode<JwtPayload>(getCookie('authorization')).sub !==
                     profileInfo.nickname ? (
                       <MyRightTopButDiv>
                         {artistIsFollowIsLoaded ? (
@@ -389,6 +389,8 @@ const MyPage = () => {
                               }}
                               _text={'팔로잉'}
                               _onClick={onHandleFollow}
+                              _type={null}
+                              _ref={null}
                             />
                           ) : (
                             <Button
@@ -405,6 +407,8 @@ const MyPage = () => {
                               }}
                               _text={'팔로우'}
                               _onClick={onHandleFollow}
+                              _type={null}
+                              _ref={null}
                             />
                           )
                         ) : (
@@ -423,6 +427,8 @@ const MyPage = () => {
                           }}
                           _text={'메시지 보내기'}
                           _onClick={onHandleChat}
+                          _type={null}
+                          _ref={null}
                         />
                       </MyRightTopButDiv>
                     ) : (
@@ -440,6 +446,8 @@ const MyPage = () => {
                             }}
                             _text={'프로필 수정'}
                             _onClick={onHandleModify}
+                            _type={null}
+                            _ref={null}
                           />
                         </MyRightTopButDivNotMember>
                       </MyRightTopButDiv>
@@ -460,6 +468,8 @@ const MyPage = () => {
                         }}
                         _text={'팔로우'}
                         _onClick={onHandleFollow}
+                        _type={null}
+                        _ref={null}
                       />
                       <Button
                         _style={{
@@ -474,6 +484,8 @@ const MyPage = () => {
                         }}
                         _text={'메시지 보내기'}
                         _onClick={onHandleChat}
+                        _type={null}
+                        _ref={null}
                       />
                     </MyRightTopButDiv>
                   )}
@@ -485,7 +497,7 @@ const MyPage = () => {
                         profileInfo.hashtag === [] ? (
                           <Fragment></Fragment>
                         ) : (
-                          profileInfo.hashtag.map((x, idx) => {
+                          profileInfo.hashtag.map((x: any, idx: any) => {
                             return (
                               <MyTagBoxTextSlideDiv key={idx}>
                                 <MyTagBoxTextSpanSlide>
@@ -525,7 +537,7 @@ const MyPage = () => {
               {getCookie('authorization') !== undefined ? (
                 singerIsLikeIsLoaded ? (
                   uploadPostIsLoaded ? (
-                    mainPost.map((x, idx) => {
+                    mainPost.map((x: any, idx: any) => {
                       if (idx < 4) {
                         if (
                           [...singerIsLike, ...makerIsLike].indexOf(x.postId) >
@@ -535,7 +547,6 @@ const MyPage = () => {
                             <Post
                               key={x.postId}
                               imageUrl={x.imageUrl}
-                              likes={x.likeCount}
                               nickname={x.nickname}
                               title={x.title}
                               collaborate={x.collaborate}
@@ -550,7 +561,6 @@ const MyPage = () => {
                             <Post
                               key={x.postId}
                               imageUrl={x.imageUrl}
-                              likes={x.likeCount}
                               nickname={x.nickname}
                               title={x.title}
                               collaborate={x.collaborate}
@@ -570,13 +580,12 @@ const MyPage = () => {
                   <Fragment />
                 )
               ) : uploadPostIsLoaded ? (
-                mainPost.map((x, idx) => {
+                mainPost.map((x: any, idx: any) => {
                   if (idx < 4) {
                     return (
                       <Post
                         key={x.postId}
                         imageUrl={x.imageUrl}
-                        likes={x.likeCount}
                         nickname={x.nickname}
                         title={x.title}
                         collaborate={x.collaborate}
@@ -628,7 +637,7 @@ const MyPage = () => {
               getCookie('authorization') !== undefined ? (
                 uploadPostIsLoaded ? (
                   <MyBtmImgDiv>
-                    {uploadPost.map((x) => {
+                    {uploadPost.map((x: any) => {
                       if (
                         [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
                       ) {
@@ -636,7 +645,6 @@ const MyPage = () => {
                           <PostBig
                             key={x.postId}
                             imageUrl={x.imageUrl}
-                            likeCount={x.likeCount}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -651,7 +659,6 @@ const MyPage = () => {
                           <PostBig
                             key={x.postId}
                             imageUrl={x.imageUrl}
-                            likeCount={x.likeCount}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -669,17 +676,17 @@ const MyPage = () => {
                 )
               ) : uploadPostIsLoaded ? (
                 <MyBtmImgDiv>
-                  {uploadPost.map((x) => (
+                  {uploadPost.map((x: any) => (
                     <PostBig
                       key={x.postId}
                       imageUrl={x.imageUrl}
-                      likeCount={x.likeCount}
                       nickname={x.nickname}
                       title={x.title}
                       collaborate={x.collaborate}
                       mediaUrl={x.mediaUrl}
                       postId={x.postId}
                       position={x.position}
+                      likeState={false}
                     />
                   ))}
                 </MyBtmImgDiv>
@@ -689,7 +696,7 @@ const MyPage = () => {
             ) : getCookie('authorization') !== undefined ? (
               likePostIsLoaded ? (
                 <MyBtmImgDiv>
-                  {likePost.map((x) => {
+                  {likePost.map((x: any) => {
                     if (
                       [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
                     ) {
@@ -697,7 +704,6 @@ const MyPage = () => {
                         <PostBig
                           key={x.postId}
                           imageUrl={x.imageUrl}
-                          likeCount={x.likeCount}
                           nickname={x.nickname}
                           title={x.title}
                           collaborate={x.collaborate}
@@ -712,7 +718,6 @@ const MyPage = () => {
                         <PostBig
                           key={x.postId}
                           imageUrl={x.imageUrl}
-                          likeCount={x.likeCount}
                           nickname={x.nickname}
                           title={x.title}
                           collaborate={x.collaborate}
@@ -730,17 +735,17 @@ const MyPage = () => {
               )
             ) : likePostIsLoaded ? (
               <MyBtmImgDiv>
-                {likePost.map((x) => (
+                {likePost.map((x: any) => (
                   <PostBig
                     key={x.postId}
                     imageUrl={x.imageUrl}
-                    likeCount={x.likeCount}
                     nickname={x.nickname}
                     title={x.title}
                     collaborate={x.collaborate}
                     mediaUrl={x.mediaUrl}
                     postId={x.postId}
                     position={x.position}
+                    likeState={false}
                   />
                 ))}
               </MyBtmImgDiv>

@@ -110,7 +110,7 @@ const SignIn = () => {
   }, [email, password]);
 
   const deleteText = useCallback(
-    (state) => {
+    (state: any) => {
       switch (state) {
         case 'email': {
           setEmail('');
@@ -128,20 +128,20 @@ const SignIn = () => {
   );
 
   const signInAccount = useCallback(
-    async (e) => {
+    async (e: any) => {
       e.preventDefault();
       if (email === '') {
         warning('계정을 입력해주세요.');
       } else if (emailRegExp.test(email) === false) {
         warning('이메일 형식에 맞지 않습니다.');
       } else {
-        signInMember({ email, password }).then((res) => {
+        signInMember({ email, password }).then((res: any) => {
           if (res) {
-            getPlayList().then((res) => {
+            getPlayList().then((res: any) => {
               if (res.success) {
                 if (res.data.length > 0) {
                   const firstSong = [...res.data].sort(
-                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                    (a, b) => b.createdAt - a.createdAt
                   )[0];
                   setCurrentSongMember(firstSong);
                   setPlaying(false);
@@ -200,7 +200,7 @@ const SignIn = () => {
                         _type={'text'}
                         _placeholder={'아이디를 입력해 주세요'}
                         _value={email}
-                        _onChange={(event) => setEmail(event.target.value)}
+                        _onChange={(event: any) => setEmail(event.target.value)}
                         _autoComplete={'username'}
                         _style={{
                           height: 'auto',
@@ -213,13 +213,18 @@ const SignIn = () => {
                           bd_px: '1px',
                           bd_color: '#d9d9d9',
                         }}
+                        _ref={null}
+                        _onKeyUp={null}
+                        _onKeyDown={null}
+                        _minLength={null}
+                        _maxLength={null}
                       />
                     ) : (
                       <Input
                         _type={'text'}
                         _placeholder={'아이디를 입력해 주세요'}
                         _value={email}
-                        _onChange={(event) => setEmail(event.target.value)}
+                        _onChange={(event: any) => setEmail(event.target.value)}
                         _autoComplete={'username'}
                         _style={{
                           height: 'auto',
@@ -232,6 +237,11 @@ const SignIn = () => {
                           bd_px: '1px',
                           bd_color: '#d9d9d9',
                         }}
+                        _ref={null}
+                        _onKeyUp={null}
+                        _onKeyDown={null}
+                        _minLength={null}
+                        _maxLength={null}
                       />
                     )}
                   </SignInboxInputGroupData>
@@ -253,7 +263,9 @@ const SignIn = () => {
                         _type={'password'}
                         _placeholder={'비밀번호를 입력해 주세요.'}
                         _value={password}
-                        _onChange={(event) => setPassword(event.target.value)}
+                        _onChange={(event: any) =>
+                          setPassword(event.target.value)
+                        }
                         _style={{
                           height: 'auto',
                           ft_size: '14',
@@ -265,13 +277,21 @@ const SignIn = () => {
                           bd_px: '1px',
                           bd_color: '#d9d9d9',
                         }}
+                        _ref={null}
+                        _onKeyUp={null}
+                        _onKeyDown={null}
+                        _minLength={null}
+                        _maxLength={null}
+                        _autoComplete={null}
                       />
                     ) : (
                       <Input
                         _type={'password'}
                         _placeholder={'비밀번호를 입력해 주세요.'}
                         _value={password}
-                        _onChange={(event) => setPassword(event.target.value)}
+                        _onChange={(event: any) =>
+                          setPassword(event.target.value)
+                        }
                         _style={{
                           height: 'auto',
                           ft_size: '14',
@@ -283,6 +303,12 @@ const SignIn = () => {
                           bd_px: '1px',
                           bd_color: '#d9d9d9',
                         }}
+                        _ref={null}
+                        _onKeyUp={null}
+                        _onKeyDown={null}
+                        _minLength={null}
+                        _maxLength={null}
+                        _autoComplete={null}
                       />
                     )}
                   </SignInboxInputGroupData>
@@ -306,6 +332,8 @@ const SignIn = () => {
                         ft_weight: '800',
                         bd_radius: '10px',
                       }}
+                      _onClick={null}
+                      _ref={null}
                     />
                   ) : (
                     <Button
@@ -323,6 +351,8 @@ const SignIn = () => {
                         ft_weight: '800',
                         bd_radius: '10px',
                       }}
+                      _onClick={null}
+                      _ref={null}
                     />
                   )}
                 </SignInBoxButtonBox>
@@ -341,6 +371,15 @@ const SignIn = () => {
                         bd_radius: '3px',
                         bd_color: '#d9d9d9',
                       }}
+                      _value={null}
+                      _ref={null}
+                      _onChange={null}
+                      _onKeyUp={null}
+                      _onKeyDown={null}
+                      _minLength={null}
+                      _maxLength={null}
+                      _placeholder={null}
+                      _autoComplete={null}
                     />
                   ) : (
                     <Input
@@ -352,6 +391,15 @@ const SignIn = () => {
                         bd_radius: '3px',
                         bd_color: '#d9d9d9',
                       }}
+                      _value={null}
+                      _ref={null}
+                      _onChange={null}
+                      _onKeyUp={null}
+                      _onKeyDown={null}
+                      _minLength={null}
+                      _maxLength={null}
+                      _placeholder={null}
+                      _autoComplete={null}
                     />
                   )}
                   <SignInBoxDetailAutoSignInText>

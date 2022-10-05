@@ -9,7 +9,24 @@ import {
   getChatMessagesApi,
 } from '../utils/apis/chat';
 
-const useChatStore = create(
+interface FollowState {
+  subscription: any
+  rooms: any
+  chatMessages: any
+  prevChatMessages: any
+  chatRoomInfo: { roomId: any; nickname: any; profileImg: any };
+  prevChatMessagesIsLoaded: any;
+  getRoomsIsLoaded: any;
+  getRooms: any
+  makeRoom: (payload: any) => any;
+  getPrevChatMessages: (payload: any) => any;
+  setChatMessages: (payload: any) => any;
+  setSubscription: (payload: any) => any;
+  unSetSubscription: (payload: any) => any;
+  setChatRoomInfo: (payload: any) => any;
+}
+
+const useChatStore = create<FollowState>()(
   devtools(
     (set) => ({
       subscription: [],
@@ -20,7 +37,7 @@ const useChatStore = create(
       prevChatMessagesIsLoaded: false,
       getRoomsIsLoaded: false,
       makeRoom: async (payload) => {
-        const resData = await makeRoomApi(payload)
+        const resData : any = await makeRoomApi(payload)
           .then((res) => res)
           .catch((err) => console.log(err));
 
@@ -66,7 +83,7 @@ const useChatStore = create(
         });
       },
       unSetSubscription: (payload) => {
-        set((state) => {
+        set(( state ) : any => {
           if (state.subscription.length !== 0) {
             const filterArr = [...state.subscription].filter(
               (info) => info.roomId !== payload

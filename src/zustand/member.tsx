@@ -20,12 +20,29 @@ import {
   albumCover_3,
 } from '../assets/images/image';
 
-const useMemberStore = create((set) => ({
+interface MemberState {
+  is_login: any;
+  myProfileImg: any;
+  myProfileImgIsLoaded: any;
+  profileImgArr: any;
+  random: any;
+  signOutMember: any;
+  changeLoginStatus: (state: any) => any;
+  emailDupCheck: (payload: any) => any;
+  nicknameDupCheck: (payload: any) => any;
+  signUpMember: (payload: any) => any;
+  signInMember: (payload: any) => any;
+  kakaoAuth: (code: any) => any;
+  googleAuth: (code: any) => any;
+  getMyImage: (payload: any) => any;
+}
+
+const useMemberStore = create<MemberState>((set) => ({
   is_login: false,
   myProfileImg: null,
   myProfileImgIsLoaded: false,
   profileImgArr: [albumCover_1, albumCover_2, albumCover_3],
-  random: parseInt(Math.random() * 3),
+  random: parseInt((Math.random() * 3).toString()),
   changeLoginStatus: (state) => {
     set({ is_login: state });
   },

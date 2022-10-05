@@ -114,7 +114,7 @@ const Main = () => {
 
   const navigate = useNavigate();
 
-  const sliderRef = useRef();
+  const sliderRef : any = useRef();
 
   const Btmsettings = {
     className: 'center',
@@ -156,17 +156,17 @@ const Main = () => {
     });
   };
 
-  const gotoProfilPage = (nickname) => {
+  const gotoProfilPage = (nickname: any) => {
     if (bestSongIsLoaded) {
       navigate(`/mypage/${nickname}`); 
     }
   };
 
-  const goToSinger = (category) => {
+  const goToSinger = (category : any) => {
     navigate(`/morepage/singer/${category}`);
   };
 
-  const goToMaker = (category) => {
+  const goToMaker = (category : any) => {
     navigate(`/morepage/maker/${category}`);
   };
 
@@ -179,20 +179,20 @@ const Main = () => {
       getPowerArtist();
       getBestSong();
     } else {
-      getSingerLikePost().then((res) => {
+      getSingerLikePost().then((res : any) => {
         getBestSong();
         if (res.success) {
           getRecentSinger();
           getBestSinger();
         }
       });
-      getMakerLikePost().then((res) => {
+      getMakerLikePost().then((res : any) => {
         if (res.success) {
           getRecentMaker();
           getBestMaker();
         }
       });
-      getFollowerList().then((res) => {
+      getFollowerList().then((res : any) => {
         if (res.success) {
           getPowerArtist();
         }
@@ -207,7 +207,7 @@ const Main = () => {
         <MainContainer>
           {bestSongIsLoaded ? (
             <MainImgDiv>
-              {bestSong.map((x) => (
+              {bestSong.map((x : any) => (
                 <MainImgDivDiv key={x.postId}>
                   <MainImgDivImg
                     img={
@@ -276,7 +276,7 @@ const Main = () => {
                   </BtmProfileTextDiv>
                   <MainHotArtistWrap>
                     {powerArtistLoaded ? (
-                      powerArtist.map((x, idx) => {
+                      powerArtist.map((x : any , idx : any) => {
                         if (artistIsFollow.indexOf(x.nickname) < 0) {
                           return (
                             <HotArtist
@@ -328,7 +328,7 @@ const Main = () => {
                   </MainArowLeft>
                   <Slider {...Btmsettings}>
                     {powerArtistLoaded ? (
-                      powerArtist.map((x, idx) => {
+                      powerArtist.map((x : any, idx : any) => {
                         if (artistIsFollow.indexOf(x.nickname) < 0) {
                           return (
                             <HotArtist
@@ -384,7 +384,7 @@ const Main = () => {
                   <BtmProfileTextNew>요즘 핫한 아티스트</BtmProfileTextNew>
                 </BtmProfileTextDiv>
                 <MainHotArtistWrap>
-                  {powerArtist.map((x, idx) => {
+                  {powerArtist.map((x : any, idx : any) => {
                     if (artistIsFollow.indexOf(x.nickname) < 0) {
                       return (
                         <HotArtist
@@ -426,7 +426,7 @@ const Main = () => {
                   />
                 </MainArowLeft>
                 <Slider {...Btmsettings}>
-                  {powerArtist.map((x, idx) => {
+                  {powerArtist.map((x : any, idx : any) => {
                     if (artistIsFollow.indexOf(x.nickname) < 0) {
                       return (
                         <HotArtist
@@ -485,7 +485,7 @@ const Main = () => {
                         </DisMainPostImgDivMakeDiv>
                       </DisMainPostImgDivDiv>
                       <DisMainPostImgDiv>
-                        {recentSinger.map((x, idx) => {
+                        {recentSinger.map((x : any, idx : any) => {
                           if (
                             [...singerIsLike, ...makerIsLike].indexOf(
                               x.postId
@@ -495,7 +495,6 @@ const Main = () => {
                               <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
-                                likes={x.likes}
                                 nickname={x.nickname}
                                 title={x.title}
                                 collaborate={x.collaborate}
@@ -510,7 +509,6 @@ const Main = () => {
                               <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
-                                likes={x.likes}
                                 nickname={x.nickname}
                                 title={x.title}
                                 collaborate={x.collaborate}
@@ -530,7 +528,6 @@ const Main = () => {
                         name={'싱어 최신작품'}
                         position={'singer'}
                         postList={recentSinger}
-                        GrandTitle='싱어 최신작품'
                         ctg='new'
                       />
                     </Fragment>
@@ -553,13 +550,12 @@ const Main = () => {
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                    {recentSinger.map((x, idx) => {
+                    {recentSinger.map((x : any, idx : any) => {
                       if ([...singerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
-                            likes={x.likes}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -574,7 +570,6 @@ const Main = () => {
                           <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
-                            likes={x.likes}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -594,7 +589,6 @@ const Main = () => {
                     name={'싱어 최신작품'}
                     position={'singer'}
                     postList={recentSinger}
-                    GrandTitle='싱어 최신작품'
                     ctg='new'
                   />
                 </Fragment>
@@ -621,7 +615,7 @@ const Main = () => {
                         </DisMainPostImgDivMakeDiv>
                       </DisMainPostImgDivDiv>
                       <DisMainPostImgDiv>
-                        {bestSinger.map((x, idx) => {
+                        {bestSinger.map((x : any, idx : any) => {
                           if (
                             [...singerIsLike, ...makerIsLike].indexOf(
                               x.postId
@@ -631,7 +625,6 @@ const Main = () => {
                               <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
-                                likes={x.likes}
                                 nickname={x.nickname}
                                 title={x.title}
                                 collaborate={x.collaborate}
@@ -646,7 +639,6 @@ const Main = () => {
                               <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
-                                likes={x.likes}
                                 nickname={x.nickname}
                                 title={x.title}
                                 collaborate={x.collaborate}
@@ -666,7 +658,6 @@ const Main = () => {
                         name={'싱어 인기작품'}
                         position={'singer'}
                         postList={bestSinger}
-                        GrandTitle='싱어 인기작품'
                         ctg='popular'
                       />
                     </Fragment>
@@ -691,13 +682,12 @@ const Main = () => {
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                    {bestSinger.map((x, idx) => {
+                    {bestSinger.map((x : any, idx : any) => {
                       if ([...singerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
-                            likes={x.likes}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -712,7 +702,6 @@ const Main = () => {
                           <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
-                            likes={x.likes}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -732,7 +721,6 @@ const Main = () => {
                     name={'싱어 인기작품'}
                     position={'singer'}
                     postList={bestSinger}
-                    GrandTitle='싱어 인기작품'
                     ctg='popular'
                   />
                 </Fragment>
@@ -759,7 +747,7 @@ const Main = () => {
                         </DisMainPostImgDivMakeDiv>
                       </DisMainPostImgDivDiv>
                       <DisMainPostImgDiv>
-                        {recentMaker.map((x, idx) => {
+                        {recentMaker.map((x : any, idx : any) => {
                           if (
                             [...singerIsLike, ...makerIsLike].indexOf(
                               x.postId
@@ -769,7 +757,6 @@ const Main = () => {
                               <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
-                                likes={x.likes}
                                 nickname={x.nickname}
                                 title={x.title}
                                 collaborate={x.collaborate}
@@ -784,7 +771,6 @@ const Main = () => {
                               <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
-                                likes={x.likes}
                                 nickname={x.nickname}
                                 title={x.title}
                                 collaborate={x.collaborate}
@@ -804,7 +790,6 @@ const Main = () => {
                         name={'메이커 최신작품'}
                         position={'maker'}
                         postList={recentMaker}
-                        GrandTitle='메이커 최신작품'
                         ctg='new'
                       />
                     </Fragment>
@@ -827,13 +812,12 @@ const Main = () => {
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                    {recentMaker.map((x, idx) => {
+                    {recentMaker.map((x : any, idx : any) => {
                       if ([...makerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
-                            likes={x.likes}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -848,7 +832,6 @@ const Main = () => {
                           <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
-                            likes={x.likes}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -868,7 +851,6 @@ const Main = () => {
                     name={'메이커 최신작품'}
                     position={'maker'}
                     postList={recentMaker}
-                    GrandTitle='메이커 최신작품'
                     ctg='new'
                   />
                 </Fragment>
@@ -894,7 +876,7 @@ const Main = () => {
                         </DisMainPostImgDivMakeDiv>
                       </DisMainPostImgDivDiv>
                       <DisMainPostImgDiv>
-                        {bestMaker.map((x, idx) => {
+                        {bestMaker.map((x : any, idx : any) => {
                           if (
                             [...singerIsLike, ...makerIsLike].indexOf(
                               x.postId
@@ -904,7 +886,6 @@ const Main = () => {
                               <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
-                                likes={x.likes}
                                 nickname={x.nickname}
                                 title={x.title}
                                 collaborate={x.collaborate}
@@ -919,7 +900,6 @@ const Main = () => {
                               <PostSmall
                                 key={idx}
                                 imageUrl={x.imageUrl.imageUrl}
-                                likes={x.likes}
                                 nickname={x.nickname}
                                 title={x.title}
                                 collaborate={x.collaborate}
@@ -939,7 +919,6 @@ const Main = () => {
                         name={'메이커 인기작품'}
                         position={'maker'}
                         postList={bestMaker}
-                        GrandTitle='메이커 인기작품'
                         ctg='popular'
                       />
                     </Fragment>
@@ -964,13 +943,12 @@ const Main = () => {
                     </DisMainPostImgDivMakeDiv>
                   </DisMainPostImgDivDiv>
                   <DisMainPostImgDiv>
-                    {bestMaker.map((x, idx) => {
+                    {bestMaker.map((x : any, idx : any) => {
                       if ([...makerIsLike].indexOf(x.postId) !== -1) {
                         return (
                           <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
-                            likes={x.likes}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -985,7 +963,6 @@ const Main = () => {
                           <PostSmall
                             key={idx}
                             imageUrl={x.imageUrl.imageUrl}
-                            likes={x.likes}
                             nickname={x.nickname}
                             title={x.title}
                             collaborate={x.collaborate}
@@ -1005,7 +982,6 @@ const Main = () => {
                     name={'메이커 인기작품'}
                     position={'maker'}
                     postList={bestMaker}
-                    GrandTitle='메이커 인기작품'
                     ctg='popular'
                   />
                 </Fragment>

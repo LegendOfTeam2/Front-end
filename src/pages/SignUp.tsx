@@ -60,7 +60,7 @@ const SignUp = () => {
   const nicknameDupCheck = useMemberStore((state) => state.nicknameDupCheck);
   const signUpMember = useMemberStore((state) => state.signUpMember);
 
-  const [values, setValues] = useState({
+  const [values, setValues]: any = useState({
     email: '',
     password: '',
     passwordCheck: '',
@@ -97,10 +97,10 @@ const SignUp = () => {
   const [isOpen, setOpen] = useState(false);
   const [nicknameModal, setNicknameModal] = useState('');
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const passwordCheckRef = useRef();
-  const nicknameRef = useRef();
+  const emailRef: any = useRef();
+  const passwordRef: any = useRef();
+  const passwordCheckRef: any = useRef();
+  const nicknameRef: any = useRef();
 
   const navigate = useNavigate();
 
@@ -119,10 +119,10 @@ const SignUp = () => {
     imgUrl: values.file,
   };
 
-  const deleteText = (state) => {
+  const deleteText = (state: any) => {
     switch (state) {
       case 'email': {
-        setValues((prev) => {
+        setValues((prev: any) => {
           return { ...prev, email: '' };
         });
         setValidCheck((prev) => {
@@ -134,7 +134,7 @@ const SignUp = () => {
         break;
       }
       case 'password': {
-        setValues((prev) => {
+        setValues((prev: any) => {
           return { ...prev, password: '' };
         });
         setValidCheck((prev) => {
@@ -146,7 +146,7 @@ const SignUp = () => {
         break;
       }
       case 'passwordCheck': {
-        setValues((prev) => {
+        setValues((prev: any) => {
           return { ...prev, passwordCheck: '' };
         });
         setViews((prev) => {
@@ -158,7 +158,7 @@ const SignUp = () => {
         break;
       }
       case 'nickname': {
-        setValues((prev) => {
+        setValues((prev: any) => {
           return { ...prev, nickname: '' };
         });
         setValidCheck((prev) => {
@@ -175,7 +175,7 @@ const SignUp = () => {
   };
 
   const viewPassword = useCallback(
-    (state) => {
+    (state: any) => {
       switch (state) {
         case 'password': {
           if (values.password === '') {
@@ -224,10 +224,11 @@ const SignUp = () => {
         event.preventDefault();
         if (event.target.value.length > 0) {
           if (
-            values.tags.findIndex((tag) => tag === event.target.value) === -1
+            values.tags.findIndex((tag: any) => tag === event.target.value) ===
+            -1
           ) {
             const newTag = event.target.value;
-            setValues((prev) => {
+            setValues((prev: any) => {
               return { ...prev, tags: [...prev.tags, newTag] };
             });
             event.target.value = '';
@@ -241,10 +242,11 @@ const SignUp = () => {
         event.preventDefault();
         if (event.target.value.length > 0) {
           if (
-            values.tags.findIndex((tag) => tag === event.target.value) === -1
+            values.tags.findIndex((tag: any) => tag === event.target.value) ===
+            -1
           ) {
             const newTag = event.target.value;
-            setValues((prev) => {
+            setValues((prev: any) => {
               return { ...prev, tags: [...prev.tags, newTag] };
             });
             event.target.value = '';
@@ -258,9 +260,9 @@ const SignUp = () => {
   );
 
   const removeTag = useCallback(
-    (removedTag) => {
-      const newTags = values.tags.filter((tag) => tag !== removedTag);
-      setValues((prev) => {
+    (removedTag: any) => {
+      const newTags = values.tags.filter((tag: any) => tag !== removedTag);
+      setValues((prev: any) => {
         return { ...prev, tags: newTags };
       });
     },
@@ -277,7 +279,7 @@ const SignUp = () => {
           return { ...prev, email: 'invalid' };
         });
       } else {
-        emailDupCheck({ email }).then((res) => {
+        emailDupCheck({ email }).then((res: any) => {
           if (res) {
             setValidCheck((prev) => {
               return { ...prev, emailDupCheck: true };
@@ -301,7 +303,7 @@ const SignUp = () => {
 
   const checkNickname = useCallback(
     debounce((nickname) => {
-      nicknameDupCheck({ nickname }).then((res) => {
+      nicknameDupCheck({ nickname }).then((res: any) => {
         if (res) {
           setValidCheck((prev) => {
             return { ...prev, nicknameDupCheck: true };
@@ -322,19 +324,19 @@ const SignUp = () => {
     [values.nickname]
   );
 
-  const setFile = (file) => {
-    setValues((prev) => {
+  const setFile = (file: any) => {
+    setValues((prev: any) => {
       return { ...prev, file };
     });
   };
 
-  const setFileSrc = (fileSrc) => {
-    setValues((prev) => {
+  const setFileSrc = (fileSrc: any) => {
+    setValues((prev: any) => {
       return { ...prev, fileSrc };
     });
   };
 
-  const onSubmitHandle = (e) => {
+  const onSubmitHandle = (e: any) => {
     e.preventDefault();
 
     if (!validCheck.emailDupCheck) {
@@ -357,7 +359,7 @@ const SignUp = () => {
               return { ...prev, nickname: 'dupCheckFail' };
             });
           } else {
-            signUpMember(newMember).then((res) => {
+            signUpMember(newMember).then((res: any) => {
               if (res.success) {
                 setNicknameModal(values.nickname);
                 setOpen(true);
@@ -564,8 +566,8 @@ const SignUp = () => {
                       _type={'text'}
                       _placeholder={'아이디를 입력해 주세요.'}
                       _value={values.email}
-                      _onChange={(e) =>
-                        setValues((prev) => {
+                      _onChange={(e: any) =>
+                        setValues((prev: any) => {
                           return { ...prev, email: e.target.value };
                         })
                       }
@@ -583,14 +585,19 @@ const SignUp = () => {
                         bd_color: '#28ca7c',
                         line_height: '20',
                       }}
+                      _onKeyUp={null}
+                      _onKeyDown={null}
+                      _minLength={null}
+                      _maxLength={null}
+                      _autoComplete={null}
                     />
                   ) : (
                     <Input
                       _type={'text'}
                       _placeholder={'아이디를 입력해 주세요.'}
                       _value={values.email}
-                      _onChange={(e) =>
-                        setValues((prev) => {
+                      _onChange={(e: any) =>
+                        setValues((prev: any) => {
                           return { ...prev, email: e.target.value };
                         })
                       }
@@ -608,6 +615,11 @@ const SignUp = () => {
                         bd_color: '#d9d9d9',
                         line_height: '20',
                       }}
+                      _onKeyUp={null}
+                      _onKeyDown={null}
+                      _minLength={null}
+                      _maxLength={null}
+                      _autoComplete={null}
                     />
                   )}
                 </SignUpboxInputGroupData>
@@ -671,8 +683,8 @@ const SignUp = () => {
                         _type={'text'}
                         _placeholder={'비밀번호를 입력해주세요.'}
                         _value={values.password}
-                        _onChange={(e) =>
-                          setValues((prev) => {
+                        _onChange={(e: any) =>
+                          setValues((prev: any) => {
                             return { ...prev, password: e.target.value };
                           })
                         }
@@ -690,14 +702,19 @@ const SignUp = () => {
                           bd_color: '#28ca7c',
                           line_height: '20',
                         }}
+                        _onKeyUp={null}
+                        _onKeyDown={null}
+                        _minLength={null}
+                        _maxLength={null}
+                        _autoComplete={null}
                       />
                     ) : (
                       <Input
                         _type={'text'}
                         _placeholder={'비밀번호를 입력해주세요.'}
                         _value={values.password}
-                        _onChange={(e) =>
-                          setValues((prev) => {
+                        _onChange={(e: any) =>
+                          setValues((prev: any) => {
                             return { ...prev, password: e.target.value };
                           })
                         }
@@ -715,6 +732,11 @@ const SignUp = () => {
                           bd_color: '#d9d9d9',
                           line_height: '20',
                         }}
+                        _onKeyUp={null}
+                        _onKeyDown={null}
+                        _minLength={null}
+                        _maxLength={null}
+                        _autoComplete={null}
                       />
                     )
                   ) : validCheck.passwordValid ? (
@@ -722,8 +744,8 @@ const SignUp = () => {
                       _type={'password'}
                       _placeholder={'비밀번호를 입력해주세요.'}
                       _value={values.password}
-                      _onChange={(e) =>
-                        setValues((prev) => {
+                      _onChange={(e: any) =>
+                        setValues((prev: any) => {
                           return { ...prev, password: e.target.value };
                         })
                       }
@@ -741,14 +763,19 @@ const SignUp = () => {
                         bd_color: '#28ca7c',
                         line_height: '20',
                       }}
+                      _onKeyUp={null}
+                      _onKeyDown={null}
+                      _minLength={null}
+                      _maxLength={null}
+                      _autoComplete={null}
                     />
                   ) : (
                     <Input
                       _type={'password'}
                       _placeholder={'비밀번호를 입력해주세요.'}
                       _value={values.password}
-                      _onChange={(e) =>
-                        setValues((prev) => {
+                      _onChange={(e: any) =>
+                        setValues((prev: any) => {
                           return { ...prev, password: e.target.value };
                         })
                       }
@@ -766,6 +793,11 @@ const SignUp = () => {
                         bd_color: '#d9d9d9',
                         line_height: '20',
                       }}
+                      _onKeyUp={null}
+                      _onKeyDown={null}
+                      _minLength={null}
+                      _maxLength={null}
+                      _autoComplete={null}
                     />
                   )}
                 </SignUpboxInputGroupData>
@@ -851,8 +883,8 @@ const SignUp = () => {
                         _type={'text'}
                         _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
                         _value={values.passwordCheck}
-                        _onChange={(e) =>
-                          setValues((prev) => {
+                        _onChange={(e: any) =>
+                          setValues((prev: any) => {
                             return { ...prev, passwordCheck: e.target.value };
                           })
                         }
@@ -870,14 +902,19 @@ const SignUp = () => {
                           bd_color: '#28ca7c',
                           line_height: '20',
                         }}
+                        _onKeyUp={null}
+                        _onKeyDown={null}
+                        _minLength={null}
+                        _maxLength={null}
+                        _autoComplete={null}
                       />
                     ) : (
                       <Input
                         _type={'text'}
                         _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
                         _value={values.passwordCheck}
-                        _onChange={(e) =>
-                          setValues((prev) => {
+                        _onChange={(e: any) =>
+                          setValues((prev: any) => {
                             return { ...prev, passwordCheck: e.target.value };
                           })
                         }
@@ -895,6 +932,11 @@ const SignUp = () => {
                           bd_color: '#d9d9d9',
                           line_height: '20',
                         }}
+                        _onKeyUp={null}
+                        _onKeyDown={null}
+                        _minLength={null}
+                        _maxLength={null}
+                        _autoComplete={null}
                       />
                     )
                   ) : errors.passwordCheck === 'success' ? (
@@ -902,8 +944,8 @@ const SignUp = () => {
                       _type={'password'}
                       _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
                       _value={values.passwordCheck}
-                      _onChange={(e) =>
-                        setValues((prev) => {
+                      _onChange={(e: any) =>
+                        setValues((prev: any) => {
                           return { ...prev, passwordCheck: e.target.value };
                         })
                       }
@@ -921,14 +963,19 @@ const SignUp = () => {
                         bd_color: '#28ca7c',
                         line_height: '20',
                       }}
+                      _onKeyUp={null}
+                      _onKeyDown={null}
+                      _minLength={null}
+                      _maxLength={null}
+                      _autoComplete={null}
                     />
                   ) : (
                     <Input
                       _type={'password'}
                       _placeholder={'비밀번호를 한번 더 입력해 주세요.'}
                       _value={values.passwordCheck}
-                      _onChange={(e) =>
-                        setValues((prev) => {
+                      _onChange={(e: any) =>
+                        setValues((prev: any) => {
                           return { ...prev, passwordCheck: e.target.value };
                         })
                       }
@@ -946,6 +993,11 @@ const SignUp = () => {
                         bd_color: '#d9d9d9',
                         line_height: '20',
                       }}
+                      _onKeyUp={null}
+                      _onKeyDown={null}
+                      _minLength={null}
+                      _maxLength={null}
+                      _autoComplete={null}
                     />
                   )}
                 </SignUpboxInputGroupData>
@@ -984,8 +1036,8 @@ const SignUp = () => {
                       _type={'text'}
                       _placeholder={'닉네임을 입력해 주세요. (15자리 이내)'}
                       _value={values.nickname}
-                      _onChange={(e) =>
-                        setValues((prev) => {
+                      _onChange={(e: any) =>
+                        setValues((prev: any) => {
                           return { ...prev, nickname: e.target.value };
                         })
                       }
@@ -1004,14 +1056,18 @@ const SignUp = () => {
                         bd_color: '#28ca7c',
                         line_height: '20',
                       }}
+                      _onKeyUp={null}
+                      _onKeyDown={null}
+                      _minLength={null}
+                      _autoComplete={null}
                     />
                   ) : (
                     <Input
                       _type={'text'}
                       _placeholder={'닉네임을 입력해 주세요. (15자리 이내)'}
                       _value={values.nickname}
-                      _onChange={(e) =>
-                        setValues((prev) => {
+                      _onChange={(e: any) =>
+                        setValues((prev: any) => {
                           return { ...prev, nickname: e.target.value };
                         })
                       }
@@ -1030,6 +1086,10 @@ const SignUp = () => {
                         bd_color: '#d9d9d9',
                         line_height: '20',
                       }}
+                      _onKeyUp={null}
+                      _onKeyDown={null}
+                      _minLength={null}
+                      _autoComplete={null}
                     />
                   )}
                 </SignUpboxInputGroupData>
@@ -1082,6 +1142,7 @@ const SignUp = () => {
                 setFile={setFile}
                 setFileSrc={setFileSrc}
                 text={'이미지 삽입하기'}
+                height={null}
               />
               <SignUpBoxImagePreviewBox>
                 {values.fileSrc === '' ? (
@@ -1109,6 +1170,8 @@ const SignUp = () => {
                   line_height: '28',
                   bg_color: '#28CA7C',
                 }}
+                _onClick={null}
+                _ref={null}
               />
             </SignUpButtonContainer>
           </SignUpForm>
