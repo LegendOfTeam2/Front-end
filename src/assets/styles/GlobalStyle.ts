@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle : any = createGlobalStyle`
   ${reset};
   * {
     font-family: 'Noto Sans KR', sans-serif;
@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;
     height: 100vh;
     font-size: 16px;
-    @media ${(props) => props.theme.device.desktopL} {
+    @media ${(props: any) => props.theme.device.desktopL} {
       font-size: 14px;
     }
     overflow-x: hidden;

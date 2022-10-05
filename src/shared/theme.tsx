@@ -1,6 +1,6 @@
-const calcRem = (size) => `${size / 16}rem`;
+const calcRem : any = (size : any) => `${size / 16}rem`;
 
-const fontSizes = {
+const fontSizes : any = {
   xs: calcRem(12),
   sm: calcRem(14),
   base: calcRem(16),
@@ -12,7 +12,7 @@ const fontSizes = {
   titleSize: calcRem(30),
 };
 
-const lineHeight = {
+const lineHeight : any = {
   xxs: "18px",
   xs:"20px",
   sm: "22px",
@@ -24,28 +24,28 @@ const lineHeight = {
   xxxxl: "40px",
 };
 
-const fontWeight = {
+const fontWeight : any = {
   Regular: 400,
   Medium: 600,
   Bold: 800,
 };
 
-const interval = {
+const interval : any = {
   base: calcRem(50),
   lg: calcRem(100),
   xl: calcRem(150),
   xxl: calcRem(200),
 };
 
-const verticalInterval = {
+const verticalInterval : any = {
   base: `${calcRem(10)} 0 ${calcRem(10)} 0`,
 };
 
-const deviceSizes = {
+const deviceSizes : any = {
   desktopL: "1920px",
 };
 
-const colors = {
+const colors : any = {
   black: "#000000",
   white: "#FFFFFF",
   gray_1: "#222222",
@@ -53,11 +53,11 @@ const colors = {
   green_1: "#3cb46e",
 };
 
-const device = {
+const device : any = {
   desktopL: `only screen and (max-width: ${deviceSizes.desktopL})`,
 };
 
-const theme = {
+const theme : any = {
   fontSizes,
   lineHeight,
   colors,
