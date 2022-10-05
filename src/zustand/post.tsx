@@ -34,13 +34,13 @@ interface PostState {
   detailListLoaded: any;
   detailList: any;
   addPost: (payload: any) => any;
-  getFollowerList: (payload: any) => any;
-  getBestSong: (payload: any) => any;
-  getRecentMaker: (payload: any) => any;
-  getRecentSinger: (payload: any) => any;
-  getBestMaker: (payload: any) => any;
-  getPowerArtist: (payload: any) => any;
-  getBestSinger: (payload: any) => any;
+  getFollowerList: any;
+  getBestSong: any;
+  getRecentMaker: any;
+  getRecentSinger: any;
+  getBestMaker: any;
+  getPowerArtist: any;
+  getBestSinger: any;
   getDetail: (payload: any) => any;
   putModifyWrite: (payload: any) => any;
   deleteDetail: (payload: any) => any;
@@ -79,13 +79,13 @@ const usePostStore = create<PostState>((set) => ({
     return resData.data;
   },
   getFollowerList: async () => {
-    const resData : any = await getFollowerListApi()
+    const resData: any = await getFollowerListApi()
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
       set({ artistIsFollowIsLoaded: true });
       set((state) => {
-        const followerIdList = resData.data.data.map((element : any) => {
+        const followerIdList = resData.data.data.map((element: any) => {
           return element.nickname;
         });
         return { artistIsFollow: followerIdList };
@@ -93,8 +93,8 @@ const usePostStore = create<PostState>((set) => ({
       return resData.data;
     }
   },
-  getBestSong: async (payload) => {
-    const resData = await getBestSongApi(payload)
+  getBestSong: async () => {
+    const resData = await getBestSongApi()
       .then((res) => res)
       .catch((err) => console.log(err));
 
@@ -103,8 +103,8 @@ const usePostStore = create<PostState>((set) => ({
       set({ bestSongIsLoaded: true });
     }
   },
-  getRecentMaker: async (payload) => {
-    const resData = await getRecentMakerApi(payload)
+  getRecentMaker: async () => {
+    const resData = await getRecentMakerApi()
       .then((res) => res)
       .catch((err) => console.log(err));
 
@@ -113,8 +113,8 @@ const usePostStore = create<PostState>((set) => ({
       set({ recentMakerIsLoaded: true });
     }
   },
-  getRecentSinger: async (payload) => {
-    const resData = await getRecentSingerApi(payload)
+  getRecentSinger: async () => {
+    const resData = await getRecentSingerApi()
       .then((res) => res)
       .catch((err) => console.log(err));
 
@@ -123,8 +123,8 @@ const usePostStore = create<PostState>((set) => ({
       set({ recentSingerIsLoaded: true });
     }
   },
-  getBestMaker: async (payload) => {
-    const resData = await getBestMakerApi(payload)
+  getBestMaker: async () => {
+    const resData = await getBestMakerApi()
       .then((res) => res)
       .catch((err) => console.log(err));
 
@@ -133,8 +133,8 @@ const usePostStore = create<PostState>((set) => ({
       set({ bestMakerIsLoaded: true });
     }
   },
-  getBestSinger: async (payload) => {
-    const resData = await getBestSingerApi(payload)
+  getBestSinger: async () => {
+    const resData = await getBestSingerApi()
       .then((res) => res)
       .catch((err) => console.log(err));
 
@@ -143,8 +143,8 @@ const usePostStore = create<PostState>((set) => ({
       set({ bestSingerIsLoaded: true });
     }
   },
-  getPowerArtist: async (payload) => {
-    const resData = await getPowerArtistApi(payload)
+  getPowerArtist: async () => {
+    const resData = await getPowerArtistApi()
       .then((res) => res)
       .catch((err) => console.log(err));
 
@@ -166,13 +166,13 @@ const usePostStore = create<PostState>((set) => ({
     }
   },
   putModifyWrite: async (payload) => {
-    const resData : any = await putModifyWriteApi(payload)
+    const resData: any = await putModifyWriteApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
     return resData.data;
   },
   deleteDetail: async (payload) => {
-    const resData : any = await deleteDetailApi(payload.postId, payload.position)
+    const resData: any = await deleteDetailApi(payload.postId, payload.position)
       .then((res) => res)
       .catch((err) => console.log(err));
     return resData.data.success;

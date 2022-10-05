@@ -68,7 +68,7 @@ function PlayListModal({ ModalList }: PlayListModalProps) {
   const location = useLocation().pathname.split('/')[2];
 
   const playListClose = () => {
-    playListModalHandle();
+    playListModalHandle(false);
   };
 
   const customStyles: any = {

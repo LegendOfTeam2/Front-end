@@ -4,7 +4,6 @@ interface StyledProps {
   width: any;
   height: any;
   ft_size: any;
-  ft_weight: any;
   bg_color: any;
   color: any;
   mg_top: any;
