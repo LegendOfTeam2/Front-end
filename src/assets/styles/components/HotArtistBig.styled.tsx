@@ -18,7 +18,7 @@ export const BtmProfileDivDivDiv : any = styled.div`
   margin-top: 15px;
   margin-bottom: 6px;
 `;
-export const MainProfileimg : any = styled.img`
+export const MainProfileimg = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -27,29 +27,29 @@ export const MainProfileimg : any = styled.img`
     cursor: pointer;
   }
 `;
-export const BtmTextDivDivDiv : any = styled.div`
+export const BtmTextDivDivDiv = styled.div`
   width: auto;
   margin-left: auto;
   margin-right: auto;
 `;
-export const BtmTextDivSpan : any = styled.span`
+export const BtmTextDivSpan = styled.span`
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.lg};
 `;
-export const BtmTextDivDivSmDiv : any = styled.div`
+export const BtmTextDivDivSmDiv = styled.div`
   width: auto;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 5px;
 `;
-export const BtmTextDivSmSpan : any = styled.span`
+export const BtmTextDivSmSpan= styled.span`
   line-height: ${(props) => props.theme.lineHeight.xxs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.xs};
   color: rgba(204, 204, 204, 1);
 `;
-export const BtmBunDiv : any = styled.div`
+export const BtmBunDiv= styled.div`
   width: auto;
   margin-left: auto;
   margin-right: auto;
