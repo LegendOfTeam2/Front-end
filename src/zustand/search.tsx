@@ -37,17 +37,17 @@ const useSearchStore = create<SearchState>((set) => ({
 
     if (resData?.data.success) {
       if (position === 'Singer') {
-        if (resData.data.data !== []) {
+        if (resData.data.data.length !== 0) {
           set({ singerSearchIsLoaded: resData.data.success });
           set({ singerSearchList: resData.data.data });
         }
       } else if (position === 'Maker') {
-        if (resData.data.data !== []) {
+        if (resData.data.data.length !== 0) {
           set({ makerSearchIsLoaded: resData.data.success });
           set({ makerSearchList: resData.data.data });
         }
       } else {
-        if (resData.data.data !== []) {
+        if (resData.data.data.length !== 0) {
           set({ memberSearchIsLoaded: resData.data.success });
           set({ memberSearchList: resData.data.data });
         }

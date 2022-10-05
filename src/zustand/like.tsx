@@ -39,7 +39,7 @@ const useLikeStore = create<LikeState>((set) => ({
     if (resData?.data.success) {
       set({singerIsLikeIsLoaded: true});
       set((state) : any => {
-        if (resData.data.data !== []) {
+        if (resData.data.data.length !== 0) {
           const likeList = resData.data.data.map((post : any) => {
             return post.postId;
           });
@@ -57,7 +57,7 @@ const useLikeStore = create<LikeState>((set) => ({
     if (resData?.data.success) {
       set({makerIsLikeIsLoaded: true});
       set((state) : any => {
-        if (resData.data.data !== []) {
+        if (resData.data.data.length !== 0) {
           const likeList = resData.data.data.map((post : any) => {
             return post.postId;
           });

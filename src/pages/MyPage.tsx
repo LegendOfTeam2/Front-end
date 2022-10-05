@@ -494,7 +494,7 @@ const MyPage = () => {
                   <MyTagBoxTextSlide>
                     <Slider {...settings}>
                       {profileInfoIsLoaded ? (
-                        profileInfo.hashtag === [] ? (
+                        profileInfo.hashtag.length === 0 ? (
                           <Fragment></Fragment>
                         ) : (
                           profileInfo.hashtag.map((x: any, idx: any) => {

@@ -349,7 +349,7 @@ const Detail = () => {
               <DetailHashtagContainer>
                 <Slider {...settings}>
                   {detailListLoaded ? (
-                    detailList.tags === [] ? (
+                    detailList.tags.length === 0 ? (
                       <Fragment />
                     ) : (
                       detailList.tags.reverse().map((x: any) => {
