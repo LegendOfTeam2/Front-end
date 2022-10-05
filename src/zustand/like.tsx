@@ -9,11 +9,12 @@ import {
 } from '../utils/apis/like';
 
 interface LikeState {
-  singerIsLikeIsLoaded :any
-  singerIsLike : any
-  makerIsLikeIsLoaded : any
-  makerIsLike : any
+  singerIsLikeIsLoaded? :any
+  singerIsLike? : any
+  makerIsLikeIsLoaded? : any
+  makerIsLike? : any
   addLike : (payload : any) => any
+  getSingerLikePost : any
 }
 
 const useLikeStore = create<LikeState>((set) => ({
@@ -31,17 +32,17 @@ const useLikeStore = create<LikeState>((set) => ({
     }
   },
   getSingerLikePost: async () => {
-    const resData = await getSingerLikePostApi()
+    const resData : any = await getSingerLikePostApi()
       .then((res) => res)
       .catch((err) => console.log(err));
     if (resData?.data.success) {
       set({singerIsLikeIsLoaded: true});
-      set((state) => {
+      set((state) : any => {
         if (resData.data.data !== []) {
-          const likeList : any = resData.data.data.map((post : any) => {
+          const likeList = resData.data.data.map((post : any) => {
             return post.postId;
           });
-          return { singerIsLike: likeList };
+          return { singerIsLike: likeList};
         }
       });
       return resData.data;
@@ -54,9 +55,9 @@ const useLikeStore = create<LikeState>((set) => ({
       .catch((err) => console.log(err));
     if (resData?.data.success) {
       set({makerIsLikeIsLoaded: true});
-      set((state) => {
+      set((state) : any => {
         if (resData.data.data !== []) {
-          const likeList = resData.data.data.map((post) => {
+          const likeList = resData.data.data.map((post : any) => {
             return post.postId;
           });
           return { makerIsLike: likeList };

@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
-export const DetailContainerDiv : any  = styled.div`
+interface StyledProps {
+  lyrics : any
+  introduction : any
+  }
+
+export const DetailContainerDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -10,7 +15,7 @@ export const DetailContainerDiv : any  = styled.div`
   top: 193px;
   z-index: -1;
 `;
-export const DetailContainer : any = styled.div`
+export const DetailContainer = styled.div`
   width: 904px;
   height: auto;
   margin-top: 40px;
@@ -18,7 +23,7 @@ export const DetailContainer : any = styled.div`
   flex-direction: column;
 `;
 
-export const DetailProfileImgTextTopDiv : any = styled.div`
+export const DetailProfileImgTextTopDiv = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -27,12 +32,12 @@ export const DetailProfileImgTextTopDiv : any = styled.div`
   gap: 35px;
 `;
 
-export const DetailProfileDiv : any = styled.div`
+export const DetailProfileDiv = styled.div`
   width: 56px;
   height: 56px;
 `;
 
-export const DetailProfileImg : any = styled.img`
+export const DetailProfileImg = styled.img`
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -41,7 +46,7 @@ export const DetailProfileImg : any = styled.img`
   }
 `;
 
-export const DetailTopDiv : any = styled.div`
+export const DetailTopDiv = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -50,26 +55,26 @@ export const DetailTopDiv : any = styled.div`
   padding-bottom: 12px;
 `;
 
-export const DetailProfileImgTextTop : any = styled.span`
+export const DetailProfileImgTextTop = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xl};
   line-height: ${(props) => props.theme.lineHeight.xl};
   font-weight: ${(props) => props.theme.fontWeight.Bold}; ;
 `;
 
-export const DetailProfileBtnTopDiv : any = styled.div`
+export const DetailProfileBtnTopDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
 `;
 
-export const DetailProfileBtnTopDivBtn : any = styled.div`
+export const DetailProfileBtnTopDivBtn = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   gap: 19px;
 `;
 
-export const DetailProfileMidleTopDiv : any = styled.div`
+export const DetailProfileMidleTopDiv = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -78,7 +83,7 @@ export const DetailProfileMidleTopDiv : any = styled.div`
   margin-bottom: 12px;
 `;
 
-export const PositionAllDiv : any = styled.div`
+export const PositionAllDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -87,7 +92,7 @@ export const PositionAllDiv : any = styled.div`
   margin-top: 46px;
 `;
 
-export const DetailProfileContainer : any = styled.div`
+export const DetailProfileContainer = styled.div`
   width: 100%;
   height: 115px;
   border: 1px solid #28ca7c;
@@ -95,7 +100,7 @@ export const DetailProfileContainer : any = styled.div`
   position: relative;
 `;
 
-export const DetailProfileBox : any = styled.div`
+export const DetailProfileBox = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
@@ -107,12 +112,12 @@ export const DetailProfileBox : any = styled.div`
   transform: translateY(-50%);
 `;
 
-export const DetailProfileBtnVertical : any = styled.span`
+export const DetailProfileBtnVertical = styled.span`
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   color: #28ca7c;
 `;
 
-export const DetailProfileBtnGroup : any = styled.div`
+export const DetailProfileBtnGroup = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
@@ -124,7 +129,7 @@ export const DetailProfileBtnGroup : any = styled.div`
   transform: translateY(-50%);
 `;
 
-export const PositionMarkerDiv : any = styled.div`
+export const PositionMarkerDiv = styled.div`
   width: 90px;
   height: 40px;
   display: flex;
@@ -134,14 +139,14 @@ export const PositionMarkerDiv : any = styled.div`
   border-radius: 25px;
 `;
 
-export const PositionMarkerSpan : any = styled.div`
+export const PositionMarkerSpan = styled.div`
   font-size: ${(props) => props.theme.fontSizes.xl};
   line-height: ${(props) => props.theme.lineHeight.xl};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   color: #28ca7c;
 `;
 
-export const PositionMidDiv : any = styled.div`
+export const PositionMidDiv = styled.div`
   width: 904px;
   height: 381px;
   border: 1px solid #28ca7c;
@@ -150,14 +155,14 @@ export const PositionMidDiv : any = styled.div`
   align-items: center;
 `;
 
-export const PositionMidInfoDiv : any = styled.div`
+export const PositionMidInfoDiv = styled.div`
   width: 100%;
   height: 235px;
   display: flex;
   gap: 35px;
 `;
 
-export const PositionMidLeftImgDiv : any = styled.div`
+export const PositionMidLeftImgDiv = styled.div`
   width: 202px;
   height: 202px;
   float: left;
@@ -165,12 +170,12 @@ export const PositionMidLeftImgDiv : any = styled.div`
   margin-left: 26px;
 `;
 
-export const PositionMidLeftImg : any = styled.img`
+export const PositionMidLeftImg = styled.img`
   width: 202px;
   height: 202px;
 `;
 
-export const PositionMidRightDiv : any = styled.div`
+export const PositionMidRightDiv = styled.div`
   margin-top: 33px;
   width: auto;
   flex: 1;
@@ -179,7 +184,7 @@ export const PositionMidRightDiv : any = styled.div`
   position: relative;
 `;
 
-export const PositionMidRighTopTextDiv : any = styled.div`
+export const PositionMidRighTopTextDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -188,41 +193,41 @@ export const PositionMidRighTopTextDiv : any = styled.div`
   margin-bottom: 5px;
 `;
 
-export const PositionMidRighTopLeftTextDiv : any = styled.div`
+export const PositionMidRighTopLeftTextDiv = styled.div`
   max-width: 450px;
   font-size: ${(props) => props.theme.fontSizes.xxxxl};
   line-height: ${(props) => props.theme.lineHeight.xxxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
 
-export const PositionMidRighTopRigtTextDiv : any = styled.div`
+export const PositionMidRighTopRigtTextDiv = styled.div`
   width: auto;
   height: auto;
   display: flex;
   gap: 12px;
   align-items: end;
 `;
-export const PositionMidRighTopRightLeftTextSpan : any = styled.span`
+export const PositionMidRighTopRightLeftTextSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xl};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   color: rgba(180, 180, 180, 1);
 `;
-export const PositionMidRighTopRightRightTextSpan : any = styled.span`
+export const PositionMidRighTopRightRightTextSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
   color: rgba(180, 180, 180, 1);
 `;
 
-export const PositionMidMidTextDiv : any = styled.div`
+export const PositionMidMidTextDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
 
-export const PositionMidMidLeftTextDiv : any = styled.div`
+export const PositionMidMidLeftTextDiv = styled.div`
   width: auto;
   height: auto;
   font-size: ${(props) => props.theme.fontSizes.xl};
@@ -231,7 +236,7 @@ export const PositionMidMidLeftTextDiv : any = styled.div`
   color: rgba(180, 180, 180, 1);
 `;
 
-export const PositionMidMidRightTextDiv : any = styled.div`
+export const PositionMidMidRightTextDiv = styled.div`
   width: auto;
   height: auto;
   position: absolute;
@@ -239,7 +244,7 @@ export const PositionMidMidRightTextDiv : any = styled.div`
   top: 0px;
 `;
 
-export const DetailProfileBtmDiv : any = styled.div`
+export const DetailProfileBtmDiv = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -249,7 +254,7 @@ export const DetailProfileBtmDiv : any = styled.div`
   position: absolute;
 `;
 
-export const DetailProfileBtmFirDiv : any = styled.div`
+export const DetailProfileBtmFirDiv = styled.div`
   width: auto;
   height: auto;
   display: flex;
@@ -258,7 +263,7 @@ export const DetailProfileBtmFirDiv : any = styled.div`
   gap: 10px;
 `;
 
-export const DetailProfileBtmFirSpan : any = styled.span`
+export const DetailProfileBtmFirSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xl};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
@@ -266,7 +271,7 @@ export const DetailProfileBtmFirSpan : any = styled.span`
   margin-top: 4px;
 `;
 
-export const DetailProfileBtmSecSpan : any = styled.span`
+export const DetailProfileBtmSecSpan = styled.span`
   font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.lg};
   font-weight: ${(props) => props.theme.fontWeight.Medium};
@@ -274,7 +279,7 @@ export const DetailProfileBtmSecSpan : any = styled.span`
   padding-bottom: 3px;
 `;
 
-export const DetailIntroContainer : any = styled.div`
+export const DetailIntroContainer = styled.div`
   margin-top: 45px;
   width: auto;
   height: auto;
@@ -285,7 +290,7 @@ export const DetailIntroContainer : any = styled.div`
   margin-bottom: 180px;
 `;
 
-export const DetailTopLyrics : any = styled.div`
+export const DetailTopLyrics = styled.div`
   font-size: ${(props) => props.theme.fontSizes.lg};
   line-height: ${(props) => props.theme.lineHeight.xxxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
@@ -293,17 +298,17 @@ export const DetailTopLyrics : any = styled.div`
   padding: 16px 74px;
 `;
 
-export const DetailHorizonLine : any = styled.div`
+export const DetailHorizonLine = styled.div`
   border-top: 1px solid #28ca7c;
   width: 98%;
 `;
 
-export const DetailBtmLyricsDiv : any = styled.div`
+export const DetailBtmLyricsDiv = styled.div`
   width: 100%;
   height: auto;
 `;
 
-export const DetailBtmLyricsDivDiv : any = styled.div`
+export const DetailBtmLyricsDivDiv = styled.div<StyledProps>`
   width: 379px;
   height: ${(props) => (props.lyrics ? 'auto' : '200px')};
   overflow: hidden;
@@ -359,7 +364,7 @@ export const DetailBtmMoreDiv = styled.div`
   height: auto;
 `;
 
-export const DetailBtmMoreDivDiv = styled.div`
+export const DetailBtmMoreDivDiv = styled.div<StyledProps>`
   width: 379px;
   height: ${(props) => (props.introduction ? 'auto' : '200px')};
   overflow: hidden;

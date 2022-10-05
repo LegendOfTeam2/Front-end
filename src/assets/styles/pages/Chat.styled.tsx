@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ChatContainerL: any = styled.div`
+export const ChatContainer  = styled.div`
   position: absolute;
   z-index: -1;
   top: 231px;
@@ -15,12 +15,12 @@ export const ChatContainerL: any = styled.div`
   border-radius: 8px;
   z-index: -1;
 `;
-export const ChatNaviContainer: any = styled.div`
+export const ChatNaviContainer = styled.div`
   width: 100%;
   height: auto;
   position: relative;
 `;
-export const ChatNaviIconBox: any = styled.div`
+export const ChatNaviIconBox = styled.div`
   width: auto;
   height: auto;
   position: absolute;
@@ -34,19 +34,19 @@ export const ChatNaviIconBox: any = styled.div`
     height: 36px;
   }
 `;
-export const ChatNaviTitleBox: any = styled.div`
+export const ChatNaviTitleBox = styled.div`
   width: auto;
   height: auto;
   text-align: center;
   padding: 8px 0;
 `;
-export const ChatNaviTitleText: any = styled.span`
+export const ChatNaviTitleText = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xxxxl};
   line-height: ${(props) => props.theme.lineHeight.xxxxl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   color: #28ca7c;
 `;
-export const ChatDataContainer: any = styled.div`
+export const ChatDataContainer = styled.div`
   margin-top: 73px;
   margin-bottom: 18px;
   width: 100%;
@@ -55,13 +55,13 @@ export const ChatDataContainer: any = styled.div`
   justify-content: center;
   gap: 28px;
 `;
-export const ChatDataMemberContainer: any = styled.div`
+export const ChatDataMemberContainer = styled.div`
   width: 365px;
   height: 880px;
   border-radius: 8px;
   border: 1px solid #28ca7c;
 `;
-export const ChatDataMemberTitleBox: any = styled.div`
+export const ChatDataMemberTitleBox = styled.div`
   top: 0;
   left: 0;
   width: 100%;
@@ -72,13 +72,13 @@ export const ChatDataMemberTitleBox: any = styled.div`
   background: #1b1e2f;
   border-radius: 8px 8px 0 0;
 `;
-export const ChatDataMemberTitleText: any = styled.span`
+export const ChatDataMemberTitleText = styled.span`
   font-size: ${(props) => props.theme.fontSizes.xl};
   line-height: ${(props) => props.theme.lineHeight.xl};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   color: #28ca72;
 `;
-export const ChatDataMemberRoomBox: any = styled.div`
+export const ChatDataMemberRoomBox = styled.div`
   width: 100%;
   height: 775px;
   overflow: scroll;
@@ -86,20 +86,20 @@ export const ChatDataMemberRoomBox: any = styled.div`
     display: none;
   }
 `;
-export const ChatDataRoomContainer: any = styled.div`
+export const ChatDataRoomContainer = styled.div`
   width: 583px;
   height: 880px;
   border-radius: 8px;
   border: 1px solid #28ca7c;
 `;
-export const ChatDataRoomProfileContainer: any = styled.div`
+export const ChatDataRoomProfileContainer = styled.div`
   width: 100%;
   height: 107px;
   position: relative;
   background-color: #1b1e2f;
   border-radius: 8px 8px 0 0;
 `;
-export const ChatDataRoomProfileBox: any = styled.div`
+export const ChatDataRoomProfileBox = styled.div`
   width: auto;
   height: auto;
   border-radius: 50%;
@@ -110,11 +110,11 @@ export const ChatDataRoomProfileBox: any = styled.div`
   top: 50%;
   transform: translateY(-50%);
 `;
-export const ChatDataRoomProfileImg: any = styled.img`
+export const ChatDataRoomProfileImg = styled.img`
   width: 80px;
   height: 80px;
 `;
-export const ChatDataRoomTextContainer: any = styled.div`
+export const ChatDataRoomTextContainer = styled.div`
   position: absolute;
   width: auto;
   height: auto;
@@ -124,13 +124,13 @@ export const ChatDataRoomTextContainer: any = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const ChatDataRoomTextNickname: any = styled.span`
+export const ChatDataRoomTextNickname = styled.span`
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.base};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   color: white;
 `;
-export const ChatDataRoomMessageContainer: any = styled.div`
+export const ChatDataRoomMessageContainer = styled.div`
   width: 100%;
   height: 600px;
   padding: 20px;
@@ -147,7 +147,7 @@ export const ChatDataRoomMessageContainer: any = styled.div`
     border-radius: 10px;
   }
 `;
-export const ChatDataRoomMessageBox: any = styled.div`
+export const ChatDataRoomMessageBox = styled.div`
   width: auto;
   height: auto;
   min-height: 559px;
@@ -155,13 +155,13 @@ export const ChatDataRoomMessageBox: any = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   gap: 20px;
-`;
-export const ChatDataRoomInputContainer: any = styled.div`
+`
+export const ChatDataRoomInputContainer = styled.div`
   width: 100%;
   height: 173px;
   position: relative;
 `;
-export const ChatDataRoomInput: any = styled.textarea`
+export const ChatDataRoomInput = styled.textarea`
   position: absolute;
   width: 404px;
   height: 158px;
@@ -178,7 +178,7 @@ export const ChatDataRoomInput: any = styled.textarea`
     color: #b4b4b4;
   }
 `;
-export const ChatDataRoomButtonBox: any = styled.div`
+export const ChatDataRoomButtonBox = styled.div`
   position: absolute;
   width: auto;
   height: auto;
