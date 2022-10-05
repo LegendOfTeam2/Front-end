@@ -1,16 +1,16 @@
 import api_auth from './api/api_auth';
 import api_basic from './api/api_basic';
 
-export const addPostApi = (payload) => {
+export const addPostApi = (payload : any ) => {
   return api_auth.post(`/auth/post`, payload);
 };
 export const getFollowerListApi = () => {
   return api_auth.get(`/auth/followerlist`);
 };
-export const getBestSongApi = (payload) => {
+export const getBestSongApi = (payload : any ) => {
   return api_basic.get(`/api/bestsong`, payload);
 };
-export const getRecentMakerApi = (payload) => {
+export const getRecentMakerApi = (payload : any ) => {
   return api_basic.get(`/api/recentmaker`, payload);
 };
 export const getRecentSingerApi = (payload) => {

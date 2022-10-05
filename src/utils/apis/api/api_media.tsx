@@ -20,13 +20,13 @@ const api_media_auth = axios.create({
 });
 
 api_media_auth.interceptors.request.use(
-  function (config) {
+  function (config : any ) {
     config.headers['authorization'] = `Bearer ${getCookie('authorization')}`;
 
     return config;
   },
   function (error) {
-    console.err(error);
+    console.error(error);
     return Promise.reject(error);
   }
 );

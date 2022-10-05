@@ -18,8 +18,8 @@ const Google = () => {
   );
 
   useEffect(() => {
-    const fetchCode = (code) => {
-      googleAuth(code).then((res) => {
+    const fetchCode = (code: any) => {
+      googleAuth(code).then((res : any) => {
         if (res) {
           navigate('/');
         }
