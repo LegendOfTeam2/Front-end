@@ -1,29 +1,43 @@
 // Packages
 import ReactModal from 'react-modal';
+import { GrClose } from 'react-icons/gr';
 
 // Elements
 import Button from '../../elements/Button';
 
 // Assets
 import {
-  ConfirmModalContainer,
-  ConfirmModalIcon,
-  ConfirmModalLogo,
-  ConfirmModalLogoImg,
-  ConfirmModalQuestionText,
-  ConfirmModalBtnGroup,
-} from '../../assets/styles/components/modal/WithdrawalConfirmModal.styled';
-import { WithdrawalLogo, Xbox20 } from '../../assets/images/image';
+  WriteModalContainer,
+  WriteModalIcon,
+  WriteModalQuestionText,
+  WriteModalBtnGroup,
+  WriteModalLogo,
+  WriteModalLogoImg,
+} from '../../assets/styles/components/modal/WriteModal.styled';
+import { Exclamation } from '../../assets/images/image';
+import usePlayerStore from '../../zustand/player';
 
-const WithdrawalConfirmModal = ({ isOpen, onCancel, onChange }) => {
-  const handelClickChange = () => {
-    onChange();
-  };
+interface PlayListCloseModalProps {
+  isOpen: any;
+  onCancel: any;
+  playListMemberLength: any;
+}
+
+function PlayListCloseModal({
+  isOpen,
+  onCancel,
+  playListMemberLength,
+}: PlayListCloseModalProps) {
+  const deletePlayList = usePlayerStore((state) => state.deletePlayList);
   const handleClickCancel = () => {
     onCancel();
   };
+  const playListDelete = () => {
+    deletePlayList();
+    onCancel();
+  };
 
-  const customStyles = {
+  const customStyles: any = {
     overlay: {
       position: 'fixed',
       top: 0,
@@ -40,40 +54,39 @@ const WithdrawalConfirmModal = ({ isOpen, onCancel, onChange }) => {
       width: '522px',
       height: '404px',
       borderRadius: '10px',
-      zIndex: 99,
     },
   };
+
   return (
     <ReactModal isOpen={isOpen} style={customStyles}>
-      <ConfirmModalContainer>
-        <ConfirmModalIcon onClick={handleClickCancel}>
-          <img src={Xbox20} alt='Xbox' className='icon' />
-        </ConfirmModalIcon>
-        <ConfirmModalLogo>
-          <ConfirmModalLogoImg src={WithdrawalLogo} />
-        </ConfirmModalLogo>
-        <ConfirmModalQuestionText>
-          지금까지 공유한 모든 데이터가 삭제됩니다.
-          <br />
-          정말 탈퇴하시겠습니까?
-        </ConfirmModalQuestionText>
-        <ConfirmModalBtnGroup>
+      <WriteModalContainer>
+        <WriteModalIcon onClick={handleClickCancel}>
+          <GrClose className='icon' />
+        </WriteModalIcon>
+        <WriteModalLogo>
+          <WriteModalLogoImg src={Exclamation} />
+        </WriteModalLogo>
+        <WriteModalQuestionText>
+          선택한 {playListMemberLength} 곡을 삭제하시겠습니까?
+        </WriteModalQuestionText>
+        <WriteModalBtnGroup>
           <Button
             _type={'button'}
-            _text={'탈퇴하기'}
+            _text={'삭제하기'}
             _style={{
               width: '109px',
               line_height: '20',
               font: '14',
               pd_top: '20px',
               pd_bottom: '20px',
-              bg_color: '#DE1B4A',
+              bg_color: 'black',
               color: 'white',
               height: 'auto',
               bd_radius: '10px',
               ft_weight: '800',
             }}
-            _onClick={handelClickChange}
+            _onClick={playListDelete}
+            _ref={null}
           />
           <Button
             _type={'button'}
@@ -84,7 +97,7 @@ const WithdrawalConfirmModal = ({ isOpen, onCancel, onChange }) => {
               font: '14',
               pd_top: '20px',
               pd_bottom: '20px',
-              bg_color: '#ffffff',
+              bg_color: 'white',
               color: '#b4b4b4',
               height: 'auto',
               bd_radius: '10px',
@@ -93,11 +106,12 @@ const WithdrawalConfirmModal = ({ isOpen, onCancel, onChange }) => {
               ft_weight: '800',
             }}
             _onClick={handleClickCancel}
+            _ref={null}
           />
-        </ConfirmModalBtnGroup>
-      </ConfirmModalContainer>
+        </WriteModalBtnGroup>
+      </WriteModalContainer>
     </ReactModal>
   );
 };
 
-export default WithdrawalConfirmModal;
+export default PlayListCloseModal;

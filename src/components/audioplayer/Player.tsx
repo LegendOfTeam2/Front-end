@@ -10,7 +10,12 @@ import {
   Thumb,
 } from '../../assets/styles/components/Player.Styled';
 
-function Player({ percentage = 0, onChange }) {
+interface PlayerProps {
+  percentage: any;
+  onChange: any;
+}
+
+function Player({ percentage = 0, onChange }: PlayerProps) {
   const playListMember = usePlayerStore((state) => state.playListMember);
   const playList = usePlayerStore((state) => state.playList);
 
@@ -18,8 +23,8 @@ function Player({ percentage = 0, onChange }) {
   const [marginLeft, setMarginLeft] = useState(0);
   const [progressBarWidth, setProgressBarWidth] = useState(0);
 
-  const rangeRef = useRef();
-  const thumbRef = useRef();
+  const rangeRef: any = useRef();
+  const thumbRef: any = useRef();
 
   useEffect(() => {
     const rangeWidth = rangeRef.current.getBoundingClientRect().width;

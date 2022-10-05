@@ -8,12 +8,12 @@ import useChatStore from '../zustand/chat';
 import useMemberStore from '../zustand/member';
 
 // Packages
-import jwt_decode from 'jwt-decode';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getCookie } from '../utils/cookie';
 
 // Utils
+import { getCookie } from '../utils/cookie';
 import { warning, info } from '../utils/toast';
 
 // Components
@@ -33,21 +33,31 @@ import {
   BtmTextDivSpan,
   HotArtistImgDivDiv,
   MainProfileimg,
-} from '../assets/styles/components/HotArtistBig.styled';
+} from '../assets/styles/components/HotArtist.styled';
 
+interface HotArtistProps {
+  nickname: any;
+  follower: any;
+  imageUrl: any;
+  isFollow: any;
+}
 
-const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
+function HotArtist({
+  nickname,
+  follower,
+  imageUrl,
+  isFollow,
+}: HotArtistProps) {
   const follow = useFollowStore((state) => state.follow);
   const makeRoom = useChatStore((state) => state.makeRoom);
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
-  const [noticeOpen ,setNoticeOpen] = useState(false)
+  const [noticeOpen, setNoticeOpen] = useState(false);
   const [counter, setCounter] = useState(follower);
   const [followCheck, setFollowCheck] = useState(isFollow);
 
   const navigate = useNavigate();
-
 
   const onCancel = () => {
     setNoticeOpen(false);
@@ -55,25 +65,25 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
 
   const onHandleFollow = () => {
     if (getCookie('authorization') !== undefined) {
-      if (jwt_decode(getCookie('authorization')).sub === nickname) {
-        warning('자기 자신은 팔로우 할 수 없습니다.')
+      if (jwt_decode<JwtPayload>(getCookie('authorization')).sub === nickname) {
+        warning('자기 자신은 팔로우 할 수 없습니다.');
       } else {
-        follow(nickname).then((res) => {
+        follow(nickname).then((res: any) => {
           if (res.success) {
             if (res.data) {
               setFollowCheck(true);
               info(`${nickname}님을 팔로우 하였습니다.`);
-              setCounter((prev) => parseInt(prev) + 1);
+              setCounter((prev: any) => parseInt(prev) + 1);
             } else {
               setFollowCheck(false);
               info(`${nickname}님 팔로우를 취소하였습니다.`);
-              setCounter((prev) => parseInt(prev) - 1);
+              setCounter((prev: any) => parseInt(prev) - 1);
             }
           }
         });
       }
     } else {
-      warning('로그인 후에 이용 가능합니다.');
+      warning(`로그인 후에 이용 가능합니다.`);
     }
   };
 
@@ -81,17 +91,28 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
     navigate(`/mypage/${nickname}`);
   };
 
-  const onHandleChatRoom = () => {
+  const onHandleChat = () => {
     if (getCookie('authorization') !== undefined) {
-      makeRoom({ nickname, profileUrl: 'test', userId: 1 });
+      const sender = jwt_decode<JwtPayload>(getCookie('authorization')).sub;
+      if (sender !== nickname) {
+        makeRoom({ sender, receiver: nickname }).then((res: any) => {
+          if (res?.success) {
+            navigate('/chat');
+          } else {
+            navigate('/chat');
+          }
+        });
+      } else {
+        navigate('/chat');
+      }
     } else {
-      warning('로그인 후에 이용 가능합니다.');
+      warning(`로그인 후에 이용 가능합니다.`);
     }
   };
 
   return (
     <HotArtistImgDivDiv key={nickname}>
-      <NoticeModal isOpen={noticeOpen} onCancel={onCancel}/>
+      <NoticeModal isOpen={noticeOpen} onCancel={onCancel} />
       <ToastContainer />
       <BtmProfileDivDiv>
         <BtmProfileDivDivDiv>
@@ -119,10 +140,11 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
         <BtmBunDiv>
           {followCheck ? (
             <Button
+              _type={'button'}
               _onClick={onHandleFollow}
               _style={{
-                width: '90px',
-                height: '40px',
+                width: '66px',
+                height: '31px',
                 bg_color: '#28CA7C',
                 bd_radius: '8px',
                 color: '#FFFFFF',
@@ -132,13 +154,15 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
                 bd_color: 'transparent',
               }}
               _text={'팔로잉'}
+              _ref={null}
             />
           ) : (
             <Button
+              _type={'button'}
               _onClick={onHandleFollow}
               _style={{
-                width: '90px',
-                height: '40px',
+                width: '66px',
+                height: '31px',
                 bg_color: '#FFFFFF',
                 bd_radius: '8px',
                 color: '#28CA7C',
@@ -148,13 +172,15 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
                 bd_color: '#28CA7C',
               }}
               _text={'팔로우'}
+              _ref={null}
             />
           )}
           <Button
-            _onClick={onHandleChatRoom}
+            _type={'button'}
+            _onClick={onHandleChat}
             _style={{
-              width: '90px',
-              height: '40px',
+              width: '66px',
+              height: '31px',
               bg_color: '#ffffff',
               bd_radius: '8px',
               color: '#28CA7C',
@@ -164,6 +190,7 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
               bd_color: '#28CA7C',
             }}
             _text={'메시지'}
+            _ref={null}
           />
         </BtmBunDiv>
       </BtmProfileDivDiv>
@@ -171,4 +198,4 @@ const HotArtistBig = ({ nickname, follower, imageUrl, isFollow }) => {
   );
 };
 
-export default HotArtistBig;
+export default HotArtist;

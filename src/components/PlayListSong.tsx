@@ -35,7 +35,13 @@ import {
   BtmMapInImgDiv,
 } from '../assets/styles/components/PlayListSong.styled';
 
-const PlayListSong = ({ data, listModalOpen, likeState }) => {
+interface PlayListSongProps {
+  data: any;
+  listModalOpen: any;
+  likeState: any;
+}
+
+function PlayListSong({ data, listModalOpen, likeState }: PlayListSongProps) {
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
   const setIsAutoplay = usePlayerStore((state) => state.setIsAutoplay);
@@ -47,23 +53,21 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
   const [duration, setDuration] = useState(0);
   const [isLike, setIsLike] = useState(likeState);
 
-  const setMusicDuration = (e) => {
+  const setMusicDuration = (e: any) => {
     setDuration(e.currentTarget.duration.toFixed(2));
   };
 
-  const navigate = useNavigate();
-
-  const secondsToHms = (seconds) => {
+  const secondsToHms = (seconds: any) => {
     if (!seconds) return '00 : 00';
 
-    let duration = seconds;
-    let hours = duration / 3600;
+    let duration: any = seconds;
+    let hours: any = duration / 3600;
     duration = duration % 3600;
 
-    let min = parseInt(duration / 60);
+    let min: any = parseInt((duration / 60).toString());
     duration = duration % 60;
 
-    let sec = parseInt(duration);
+    let sec: any = parseInt(duration);
 
     if (sec < 10) {
       sec = `0${sec}`;
@@ -109,17 +113,19 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
 
   const likeClick = () => {
     if (getCookie('authorization') === undefined) {
-      warning('로그인 후에 이용 가능합니다.')
+      warning('로그인 후에 이용 가능합니다.');
     } else {
-      addLike({ postId: data.postId, position: data.position }).then((res) => {
-        if (res.success && res.data) {
-          info('게시글에 좋아요를 눌렀습니다.');
-          setIsLike(true);
-        } else {
-          info('게시글에 좋아요를 취소했습니다.')
-          setIsLike(false);
+      addLike({ postId: data.postId, position: data.position }).then(
+        (res: any) => {
+          if (res.success && res.data) {
+            info('게시글에 좋아요를 눌렀습니다.');
+            setIsLike(true);
+          } else {
+            info('게시글에 좋아요를 취소했습니다.');
+            setIsLike(false);
+          }
         }
-      });
+      );
     }
   };
 
@@ -184,6 +190,6 @@ const PlayListSong = ({ data, listModalOpen, likeState }) => {
       </BtmMapIconDiv>
     </BtmMapDiv>
   );
-};
+}
 
 export default PlayListSong;

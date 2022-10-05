@@ -17,20 +17,20 @@ import { warning, info } from '../utils/toast';
 
 // Assets
 import {
-  DisMyImgTopRightSm,
-  ImgMyBtmRightSm,
-  ImgNotSlideSpanSm,
-  ImgNotTopSlideSpanSm,
-  MyimgSm,
-  MyImgBtmLeftSm,
-  MyImgBtmLeftDivSm,
-  MyImgBtmLeftspanSm,
-  MyImgBtmRightSm,
-  MyImgDivDivSm,
-  MyImgTopBotmLeftSm,
-  MyImgTopLeftSm,
-  MyImgTopRightSm,
-} from '../assets/styles/components/PostSmall.styled';
+  DisMyImgTopRight,
+  ImgMyBtmRight,
+  ImgNotSlideSpan,
+  ImgNotTopSlideSpan,
+  Myimg,
+  MyImgBtmLeft,
+  MyImgBtmLeftDiv,
+  MyImgBtmLeftspan,
+  MyImgBtmRight,
+  MyImgDivDiv,
+  MyImgTopBotmLeft,
+  MyImgTopLeft,
+  MyImgTopRight,
+} from '../assets/styles/components/Post.styled';
 import {
   DisLike,
   OnPlay,
@@ -39,7 +39,18 @@ import {
   WhiteCollaborate24,
 } from '../assets/images/image';
 
-const PostSmall = ({
+interface PostProps {
+  postId : any;
+  position : any;
+  title : any;
+  collaborate : any;
+  imageUrl : any;
+  mediaUrl : any;
+  nickname : any;
+  likeState : any;
+}
+
+function Post({
   postId,
   position,
   title,
@@ -48,7 +59,7 @@ const PostSmall = ({
   mediaUrl,
   nickname,
   likeState,
-}) => {
+} : PostProps) {
   const viewStateChange = usePlayerStore((state) => state.viewStateChange);
   const addPlayList = usePlayerStore((state) => state.addPlayList);
   const setPlaying = usePlayerStore((state) => state.setPlaying);
@@ -57,7 +68,7 @@ const PostSmall = ({
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
   const addLike = useLikeStore((state) => state.addLike);
-  
+
   const [isLike, setIsLike] = useState(likeState);
 
   const navigate = useNavigate();
@@ -86,7 +97,7 @@ const PostSmall = ({
     if (getCookie('authorization') === undefined) {
       warning('로그인 후 이용해 주세요.');
     } else {
-      addLike({ postId, position }).then((res) => {
+      addLike({ postId, position }).then((res : any) => {
         if (res.success && res.data) {
           info('게시글에 좋아요를 눌렀습니다.');
           setIsLike(true);
@@ -107,10 +118,9 @@ const PostSmall = ({
       navigate(`/detail/${position}/${postId}`);
     }
   };
-
   return (
-    <MyImgDivDivSm key={postId}>
-      <MyimgSm
+    <MyImgDivDiv key={postId}>
+      <Myimg
         src={
           imageUrl === null
             ? profileImgArr[random]
@@ -121,45 +131,45 @@ const PostSmall = ({
         alt=''
       />
       <ToastContainer />
-      <ImgMyBtmRightSm>
-        <ImgNotTopSlideSpanSm>{title}</ImgNotTopSlideSpanSm>
-        <ImgNotSlideSpanSm>{nickname}</ImgNotSlideSpanSm>
-      </ImgMyBtmRightSm>
-      <MyImgTopLeftSm onClick={goToDetail}>{title}</MyImgTopLeftSm>
-      <MyImgTopBotmLeftSm>{nickname}</MyImgTopBotmLeftSm>
-      <DisMyImgTopRightSm>
+      <ImgMyBtmRight>
+        <ImgNotTopSlideSpan>{title}</ImgNotTopSlideSpan>
+        <ImgNotSlideSpan>{nickname}</ImgNotSlideSpan>
+      </ImgMyBtmRight>
+      <MyImgTopLeft onClick={goToDetail}>{title}</MyImgTopLeft>
+      <MyImgTopBotmLeft>{nickname}</MyImgTopBotmLeft>
+      <DisMyImgTopRight>
         {collaborate ? (
           <img src={DisCollaboration} alt='콜라보' />
         ) : (
-          <img src={WhiteCollaborate24} alt='콜라보 화이트' />
+          <img src={WhiteCollaborate24} alt='콜라보' />
         )}
-      </DisMyImgTopRightSm>
-      <MyImgTopRightSm>
+      </DisMyImgTopRight>
+      <MyImgTopRight>
         {collaborate ? (
           <img src={DisCollaboration} alt='콜라보' />
         ) : (
-          <img src={WhiteCollaborate24} alt='콜라보 화이트' />
+          <img src={WhiteCollaborate24} alt='콜라보' />
         )}
-      </MyImgTopRightSm>
-      <MyImgBtmLeftSm>
-        <MyImgBtmLeftDivSm>
+      </MyImgTopRight>
+      <MyImgBtmLeft>
+        <MyImgBtmLeftDiv>
           {isLike ? (
             <img src={Like24} alt='좋아요 상태' onClick={likeClick} />
           ) : (
             <img src={DisLike} alt='좋아요 안한 상태' onClick={likeClick} />
           )}
-          <MyImgBtmLeftspanSm>좋아요</MyImgBtmLeftspanSm>
-        </MyImgBtmLeftDivSm>
-      </MyImgBtmLeftSm>
-      <MyImgBtmRightSm>
+          <MyImgBtmLeftspan>좋아요</MyImgBtmLeftspan>
+        </MyImgBtmLeftDiv>
+      </MyImgBtmLeft>
+      <MyImgBtmRight>
         {getCookie('authorization') !== undefined ? (
           <img src={OnPlay} alt='플레이 버튼' onClick={playMember} />
         ) : (
           <img src={OnPlay} alt='플레이 버튼' onClick={play} />
         )}
-      </MyImgBtmRightSm>
-    </MyImgDivDivSm>
+      </MyImgBtmRight>
+    </MyImgDivDiv>
   );
 };
 
-export default memo(PostSmall);
+export default memo(Post);

@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 // Assets
 import { LoadingImage, BackgroundCover } from '../assets/styles/components/Loading.styled';
 
-const Loading = () => {
+function Loading() {
   return (
     <Fragment>
       <BackgroundCover />

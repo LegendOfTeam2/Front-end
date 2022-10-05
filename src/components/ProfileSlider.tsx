@@ -32,7 +32,19 @@ import {
 } from '../assets/styles/components/ProfileSlider.styled';
 import { LeftArrow, RightArrow } from '../assets/images/image';
 
-const ProfileSlider = ({ postList, name, position, ctg }) => {
+interface ProfileSliderProps {
+  postList: any;
+  name: any;
+  position: any;
+  ctg: any;
+}
+
+const ProfileSlider = ({
+  postList,
+  name,
+  position,
+  ctg,
+}: ProfileSliderProps) => {
   const singerIsLike = useLikeStore((state) => state.singerIsLike);
   const makerIsLike = useLikeStore((state) => state.makerIsLike);
 
@@ -40,7 +52,7 @@ const ProfileSlider = ({ postList, name, position, ctg }) => {
     (state) => state.singerIsLikeIsLoaded
   );
 
-  const sliderRef = useRef();
+  const sliderRef : any = useRef();
 
   const navigate = useNavigate();
 
@@ -83,18 +95,14 @@ const ProfileSlider = ({ postList, name, position, ctg }) => {
             <Slider {...settings}>
               {getCookie('authorization') !== undefined ? (
                 singerIsLikeIsLoaded ? (
-                  postList.map((x, idx) => {
+                  postList.map((x : any, idx : any) => {
                     if (
                       [...singerIsLike, ...makerIsLike].indexOf(x.postId) > -1
                     ) {
                       return (
                         <PostSlider
-                          ket={idx}
-                          width='167'
-                          height='167'
                           key={x.postId}
                           imageUrl={x.imageUrl.imageUrl}
-                          likes={x.likes}
                           nickname={x.nickname}
                           title={x.title}
                           collaborate={x.collaborate}
@@ -107,12 +115,8 @@ const ProfileSlider = ({ postList, name, position, ctg }) => {
                     } else {
                       return (
                         <PostSlider
-                          ket={idx}
-                          width='167'
-                          height='167'
                           key={x.postId}
                           imageUrl={x.imageUrl.imageUrl}
-                          likes={x.likes}
                           nickname={x.nickname}
                           title={x.title}
                           collaborate={x.collaborate}
@@ -128,21 +132,18 @@ const ProfileSlider = ({ postList, name, position, ctg }) => {
                   <Fragment />
                 )
               ) : (
-                postList.map((x, idx) => {
+                postList.map((x : any, idx : any) => {
                   return (
                     <PostSlider
-                      ket={idx}
-                      width='167'
-                      height='167'
                       key={x.postId}
                       imageUrl={x.imageUrl.imageUrl}
-                      likes={x.likes}
                       nickname={x.nickname}
                       title={x.title}
                       collaborate={x.collaborate}
                       mediaUrl={x.mediaUrl.mediaUrl}
                       postId={x.postId}
                       position={x.position}
+                      likeState={null}
                     />
                   );
                 })

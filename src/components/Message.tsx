@@ -11,7 +11,13 @@ import {
   MessageBoxTime,
 } from '../assets/styles/components/Message.styled';
 
-const Message : any = ({ message, messageState, createdAt }) => {
+interface MessageProps {
+  message : any;
+  messageState : any;
+  createdAt : any;
+}
+
+function Message({ message, messageState, createdAt } : MessageProps) {
   return (
     <MessageContainer justifyContent={messageState ? 'flex-end' : 'flex-start'}>
       {messageState ? (
