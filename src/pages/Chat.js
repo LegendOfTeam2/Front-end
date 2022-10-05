@@ -249,7 +249,6 @@ const Chat = () => {
                       }
                       const dateArr = message.createdAt.split(',');
                       const date = `${dateArr[2]}-${dateArr[1]}-${dateArr[0]} ${dateArr[3]}:${dateArr[4]}`;
-                      console.log(date);
                       return (
                         <Message
                           key={idx}

@@ -142,7 +142,6 @@ const usePostStore = create((set) => ({
     return resData.data;
   },
   deleteDetail: async (payload) => {
-    console.log(payload);
     const resData = await deleteDetailApi(payload.postId, payload.position)
       .then((res) => res)
       .catch((err) => console.log(err));
