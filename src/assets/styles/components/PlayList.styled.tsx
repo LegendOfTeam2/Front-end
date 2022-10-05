@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const PlayListAllContainer = styled.div`
+interface StyledProps {
+  ListyIndex: any
+}
+
+export const PlayListAllContainer : any = styled.div<StyledProps>`
   width: 100%;
   height: auto;
   display: ${(props) => props.ListyIndex};

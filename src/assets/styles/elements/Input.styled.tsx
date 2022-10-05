@@ -1,6 +1,28 @@
 import styled from 'styled-components';
 
-export const StyledInput = styled.input`
+interface StyledProps {
+  width: any;
+  height: any;
+  ft_size: any;
+  ft_weight: any;
+  bg_color: any;
+  color: any;
+  mg_top: any;
+  mg_bottom: any;
+  mg_left: any;
+  mg_right: any;
+  pd_top: any;
+  pd_bottom: any;
+  pd_left: any;
+  pd_right: any;
+  bd_radius: any;
+  bd_px: any;
+  bd_color: any;
+  line_height: any;
+  flex: any;
+}
+
+export const StyledInput = styled.input<StyledProps>`
   width: ${(props) => (props.width ? props.width : '100%')};
   height: ${(props) => (props.height ? props.height : '50px')};
   font-size: ${(props) => (props.ft_size ? props.ft_size / 16 : 1)}rem;
@@ -18,7 +40,7 @@ export const StyledInput = styled.input`
   border-width: ${(props) => (props.bd_px ? props.bd_px : '1px')};
   border-color: ${(props) => (props.bd_color ? props.bd_color : '#000000')};
   border-style: solid;
-  line-height: ${(props) => (props.line_height ? props.line_height / 16 : 1)}rem;
+  line-height: ${(props) => props.line_height ? props.line_height / 16 : 1}rem;
   flex: ${(props) => props.flex};
   outline: none;
   &::placeholder {

@@ -84,14 +84,14 @@ function PlayerMain() {
   const [percentage, setPercentage] = useState(0);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume]: any = useState(0.5);
   const [ismuted, setIsMuted] = useState(false);
   const [isLoop, setIsLoop] = useState(false);
   const [isRandom, setIsRandom] = useState(false);
 
-  const audioRef = useRef();
+  const audioRef: any = useRef();
 
-  const onChange = (e) => {
+  const onChange = (e: any) => {
     const audio = audioRef.current;
     audio.currentTime = (audio.duration / 100) * e.target.value;
     setPercentage(e.target.value);
@@ -105,7 +105,7 @@ function PlayerMain() {
       setIsAutoplay(true);
     } else {
       const filterRandom = playList.filter(
-        (x) => x.postId !== currentSong.postId
+        (x: any) => x.postId !== currentSong.postId
       );
       const retryRandom = Math.floor(Math.random() * filterRandom.length);
       setCurrentSong(filterRandom[retryRandom]);
@@ -123,7 +123,7 @@ function PlayerMain() {
         setIsAutoplay(true);
       } else {
         const filterRandom = playListMember.filter(
-          (x) => x.postId !== playListMember[random].postId
+          (x: any) => x.postId !== playListMember[random].postId
         );
         const retryRandom = Math.floor(Math.random() * filterRandom.length);
         setCurrentSongMember(filterRandom[retryRandom]);
@@ -133,12 +133,12 @@ function PlayerMain() {
     }
   };
   const skipBack = () => {
-    const index = playList.findIndex((x) => x.title === currentSong.title);
+    const index = playList.findIndex((x: any) => x.title === currentSong.title);
 
     if (getCookie('authorization') !== undefined) {
       if (playListMemberIsLoaded) {
         const indexMember = playListMember.findIndex(
-          (x) => x.title === currentSongMember.title
+          (x: any) => x.title === currentSongMember.title
         );
 
         if (indexMember === 0) {
@@ -169,12 +169,14 @@ function PlayerMain() {
   };
 
   const skipNext = () => {
-    const index = playList.findIndex((x) => x.postId === currentSong.postId);
+    const index = playList.findIndex(
+      (x: any) => x.postId === currentSong.postId
+    );
 
     if (getCookie('authorization') !== undefined) {
       if (playListMemberIsLoaded) {
         const indexMember = playListMember.findIndex(
-          (x) => x.postId === currentSongMember.postId
+          (x: any) => x.postId === currentSongMember.postId
         );
         if (indexMember === playListMember.length - 1) {
           setCurrentSongMember(playListMember[0]);
@@ -239,7 +241,7 @@ function PlayerMain() {
     }
   };
 
-  const rangeVolume = (e) => {
+  const rangeVolume = (e: any) => {
     let min = e.target.min;
     let max = e.target.max;
     let val = e.target.value;
@@ -249,7 +251,7 @@ function PlayerMain() {
     setVolume(e.target.value);
   };
 
-  const getCurrDuration = (e) => {
+  const getCurrDuration = (e: any) => {
     const percent = (
       (e.currentTarget.currentTime / e.currentTarget.duration) *
       100
@@ -277,17 +279,17 @@ function PlayerMain() {
     playListStateChange(!playListState);
   };
 
-  function secondsToHms(seconds) {
+  function secondsToHms(seconds: any) {
     if (!seconds) return '00 : 00';
 
-    let duration = seconds;
-    let hours = duration / 3600;
+    let duration: any = seconds;
+    let hours: any = duration / 3600;
     duration = duration % 3600;
 
-    let min = parseInt(duration / 60);
+    let min: any = parseInt((duration / 60).toString());
     duration = duration % 60;
 
-    let sec = parseInt(duration);
+    let sec: any = parseInt(duration);
 
     if (sec < 10) {
       sec = `0${sec}`;
@@ -306,11 +308,11 @@ function PlayerMain() {
   }
 
   useEffect(() => {
-    getPlayList().then((res) => {
+    getPlayList().then((res: any) => {
       if (res.success) {
         if (res.data.length > 0) {
           const firstSong = [...res.data].sort(
-            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            (a, b) => b.createdAt - a.createdAt
           )[0];
           setCurrentSongMember(firstSong);
           viewStateChange(false);
@@ -749,7 +751,9 @@ function PlayerMain() {
                       ref={audioRef}
                       onTimeUpdate={getCurrDuration}
                       onLoadedData={(e) => {
-                        setDuration(e.currentTarget.duration.toFixed(2));
+                        setDuration(
+                          parseFloat(e.currentTarget.duration.toFixed(2))
+                        );
                       }}
                       src={currentSongMember?.mediaUrl}
                     />
@@ -758,7 +762,9 @@ function PlayerMain() {
                       ref={audioRef}
                       onTimeUpdate={getCurrDuration}
                       onLoadedData={(e) => {
-                        setDuration(e.currentTarget.duration.toFixed(2));
+                        setDuration(
+                          parseFloat(e.currentTarget.duration.toFixed(2))
+                        );
                       }}
                       src=''
                     />
@@ -771,7 +777,9 @@ function PlayerMain() {
                   ref={audioRef}
                   onTimeUpdate={getCurrDuration}
                   onLoadedData={(e) => {
-                    setDuration(e.currentTarget.duration.toFixed(2));
+                    setDuration(
+                      parseFloat(e.currentTarget.duration.toFixed(2))
+                    );
                   }}
                   src={currentSong?.mediaUrl}
                 />
@@ -780,7 +788,9 @@ function PlayerMain() {
                   ref={audioRef}
                   onTimeUpdate={getCurrDuration}
                   onLoadedData={(e) => {
-                    setDuration(e.currentTarget.duration.toFixed(2));
+                    setDuration(
+                      parseFloat(e.currentTarget.duration.toFixed(2))
+                    );
                   }}
                   src=''
                 />

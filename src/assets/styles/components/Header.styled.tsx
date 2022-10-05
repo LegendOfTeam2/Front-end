@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const HeaderContainerDiv : any = styled.div`
+export const HeaderContainerDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -9,8 +9,7 @@ export const HeaderContainerDiv : any = styled.div`
   border-bottom: 2px solid #28ca7c;
   z-index: 10;
 `;
-
-export const HeaderContainer : any = styled.div`
+export const HeaderContainer = styled.div`
   width: 1024px;
   height: auto;
   display: flex;
@@ -18,8 +17,7 @@ export const HeaderContainer : any = styled.div`
   margin-top: 24px;
   margin-bottom: 24px;
 `;
-
-export const HeaderTopDiv : any = styled.div`
+export const HeaderTopDiv = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -28,8 +26,7 @@ export const HeaderTopDiv : any = styled.div`
   padding-bottom: 15px;
   border-bottom: 0.3px solid #28ca72;
 `;
-
-export const HeaderTopLeftSpan : any = styled.span`
+export const HeaderTopLeftSpan = styled.span`
   line-height: ${(props) => props.theme.lineHeight.xxs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
   font-size: ${(props) => props.theme.fontSizes.lg};
@@ -38,7 +35,7 @@ export const HeaderTopLeftSpan : any = styled.span`
     cursor: pointer;
   }
 `;
-export const HeaderTopRightSpan : any = styled.span`
+export const HeaderTopRightSpan = styled.span`
   z-index: 10;
   line-height: ${(props) => props.theme.lineHeight.xxs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
@@ -48,8 +45,7 @@ export const HeaderTopRightSpan : any = styled.span`
     cursor: pointer;
   }
 `;
-
-export const HeaderDiv : any = styled.div`
+export const HeaderDiv = styled.div`
   width: 100%;
   height: auto;
   display: flex;
@@ -59,16 +55,14 @@ export const HeaderDiv : any = styled.div`
   border-radius: 10px;
   margin-top: 18px;
 `;
-
-export const LogoDiv : any = styled.div`
+export const LogoDiv = styled.div`
   width: auto;
   height: auto;
   &:hover {
     cursor: pointer;
   }
 `;
-
-export const SearchDiv : any = styled.div`
+export const SearchDiv = styled.div`
   width: 551px;
   height: 34px;
   border-radius: 44px;
@@ -80,8 +74,7 @@ export const SearchDiv : any = styled.div`
   background: #f4f4f4;
   position: relative;
 `;
-
-export const SearchIconDiv : any = styled.div`
+export const SearchIconDiv = styled.div`
   margin-left: 12px;
   position: absolute;
   &:hover {
@@ -89,27 +82,23 @@ export const SearchIconDiv : any = styled.div`
   }
   top: 2px;
 `;
-
-export const LeftDiv : any = styled.div`
+export const LeftDiv = styled.div`
   display: flex;
   flex-direction: row;
   gap: 37px;
   align-items: center;
 `;
-
-export const RightDiv : any = styled.div`
+export const RightDiv = styled.div`
   display: flex;
   flex-direction: row;
   gap: 37px;
   align-items: center;
 `;
-
-export const ProfileDiv : any = styled.div`
+export const ProfileDiv = styled.div`
   width: 56px;
   height: 56px;
 `;
-
-export const ProfileImg : any = styled.img`
+export const ProfileImg = styled.img`
   width: 56px;
   height: 56px;
   border-radius: 50%;
@@ -117,8 +106,7 @@ export const ProfileImg : any = styled.img`
     cursor: pointer;
   }
 `;
-
-export const BtmDiv : any = styled.div`
+export const BtmDiv = styled.div`
   display: flex;
   flex-direction: row;
   gap: 9px;

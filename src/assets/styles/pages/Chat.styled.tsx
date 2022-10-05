@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ChatContainerL: any = styled.div`
+export const ChatContainer: any = styled.div`
   position: absolute;
   z-index: -1;
   top: 231px;

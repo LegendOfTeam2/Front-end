@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const MessageContainer : any = styled.div`
+interface StyledProps {
+  justifyContent: any
+}
+
+export const MessageContainer : any = styled.div<StyledProps>`
   width: 100%;
   height: auto;
   display: flex;
@@ -8,7 +12,7 @@ export const MessageContainer : any = styled.div`
   align-items: flex-end;
   gap: 5px;
 `;
-export const MessageBoxSenderBox : any = styled.div`
+export const MessageBoxSenderBox = styled.div`
   width: auto;
   max-width: 70%;
   height: auto;
@@ -17,7 +21,7 @@ export const MessageBoxSenderBox : any = styled.div`
   border-radius: 8px;
   padding: 8px;
 `;
-export const MessageBoxSenderText : any = styled.span`
+export const MessageBoxSenderText = styled.span`
   width: auto;
   height: auto;
   white-space: pre-wrap;
@@ -25,7 +29,7 @@ export const MessageBoxSenderText : any = styled.span`
   line-height: ${(props) => props.theme.lineHeight.base};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
-export const MessageBoxReceiverBox : any = styled.div`
+export const MessageBoxReceiverBox = styled.div`
   width: auto;
   max-width: 70%;
   height: auto;
@@ -34,7 +38,7 @@ export const MessageBoxReceiverBox : any = styled.div`
   border-radius: 8px;
   padding: 8px;
 `;
-export const MessageBoxReceiverText : any = styled.span`
+export const MessageBoxReceiverText = styled.span`
   width: auto;
   height: auto;
   white-space: pre-wrap;
@@ -42,7 +46,7 @@ export const MessageBoxReceiverText : any = styled.span`
   line-height: ${(props) => props.theme.lineHeight.base};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
-export const MessageBoxTime : any = styled.div`
+export const MessageBoxTime = styled.div`
   font-size: ${(props) => props.theme.fontSizes.xs};
   line-height: ${(props) => props.theme.lineHeight.xs};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
