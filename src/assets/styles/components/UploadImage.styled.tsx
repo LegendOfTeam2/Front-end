@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
-export const UploadImageContainer = styled.div`
+interface StyledProps {
+  width : any
+  height : any
+}
+
+export const UploadImageContainer : any = styled.div<StyledProps>`
   width: ${(props) => props.width};
   height: ${(props) => (props.height ? props.height : 'auto')};
   position: relative;

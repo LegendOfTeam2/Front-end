@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
+<<<<<<< HEAD
 export const ChatContainer  = styled.div`
+=======
+export const ChatContainer: any = styled.div`
+>>>>>>> 0f5a4756ca578fa331737142698f51efe78a450e
   position: absolute;
   z-index: -1;
   top: 231px;

@@ -2,14 +2,14 @@
 import { StyledButton } from '../assets/styles/elements/Button.styled';
 
 interface ButtonProps {
-  _type: any,
-  _text: any,
-  _style: any,
-  _onClick: any,
-  _ref: any
+  _type: any;
+  _text: any;
+  _style: any;
+  _onClick: any;
+  _ref: any;
 }
 
-function Button({ _type, _text, _style, _onClick, _ref } : ButtonProps) {
+function Button({ _type, _text, _style, _onClick, _ref }: ButtonProps) {
   return (
     <StyledButton
       type={_type}
@@ -37,6 +37,6 @@ function Button({ _type, _text, _style, _onClick, _ref } : ButtonProps) {
       {_text}
     </StyledButton>
   );
-};
+}
 
 export default Button;

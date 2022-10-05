@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+interface StyledProps {
+  disPlay : any
+  yIndex : any
+}
+
 export const SliderContainer = styled.div`
   --progress-bar-height: 6px;
   position: relative;
@@ -270,7 +275,7 @@ export const AllVolumeolumeDiv = styled.div`
     cursor: pointer;
   }
 `;
-export const AllUpVolumeolumeDiv = styled.div`
+export const AllUpVolumeolumeDiv : any = styled.div<StyledProps>`
   width: 970px;
   height: auto;
   position: absolute;
@@ -301,7 +306,7 @@ export const IconImgHover = styled.div`
   }
 `;
 
-export const MainAudioPlay = styled.div`
+export const MainAudioPlay : any = styled.div<StyledProps>`
   width: 100%;
   justify-content: center;
   display: flex;

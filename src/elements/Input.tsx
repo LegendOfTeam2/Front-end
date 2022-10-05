@@ -1,6 +1,20 @@
 // Style
 import { StyledInput } from '../assets/styles/elements/Input.styled';
 
+interface InputProps {
+  _type: any;
+  _value: any;
+  _style: any;
+  _ref: any;
+  _onChange: any;
+  _onKeyUp: any;
+  _onKeyDown: any;
+  _minLength: any;
+  _maxLength: any;
+  _placeholder: any;
+  _autoComplete: any;
+}
+
 const Input = ({
   _type,
   _value,
@@ -13,7 +27,7 @@ const Input = ({
   _placeholder,
   _autoComplete,
   _style,
-}) => {
+}: InputProps) => {
   return (
     <StyledInput
       type={_type}

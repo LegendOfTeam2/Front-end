@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoadingImage : any = styled.img`
+export const LoadingImage = styled.img`
   position: absolute;
   width: auto;
   height: auto;
@@ -8,7 +8,7 @@ export const LoadingImage : any = styled.img`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
-export const BackgroundCover : any = styled.div`
+export const BackgroundCover = styled.div`
   position: fixed;
   width: 100%;
   height: 100%;

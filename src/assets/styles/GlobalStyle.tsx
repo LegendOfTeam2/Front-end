@@ -11,7 +11,7 @@ const GlobalStyle : any = createGlobalStyle`
     width: 100vw;
     height: 100vh;
     font-size: 16px;
-    @media ${(props: any) => props.theme.device.desktopL} {
+    @media ${(props : any) => props.theme.device.desktopL} {
       font-size: 14px;
     }
     overflow-x: hidden;

@@ -51,41 +51,41 @@ import {
 } from '../assets/styles/pages/Chat.styled';
 
 function Chat() {
-  const SERVER_URL : any = process.env.REACT_APP_REST_API_IP;
-  const sockJS : any = new SockJS(`https://${SERVER_URL}/ws/chat`);
-  const stompClient : any = over(sockJS);
+  const SERVER_URL = process.env.REACT_APP_REST_API_IP;
+  const sockJS = new SockJS(`https://${SERVER_URL}/ws/chat`);
+  const stompClient = over(sockJS);
 
-  const getRoomsIsLoaded : any = useChatStore((state) => state.getRoomsIsLoaded);
-  const getRooms : any = useChatStore((state) => state.getRooms);
-  const rooms : any = useChatStore((state) => state.rooms);
-  const chatRoomInfo : any = useChatStore((state) => state.chatRoomInfo);
-  const subscription : any = useChatStore((state) => state.subscription);
-  const setSubscription : any = useChatStore((state) => state.setSubscription);
-  const chatMessages : any = useChatStore((state) => state.chatMessages);
-  const setChatMessages : any = useChatStore((state) => state.setChatMessages);
-  const clearChatMessages : any = useChatStore((state) => state.clearChatMessages);
-  const prevChatMessages : any = useChatStore((state) => state.prevChatMessages);
-  const getPrevChatMessages : any = useChatStore(
+  const getRoomsIsLoaded = useChatStore((state) => state.getRoomsIsLoaded);
+  const getRooms = useChatStore((state) => state.getRooms);
+  const rooms = useChatStore((state) => state.rooms);
+  const chatRoomInfo = useChatStore((state) => state.chatRoomInfo);
+  const subscription = useChatStore((state) => state.subscription);
+  const setSubscription = useChatStore((state) => state.setSubscription);
+  const chatMessages = useChatStore((state) => state.chatMessages);
+  const setChatMessages = useChatStore((state) => state.setChatMessages);
+  const clearChatMessages = useChatStore((state) => state.clearChatMessages);
+  const prevChatMessages = useChatStore((state) => state.prevChatMessages);
+  const getPrevChatMessages = useChatStore(
     (state) => state.getPrevChatMessages
   );
-  const prevChatMessagesIsLoaded : any = useChatStore(
+  const prevChatMessagesIsLoaded = useChatStore(
     (state) => state.prevChatMessagesIsLoaded
   );
 
-  const profileImgArr : any = useMemberStore((state) => state.profileImgArr);
-  const random : any = useMemberStore((state) => state.random);
+  const profileImgArr = useMemberStore((state) => state.profileImgArr);
+  const random = useMemberStore((state) => state.random);
 
-  const [message, setMessage] : any = useState('');
+  const [message, setMessage] = useState('');
 
   const scrollRef : any = useRef();
 
-  const navigate : any = useNavigate();
+  const navigate = useNavigate();
 
   const scrollToBottom : any = () => {
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   };
 
-  const connectionStateCheck : any = (callback : any) => {
+  const connectionStateCheck = (callback : any) => {
     setTimeout(() => {
       if (sockJS.readyState === 1) {
         callback();
@@ -95,7 +95,7 @@ function Chat() {
     }, 1);
   };
 
-  const onHandleClick : any = useCallback(() => {
+  const onHandleClick = useCallback(() => {
     if (message !== '' && message !== ' ') {
       const newMessage = {
         type: 'TALK',
@@ -115,7 +115,7 @@ function Chat() {
     }
   }, [message]);
 
-  const onHandleEnter : any = useCallback(
+  const onHandleEnter = useCallback(
     debounce((e) => {
       if (e.key === 'Enter') {
         if (!e.shiftKey) {
@@ -147,7 +147,7 @@ function Chat() {
     [message]
   );
 
-  const addMessage : any = (message : any) => {
+  const addMessage = (message : any) => {
     setChatMessages(message);
   };
 
@@ -296,8 +296,8 @@ function Chat() {
               <ChatDataRoomInputContainer>
                 <ChatDataRoomInput
                   value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  onKeyDown={(e) => onHandleEnter(e)}
+                  onChange={(e : any) => setMessage(e.target.value)}
+                  onKeyDown={(e : any) => onHandleEnter(e)}
                 ></ChatDataRoomInput>
                 <ChatDataRoomButtonBox>
                   <Button
