@@ -10,13 +10,13 @@ const api_refresh = axios.create({
 });
 
 api_refresh.interceptors.request.use(
-  function (config) {
+  function (config : any )  {
     config.headers['refresh-token'] = window.sessionStorage.getItem('refresh-token');
 
     return config;
   },
-  function (error) {
-    console.err(error);
+  function (error : any) {
+    console.error(error);
     return Promise.reject(error);
   }
 );

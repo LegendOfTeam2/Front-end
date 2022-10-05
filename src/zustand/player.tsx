@@ -28,7 +28,7 @@ interface PlayerState {
   setIsAutoplay: (payload: any) => any;
   postPlayList: (payload: any) => any;
   setCurrentSongMember: (payload: any) => any;
-  clearPlayListMember: (payload: any) => any;
+  clearPlayListMember: any;
   playListModalHandle: (payload: any) => any;
 }
 
