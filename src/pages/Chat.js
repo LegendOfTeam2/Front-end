@@ -88,11 +88,7 @@ const Chat = () => {
       }
     }, 1);
   };
-
-  // const unsubscribe = (roomId) => {
-  //   stompClient.unsubscribe(`/sub/chat/room/${roomId}`);
-  // };
-
+  
   const onHandleClick = () => {
     if (message !== '' && message !== ' ') {
       const newMessage = {
