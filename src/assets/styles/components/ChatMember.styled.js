@@ -5,7 +5,6 @@ export const ChatMemberContainer = styled.div`
   height: 108px;
   border-bottom: 1px solid #b4b4b4;
   position: relative;
-  cursor: pointer;
 `;
 export const ChatMemberProfileContainer = styled.div`
   width: auto;
@@ -21,10 +20,12 @@ export const ChatMemberProfileContainer = styled.div`
 export const ChatMemberProfileImg = styled.img`
   width: 80px;
   height: 80px;
+  cursor: pointer;
 `;
 export const ChatMemberTextContainer = styled.div`
   position: absolute;
-  width: 226px;
+  max-width: 226px;
+  width: auto;
   height: auto;
   top: 18px;
   left: 122px;
@@ -32,9 +33,12 @@ export const ChatMemberTextContainer = styled.div`
   flex-direction: column;
 `;
 export const ChatMemberTextNickname = styled.span`
+  width: auto;
+  height: auto;
   font-size: ${(props) => props.theme.fontSizes.base};
   line-height: ${(props) => props.theme.lineHeight.base};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
+  cursor: pointer;
 `;
 export const ChatMemberTextMessage = styled.span`
   width: auto;

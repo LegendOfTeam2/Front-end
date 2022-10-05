@@ -5,6 +5,8 @@ export const MessageContainer = styled.div`
   height: auto;
   display: flex;
   justify-content: ${(props) => props.justifyContent};
+  align-items: flex-end;
+  gap: 5px;
 `;
 export const MessageBoxSenderBox = styled.div`
   width: auto;
@@ -40,3 +42,9 @@ export const MessageBoxReceiverText = styled.span`
   line-height: ${(props) => props.theme.lineHeight.base};
   font-weight: ${(props) => props.theme.fontWeight.Bold};
 `;
+export const MessageBoxTime = styled.div`
+  font-size: ${(props) => props.theme.fontSizes.xs};
+  line-height: ${(props) => props.theme.lineHeight.xs};
+  font-weight: ${(props) => props.theme.fontWeight.Bold};
+  color: #4f4f4f;
+`

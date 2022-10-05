@@ -11,6 +11,7 @@ import { over } from 'stompjs';
 import jwt_decode from 'jwt-decode';
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 // Utils
 import { getCookie } from '../utils/cookie';
@@ -242,11 +243,15 @@ const Chat = () => {
                           messageState = true;
                         }
                       }
+                      const dateArr = message.createdAt.split(',');
+                      const date = `${dateArr[2]}-${dateArr[1]}-${dateArr[0]} ${dateArr[3]}:${dateArr[4]}`;
+                      console.log(date);
                       return (
                         <Message
                           key={idx}
                           sender={message.sender}
                           message={message.message}
+                          createdAt={date}
                           messageState={messageState}
                         />
                       );
@@ -264,12 +269,16 @@ const Chat = () => {
                         messageState = true;
                       }
                     }
+                    
+                    const date = dayjs().format('YYYY-MM-DD HH:mm');
+
                     if (message.roomId === chatRoomInfo.roomId) {
                       return (
                         <Message
                           key={idx}
                           sender={message.sender}
                           message={message.message}
+                          createdAt={date}
                           messageState={messageState}
                         />
                       );

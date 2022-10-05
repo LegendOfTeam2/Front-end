@@ -33,7 +33,7 @@ const ChatMember = ({
   const profileImgArr = useMemberStore((state) => state.profileImgArr);
   const random = useMemberStore((state) => state.random);
 
-  const onClickHandle = () => {    
+  const onClickHandle = () => {
     if (receiver === jwt_decode(getCookie('authorization')).sub) {
       setChatRoomInfo({
         roomId: roomId,
@@ -50,29 +50,41 @@ const ChatMember = ({
   };
 
   return (
-    <ChatMemberContainer onClick={() => onClickHandle()}>
+    <ChatMemberContainer>
       <ChatMemberProfileContainer>
         {receiver === jwt_decode(getCookie('authorization')).sub ? (
           senderProfileUrl === '' ? (
             <ChatMemberProfileImg
               src={profileImgArr[random]}
-            ></ChatMemberProfileImg>
+              onClick={() => onClickHandle()}
+            />
           ) : (
-            <ChatMemberProfileImg src={senderProfileUrl}></ChatMemberProfileImg>
+            <ChatMemberProfileImg
+              src={senderProfileUrl}
+              onClick={() => onClickHandle()}
+            />
           )
         ) : receiverProfileUrl === '' ? (
           <ChatMemberProfileImg
             src={profileImgArr[random]}
-          ></ChatMemberProfileImg>
+            onClick={() => onClickHandle()}
+          />
         ) : (
-          <ChatMemberProfileImg src={receiverProfileUrl}></ChatMemberProfileImg>
+          <ChatMemberProfileImg
+            src={receiverProfileUrl}
+            onClick={() => onClickHandle()}
+          />
         )}
       </ChatMemberProfileContainer>
       <ChatMemberTextContainer>
         {receiver === jwt_decode(getCookie('authorization')).sub ? (
-          <ChatMemberTextNickname>{sender}</ChatMemberTextNickname>
+          <ChatMemberTextNickname onClick={() => onClickHandle()}>
+            {sender}
+          </ChatMemberTextNickname>
         ) : (
-          <ChatMemberTextNickname>{receiver}</ChatMemberTextNickname>
+          <ChatMemberTextNickname onClick={() => onClickHandle()}>
+            {receiver}
+          </ChatMemberTextNickname>
         )}
         <ChatMemberTextMessage>{lastMessage}</ChatMemberTextMessage>
       </ChatMemberTextContainer>

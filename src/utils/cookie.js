@@ -1,12 +1,13 @@
 // Packages
 import { Cookies } from 'react-cookie';
+
 // Utils
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 const cookies = new Cookies();
 
 export const setCookie = (name, value) => {
-  const thiryMinutesLater = moment().add(30, 'm').toDate();
+  const thiryMinutesLater = dayjs().add(30, 'm').toDate();
   return cookies.set(name, value, {
     path: '/',
     expires: thiryMinutesLater,
