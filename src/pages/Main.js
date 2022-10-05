@@ -197,7 +197,6 @@ const Main = () => {
       });
     }
   }, []);
-
   return (
     <Fragment>
       <Header />

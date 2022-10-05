@@ -13,11 +13,9 @@ const useUploadStore = create((set) => ({
     return resData.data;
   },
   uploadAudio: async (payload) => {
-    console.log(payload);
     const resData = await uploadAudioApi(payload)
       .then((res) => res)
       .catch((err) => console.log(err));
-    console.log(resData);
     return resData.data;
   },
 }));
