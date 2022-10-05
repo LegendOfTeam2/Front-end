@@ -7,13 +7,13 @@ import { getCookie } from '../../cookie';
 const SERVER_IP = process.env.REACT_APP_REST_API_IP;
 
 const api_media = axios.create({
-  baseURL: `https://${SERVER_IP}`,
+  baseURL: `http://${SERVER_IP}`,
   headers: {
     'content-type': 'multipart/form-data',
   },
 });
 const api_media_auth = axios.create({
-  baseURL: `https://${SERVER_IP}`,
+  baseURL: `http://${SERVER_IP}`,
   headers: {
     'content-type': 'multipart/form-data',
   },
