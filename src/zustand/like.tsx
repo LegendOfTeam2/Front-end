@@ -8,10 +8,17 @@ import {
   getSingerLikePostApi,
 } from '../utils/apis/like';
 
-const useLikeStore = create((set) => ({
-  singerIsLikeIsLoaded: false,
-  singerIsLike: [],
+interface LikeState {
+  singerIsLikeIsLoaded :any
+  singerIsLike : any
+  makerIsLikeIsLoaded : any
+  makerIsLike : any
+  addLike : (payload : any) => any
+}
 
+const useLikeStore = create<LikeState>((set) => ({
+  singerIsLikeIsLoaded : false,
+  singerIsLike: [],
   makerIsLikeIsLoaded: false,
   makerIsLike: [],
 
@@ -31,7 +38,7 @@ const useLikeStore = create((set) => ({
       set({singerIsLikeIsLoaded: true});
       set((state) => {
         if (resData.data.data !== []) {
-          const likeList = resData.data.data.map((post) => {
+          const likeList : any = resData.data.data.map((post : any) => {
             return post.postId;
           });
           return { singerIsLike: likeList };

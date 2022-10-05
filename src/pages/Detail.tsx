@@ -15,7 +15,7 @@ import {
   MdOutlineKeyboardArrowUp,
 } from 'react-icons/md';
 import jwt_decode from 'jwt-decode';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -107,15 +107,15 @@ const Detail = () => {
   const getMakerLikePost = useLikeStore((state) => state.getMakerLikePost);
   const detailListLoaded = usePostStore((state) => state.detailListLoaded);
 
-  const [lyrics, setLyrics] = useState(false);
-  const [introduction, setIntroduction] = useState(false);
-  const [isLike, setIsLike] = useState(false);
-  const [counter, setCounter] = useState(0);
+  const [lyrics, setLyrics] : any = useState(false);
+  const [introduction, setIntroduction] : any = useState(false);
+  const [isLike, setIsLike] : any = useState(false);
+  const [counter, setCounter] : any = useState(0);
 
-  const params = useParams();
-  const navigate = useNavigate();
+  const params : any = useParams();
+  const navigate : any = useNavigate();
 
-  const settings = {
+  const settings : any = {
     slidesToShow: 1,
     slidesToScroll: 1,
     infinite: false,
@@ -125,19 +125,19 @@ const Detail = () => {
     draggable: true,
   };
 
-  const goToModify = () => {
+  const goToModify : any = () => {
     navigate(`/ModifyWrite/${params.position}/${params.postId}`);
   };
 
-  const handelLyrics = () => {
+  const handelLyrics : any = () => {
     setLyrics(!lyrics);
   };
 
-  const handelMore = () => {
+  const handelMore : any = () => {
     setIntroduction(!introduction);
   };
 
-  const onHandelLike = () => {
+  const onHandelLike : any = () => {
     if (getCookie('authorization') === undefined) {
       warning('로그인 후 이용해 주세요.');
     } else {
@@ -158,7 +158,7 @@ const Detail = () => {
     }
   };
 
-  const clip = () => {
+  const clip : any = () => {
     navigator.clipboard
       .writeText(
         `https://rhythme.shop/detail/${params.position}/${params.postId}`
@@ -168,7 +168,7 @@ const Detail = () => {
       });
   };
 
-  const play = () => {
+  const play : any = () => {
     viewStateChange(true);
     setPlaying(true);
     setIsAutoplay(true);
@@ -182,7 +182,7 @@ const Detail = () => {
     });
   };
 
-  const playMember = () => {
+  const playMember : any = () => {
     viewStateChange(true);
     setPlaying(true);
     setIsAutoplay(true);
@@ -196,7 +196,7 @@ const Detail = () => {
     });
   };
 
-  const profilPage = () => {
+  const profilPage : any = () => {
     navigate(`/mypage/${detailList.nickname}`);
   };
 
@@ -453,7 +453,7 @@ const Detail = () => {
               <DetailLyricsContainer>
                 <DetailTopLyrics>가사</DetailTopLyrics>
                 <DetailHorizonLine />
-                <DetailBtmLyricsDivDiv lyrics={lyrics}>
+                <DetailBtmLyricsDivDiv lyrics ={lyrics}>
                   <DetailBtmLyricsDivSpan>
                     {detailList.lyrics}
                   </DetailBtmLyricsDivSpan>
