@@ -1,5 +1,5 @@
 // React
-import { Fragment, useState, useEffect, useRef } from 'react';
+import { Fragment, useState, useEffect, useRef, useCallback } from 'react';
 
 // Zustand
 import useChatStore from '../zustand/chat';
@@ -12,6 +12,7 @@ import jwt_decode from 'jwt-decode';
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { debounce } from 'lodash';
 
 // Utils
 import { getCookie } from '../utils/cookie';
@@ -94,7 +95,7 @@ const Chat = () => {
     }, 1);
   };
 
-  const onHandleClick = () => {
+  const onHandleClick = useCallback(() => {
     if (message !== '' && message !== ' ') {
       const newMessage = {
         type: 'TALK',
@@ -112,36 +113,39 @@ const Chat = () => {
       });
       setMessage('');
     }
-  };
+  }, [message]);
 
-  const onHandleEnter = (e) => {
-    if (e.key === 'Enter') {
-      if (!e.shiftKey) {
-        if (e.target.value.length > 0) {
-          e.preventDefault();
-          const newMessage = {
-            type: 'TALK',
-            roomId: chatRoomInfo.roomId,
-            sender:
-              getCookie('authorization') !== undefined
-                ? jwt_decode(getCookie('authorization')).sub
-                : '',
-            message,
-            profileUrl: '',
-            createdAt: '',
-          };
-          connectionStateCheck(() => {
-            stompClient.send(
-              `/pub/chat/message`,
-              {},
-              JSON.stringify(newMessage)
-            );
-          });
-          setMessage('');
+  const onHandleEnter = useCallback(
+    debounce((e) => {
+      if (e.key === 'Enter') {
+        if (!e.shiftKey) {
+          if (e.target.value.length > 0) {
+            e.preventDefault();
+            const newMessage = {
+              type: 'TALK',
+              roomId: chatRoomInfo.roomId,
+              sender:
+                getCookie('authorization') !== undefined
+                  ? jwt_decode(getCookie('authorization')).sub
+                  : '',
+              message,
+              profileUrl: '',
+              createdAt: '',
+            };
+            connectionStateCheck(() => {
+              stompClient.send(
+                `/pub/chat/message`,
+                {},
+                JSON.stringify(newMessage)
+              );
+            });
+            setMessage('');
+          }
         }
       }
-    }
-  };
+    }, 10),
+    [message]
+  );
 
   const addMessage = (message) => {
     setChatMessages(message);
@@ -269,7 +273,7 @@ const Chat = () => {
                         messageState = true;
                       }
                     }
-                    
+
                     const date = dayjs().format('YYYY-MM-DD HH:mm');
 
                     if (message.roomId === chatRoomInfo.roomId) {
