@@ -71,7 +71,7 @@ export const PlayListTopLeftSpan = styled.span`
 `;
 
 export const PlayListTopRihtRightSpan = styled.span`
-  width: 66px;
+  width: 76px;
   display: flex;
   height: auto;
   line-height: ${(props) => props.theme.lineHeight.sm};
