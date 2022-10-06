@@ -52,7 +52,7 @@ _**Singer 와 Maker 의 만남**._
 
 <br/>
 
-## [ 코드 컨벤션 & 트러블 슈팅 보러 가기](https://github.com/LegendOfTeam2/Front-end/wiki)
+### [ 코드 컨벤션 & 트러블 슈팅 보러 가기](https://github.com/LegendOfTeam2/Front-end/wiki)
 
 <br/>
 
