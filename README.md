@@ -47,6 +47,36 @@ _**Singer 와 Maker 의 만남**._
 
 - GlobalStyle의 전역 스타일 지정과 ThemeProvider의 스타일 코드 재 사용성으로 인해
   스타일 라이브러리로 선정했습니다.
+  
+> **axios**
+- axios를 선정한 이유는 Promise 기반으로 만들어졌기 때문에 데이터 다루기가 편리하고 브라우저 호환성이 뛰어나 선정했습니다.
+
+> **jwt-decode**
+- 닉네임을 통해 받아오는 API가 있어 jwt 토큰 안에 저장된 닉네임을 가져오기 위해 선정했습니다.
+
+> **react-responsive**
+- 다양한 디바이스의 해상도로 접근할 때 불편함이 없는 서비스를 제공하기 위해 선정했습니다.
+
+> **react-slick**
+- 다른 슬라이더 패키지에 비해 정보가 많고 커스텀 하기 편하여 선정했습니다.
+
+> **react-router-dom**
+- 해당 url에 대하여 routing을 통해 렌더링 하기 위해서 선정했습니다.
+
+> **browser-image-compression**
+- 사이트 초기 로딩 속도 개선 작업 중 업로드 하는 이미지의 리사이징이 필요하여 선정했습니다.
+
+> **dayjs**
+- 날짜 / 시간 데이터를 다룰 때 사용하는 패키지입니다. momentjs를 주로 사용했으나 큰 용량 및 deprecated 된 이유로 dayjs를 선정하게 되었습니다.
+
+> **lodash**
+- 이메일, 닉네임 중복체크를 input value의 state가 변화할 때 request를 날리는 로직으로 구현하였습니다. 웹 사이트의 부하를 고려해서 로직 수정이 필요했고 lodash의 debounce를 사용하기 위해 선정했습니다.
+
+> **react-ga**
+- 사용자 데이터 분석을 위해 Google Analytics와 연동하기 위해 선정했습니다.
+
+> **react-toastify**
+- javascript 내장 alert 대신 사용자에게 noti를 줄 수 있는 기능이 필요하여 선정했습니다.
 
 <br/>
 
