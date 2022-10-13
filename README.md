@@ -79,7 +79,7 @@ _**Singer 와 Maker 의 만남**._
 - javascript 내장 alert 대신 사용자에게 noti를 줄 수 있는 기능이 필요하여 선정했습니다.
 
 > **vercel**
-- 편리한 CI/CD와 국내에 region을 가지고 있는 이유로 선정했습니다.
+- 편리한 CI/CD와 국내에 CDN region을 가지고 있는 이유로 선정했습니다.
 
 <br/>
 
